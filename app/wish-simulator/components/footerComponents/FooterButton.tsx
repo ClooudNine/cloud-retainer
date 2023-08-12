@@ -3,8 +3,8 @@ const FooterButton = ({title} : {title: string}) => {
         <button className={"font-genshin " +
             "cursor-genshin " +
             "w-full " +
-            "h-4/5 " +
             "min-w-min " +
+            "h-4/5 " +
             "text-[#3f4658] " +
             "text-base " +
             "bg-[#e2ded5] " +
@@ -18,8 +18,6 @@ const FooterButton = ({title} : {title: string}) => {
             "active:shadow-none " +
             "active:ring " +
             "active:ring-[#8798a7] " +
-            "md:w-1/4 " +
-            "md:text-lg " +
             "lg:text-xl "}>{title}</button>
     )
 }

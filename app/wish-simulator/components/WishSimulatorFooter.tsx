@@ -15,7 +15,7 @@ const WishSimulatorFooter = () => {
                     <FooterButton title={"История"} />
                 </div>
             </div>
-            <div className={"flex flex-col w-3/5 h-full place-self-end items-end justify-end gap-4 sm:flex-row sm:h-[90%]"}>
+            <div className={"flex flex-col w-3/5 h-3/4 place-self-end items-end justify-end gap-4 sm:flex-row"}>
                 <WishButton count={1}/>
                 <WishButton count={10}/>
             </div>

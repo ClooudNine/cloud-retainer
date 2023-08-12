@@ -8,7 +8,7 @@ export const metadata = {
 }
 export default async function WishSimulator() {
     return (
-        <main className={'w-full h-full cursor-genshin grid grid-rows-[1fr_5fr_1fr]'}>
+        <main className={'w-full h-full cursor-genshin grid grid-rows-[1fr_4fr_1fr]'}>
             <div className={'absolute w-full h-full shadow-[0_-50px_100px_50px_rgba(0,0,0,0.26)_inset]'}>
                 <Image
                     src={wishSimulatorBackground}
