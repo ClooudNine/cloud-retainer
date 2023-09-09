@@ -1,5 +1,6 @@
 import Image from "next/image";
 import WishSimulatorFooter from "@/app/wish-simulator/components/WishSimulatorFooter";
+import WishSimulatorHeader from "@/app/wish-simulator/components/WishSimulatorHeader";
 import wishSimulatorBackground from "@/public/wish-simulator/wish-simulator-bg.png"
 export const metadata = {
     title: 'Genshin World | Симулятор молитв',
@@ -18,7 +19,7 @@ export default async function WishSimulator() {
                     className={'select-none object-cover object-left brightness-90 -z-10'}
                 />
             </div>
-            <section></section>
+            <WishSimulatorHeader />
             <section></section>
             <WishSimulatorFooter />
         </main>

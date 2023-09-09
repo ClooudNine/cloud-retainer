@@ -18,6 +18,8 @@ const FooterButton = ({title} : {title: string}) => {
             "active:shadow-none " +
             "active:ring " +
             "active:ring-[#8798a7] " +
+            "sm:text-xs " +
+            "md:text-lg " +
             "lg:text-xl "}>{title}</button>
     )
 }
