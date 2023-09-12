@@ -3,8 +3,8 @@ import WishButton from "@/app/wish-simulator/components/footerComponents/WishBut
 import MasterlessCurrency from "@/app/wish-simulator/components/footerComponents/MasterlessCurrency";
 const WishSimulatorFooter = () => {
     return (
-        <footer className={"flex pb-4 z-10 px-4 md:px-8 lg:px-16"}>
-            <div className={"flex flex-col w-1/2 gap-2 lg:w-1/4"}>
+        <footer className={"flex justify-between pb-6 z-10 px-4 md:px-8 lg:px-16"}>
+            <div className={"flex flex-col h-full w-1/2 gap-2 lg:w-1/4"}>
                 <div className={"flex h-1/4 gap-8 md:h-1/2"}>
                     <MasterlessCurrency title={"Блуждающий звёздный блеск"} path={"masterless-starglitter"} />
                     <MasterlessCurrency title={"Блуждающая звёздная пыль"} path={"masterless-stardust"} />

@@ -10,7 +10,7 @@ export default function WishSimulator() {
     return (
         <main className={'w-full h-full cursor-genshin grid grid-rows-[1fr_5fr_1fr]'}>
             <WishSimulatorBackground />
-            <WishSimulatorHeader />
+            <section></section>
             <section></section>
             <WishSimulatorFooter />
         </main>
