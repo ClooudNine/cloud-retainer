@@ -2,8 +2,7 @@ import Image from "next/image";
 import wishIcon from "@/public/wish-simulator/wish-icon.png"
 import BannerList from "@/app/wish-simulator/components/headerComponents/BannerList";
 import CurrentBalance from "@/app/wish-simulator/components/headerComponents/CurrentBalance";
-
-const WishSimulatorHeader = async () => {
+const WishSimulatorHeader = () => {
     return (
         <header className={"flex justify-between"}>
             <div className={"flex items-center gap-10 ml-12"}>
