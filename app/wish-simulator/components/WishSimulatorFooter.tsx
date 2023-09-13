@@ -9,7 +9,7 @@ const WishSimulatorFooter = () => {
                     <MasterlessCurrency title={"Блуждающий звёздный блеск"} path={"masterless-starglitter"} />
                     <MasterlessCurrency title={"Блуждающая звёздная пыль"} path={"masterless-stardust"} />
                 </div>
-                <div className={"h-4/5 flex flex-col gap-2 justify-between items-start md:flex-row md:items-end md:gap-4 md:h-1/2"}>
+                <div className={"h-4/5 flex flex-col gap-2 items-start md:flex-row md:items-end md:gap-4 md:h-1/2"}>
                     <FooterButton title={"Магазин"} />
                     <FooterButton title={"Детали"} />
                     <FooterButton title={"История"} />

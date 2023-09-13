@@ -3,7 +3,7 @@ import wishButton from "@/public/wish-simulator/wish-button.png";
 import intertwinedFate from "@/public/wish-simulator/intertwined-fate.webp"
 const WishButton = ({count}: { count: number }) => {
     return (
-        <button className={"relative max-w-xs w-full h-1/2 transition-all select-none cursor-genshin duration-300 active:brightness-[0.85] md:h-3/4"}>
+        <button className={"relative max-w-xs max-h-20 w-full h-1/2 transition-all select-none cursor-genshin duration-300 active:brightness-[0.85] md:h-3/4"}>
             <Image
                 src={wishButton}
                 quality={100}

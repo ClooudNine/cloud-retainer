@@ -2,7 +2,8 @@ const FooterButton = ({title} : {title: string}) => {
     return (
         <button className={`font-genshin
              cursor-genshin
-             max-w-xs
+             max-w-[150px]
+             max-h-20
              min-w-min
              w-4/5
              h-1/3
