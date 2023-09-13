@@ -6,8 +6,8 @@ const MasterlessCurrency = ({title, path}: {title: string, path: string}) => {
             <Image
                 src={`/wish-simulator/${path}.webp`}
                 alt={title}
-                width={34}
-                height={34}
+                width={32}
+                height={32}
                 draggable={false}
                 className={"select-none transition-all active:opacity-50"}
             ></Image>

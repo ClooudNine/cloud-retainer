@@ -5,7 +5,7 @@ const FooterButton = ({title} : {title: string}) => {
              max-w-xs
              min-w-min
              w-4/5
-             h-3/4
+             h-1/3
              text-[#3f4658]
              text-base
              bg-[#e2ded5]
