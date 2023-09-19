@@ -4,7 +4,7 @@ import CurrentBalance from "@/app/wish-simulator/components/headerComponents/Cur
 import CloseButton from "@/app/wish-simulator/components/headerComponents/CloseButton";
 const WishSimulatorHeader = () => {
     return (
-        <header className={"flex justify-between items-center"}>
+        <header className={"grid grid-cols-12 grid-rows-2 md:grid-rows-1"}>
             <WishSimulatorTitle />
             <BannerList/>
             <CurrentBalance/>

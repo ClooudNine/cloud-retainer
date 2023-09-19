@@ -7,7 +7,7 @@ const BannerList = () => {
         setSelectedBanner(bannerNumber);
     }, [])
     return (
-        <div className={"flex flex-wrap gap-8"}>
+        <div className={"col-span-full row-start-2 mx-2 md:row-start-1 flex gap-2"}>
             <BannerButton isSelected={selectedBanner === 1} setBannerCallback={() => setBanner(1)}/>
             <BannerButton isSelected={selectedBanner === 2} setBannerCallback={() => setBanner(2)}/>
             <BannerButton isSelected={selectedBanner === 3} setBannerCallback={() => setBanner(3)}/>

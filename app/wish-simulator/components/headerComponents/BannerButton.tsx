@@ -7,6 +7,7 @@ const BannerButton = ({isSelected, setBannerCallback}: { isSelected: boolean, se
         <button className={`z-10
                             cursor-genshin  
                             transition-all
+                            w-1/4
                             ${isSelected ? 'hover:scale-100' : 'hover:scale-[1.15]'}
                             `}
                 onClick={setBannerCallback}>
