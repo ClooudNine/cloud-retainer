@@ -1,6 +1,6 @@
 const CloseButton = () => {
     return (
-        <button className={"col-start-12 mr-4 row-start-1 w-8 h-8 md:w-14 md:h-14 place-self-center flex items-center justify-center rounded-full bg-[#e2e2e0] ring-[6px] ring-[#b1bcc3]"}>
+        <button className={"col-start-12 mr-6 row-start-1 w-8 h-8 md:w-14 md:h-14 place-self-center flex items-center justify-center rounded-full bg-[#e2e2e0] ring-[6px] ring-[#b1bcc3]"}>
             <svg className={"h-3/4"}
                  viewBox="0 0 16 16"
                  version="1.1"

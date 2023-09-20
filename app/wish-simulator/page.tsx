@@ -8,9 +8,9 @@ export const metadata = {
 }
 export default function WishSimulator() {
     return (
-        <main className={'w-full h-full cursor-genshin grid grid-rows-[1fr_3fr_1fr] lg:grid-rows-[1fr_5fr_1fr]'}>
+        <main className={'w-full h-full cursor-genshin grid grid-rows-[1fr_2.5fr_1fr] md:grid-rows-[1fr_5fr_1fr]'}>
             <WishSimulatorBackground />
-            <WishSimulatorHeader />
+            <WishSimulatorHeader/>
             <section></section>
             <WishSimulatorFooter />
         </main>
