@@ -5,7 +5,7 @@ import Image from "next/image";
 const CurrentBalance = () => {
     return (
         <div className={"col-start-5 col-end-11 flex items-center gap-4 ml-2 z-10"}>
-            <div className={`group flex h-1/4 w-3/4 max-w-[120px] items-center bg-[rgba(0,0,0,0.4)] rounded-full ring-2 ring-[#84a4c5]`}>
+            <div className={`group flex h-2/5 w-3/4 max-w-[120px] items-center bg-[rgba(0,0,0,0.4)] rounded-full ring-2 ring-[#84a4c5]`}>
                 <Image
                     src={primogem}
                     alt={"Примогем"}
@@ -32,7 +32,7 @@ const CurrentBalance = () => {
                                     active:scale-95
                                     hover:scale-110`}>+</button>
             </div>
-            <div className={"group max-w-[120px] flex h-1/4 w-1/2 items-center bg-[rgba(0,0,0,0.4)] rounded-full ring-2 ring-[#84a4c5]"}>
+            <div className={"group max-w-[120px] flex h-2/5  w-1/2 items-center bg-[rgba(0,0,0,0.4)] rounded-full ring-2 ring-[#84a4c5]"}>
                 <Image
                     src={intertwinedFate}
                     alt={"Переплетающиеся судьбы"}
