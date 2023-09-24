@@ -11,7 +11,7 @@ const WishButton = ({count}: { count: number }) => {
                 alt={`Помолиться ${count} раз`}
                 className={"-z-10"}
             />
-            <p className={"font-genshin text-base text-[#b4a08c] md:text-xl"}>Помолиться {count} раз</p>
+            <p className={"font-genshin text-base text-[#b4a08c] md:text-lg lg:text-xl"}>Помолиться {count} раз</p>
             <div className={"flex h-1/2 justify-center items-center"}>
                     <Image
                         src={intertwinedFate}
@@ -20,7 +20,7 @@ const WishButton = ({count}: { count: number }) => {
                         height={32}
                         className={"pointer-events-none"}
                     />
-                <p className={"font-genshin text-base text-[#ff5f40] md:text-xl"}>x {count}</p>
+                <p className={"font-genshin text-base text-[#ff5f40] md:text-lg lg:text-xl"}>x {count}</p>
             </div>
         </button>
     )

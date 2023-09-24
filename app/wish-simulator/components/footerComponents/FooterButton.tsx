@@ -22,7 +22,8 @@ const FooterButton = ({title} : {title: string}) => {
              active:ring-[#8798a7]
              md:w-full
              md:h-[90%]
-             md:text-xl`}>{title}</button>
+             md:text-lg
+             lg:text-xl`}>{title}</button>
     )
 }
 
