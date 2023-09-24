@@ -1,3 +1,4 @@
+'use client'
 import BannerButton from "@/app/wish-simulator/components/headerComponents/BannerButton";
 import {useCallback, useState} from "react";
 
