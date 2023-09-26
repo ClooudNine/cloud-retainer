@@ -14,7 +14,7 @@ const BannerButton = ({isSelected, setBannerCallback}: { isSelected: boolean, se
                 onClick={setBannerCallback}>
             <Image
                 src={isSelected ? bannerButtonBackgroundActive : bannerButtonBackground}
-                alt={"Фон для кнопки баннера"}
+                alt={"Фон для кнопки выбора баннера"}
                 className={`w-full ${isSelected ? 'scale-[1.15]' : 'scale-100'}`}
             />
         </button>

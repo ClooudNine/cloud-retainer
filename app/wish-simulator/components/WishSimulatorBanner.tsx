@@ -1,16 +1,15 @@
-'use client'
 import Image from "next/image";
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import {createServerComponentClient} from '@supabase/auth-helpers-nextjs'
+import {cookies} from "next/headers";
 const WishSimulatorBanner = () => {
-    const supabase = createClientComponentClient();
-    const url = supabase.storage.from('wish banners').getPublicUrl('Gentry of Hermitage 5.png')
+    const supabase = createServerComponentClient({cookies});
+    const bannerUrl = supabase.storage.from('wish banners').getPublicUrl('Gentry of Hermitage 5.png').data.publicUrl;
     return (
         <section className={"w-full h-full flex items-center justify-center"}>
             <Image
-                loader={() => url.data.publicUrl}
-                src={url.data.publicUrl}
-                width={1200}
-                height={1200}
+                src={bannerUrl}
+                width={1100}
+                height={1100}
                 alt={"Баннер"}
             className={"rounded-xl"}/>
         </section>

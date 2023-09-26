@@ -2,7 +2,7 @@
 import BannerButton from "@/app/wish-simulator/components/headerComponents/BannerButton";
 import {useCallback, useState} from "react";
 
-const BannerList = async () => {
+const BannerList = () => {
 
     const [selectedBanner, setSelectedBanner] = useState<number>(1);
 
