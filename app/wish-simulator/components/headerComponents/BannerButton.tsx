@@ -1,7 +1,9 @@
 import Image from "next/image";
 import bannerButtonBackground from "@/public/wish-simulator/banner-button-background.png"
 import bannerButtonBackgroundActive from "@/public/wish-simulator/banner-button-background-active.png"
-const BannerButton = ({isSelected, setBannerCallback}: { isSelected: boolean, setBannerCallback: () => void }) => {
+import {BannerType} from "@/app/types/banner";
+const BannerButton = ({bannerId, bannerType, isSelected, setBannerCallback}:
+                          {bannerId: number, bannerType: BannerType, isSelected: boolean, setBannerCallback: () => void }) => {
     return (
         <button className={`z-10
                             cursor-genshin  
