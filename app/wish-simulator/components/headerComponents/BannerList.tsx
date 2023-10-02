@@ -3,7 +3,6 @@ import BannerButton from "@/app/wish-simulator/components/headerComponents/Banne
 import {useCallback, useState} from "react";
 
 const BannerList = () => {
-
     const [selectedBanner, setSelectedBanner] = useState<number>(1);
 
     const setBanner = useCallback((bannerNumber: number) => {
