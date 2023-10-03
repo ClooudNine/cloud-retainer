@@ -4,6 +4,8 @@ import WishSimulatorBackground from "@/app/wish-simulator/components/WishSimulat
 import WishSimulatorBanner from "@/app/wish-simulator/components/WishSimulatorBanner";
 import {createServerComponentClient} from "@supabase/auth-helpers-nextjs";
 import {cookies} from "next/headers";
+import {CharacterBanner, WeaponBanner} from "@/app/types/banner";
+import {PostgrestError} from "@supabase/supabase-js";
 export const metadata = {
     title: 'Genshin World | Симулятор молитв',
     description: `Симулятор молитв из игры Genshin Impact. Который позволяет путешественникам
@@ -13,12 +15,20 @@ export const metadata = {
 export default async function WishSimulator() {
     const supabase = createServerComponentClient({cookies});
 
-    const { data, error} = await supabase
+    const { data: characterBanners, error: characterBannersError}:
+        {data: CharacterBanner[] | null, error: PostgrestError | null} = await supabase
         .from("characters_banners")
         .select("*")
-        .or("version.eq.4, title.eq.Wanderlust Invocation");
+        .or("and(version.eq.4,phase.eq.2),title.eq.Wanderlust Invocation 2")
 
-    console.log(data);
+    const { data: weaponBanner, error: weaponBannerError}:
+        {data: WeaponBanner[] | null, error: PostgrestError | null} = await supabase
+        .from("weapons_banners")
+        .select("*")
+        .or("and(version.eq.4,phase.eq.2)")
+
+    const banners: (CharacterBanner | WeaponBanner)[] = [...characterBanners as CharacterBanner[], ...weaponBanner as WeaponBanner[]];
+    console.log(banners);
     return (
         <main className={'w-full h-full cursor-genshin grid grid-rows-[1fr_2.5fr_1fr] md:grid-rows-[1fr_5fr_1fr]'}>
             <WishSimulatorBackground/>
