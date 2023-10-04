@@ -15,7 +15,8 @@ export const metadata = {
 }
 
 export default async function WishSimulator() {
-    const supabase = createServerComponentClient({cookies});
+    const cookieStore = cookies();
+    const supabase = createServerComponentClient({ cookies: () => cookieStore });
 
     const {data: characterBanners, error: characterBannersError}:
         {
