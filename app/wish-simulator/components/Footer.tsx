@@ -1,7 +1,7 @@
 import FooterButton from "@/app/wish-simulator/components/footerComponents/FooterButton";
 import WishButton from "@/app/wish-simulator/components/footerComponents/WishButton";
 import MasterlessCurrency from "@/app/wish-simulator/components/footerComponents/MasterlessCurrency";
-const WishSimulatorFooter = () => {
+const Footer = () => {
     return (
         <footer className={"flex justify-between pb-6 z-10 px-4 md:px-8 lg:px-16"}>
             <div className={"flex flex-col w-1/2 gap-2 md:w-2/5"}>
@@ -22,4 +22,4 @@ const WishSimulatorFooter = () => {
         </footer>
     )
 }
-export default WishSimulatorFooter
+export default Footer

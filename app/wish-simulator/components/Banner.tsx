@@ -2,7 +2,7 @@
 import { useBannerContext } from "@/app/wish-simulator/components/banner-provider";
 import Image from "next/image";
 
-const WishSimulatorBanner = () => {
+const Banner = () => {
     const { currentBannerPreviewUrl } = useBannerContext();
 
     return (
@@ -18,4 +18,4 @@ const WishSimulatorBanner = () => {
     )
 }
 
-export default WishSimulatorBanner
+export default Banner

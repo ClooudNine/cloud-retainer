@@ -1,15 +1,15 @@
-import WishSimulatorTitle from "@/app/wish-simulator/components/headerComponents/WishSimulatorTitle";
+import Title from "@/app/wish-simulator/components/headerComponents/Title";
 import BannerList from "@/app/wish-simulator/components/headerComponents/BannerList";
 import CurrentBalance from "@/app/wish-simulator/components/headerComponents/CurrentBalance";
 import CloseButton from "@/app/wish-simulator/components/headerComponents/CloseButton";
-const WishSimulatorHeader = () => {
+const Header = () => {
     return (
         <header className={"grid grid-cols-12 grid-rows-2 md:grid-rows-1"}>
-            <WishSimulatorTitle />
+            <Title />
             <BannerList/>
             <CurrentBalance/>
             <CloseButton />
         </header>
     )
 }
-export default  WishSimulatorHeader
+export default  Header

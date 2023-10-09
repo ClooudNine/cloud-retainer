@@ -1,6 +1,6 @@
 import Image from "next/image";
 import wishIcon from "@/public/wish-simulator/wish-icon.png";
-const WishSimulatorTitle = () => {
+const Title = () => {
     return (
         <div className={"col-start-1 col-end-3 flex items-center gap-3 lg:gap-6 ml-2 md:ml-4 lg:ml-12"}>
             <Image
@@ -13,4 +13,4 @@ const WishSimulatorTitle = () => {
         </div>
     )
 }
-export default WishSimulatorTitle;
+export default Title;

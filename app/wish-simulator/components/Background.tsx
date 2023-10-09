@@ -1,7 +1,7 @@
 import Image from "next/image";
 import wishSimulatorBackground from "@/public/wish-simulator/wish-simulator-bg.png";
 
-const WishSimulatorBackground = () => {
+const Background = () => {
     return (
         <div className={'absolute w-full h-full shadow-[0_-50px_100px_50px_rgba(0,0,0,0.26)_inset]'}>
             <Image
@@ -14,4 +14,4 @@ const WishSimulatorBackground = () => {
         </div>
     )
 }
-export default WishSimulatorBackground
+export default Background

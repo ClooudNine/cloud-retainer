@@ -7,15 +7,18 @@ import {useBannerContext} from "@/app/wish-simulator/components/banner-provider"
 
 type BannerButtonProps = {
     banner: CharacterBanner | WeaponBanner;
+    bannerPortraitUrl: string;
 }
-const BannerButton = ({banner}: BannerButtonProps) => {
+const BannerButton = ({banner, bannerPortraitUrl}: BannerButtonProps) => {
     const { currentBanner, switchBanner } = useBannerContext();
     return (
         <button className={`z-10
+                            relative
                             cursor-genshin  
                             transition-all
                             w-1/4
                             md:w-[90%]
+                            md:h-[50%]
                             h-full
                             ${banner === currentBanner ? 'hover:scale-100' : 'hover:scale-[1.15]'}
                             `}
@@ -23,7 +26,14 @@ const BannerButton = ({banner}: BannerButtonProps) => {
             <Image
                 src={banner === currentBanner ? bannerButtonBackgroundActive : bannerButtonBackground}
                 alt={"Фон для кнопки выбора баннера"}
-                className={`w-full ${banner === currentBanner ? 'scale-[1.15]' : 'scale-100'}`}
+                fill
+            />
+            <Image
+                src={bannerPortraitUrl}
+                alt={"Портрет"}
+                width={500}
+                height={500}
+                className={"absolute w-full h-auto"}
             />
         </button>
     )

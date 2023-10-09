@@ -6,16 +6,18 @@ type BannerContextProviderProps = {
     children: React.ReactNode;
     banners: (CharacterBanner | WeaponBanner)[];
     bannersPreviews: string[];
+    bannersPortraits: string[];
 }
 
 type BannerContext = {
     banners: (CharacterBanner | WeaponBanner)[];
+    bannersPortraits: string[];
     currentBanner: CharacterBanner | WeaponBanner;
     currentBannerPreviewUrl: string;
     switchBanner: (banner: CharacterBanner | WeaponBanner) => void;
 }
 export const BannerContext = createContext<BannerContext | null>(null);
-export default function BannerProvider({children, banners, bannersPreviews} : BannerContextProviderProps) {
+export default function BannerProvider({children, banners, bannersPreviews, bannersPortraits} : BannerContextProviderProps) {
     const [currentBanner, setCurrentBanner] =
         useState<CharacterBanner | WeaponBanner>(banners[0]);
 
@@ -31,6 +33,7 @@ export default function BannerProvider({children, banners, bannersPreviews} : Ba
         <BannerContext.Provider
             value={{
                 banners,
+                bannersPortraits,
                 currentBanner,
                 currentBannerPreviewUrl,
                 switchBanner
