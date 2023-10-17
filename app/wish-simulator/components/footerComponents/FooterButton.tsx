@@ -1,12 +1,10 @@
-const FooterButton = ({title} : {title: string}) => {
-    return (
-        <button className={`font-genshin
+import classNames from "classnames";
+const FooterButton = ({ title }: { title: string }) => {
+  const footerButtonClasses = classNames(`font-genshin
              cursor-genshin
-             max-w-[150px]
-             max-h-20
-             min-w-min
              w-4/5
              h-1/3
+             min-w-max
              text-[#3f4658]
              text-base
              bg-[#e2ded5]
@@ -20,11 +18,11 @@ const FooterButton = ({title} : {title: string}) => {
              active:shadow-none
              active:ring
              active:ring-[#8798a7]
-             md:w-full
-             md:h-[90%]
+             md:w-[25%]
+             md:h-[80%]
              md:text-lg
-             lg:text-xl`}>{title}</button>
-    )
-}
+             lg:text-xl`);
+  return <button className={footerButtonClasses}>{title}</button>;
+};
 
-export default FooterButton
+export default FooterButton;

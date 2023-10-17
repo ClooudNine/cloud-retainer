@@ -2,6 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+    .scrollbar-for-banner {
+        scrollbar-color: #595754 #595754;
+        scrollbar-width: thin;
+    }
+
+    .scrollbar-for-banner::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    .scrollbar-for-banner::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .scrollbar-for-banner::-webkit-scrollbar-thumb {
+        background: #595754;
+    }
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
