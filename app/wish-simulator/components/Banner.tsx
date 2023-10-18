@@ -129,17 +129,18 @@ const Banner = () => {
     },
   );
   const bannerTypeClasses = classNames(
-    "absolute text-[2cqw] -top-1 -left-1 font-genshin text-white bg-[var(--palette--no-opacity)] rounded-l-full rounded-br-[19999px] pl-3 pr-5 py-0.5",
+    "absolute text-[2cqw] -left-1 font-genshin text-white bg-[var(--palette--no-opacity)] rounded-l-full rounded-br-[19999px] pl-3 pr-5 py-0.5",
     {
       "top-[8%]":
         currentBanner.type === "Standard Wish" &&
         currentStandardBannerPreview === 1.1,
+      "-top-1": currentBanner.type !== "Standard Wish",
     },
   );
   const bannerTitleClasses = classNames(
-    "absolute drop-shadow-[0_0_2px_rgba(255,255,255,1)] text-[#595957] text-[5cqw] leading-tight font-genshin top-[8%] left-[5%] [&_em]:text-[var(--palette--no-opacity)] [&_em]:not-italic",
+    "absolute drop-shadow-[0_0_2px_rgba(255,255,255,1)] text-[#595957] text-[5cqw] leading-tight font-genshin left-[5%] [&_em]:text-[var(--palette--no-opacity)] [&_em]:not-italic",
     {
-      "top-[15.5%]":
+      "top-[15%]":
         currentBanner.type === "Standard Wish" &&
         currentStandardBannerPreview === 1.1,
       "top-[8%]": currentBanner.type !== "Standard Wish",
