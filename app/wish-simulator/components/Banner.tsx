@@ -122,9 +122,10 @@ const Banner = () => {
     isAnimate,
   } = useBannerContext();
   const bannerContainerClasses = classNames(
-    "relative w-[95%] md:w-[90%] lg:w-[70%] xl:w-[60%] 2xl:w-[55%] transition-all duration-700",
+    "relative w-[95%] md:w-[90%] lg:w-[70%] xl:w-[60%] 2xl:w-[55%] transition-all",
     {
       "duration-0 opacity-0 translate-x-10": isAnimate,
+      "duration-700": !isAnimate,
     },
   );
   const bannerTypeClasses = classNames(
@@ -138,17 +139,19 @@ const Banner = () => {
   const bannerTitleClasses = classNames(
     "absolute drop-shadow-[0_0_2px_rgba(255,255,255,1)] text-[#595957] text-[5cqw] leading-tight font-genshin top-[8%] left-[5%] [&_em]:text-[var(--palette--no-opacity)] [&_em]:not-italic",
     {
-      "top-[16%]":
+      "top-[15.5%]":
         currentBanner.type === "Standard Wish" &&
         currentStandardBannerPreview === 1.1,
+      "top-[8%]": currentBanner.type !== "Standard Wish",
     },
   );
   const bannerDescriptionClasses = classNames(
-    "absolute overflow-y-scroll bottom-[23%] w-1/2 pl-[5%] h-2/5 scrollbar-for-banner sm:w-[40%]",
+    "absolute overflow-y-scroll w-1/2 pl-[5%] h-2/5 scrollbar-for-banner sm:w-[40%]",
     {
-      "bottom-[15%]":
+      "bottom-[16%]":
         currentBanner.type === "Standard Wish" &&
         currentStandardBannerPreview === 1.1,
+      "bottom-[23%]": currentBanner.type !== "Standard Wish",
     },
   );
   return (
