@@ -5,12 +5,16 @@ import Banner from "@/app/wish-simulator/components/Banner";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { bannerOrder, CharacterBanner, WeaponBanner } from "@/app/types/banner";
-import { PostgrestError } from "@supabase/supabase-js";
 import BannerProvider from "@/app/wish-simulator/components/BannerProvider";
 import { Character } from "@/app/types/character";
 import { Weapon } from "@/app/types/weapon";
 import striptags from "striptags";
 import BackgroundAudio from "@/app/wish-simulator/components/BackgroundAudio";
+import {
+  currentGamePhase,
+  currentGameVersion,
+  currentStandardBannerPreview,
+} from "@/app/types/common";
 export const metadata = {
   title: "Genshin World | Симулятор молитв",
   description: `Симулятор молитв из игры Genshin Impact. Который позволяет путешественникам
@@ -19,45 +23,35 @@ export const metadata = {
 
 type FetchCharactersBannersProps = {
   data: CharacterBanner[] | null;
-  error: PostgrestError | null;
 };
 
 type FetchWeaponsBannersProps = {
   data: WeaponBanner[] | null;
-  error: PostgrestError | null;
 };
 
 type FetchCharactersProps = {
   data: Character[] | null;
-  error: PostgrestError | null;
 };
 
 type FetchWeaponsProps = {
   data: Weapon[] | null;
-  error: PostgrestError | null;
 };
 
 export default async function WishSimulator() {
   const cookieStore = cookies();
   const supabase = createServerComponentClient({ cookies: () => cookieStore });
 
-  const {
-    data: characterBanners,
-    error: characterBannersError,
-  }: FetchCharactersBannersProps = await supabase
+  const { data: characterBanners }: FetchCharactersBannersProps = await supabase
     .from("characters_banners")
     .select("*")
     .or(
-      "and(version.eq.4,phase.eq.2),and(title.eq.Wanderlust <br><em>Invocation</em>,rerun_number.eq.2)",
+      `and(version.eq.${currentGameVersion},phase.eq.${currentGamePhase}),and(title.eq.Wanderlust <br><em>Invocation</em>)`,
     );
 
-  const {
-    data: weaponBanner,
-    error: weaponBannerError,
-  }: FetchWeaponsBannersProps = await supabase
+  const { data: weaponBanner }: FetchWeaponsBannersProps = await supabase
     .from("weapons_banners")
     .select("*")
-    .or("and(version.eq.4,phase.eq.2)");
+    .or(`and(version.eq.${currentGameVersion},phase.eq.${currentGamePhase})`);
 
   const charactersIds: number[] = (characterBanners as CharacterBanner[]).map(
     (characterBanner: CharacterBanner): number =>
@@ -73,16 +67,15 @@ export default async function WishSimulator() {
     ])
     .flat();
 
-  const {
-    data: mainCharacters,
-    error: mainCharactersError,
-  }: FetchCharactersProps = await supabase
+  const { data: mainCharacters }: FetchCharactersProps = await supabase
     .from("characters")
     .select("*")
     .in("id", charactersIds);
 
-  const { data: mainWeapons, error: mainWeaponsError }: FetchWeaponsProps =
-    await supabase.from("weapons").select("*").in("id", weaponsIds);
+  const { data: mainWeapons }: FetchWeaponsProps = await supabase
+    .from("weapons")
+    .select("*")
+    .in("id", weaponsIds);
 
   const banners: (CharacterBanner | WeaponBanner)[] = [
     ...(characterBanners as CharacterBanner[]),
@@ -98,8 +91,11 @@ export default async function WishSimulator() {
     if ("main_character" in banner) {
       return supabase.storage
         .from("wish banners")
-        .getPublicUrl(`${bannerTitle} ${banner.rerun_number}.png`).data
-        .publicUrl;
+        .getPublicUrl(
+          `${bannerTitle} ${
+            banner.rerun_number ?? currentStandardBannerPreview
+          }.png`,
+        ).data.publicUrl;
     } else {
       return supabase.storage
         .from("wish banners")

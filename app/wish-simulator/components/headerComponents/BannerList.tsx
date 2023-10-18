@@ -5,7 +5,7 @@ import classNames from "classnames";
 const BannerList = () => {
   const { banners, bannersPortraits } = useBannerContext();
   const bannerListClasses = classNames(
-    `col-span-full row-start-2 flex items-center mx-2 gap-1 sm:mx-12 sm:gap-3 md:row-start-1 md:mx-0 md:col-start-3 md:col-end-9 xl:gap-4 xl:col-start-5`,
+    `col-span-full row-start-2 flex items-center mx-2 gap-1 sm:mx-12 sm:gap-3 md:row-start-1 md:mx-0 md:col-start-3 md:col-end-9 xl:col-end-10 2xl:gap-8 xl:col-start-4 2xl:pl-20 2xl:col-end-9`,
   );
   return (
     <div className={bannerListClasses}>

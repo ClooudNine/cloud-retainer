@@ -61,8 +61,8 @@ const BannerButton = ({ banner, portraitUrl }: BannerButtonProps) => {
               ` ${
                 banner.type === "Weapon Event Wish"
                   ? index === 0
-                    ? "-translate-x-5"
-                    : "translate-x-5"
+                    ? "-translate-x-6"
+                    : "translate-x-6"
                   : ""
               }`
             }

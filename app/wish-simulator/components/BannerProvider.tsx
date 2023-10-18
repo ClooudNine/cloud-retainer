@@ -22,6 +22,7 @@ type BannerContext = {
     banner: CharacterBanner | WeaponBanner,
     trigger: "Banner button" | "Arrow button",
   ) => void;
+  isAnimate: boolean;
 };
 export const BannerContext = createContext<BannerContext | null>(null);
 export default function BannerProvider({
@@ -42,11 +43,14 @@ export default function BannerProvider({
     Character | Weapon[]
   >(mainCharactersAndWeapons[0]);
 
+  const [isAnimate, setIsAnimate] = useState(false);
+
   const switchBanner = useCallback(
     (
       banner: CharacterBanner | WeaponBanner,
       trigger: "Banner button" | "Arrow button",
     ) => {
+      setIsAnimate(true);
       const soundEffect = new Audio();
       if (trigger === "Banner button") {
         soundEffect.src = "/sounds/click-on-banner.mp3";
@@ -58,6 +62,7 @@ export default function BannerProvider({
       setCurrentBanner(banner);
       setCurrentBannerPreviewUrl(bannersPreviews[bannerIndex]);
       setCurrentBannerMainItem(mainCharactersAndWeapons[bannerIndex]);
+      setTimeout(() => setIsAnimate(false), 100);
     },
     [banners, bannersPreviews, mainCharactersAndWeapons],
   );
@@ -71,6 +76,7 @@ export default function BannerProvider({
         currentBannerPreviewUrl,
         currentBannerMainItem,
         switchBanner,
+        isAnimate,
       }}
     >
       {children}
