@@ -1,164 +1,67 @@
-import Footer from "@/app/wish-simulator/components/Footer";
-import Header from "@/app/wish-simulator/components/Header";
-import Background from "@/app/wish-simulator/components/Background";
-import Banner from "@/app/wish-simulator/components/Banner";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-import { bannerOrder, CharacterBanner, WeaponBanner } from "@/app/types/banner";
-import BannerProvider from "@/app/wish-simulator/components/BannerProvider";
-import { Character } from "@/app/types/character";
-import { Weapon } from "@/app/types/weapon";
-import striptags from "striptags";
-import BackgroundAudio from "@/app/wish-simulator/components/BackgroundAudio";
-import {
-  currentGamePhase,
-  currentGameVersion,
-  currentStandardBannerPreview,
-} from "@/app/types/common";
+import Footer from '@/app/wish-simulator/components/Footer';
+import Header from '@/app/wish-simulator/components/Header';
+import Background from '@/app/wish-simulator/components/Background';
+import Banner from '@/app/wish-simulator/components/Banner';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
+import { CharacterBanner, WeaponBanner } from '@/app/types/banner';
+import BannerProvider from '@/app/wish-simulator/components/BannerProvider';
+import { Character } from '@/app/types/character';
+import { Weapon } from '@/app/types/weapon';
+import BackgroundAudio from '@/app/wish-simulator/components/BackgroundAudio';
+
 export const metadata = {
-  title: "Genshin World | Симулятор молитв",
-  description: `Симулятор молитв из игры Genshin Impact. Который позволяет путешественникам
-        совершать молитвы в неограниченном количестве для развлечения и сбора статистики.`,
+	title: 'Genshin World | Симулятор молитв',
+	description:
+		'Симулятор молитв из игры Genshin Impact, который позволяет путешественникам совершать молитвы в неограниченном количестве для развлечения и сбора статистики.'
 };
-
-type FetchCharactersBannersProps = {
-  data: CharacterBanner[] | null;
-};
-
-type FetchWeaponsBannersProps = {
-  data: WeaponBanner[] | null;
-};
-
-type FetchCharactersProps = {
-  data: Character[] | null;
-};
-
-type FetchWeaponsProps = {
-  data: Weapon[] | null;
-};
-
 export default async function WishSimulator() {
-  const cookieStore = cookies();
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+	const supabase = createServerComponentClient({ cookies });
 
-  const { data: characterBanners }: FetchCharactersBannersProps = await supabase
-    .from("characters_banners")
-    .select("*")
-    .or(
-      `and(version.eq.${currentGameVersion},phase.eq.${currentGamePhase}),and(title.eq.Wanderlust <br><em>Invocation</em>)`,
-    );
+	const { data: allCharacterBanners }: { data: CharacterBanner[] | null } =
+		await supabase.from('characters_banners').select('*');
 
-  const { data: weaponBanner }: FetchWeaponsBannersProps = await supabase
-    .from("weapons_banners")
-    .select("*")
-    .or(`and(version.eq.${currentGameVersion},phase.eq.${currentGamePhase})`);
+	const { data: allWeaponBanners }: { data: WeaponBanner[] | null } =
+		await supabase.from('weapons_banners').select('*');
 
-  const charactersIds: number[] = (characterBanners as CharacterBanner[]).map(
-    (characterBanner: CharacterBanner): number =>
-      characterBanner.main_character !== null
-        ? characterBanner.main_character
-        : 40,
-  );
+	const { data: allCharactersFromWishes }: { data: Character[] | null } =
+		await supabase
+			.from('characters')
+			.select('*')
+			.not('in_standard_set', 'is', null);
 
-  const weaponsIds: number[] = (weaponBanner as WeaponBanner[])
-    .map((weaponBanner) => [
-      weaponBanner.first_main_weapon,
-      weaponBanner.second_main_weapon,
-    ])
-    .flat();
+	const { data: allWeaponsFromWishes }: { data: Weapon[] | null } =
+		await supabase
+			.from('weapons')
+			.select('*')
+			.not('in_standard_wish', 'is', null);
 
-  const { data: mainCharacters }: FetchCharactersProps = await supabase
-    .from("characters")
-    .select("*")
-    .in("id", charactersIds);
+	if (
+		allCharacterBanners === null ||
+		allWeaponBanners === null ||
+		allCharactersFromWishes === null ||
+		allWeaponsFromWishes === null
+	) {
+		return <p>Loading...</p>;
+	}
 
-  const { data: mainWeapons }: FetchWeaponsProps = await supabase
-    .from("weapons")
-    .select("*")
-    .in("id", weaponsIds);
-
-  const banners: (CharacterBanner | WeaponBanner)[] = [
-    ...(characterBanners as CharacterBanner[]),
-    ...(weaponBanner as WeaponBanner[]),
-  ];
-  const sortedBanners = banners.sort(
-    (firstBanner, secondBanner) =>
-      bannerOrder[firstBanner.type] - bannerOrder[secondBanner.type],
-  );
-
-  const bannersPreviewUrls: string[] = sortedBanners.map((banner) => {
-    const bannerTitle = striptags(banner.title);
-    if ("main_character" in banner) {
-      return supabase.storage
-        .from("wish banners")
-        .getPublicUrl(
-          `${bannerTitle} ${
-            banner.rerun_number ?? currentStandardBannerPreview
-          }.png`,
-        ).data.publicUrl;
-    } else {
-      return supabase.storage
-        .from("wish banners")
-        .getPublicUrl(`${bannerTitle} ${banner.date}.png`).data.publicUrl;
-    }
-  });
-
-  const mainCharactersAndWeapons: (Character | Weapon[])[] = sortedBanners.map(
-    (banner) => {
-      if ("main_character" in banner) {
-        return mainCharacters?.find(
-          (character) =>
-            character.id ===
-            (banner.main_character !== null ? banner.main_character : 40),
-        ) as Character;
-      } else {
-        const bannerWeaponsId: number[] = [
-          banner.first_main_weapon,
-          banner.second_main_weapon,
-        ];
-        return bannerWeaponsId.map(
-          (weaponId) => mainWeapons?.find((weapon) => weapon.id === weaponId),
-        ) as Weapon[];
-      }
-    },
-  );
-
-  const mainCharactersAndWeaponsPortraits: string[][] =
-    mainCharactersAndWeapons.map((item) => {
-      if ("name" in item) {
-        return [
-          supabase.storage
-            .from("character portraits")
-            .getPublicUrl(`${item.name}.png`).data.publicUrl,
-        ];
-      } else {
-        return item.map(
-          (weapon) =>
-            supabase.storage
-              .from("weapons portraits")
-              .getPublicUrl(`${weapon.title}.png`).data.publicUrl,
-        );
-      }
-    });
-
-  return (
-    <main
-      className={
-        "w-full h-full cursor-genshin grid grid-rows-[1fr_2.5fr_1fr] md:grid-rows-[1fr_5fr_1fr]"
-      }
-    >
-      <BackgroundAudio />
-      <Background />
-      <BannerProvider
-        banners={sortedBanners}
-        mainCharactersAndWeapons={mainCharactersAndWeapons}
-        bannersPreviews={bannersPreviewUrls}
-        bannersPortraits={mainCharactersAndWeaponsPortraits}
-      >
-        <Header />
-        <Banner />
-        <Footer />
-      </BannerProvider>
-    </main>
-  );
+	return (
+		<main
+			className={
+				'w-full h-full cursor-genshin grid grid-rows-[1fr_2.5fr_1fr] md:grid-rows-[1fr_5fr_1fr]'
+			}
+		>
+			<BackgroundAudio />
+			<Background />
+			<BannerProvider
+				allGameBanners={[...allCharacterBanners, ...allWeaponBanners]}
+				characters={allCharactersFromWishes}
+				weapons={allWeaponsFromWishes}
+			>
+				<Header />
+				<Banner />
+				<Footer />
+			</BannerProvider>
+		</main>
+	);
 }

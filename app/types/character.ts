@@ -10,4 +10,5 @@ export interface Character {
   weapon_type: WeaponType;
   appearance_version: Versions;
   title: string;
+  in_standard_set: boolean;
 }
