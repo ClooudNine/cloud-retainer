@@ -247,12 +247,10 @@ const Banner = () => {
 				style={
 					{
 						'--palette-opacity': `rgba(${getBannerColorPalette(
-							selectedBanner,
-							currentGameVersion
+							selectedBanner
 						)}, 0.8)`,
 						'--palette-no-opacity': `rgba(${getBannerColorPalette(
-							selectedBanner,
-							currentGameVersion
+							selectedBanner
 						)}, 1)`,
 						containerType: 'inline-size'
 					} as CSSProperties
