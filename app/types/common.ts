@@ -29,14 +29,7 @@ export type Versions =
 	| 3.8
 	| 4
 	| 4.1;
-export type Elements =
-	| 'Hydro'
-	| 'Cryo'
-	| 'Pyro'
-	| 'Anemo'
-	| 'Dendro'
-	| 'Geo'
-	| 'Electro';
+export type Elements = 'Hydro' | 'Cryo' | 'Pyro' | 'Anemo' | 'Dendro' | 'Geo' | 'Electro';
 
 export const currentGameVersion: Versions = 4;
 export const currentGamePhase: BannerPhases = 2;

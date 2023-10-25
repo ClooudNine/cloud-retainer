@@ -1,46 +1,16 @@
 import { Versions } from '@/app/types/common';
 
-export type BannerTypes =
-	| 'Character Event Wish'
-	| 'Character Event Wish-2'
-	| 'Weapon Event Wish'
-	| 'Novice Wish'
-	| 'Standard Wish';
+export type BannerTypes = 'Character Event Wish' | 'Character Event Wish-2' | 'Weapon Event Wish' | 'Novice Wish' | 'Standard Wish';
+export type Banners = CharacterBanner | WeaponBanner | StandardBanner;
 
 export type BannerPhases = 1 | 2;
-export type TextParameters = { r: string; b: string; fontSize: string };
+export type TextParameters = {
+	r: string;
+	b: string;
+	fontSize: string;
+};
 export type NamesOffsets = {
-	[version in Versions]: {
-		[name: string]: TextParameters;
-	};
-};
-export type StandardBannerParameters = {
-	character_on_button: string;
-	preview_version: Versions;
-	text_parameters: Versions;
-	top_offset: boolean;
-};
-export const standardBannerParametersByVersion: Partial<
-	Record<Versions, StandardBannerParameters>
-> = {
-	1.0: {
-		character_on_button: 'Jean',
-		preview_version: 1,
-		text_parameters: 1,
-		top_offset: false
-	},
-	1.1: {
-		character_on_button: 'Keqing',
-		preview_version: 1.1,
-		text_parameters: 1.1,
-		top_offset: true
-	},
-	1.3: {
-		character_on_button: 'Qiqi',
-		preview_version: 1.1,
-		text_parameters: 1.1,
-		top_offset: true
-	}
+	[name: string]: TextParameters;
 };
 
 export interface CharacterBanner {
@@ -49,14 +19,22 @@ export interface CharacterBanner {
 	version: Versions;
 	main_character: number;
 	rerun_number: number;
-	type:
-		| 'Character Event Wish'
-		| 'Character Event Wish-2'
-		| 'Novice Wish'
-		| 'Standard Wish';
+	type: 'Character Event Wish' | 'Character Event Wish-2' | 'Novice Wish';
 	phase: BannerPhases;
 	color_palette: string;
-	text_parameters: TextParameters | NamesOffsets;
+	text_parameters: TextParameters;
+}
+
+export interface StandardBanner {
+	id: number;
+	title: string;
+	main_character: number;
+	version: Versions;
+	preview_version: number;
+	text_parameters: NamesOffsets;
+	type: 'Standard Wish';
+	color_palette: string;
+	is_top_offset: boolean;
 }
 
 export interface WeaponBanner {
@@ -69,7 +47,8 @@ export interface WeaponBanner {
 	phase: BannerPhases;
 	type: 'Weapon Event Wish';
 	color_palette: string;
-	name_offsets: TextParameters;
+	name_offsets: NamesOffsets;
+	four_star_weapon_on_banner: string;
 }
 
 export const bannerOrder: { [key in BannerTypes]: number } = {
