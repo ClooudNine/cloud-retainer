@@ -1,5 +1,5 @@
 import { bannerOrder, BannerPhases, Banners } from '@/app/types/banner';
-import { Versions } from '@/app/types/common';
+import { currentGameVersion, Versions } from '@/app/types/common';
 import { Character } from '@/app/types/character';
 import { Weapon } from '@/app/types/weapon';
 import { SupabaseClient } from '@supabase/supabase-js';
@@ -67,4 +67,37 @@ export const getPreviewsUrlForCurrentBanners = (supabase: SupabaseClient, curren
 				return supabase.storage.from('wish banners').getPublicUrl(`${bannerTitle}.png`).data.publicUrl;
 		}
 	});
+};
+
+export const getBannerDrop = (banner: Banners, characters: Character[], weapons: Weapon[]) => {
+	switch (banner.type) {
+		case 'Character Event Wish':
+		case 'Character Event Wish-2':
+			const characterBannerCharacters = characters.filter(
+				character =>
+					(character.in_standard_wish || character.id === banner.main_character) && character.appearance_version <= currentGameVersion
+			);
+			const characterBannerWeapons = weapons.filter(weapon => weapon.in_standard_wish && weapon.appearance_version <= currentGameVersion);
+			return [...characterBannerCharacters, ...characterBannerWeapons];
+		case 'Standard Wish':
+			const standardBannerCharacters = characters.filter(
+				character => character.in_standard_wish && character.appearance_version <= currentGameVersion
+			);
+			const standardBannerWeapons = weapons.filter(weapon => weapon.in_standard_wish && weapon.appearance_version <= currentGameVersion);
+			return [...standardBannerCharacters, ...standardBannerWeapons];
+		case 'Weapon Event Wish':
+			const weaponBannerCharacters = characters.filter(
+				character => character.in_standard_wish && character.rare === 4 && character.appearance_version <= currentGameVersion
+			);
+			const weaponBannerWeapons = weapons.filter(
+				weapon =>
+					(weapon.in_standard_wish || weapon.id === banner.first_main_weapon || weapon.id === banner.second_main_weapon) &&
+					weapon.appearance_version <= currentGameVersion
+			);
+			return [...weaponBannerCharacters, ...weaponBannerWeapons];
+		case 'Novice Wish':
+			const noviceBannerCharacters = characters.filter(character => character.in_standard_wish && character.appearance_version === 1);
+			const noviceBannerWeapons = weapons.filter(weapon => weapon.in_standard_wish && weapon.rare === 3 && weapon.appearance_version === 1);
+			return [...noviceBannerCharacters, ...noviceBannerWeapons];
+	}
 };

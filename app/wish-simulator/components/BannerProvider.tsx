@@ -5,7 +5,7 @@ import { Weapon } from '@/app/types/weapon';
 import { Character } from '@/app/types/character';
 import { currentGamePhase, currentGameVersion } from '@/app/types/common';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { getBannersSet, getButtonsPortraitsUrl, getPreviewsUrlForCurrentBanners } from '@/app/wish-simulator/utils';
+import { getBannerDrop, getBannersSet, getButtonsPortraitsUrl, getPreviewsUrlForCurrentBanners } from '@/app/wish-simulator/utils';
 
 type BannerContextProviderProps = {
 	children: React.ReactNode;
@@ -42,6 +42,8 @@ export default function BannerProvider({ children, allGameBanners, characters, w
 
 	const [selectedBannerPreviewUrl, setSelectedBannerPreviewUrl] = useState<string>(currentBannersPreviewsUrl[0]);
 
+	const [selectedBannerDrop, setSelectedBannerDrop] = useState<(Character | Weapon)[]>(getBannerDrop(selectedBanner, characters, weapons));
+
 	const [isAnimate, setIsAnimate] = useState(false);
 
 	const switchBanner = useCallback(
@@ -58,10 +60,11 @@ export default function BannerProvider({ children, allGameBanners, characters, w
 				const bannerIndex = currentBanners!.indexOf(banner);
 				setSelectedBanner(banner);
 				setSelectedBannerPreviewUrl(currentBannersPreviewsUrl[bannerIndex]);
+				setSelectedBannerDrop(getBannerDrop(banner, characters, weapons));
 				setTimeout(() => setIsAnimate(false), 100);
 			}
 		},
-		[currentBanners, currentBannersPreviewsUrl, selectedBanner]
+		[characters, currentBanners, currentBannersPreviewsUrl, selectedBanner, weapons]
 	);
 
 	return (
