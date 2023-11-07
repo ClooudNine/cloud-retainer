@@ -28,18 +28,18 @@ const renderWeaponResult = (
       ></video>
       <div
         className={
-          "absolute  top-[7%] w-[90%] flex items-center justify-center animate-item-description-appearance md:top-[55%] md:w-[30%] md:left-[6vw]"
+          "absolute top-[7%] w-[90%] flex items-center justify-center animate-item-description-appearance md:top-[55%] md:w-[30%] md:left-[6vw]"
         }
       >
         <Image
           src={`/weapon-icons/${weapon.type}.webp`}
-          alt={"Иконка"}
+          alt={"Иконка " + weapon.type}
           width={150}
           height={150}
           quality={100}
           draggable={false}
           className={
-            "h-full w-auto -mt-[15%] -mr-[5%] -z-10 animate-item-icon-appearance"
+            "h-auto w-auto -mt-[15%] -mr-[5%] -z-10 animate-item-icon-appearance"
           }
         />
         <div>
@@ -84,7 +84,9 @@ const renderWeaponResult = (
         width={700}
         height={700}
         alt={weapon.title}
-        className={"h-auto w-auto -z-10 animate-wish-item-appearance"}
+        className={
+          "h-auto w-auto max-h-[60%] -z-10 animate-wish-item-appearance md:max-h-full"
+        }
       />
       <div
         className={
@@ -124,14 +126,56 @@ const renderWeaponResult = (
 const renderCharacterResult = (
   supabase: SupabaseClient,
   character: Character,
+  index: number,
 ) => {
   return (
-    <>
+    <div
+      key={index}
+      className={"h-full w-full flex items-center justify-center"}
+    >
       <video
         className={"absolute top-0 left-0 object-cover w-screen h-screen -z-10"}
         src={`/wish-simulator/wish-animations/${character.rare}stareffect.mp4`}
         autoPlay
       ></video>
+      <div
+        className={
+          "absolute top-[7%] w-[90%] flex items-center justify-center animate-item-description-appearance md:top-[55%] md:w-[30%] md:left-[6vw]"
+        }
+      >
+        <Image
+          src={`/common-icons/${character.element}.svg`}
+          alt={character.element}
+          width={100}
+          height={100}
+          quality={100}
+          draggable={false}
+          className={"-mt-[10%] -mr-[1%] -z-10 animate-item-icon-appearance"}
+        />
+        <div>
+          <p
+            className={
+              "font-genshin text-white text-3xl leading-[1.1] animate-item-title-appearance md:text-5xl md:leading-[1.1]"
+            }
+          >
+            {character.name}
+          </p>
+          <div className={"flex gap-1 mt-2"}>
+            {Array.from({ length: character.rare }, (_, index) => (
+              <Image
+                key={index}
+                src={star}
+                alt={"Звезда"}
+                quality={100}
+                style={{
+                  animationDelay: `${(index + 1) * 100}ms`,
+                }}
+                className={"opacity-0 animate-item-stars-appearance"}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
       <Image
         src={
           supabase.storage
@@ -142,9 +186,11 @@ const renderCharacterResult = (
         height={2000}
         quality={100}
         alt={character.name}
-        className={"h-auto w-auto"}
+        className={
+          "w-screen h-screen object-cover max-h-[60%] -z-10 animate-wish-item-appearance md:max-h-full"
+        }
       />
-    </>
+    </div>
   );
 };
 
@@ -173,6 +219,7 @@ const WishDrop = ({
   return (
     <section
       className={"absolute h-full w-full z-20 overflow-hidden select-none"}
+      onClick={isAnimationPlaying ? undefined : () => nextItemCallback()}
     >
       {isAnimationPlaying ? (
         <video
@@ -194,21 +241,17 @@ const WishDrop = ({
             quality={100}
             className={"select-none object-cover -z-20"}
           />
-          <div
-            className={"h-full w-full flex items-center justify-center"}
-            onClick={() => nextItemCallback()}
-          >
-            {"type" in droppedItems[currentItemIndex]
-              ? renderWeaponResult(
-                  supabase,
-                  droppedItems[currentItemIndex] as Weapon,
-                  currentItemIndex,
-                )
-              : renderCharacterResult(
-                  supabase,
-                  droppedItems[currentItemIndex] as Character,
-                )}
-          </div>
+          {"type" in droppedItems[currentItemIndex]
+            ? renderWeaponResult(
+                supabase,
+                droppedItems[currentItemIndex] as Weapon,
+                currentItemIndex,
+              )
+            : renderCharacterResult(
+                supabase,
+                droppedItems[currentItemIndex] as Character,
+                currentItemIndex,
+              )}
         </>
       )}
     </section>
