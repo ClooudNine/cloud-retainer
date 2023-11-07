@@ -1,7 +1,7 @@
 const FooterButton = ({ title }: { title: string }) => {
-  return (
-    <button
-      className={`font-genshin
+	return (
+		<button
+			className={`font-genshin
          cursor-genshin
          w-4/5
          h-1/3
@@ -19,14 +19,14 @@ const FooterButton = ({ title }: { title: string }) => {
          active:shadow-none
          active:ring
          active:ring-[#8798a7]
-         md:w-[25%]
-         md:h-[80%]
+         md:w-1/4
+         md:h-4/5
          md:text-lg
          lg:text-xl`}
-    >
-      {title}
-    </button>
-  );
+		>
+			{title}
+		</button>
+	);
 };
 
 export default FooterButton;

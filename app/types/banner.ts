@@ -1,6 +1,11 @@
 import { Versions } from '@/app/types/common';
 
-export type BannerTypes = 'Character Event Wish' | 'Character Event Wish-2' | 'Weapon Event Wish' | 'Novice Wish' | 'Standard Wish';
+export type BannerTypes =
+	| 'Character Event Wish'
+	| 'Character Event Wish-2'
+	| 'Weapon Event Wish'
+	| 'Novice Wish'
+	| 'Standard Wish';
 export type Banners = CharacterBanner | WeaponBanner | StandardBanner;
 
 export type BannerPhases = 1 | 2;
@@ -13,7 +18,7 @@ export type NamesOffsets = {
 	[name: string]: TextParameters;
 };
 
-export interface CharacterBanner {
+export type CharacterBanner = {
 	id: number;
 	title: string;
 	version: Versions;
@@ -23,9 +28,9 @@ export interface CharacterBanner {
 	phase: BannerPhases;
 	color_palette: string;
 	text_parameters: TextParameters;
-}
+};
 
-export interface StandardBanner {
+export type StandardBanner = {
 	id: number;
 	title: string;
 	main_character: number;
@@ -35,9 +40,9 @@ export interface StandardBanner {
 	type: 'Standard Wish';
 	color_palette: string;
 	is_top_offset: boolean;
-}
+};
 
-export interface WeaponBanner {
+export type WeaponBanner = {
 	id: number;
 	title: string;
 	version: Versions;
@@ -49,7 +54,7 @@ export interface WeaponBanner {
 	color_palette: string;
 	name_offsets: NamesOffsets;
 	four_star_weapon_on_banner: string;
-}
+};
 
 export const bannerOrder: { [key in BannerTypes]: number } = {
 	'Novice Wish': 1,

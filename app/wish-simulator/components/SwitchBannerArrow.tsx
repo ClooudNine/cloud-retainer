@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import arrow from '@/public/wish-simulator/switch-banner-arrow.png';
+import arrow from '@/public/wish-simulator/assets/switch-banner-arrow.png';
 import classNames from 'classnames';
 import { useCallback } from 'react';
 import { useBannerContext } from '@/app/wish-simulator/components/BannerProvider';
