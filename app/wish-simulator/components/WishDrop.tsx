@@ -6,7 +6,7 @@ import { useCallback, useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { playObtainAudioByRare } from "@/app/wish-simulator/utils";
 import { SupabaseClient } from "@supabase/supabase-js";
-import star from "@/public/common-icons/star.png";
+import star from "@/public/common-icons/star.webp";
 import masterlessStardust from "@/public/wish-simulator/assets/masterless-stardust.webp";
 import wishResultBackground from "@/public/wish-simulator/assets/wish-result-bg.webp";
 import { useBannerContext } from "@/app/wish-simulator/components/BannerProvider";
@@ -32,7 +32,7 @@ const renderWeaponResult = (
         }
       >
         <Image
-          src={`/weapon-icons/${weapon.type}.webp`}
+          src={`/common-icons/weapon-icons/${weapon.type}.webp`}
           alt={"Иконка " + weapon.type}
           width={150}
           height={150}
@@ -144,7 +144,7 @@ const renderCharacterResult = (
         }
       >
         <Image
-          src={`/common-icons/${character.element}.svg`}
+          src={`/common-icons/elements/${character.element}.svg`}
           alt={character.element}
           width={100}
           height={100}
