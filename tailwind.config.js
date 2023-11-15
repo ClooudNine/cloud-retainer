@@ -13,12 +13,10 @@ module.exports = {
             transform: "scale(8) translateX(-20px)",
             filter: "brightness(0%)",
           },
-          "35%": {
+          "35%, 75%": {
             transform: "scale(1) translateX(-20px)",
-            filter: "brightness(0%)",
           },
           "75%": {
-            transform: "scale(1) translateX(-20px)",
             filter: "brightness(0%)",
           },
           "100%": {
@@ -28,11 +26,7 @@ module.exports = {
           },
         },
         "item-background-appearance": {
-          "0%": {
-            transform: "translateX(-20px)",
-            opacity: 0,
-          },
-          "70%": {
+          "0%, 70%": {
             transform: "translateX(-20px)",
             opacity: 0,
           },
@@ -42,10 +36,7 @@ module.exports = {
           },
         },
         "item-description-appearance": {
-          "0%": {
-            transform: "translateX(80px)",
-          },
-          "70%": {
+          "0%, 70%": {
             transform: "translateX(80px)",
           },
           "100%": {
@@ -53,10 +44,7 @@ module.exports = {
           },
         },
         "item-title-appearance": {
-          "0%": {
-            opacity: 0,
-          },
-          "70%": {
+          "0%, 70%": {
             opacity: 0,
           },
           "100%": {
@@ -64,11 +52,10 @@ module.exports = {
           },
         },
         "item-icon-appearance": {
-          "0%": {
+          "0%, 60%": {
             opacity: 0,
           },
           "60%": {
-            opacity: 0,
             filter:
               "drop-shadow(0px 0px 10px rgba(201, 192, 224, 0.5)) brightness(150%)",
           },
@@ -83,37 +70,29 @@ module.exports = {
           },
         },
         "item-stars-appearance": {
-          "0%": {
+          "0%, 70%": {
             opacity: 0,
             transform: "scale(2)",
             filter: "brightness(150%)",
           },
-          "70%": {
-            opacity: 0,
-            transform: "scale(2)",
-            filter: "brightness(150%)",
-          },
-          "90%": {
+          "90%, 100%": {
             opacity: 1,
             transform: "scale(1)",
             filter:
               "brightness(125%) drop-shadow(0px 0px 25px rgba(255, 249, 72, 1))",
           },
           "100%": {
-            opacity: 1,
-            transform: "scale(1)",
             filter:
               "brightness(100%) drop-shadow(0px 0px 25px rgba(255, 249, 72, 0))",
           },
         },
         "masterless-currency-appearance": {
-          "0%": {
+          "0%, 60%": {
             opacity: 0,
           },
           "60%": {
             boxShadow:
               "100px 0 70px -50px rgba(83,59,122,1) inset, 300px 0 70px -50px rgba(254,213,255,1) inset, 500px 0 70px -50px rgba(132,81,209,255) inset",
-            opacity: 0,
           },
           "75%": {
             boxShadow:
@@ -126,11 +105,10 @@ module.exports = {
           },
         },
         "star-effect": {
-          "0%": {
+          "0%, 60%": {
             opacity: 0,
           },
           "60%": {
-            opacity: 0,
             zIndex: 10,
             transform: "scale(1.5)",
             clipPath:

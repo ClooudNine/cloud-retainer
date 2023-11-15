@@ -195,8 +195,9 @@ const Banner = () => {
   const {
     characters,
     weapons,
+    currentBanners,
+    currentBannersPreviewsUrl,
     selectedBanner,
-    selectedBannerPreviewUrl,
     isAnimate,
   } = useBannerContext();
 
@@ -256,7 +257,9 @@ const Banner = () => {
         }
       >
         <Image
-          src={selectedBannerPreviewUrl}
+          src={
+            currentBannersPreviewsUrl[currentBanners.indexOf(selectedBanner)]
+          }
           alt={"Картинка баннера"}
           draggable={false}
           width={1200}

@@ -107,7 +107,7 @@ const renderWeaponResult = (
             src={masterlessStardust}
             alt={"Stardust/glitter"}
             className={
-              "h-full w-auto drop-shadow-[0_0_30px_rgba(209,134,246,1)]"
+              "h-full w-auto object-contain drop-shadow-[0_0_30px_rgba(209,134,246,1)]"
             }
           />
         </div>
@@ -187,7 +187,7 @@ const renderCharacterResult = (
         quality={100}
         alt={character.name}
         className={
-          "w-screen h-screen object-cover max-h-[60%] -z-10 animate-wish-item-appearance md:max-h-full"
+          "h-auto w-auto max-h-[60%] -z-10 animate-wish-item-appearance md:max-h-full"
         }
       />
     </div>
@@ -202,6 +202,8 @@ const WishDrop = ({
   const supabase = createClientComponentClient();
   const { setDroppedItems } = useBannerContext();
   const [isAnimationPlaying, setIsAnimationPlaying] = useState<boolean>(true);
+  const [obtainItemAnimationPlaying, setObtainItemAnimationPlaying] =
+    useState<boolean>(true);
   const [currentItemIndex, setCurrentItemIndex] = useState<number>(0);
 
   const pullCounts = droppedItems.length;
@@ -210,7 +212,9 @@ const WishDrop = ({
   const nextItemCallback = useCallback(() => {
     if (currentItemIndex < droppedItems.length - 1) {
       setCurrentItemIndex(currentItemIndex + 1);
+      setObtainItemAnimationPlaying(true);
       playObtainAudioByRare(droppedItems[currentItemIndex + 1].rare);
+      setTimeout(() => setObtainItemAnimationPlaying(false), 2000);
     } else {
       setDroppedItems([]);
     }
@@ -219,7 +223,13 @@ const WishDrop = ({
   return (
     <section
       className={"absolute h-full w-full z-20 overflow-hidden select-none"}
-      onClick={isAnimationPlaying ? undefined : () => nextItemCallback()}
+      onClick={
+        isAnimationPlaying
+          ? undefined
+          : obtainItemAnimationPlaying
+          ? undefined
+          : () => nextItemCallback()
+      }
     >
       {isAnimationPlaying ? (
         <video
@@ -229,6 +239,7 @@ const WishDrop = ({
           onEnded={() => {
             setIsAnimationPlaying(false);
             playObtainAudioByRare(droppedItems[currentItemIndex].rare);
+            setTimeout(() => setObtainItemAnimationPlaying(false), 2000);
           }}
         ></video>
       ) : (
