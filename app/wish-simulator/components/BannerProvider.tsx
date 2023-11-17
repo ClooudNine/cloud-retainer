@@ -16,6 +16,7 @@ import {
   getBannerDrop,
   getBannersSet,
   getButtonsPortraitsUrl,
+  getFeaturedItems,
   getPreviewsUrlForCurrentBanners,
 } from "@/app/wish-simulator/utils";
 import WishDrop from "@/app/wish-simulator/components/WishDrop";
@@ -35,11 +36,11 @@ type BannerContext = {
   currentBannersPreviewsUrl: string[];
   selectedBanner: Banners;
   selectedBannerDrop: (Character | Weapon)[];
+  selectedBannerFeaturedItems: number[] | null;
   switchBanner: (
     banner: Banners,
     trigger: "Banner button" | "Arrow button",
   ) => void;
-  isAnimate: boolean;
   setDroppedItems: React.Dispatch<React.SetStateAction<(Character | Weapon)[]>>;
 };
 export const BannerContext = createContext<BannerContext | null>(null);
@@ -50,7 +51,6 @@ export default function BannerProvider({
   weapons,
 }: BannerContextProviderProps) {
   const supabase = createClientComponentClient();
-
   const backgroundMusic = useRef<HTMLAudioElement | undefined>(
     typeof Audio !== "undefined"
       ? new Audio("/sounds/statue-of-the-seven.mp3")
@@ -71,7 +71,8 @@ export default function BannerProvider({
   const [selectedBannerDrop, setSelectedBannerDrop] = useState<
     (Character | Weapon)[]
   >(getBannerDrop(selectedBanner, characters, weapons));
-  const [isAnimate, setIsAnimate] = useState(false);
+  const [selectedBannerFeaturedItems, setSelectedBannerFeaturedItems] =
+    useState<number[] | null>(null);
   const [droppedItems, setDroppedItems] = useState<(Character | Weapon)[]>([]);
 
   useEffect(() => {
@@ -82,6 +83,12 @@ export default function BannerProvider({
       backgroundMusic.current!.loop = true;
     }
   }, [backgroundMusic, droppedItems.length]);
+
+  useEffect(() => {
+    getFeaturedItems(supabase, selectedBanner).then(
+      setSelectedBannerFeaturedItems,
+    );
+  }, [supabase, selectedBanner]);
 
   useEffect(() => {
     const bannerTypes: BannerTypes[] = [
@@ -106,7 +113,6 @@ export default function BannerProvider({
       }
     });
   });
-
   const switchBanner = useCallback(
     (banner: Banners, trigger: "Banner button" | "Arrow button") => {
       const soundEffect = new Audio();
@@ -117,10 +123,8 @@ export default function BannerProvider({
       }
       soundEffect.play();
       if (banner !== selectedBanner) {
-        setIsAnimate(true);
         setSelectedBanner(banner);
         setSelectedBannerDrop(getBannerDrop(banner, characters, weapons));
-        setTimeout(() => setIsAnimate(false), 100);
       }
     },
     [characters, selectedBanner, weapons],
@@ -136,8 +140,8 @@ export default function BannerProvider({
         currentBannersPreviewsUrl,
         selectedBanner,
         selectedBannerDrop,
+        selectedBannerFeaturedItems,
         switchBanner,
-        isAnimate,
         setDroppedItems,
       }}
     >

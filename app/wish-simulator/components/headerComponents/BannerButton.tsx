@@ -25,10 +25,10 @@ const BannerButton = ({
   );
 
   const portraitClasses = classNames(
-    "absolute select-none top-[40%] h-4/5 w-auto transition-all",
+    "select-none mt-[30%] h-4/5 w-auto transition-all",
     {
       "-translate-y-[20%]": banner === selectedBanner,
-      "-rotate-12": banner.type === "Weapon Event Wish",
+      "-mx-[15%] -rotate-12": banner.type === "Weapon Event Wish",
     },
   );
   return (
@@ -58,16 +58,7 @@ const BannerButton = ({
             draggable={false}
             width={200}
             height={200}
-            className={
-              portraitClasses +
-              ` ${
-                banner.type === "Weapon Event Wish"
-                  ? index === 0
-                    ? "-translate-x-[25%]"
-                    : "translate-x-[25%]"
-                  : ""
-              }`
-            }
+            className={portraitClasses}
           />
         ))}
       </div>

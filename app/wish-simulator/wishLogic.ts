@@ -1,12 +1,13 @@
 import { Character } from "@/app/types/character";
 import { Weapon } from "@/app/types/weapon";
 import { Rares } from "@/app/types/common";
-import { BannerTypes } from "@/app/types/banner";
+import { Banners, BannerTypes } from "@/app/types/banner";
 
 type BannerStat = {
   fourStarCounter: number;
   fiveStarCounter: number;
-  guaranteedStatus: boolean;
+  guaranteedFourStarStatus: boolean;
+  guaranteedFiveStarStatus: boolean;
 };
 const getItemsByRarity = (items: (Character | Weapon)[], rare: Rares) => {
   return items.filter((item) => item.rare === rare);
@@ -77,15 +78,65 @@ const getCurrentChances = (
 
   return Object.values(baseChances).map((chance) => Number(chance.toFixed(3)));
 };
-export const wish = (
-  bannerType: BannerTypes,
+const getFiveStarItemsByBannerState = (
+  banner: Banners,
+  currentStats: BannerStat,
   items: (Character | Weapon)[],
 ) => {
+  switch (banner.type) {
+    case "Character Event Wish":
+    case "Character Event Wish-2":
+      if (currentStats.guaranteedFiveStarStatus) {
+        currentStats.guaranteedFiveStarStatus = false;
+        return items.filter(
+          (item) => "name" in item && item.id == banner.main_character,
+        );
+      } else {
+        const randomNumber = Math.random();
+        if (randomNumber < 0.5) {
+          currentStats.guaranteedFiveStarStatus = true;
+          return items.filter(
+            (item) => "name" in item && item.id !== banner.main_character,
+          );
+        } else {
+          return items.filter(
+            (item) => "name" in item && item.id == banner.main_character,
+          );
+        }
+      }
+    case "Weapon Event Wish":
+      if (currentStats.guaranteedFiveStarStatus) {
+        currentStats.guaranteedFiveStarStatus = false;
+        return items.filter(
+          (item) => "name" in item && item.id == banner.main_character,
+        );
+      } else {
+        const randomNumber = Math.random();
+        if (randomNumber < 0.5) {
+          currentStats.guaranteedFiveStarStatus = true;
+          return items.filter(
+            (item) => "name" in item && item.id !== banner.main_character,
+          );
+        } else {
+          return items.filter(
+            (item) => "name" in item && item.id == banner.main_character;
+        }
+      }
+    default:
+      return items;
+  }
+};
+export const wish = (
+  banner: Banners,
+  items: (Character | Weapon)[],
+  featuredItems: number[] | null,
+) => {
+  const bannerTypeStatName = banner.type.replace(/[^a-zA-Zа-яА-Я]/g, "");
   const currentStat: BannerStat = JSON.parse(
-    localStorage.getItem(bannerType.replace(/[^a-zA-Zа-яА-Я]/g, ""))!,
+    localStorage.getItem(bannerTypeStatName)!,
   );
   const currentChances = getCurrentChances(
-    bannerType,
+    banner.type,
     currentStat.fourStarCounter,
     currentStat.fiveStarCounter,
   );
@@ -102,13 +153,11 @@ export const wish = (
         currentStat.fourStarCounter = 0;
         currentStat.fiveStarCounter++;
       } else {
+        items = getFiveStarItemsByBannerState(banner, currentStat, items);
         currentStat.fourStarCounter++;
         currentStat.fiveStarCounter = 0;
       }
-      localStorage.setItem(
-        bannerType.replace(/[^a-zA-Zа-яА-Я]/g, ""),
-        JSON.stringify(currentStat),
-      );
+      localStorage.setItem(bannerTypeStatName, JSON.stringify(currentStat));
       return dropItem(items, itemRare);
     }
   }

@@ -9,17 +9,31 @@ import { Character } from "@/app/types/character";
 import { Weapon } from "@/app/types/weapon";
 
 const WishButton = ({ count }: { count: number }) => {
-  const { selectedBanner, selectedBannerDrop, setDroppedItems } =
-    useBannerContext();
+  const {
+    selectedBanner,
+    selectedBannerDrop,
+    selectedBannerFeaturedItems,
+    setDroppedItems,
+  } = useBannerContext();
   const wishCallback = useCallback(() => {
     let droppedItems: (Character | Weapon)[] = [];
     for (let i = 0; i < count; i++) {
       droppedItems.push(
-        wish(selectedBanner.type, selectedBannerDrop) as Character | Weapon,
+        wish(
+          selectedBanner,
+          selectedBannerDrop,
+          selectedBannerFeaturedItems,
+        ) as Character | Weapon,
       );
     }
     setDroppedItems(droppedItems);
-  }, [count, selectedBanner.type, selectedBannerDrop, setDroppedItems]);
+  }, [
+    count,
+    selectedBanner,
+    selectedBannerDrop,
+    selectedBannerFeaturedItems,
+    setDroppedItems,
+  ]);
   return (
     <button
       className={

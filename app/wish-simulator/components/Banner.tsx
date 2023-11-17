@@ -198,16 +198,8 @@ const Banner = () => {
     currentBanners,
     currentBannersPreviewsUrl,
     selectedBanner,
-    isAnimate,
   } = useBannerContext();
 
-  const bannerContainerClasses = classNames(
-    "relative w-[95%] md:w-[90%] lg:w-[70%] xl:w-[60%] 2xl:w-[55%] transition-all",
-    {
-      "duration-0 opacity-0 translate-x-10": isAnimate,
-      "duration-700": !isAnimate,
-    },
-  );
   const bannerTypeClasses = classNames(
     "absolute text-[2cqw] -left-1 text-white bg-[var(--palette-no-opacity)] rounded-l-full rounded-br-[19999px] pl-3 pr-5 py-0.5",
     {
@@ -247,7 +239,10 @@ const Banner = () => {
     >
       <SwitchBannerArrow isForward={false} />
       <div
-        className={bannerContainerClasses}
+        key={selectedBanner.type}
+        className={
+          "relative w-[95%] md:w-[90%] lg:w-[70%] xl:w-[60%] 2xl:w-[55%] transition-all animate-banner-preview-appearance"
+        }
         style={
           {
             "--palette-opacity": `rgba(${selectedBanner.color_palette}, 0.8)`,

@@ -1,5 +1,10 @@
 import { bannerOrder, BannerPhases, Banners } from "@/app/types/banner";
-import { currentGameVersion, Rares, Versions } from "@/app/types/common";
+import {
+  basedCharacters,
+  currentGameVersion,
+  Rares,
+  Versions,
+} from "@/app/types/common";
 import { Character } from "@/app/types/character";
 import { Weapon } from "@/app/types/weapon";
 import { SupabaseClient } from "@supabase/supabase-js";
@@ -135,6 +140,7 @@ export const getBannerDrop = (
         (character) =>
           (character.in_standard_wish ||
             character.id === banner.main_character) &&
+          !basedCharacters.includes(character.name) &&
           character.appearance_version <= currentGameVersion,
       );
       const characterBannerWeapons = weapons.filter(
@@ -148,7 +154,7 @@ export const getBannerDrop = (
       const standardBannerCharacters = characters.filter(
         (character) =>
           character.in_standard_wish &&
-          character.appearance_version <= currentGameVersion,
+          character.appearance_version < currentGameVersion,
       );
       const standardBannerWeapons = weapons.filter(
         (weapon) =>
@@ -161,7 +167,8 @@ export const getBannerDrop = (
         (character) =>
           character.in_standard_wish &&
           character.rare === 4 &&
-          character.appearance_version <= currentGameVersion,
+          !basedCharacters.includes(character.name) &&
+          character.appearance_version < currentGameVersion,
       );
       const weaponBannerWeapons = weapons.filter(
         (weapon) =>
@@ -174,7 +181,9 @@ export const getBannerDrop = (
     case "Novice Wish":
       const noviceBannerCharacters = characters.filter(
         (character) =>
-          character.in_standard_wish && character.appearance_version === 1,
+          character.in_standard_wish &&
+          character.appearance_version === 1 &&
+          !basedCharacters.includes(character.name),
       );
       const noviceBannerWeapons = weapons.filter(
         (weapon) =>
@@ -209,5 +218,35 @@ export const getBannerItemName = (
         : weapon.id === banner.second_main_weapon,
     ) as Weapon;
     return mainWeapon.title;
+  }
+};
+export const getFeaturedItems = async (
+  supabase: SupabaseClient,
+  banner: Banners,
+) => {
+  if (banner.type === "Weapon Event Wish") {
+    const { data: featuredWeapons }: { data: { weapon_id: number }[] | null } =
+      await supabase
+        .from("featured_weapons_in_banners")
+        .select("weapon_id")
+        .eq("banner_id", banner.id);
+    return (featuredWeapons as { weapon_id: number }[]).map(
+      (weaponId) => weaponId.weapon_id,
+    );
+  } else if (
+    banner.type === "Character Event Wish" ||
+    banner.type === "Character Event Wish-2"
+  ) {
+    const {
+      data: featuredCharacters,
+    }: { data: { character_id: number }[] | null } = await supabase
+      .from("featured_characters_in_banners")
+      .select("character_id")
+      .eq("banner_id", banner.id);
+    return (featuredCharacters as { character_id: number }[]).map(
+      (characterId) => characterId.character_id,
+    );
+  } else {
+    return null;
   }
 };

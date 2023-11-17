@@ -125,6 +125,16 @@ module.exports = {
             opacity: 1,
           },
         },
+        "banner-preview-appearance": {
+          "0%": {
+            opacity: 0,
+            transform: "translateX(60px)",
+          },
+          "100%": {
+            opacity: 1,
+            transform: "translateX(0)",
+          },
+        },
       },
       animation: {
         "wish-item-appearance": "wish-item-appearance 1.3s forwards",
@@ -138,6 +148,7 @@ module.exports = {
         "masterless-currency-appearance":
           "masterless-currency-appearance 2s forwards",
         "star-effect": "star-effect 2s forwards",
+        "banner-preview-appearance": "banner-preview-appearance 0.8s forwards",
       },
       fontFamily: {
         genshin: ["var(--font-genshin)"],

@@ -231,6 +231,14 @@ const WishDrop = ({
           : () => nextItemCallback()
       }
     >
+      <Image
+        src={wishResultBackground}
+        draggable={false}
+        alt={"Фон результата сделанных молитв"}
+        fill
+        quality={100}
+        className={"select-none object-cover -z-20"}
+      />
       {isAnimationPlaying ? (
         <video
           className={"absolute top-0 left-0 object-cover w-screen h-screen"}
@@ -244,14 +252,6 @@ const WishDrop = ({
         ></video>
       ) : (
         <>
-          <Image
-            src={wishResultBackground}
-            draggable={false}
-            alt={"Фон результата сделанных молитв"}
-            fill
-            quality={100}
-            className={"select-none object-cover -z-20"}
-          />
           {"type" in droppedItems[currentItemIndex]
             ? renderWeaponResult(
                 supabase,
