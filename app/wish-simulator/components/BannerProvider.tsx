@@ -98,10 +98,14 @@ export default function BannerProvider({
       "Standard Wish",
       "Novice Wish",
     ];
-    bannerTypes.map((bannerType) => {
+    bannerTypes.forEach((bannerType) => {
       const bannerTypeStorageName = bannerType.replace(/[^a-zA-Zа-яА-Я]/g, "");
       const bannerState = localStorage.getItem(bannerTypeStorageName);
       if (bannerState === null) {
+        let baseBannerState: Record<string, number | boolean> = { fourStarCounter: 0, fiveStarCounter: 0 };
+        if(bannerTypeStorageName === "WeaponEventWish" || bannerTypeStorageName === "CharacterEventWish") {
+          baseBannerState["fourStarGuaranteed"] = false;
+        }
         localStorage.setItem(
           bannerTypeStorageName,
           JSON.stringify({
@@ -112,6 +116,9 @@ export default function BannerProvider({
         );
       }
     });
+    if(!localStorage.getItem("EpitomizedPath")) {
+      localStorage.setItem('EpitomizedPath', JSON.stringify({}))
+    }
   });
   const switchBanner = useCallback(
     (banner: Banners, trigger: "Banner button" | "Arrow button") => {

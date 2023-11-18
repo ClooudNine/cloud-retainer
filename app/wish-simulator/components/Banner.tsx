@@ -15,6 +15,8 @@ import {
 import SwitchBannerArrow from "@/app/wish-simulator/components/SwitchBannerArrow";
 import classNames from "classnames";
 import { currentGameVersion } from "@/app/types/common";
+import epitomizedPathButton from "@/public/wish-simulator/assets/epitomized-path-button.webp"
+import epitomizedPathButtonActive from "@/public/wish-simulator/assets/epitomized-path-button-active.webp"
 
 const renderCharacterBannerInfo = (
   character: Character,
@@ -238,6 +240,11 @@ const Banner = () => {
       }
     >
       <SwitchBannerArrow isForward={false} />
+      {selectedBanner.type === "Weapon Event Wish" ?
+          <div className={"absolute bottom-[18%] left-[8%] transition-all hover:scale-105"}>
+            <Image src={epitomizedPathButton} alt={"Путь воплощения"} width={170} quality={100}/>
+            <p className={"-mt-[23%] text-center text-[#525b6c] leading-[1.1]"}>Путь <br></br> воплощения</p>
+          </div> : ""}
       <div
         key={selectedBanner.type}
         className={
