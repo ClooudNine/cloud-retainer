@@ -49,33 +49,6 @@ const getWeaponPortraitUrl = (
   }
   return "";
 };
-export const getBannersSet = (
-  banners: Banners[],
-  version: Versions,
-  phase: BannerPhases,
-): Banners[] => {
-  const standardBanners = banners.filter(
-    (banner) => banner.type === "Standard Wish",
-  );
-  const standardBannerVersions = standardBanners.map(
-    (standardBanner) => standardBanner.version,
-  );
-  const standardBannerVersion = getNearestVersion(
-    standardBannerVersions,
-    version,
-  );
-  const bannersByVersion = banners.filter((banner) => {
-    if (banner.type === "Standard Wish") {
-      return banner.version === standardBannerVersion;
-    } else {
-      return banner.version === version && banner.phase === phase;
-    }
-  });
-  return bannersByVersion.sort(
-    (firstBanner, secondBanner) =>
-      bannerOrder[firstBanner.type] - bannerOrder[secondBanner.type],
-  );
-};
 export const getButtonsPortraitsUrl = (
   supabase: SupabaseClient,
   currentBanners: Banners[],
@@ -127,7 +100,32 @@ export const getPreviewsUrlForCurrentBanners = (
     }
   });
 };
-
+export const getBannersSet = (
+  banners: Banners[],
+  version: Versions,
+  phase: BannerPhases,
+): Banners[] => {
+  const standardBanners = banners.filter(
+    (banner) => banner.type === "Standard Wish",
+  );
+  const standardBannerVersions = standardBanners.map(
+    (standardBanner) => standardBanner.version,
+  );
+  const standardBannerVersion = getNearestVersion(
+    standardBannerVersions,
+    version,
+  );
+  const bannersByVersion = banners.filter((banner) => {
+    if (banner.type === "Standard Wish") {
+      return banner.version === standardBannerVersion;
+    }
+    return banner.version === version && banner.phase === phase;
+  });
+  return bannersByVersion.sort(
+    (firstBanner, secondBanner) =>
+      bannerOrder[firstBanner.type] - bannerOrder[secondBanner.type],
+  );
+};
 export const getBannerDrop = (
   banner: Banners,
   characters: Character[],
@@ -194,12 +192,10 @@ export const getBannerDrop = (
       return [...noviceBannerCharacters, ...noviceBannerWeapons];
   }
 };
-
 export const playObtainAudioByRare = (rare: Rares) => {
   const soundEffect = new Audio(`/sounds/${rare}-star-item-obtain.mp3`);
   soundEffect.play();
 };
-
 export const getBannerItemName = (
   banner: Banners,
   characters: Character[],
@@ -230,9 +226,10 @@ export const getFeaturedItems = async (
         .from("featured_weapons_in_banners")
         .select("weapon_id")
         .eq("banner_id", banner.id);
-    return (featuredWeapons as { weapon_id: number }[]).map(
-      (weaponId) => weaponId.weapon_id,
-    );
+    if (!featuredWeapons) {
+      return null;
+    }
+    return featuredWeapons.map((weaponId) => weaponId.weapon_id);
   } else if (
     banner.type === "Character Event Wish" ||
     banner.type === "Character Event Wish-2"
@@ -243,9 +240,10 @@ export const getFeaturedItems = async (
       .from("featured_characters_in_banners")
       .select("character_id")
       .eq("banner_id", banner.id);
-    return (featuredCharacters as { character_id: number }[]).map(
-      (characterId) => characterId.character_id,
-    );
+    if (!featuredCharacters) {
+      return null;
+    }
+    return featuredCharacters.map((characterId) => characterId.character_id);
   } else {
     return null;
   }

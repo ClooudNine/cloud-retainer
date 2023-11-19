@@ -7,7 +7,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { Banners, BannerTypes } from "@/app/types/banner";
+import { BannerItems, Banners, BannerTypes } from "@/app/types/banner";
 import { Weapon } from "@/app/types/weapon";
 import { Character } from "@/app/types/character";
 import { currentGamePhase, currentGameVersion } from "@/app/types/common";
@@ -73,7 +73,7 @@ export default function BannerProvider({
   >(getBannerDrop(selectedBanner, characters, weapons));
   const [selectedBannerFeaturedItems, setSelectedBannerFeaturedItems] =
     useState<number[] | null>(null);
-  const [droppedItems, setDroppedItems] = useState<(Character | Weapon)[]>([]);
+  const [droppedItems, setDroppedItems] = useState<BannerItems>([]);
 
   useEffect(() => {
     if (droppedItems.length > 0) {
@@ -102,22 +102,25 @@ export default function BannerProvider({
       const bannerTypeStorageName = bannerType.replace(/[^a-zA-Zа-яА-Я]/g, "");
       const bannerState = localStorage.getItem(bannerTypeStorageName);
       if (bannerState === null) {
-        let baseBannerState: Record<string, number | boolean> = { fourStarCounter: 0, fiveStarCounter: 0 };
-        if(bannerTypeStorageName === "WeaponEventWish" || bannerTypeStorageName === "CharacterEventWish") {
-          baseBannerState["fourStarGuaranteed"] = false;
+        let baseBannerState: Record<string, number | boolean> = {
+          fourStarCounter: 0,
+          fiveStarCounter: 0,
+        };
+        if (
+          bannerTypeStorageName === "WeaponEventWish" ||
+          bannerTypeStorageName === "CharacterEventWish"
+        ) {
+          baseBannerState.fourStarGuaranteed = false;
+          baseBannerState.fiveStarGuaranteed = false;
         }
         localStorage.setItem(
           bannerTypeStorageName,
-          JSON.stringify({
-            fourStarCounter: 0,
-            fiveStarCounter: 0,
-            guaranteedStatus: false,
-          }),
+          JSON.stringify(baseBannerState),
         );
       }
     });
-    if(!localStorage.getItem("EpitomizedPath")) {
-      localStorage.setItem('EpitomizedPath', JSON.stringify({}))
+    if (!localStorage.getItem("EpitomizedPath")) {
+      localStorage.setItem("EpitomizedPath", JSON.stringify({}));
     }
   });
   const switchBanner = useCallback(

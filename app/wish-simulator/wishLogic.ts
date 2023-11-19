@@ -1,7 +1,12 @@
 import { Character } from "@/app/types/character";
 import { Weapon } from "@/app/types/weapon";
-import { Rares } from "@/app/types/common";
-import { Banners, BannerTypes } from "@/app/types/banner";
+import { EpitomizedPath, EpitomizedStats, Rares } from "@/app/types/common";
+import {
+  BannerItems,
+  Banners,
+  BannerTypes,
+  WeaponBanner,
+} from "@/app/types/banner";
 
 type BannerStat = {
   fourStarCounter: number;
@@ -9,17 +14,13 @@ type BannerStat = {
   guaranteedFourStarStatus: boolean;
   guaranteedFiveStarStatus: boolean;
 };
-
-type EpitomizedPath = {
-  [key: number]: { weaponId: number | null; currentCount: number }
-}
-const getItemsByRarity = (items: (Character | Weapon)[], rare: Rares) => {
+const getItemsByRarity = (items: BannerItems, rare: Rares) => {
   return items.filter((item) => item.rare === rare);
 };
-const getRandomItem = (items: (Character | Weapon)[]) => {
+const getRandomItem = (items: BannerItems) => {
   return items[Math.floor(Math.random() * items.length)];
 };
-const dropItem = (items: (Character | Weapon)[], rare: Rares) => {
+const dropItem = (items: BannerItems, rare: Rares) => {
   return getRandomItem(getItemsByRarity(items, rare));
 };
 const getBaseChances = (bannerType: BannerTypes) => {
@@ -54,7 +55,7 @@ const getCurrentChances = (
   const pityRules = getPityRules(bannerType);
   let baseChances = getBaseChances(bannerType);
 
-  if (currentFiveStarCounter >= pityRules.guaranteedPity - 1) {
+  if (currentFiveStarCounter === pityRules.guaranteedPity - 1) {
     baseChances.fiveStar = 1;
   } else if (currentFiveStarCounter >= pityRules.softFiveStar) {
     baseChances.fiveStar +=
@@ -82,6 +83,23 @@ const getCurrentChances = (
 
   return Object.values(baseChances).map((chance) => Number(chance.toFixed(3)));
 };
+const getOneMainWeapon = (
+  weaponBanner: WeaponBanner,
+  items: BannerItems,
+  epitomizedPath: EpitomizedPath,
+  currentEpitomizedStats: EpitomizedStats,
+) => {
+  const mainWeapons = items.filter(
+    (item) => !item.in_standard_wish && item.rare === 5,
+  );
+  const droppedWeapon = getRandomItem(mainWeapons) as Weapon;
+  if (droppedWeapon.id === currentEpitomizedStats.weaponId) {
+    delete epitomizedPath[weaponBanner.id];
+  } else {
+    currentEpitomizedStats.count++;
+  }
+  return [droppedWeapon];
+};
 const getFiveStarItemsByBannerState = (
   banner: Banners,
   currentStats: BannerStat,
@@ -90,69 +108,63 @@ const getFiveStarItemsByBannerState = (
   switch (banner.type) {
     case "Character Event Wish":
     case "Character Event Wish-2":
-      const onlyMainCharacter = items.filter(item => item.id === banner.main_character && item.rare === 5);
+      const mainCharacter = items.filter(
+        (item) => item.id === banner.main_character && item.rare === 5,
+      );
       if (currentStats.guaranteedFiveStarStatus) {
         currentStats.guaranteedFiveStarStatus = false;
-        return onlyMainCharacter;
+        return mainCharacter;
       } else {
         const randomNumber = Math.random();
         if (randomNumber < 0.5) {
           currentStats.guaranteedFiveStarStatus = true;
           return items.filter(
-            item => item.id !== banner.main_character && item.rare === 5,
+            (item) => item.in_standard_wish && item.rare === 5,
           );
         } else {
-          return onlyMainCharacter;
+          return mainCharacter;
         }
       }
     case "Weapon Event Wish":
-      const epitomizedPath: EpitomizedPath = JSON.parse(localStorage.getItem('EpitomizedPath')!);
-      const currentEpitomizedPath = epitomizedPath[banner.id];
+      const epitomizedPath: EpitomizedPath = JSON.parse(
+        localStorage.getItem("EpitomizedPath")!,
+      );
+      const currentEpitomizedStats = epitomizedPath[banner.id];
       let returnedWeapon: Weapon[] = [];
-      if (currentEpitomizedPath.currentCount === 2) {
+      if (currentEpitomizedStats.count === 2) {
         returnedWeapon = items.filter(
-            (item) => item.id === currentEpitomizedPath.weaponId && item.rare === 5,
+          (item) =>
+            item.id === currentEpitomizedStats.weaponId && item.rare === 5,
         ) as Weapon[];
-        currentEpitomizedPath.currentCount = 0;
-        currentEpitomizedPath.weaponId = null;
+        delete epitomizedPath[banner.id];
         currentStats.guaranteedFiveStarStatus = false;
       } else if (currentStats.guaranteedFiveStarStatus) {
         currentStats.guaranteedFiveStarStatus = false;
-        const mainWeapons = items.filter(
-            (item) => (item.id === banner.first_main_weapon || item.id === banner.first_main_weapon ) && item.rare === 5,
+        returnedWeapon = getOneMainWeapon(
+          banner,
+          items,
+          epitomizedPath,
+          currentEpitomizedStats,
         );
-        const droppedWeapon = getRandomItem(mainWeapons) as Weapon;
-        if(droppedWeapon.id === currentEpitomizedPath.weaponId) {
-          currentEpitomizedPath.weaponId = null;
-          currentEpitomizedPath.currentCount = 0;
-        } else {
-          currentEpitomizedPath.currentCount++;
-        }
-        returnedWeapon = [droppedWeapon];
       } else {
         const randomNumber = Math.random();
         if (randomNumber < 0.25) {
           currentStats.guaranteedFiveStarStatus = true;
-          currentEpitomizedPath.currentCount++;
+          currentEpitomizedStats.count++;
           returnedWeapon = items.filter(
-              item => item.id !== banner.first_main_weapon && item.id !== banner.second_main_weapon && item.rare === 5,
+            (item) => item.in_standard_wish && item.rare === 5,
           ) as Weapon[];
         } else {
-          const mainWeapons = items.filter(
-              (item) => (item.id === banner.first_main_weapon || item.id === banner.first_main_weapon ) && item.rare === 5,
+          returnedWeapon = getOneMainWeapon(
+            banner,
+            items,
+            epitomizedPath,
+            currentEpitomizedStats,
           );
-          const droppedWeapon = getRandomItem(mainWeapons) as Weapon;
-          if(droppedWeapon.id === currentEpitomizedPath.weaponId) {
-            currentEpitomizedPath.weaponId = null;
-            currentEpitomizedPath.currentCount = 0;
-          } else {
-            currentEpitomizedPath.currentCount++;
-          }
-          epitomizedPath[banner.id] = currentEpitomizedPath;
-          returnedWeapon = [droppedWeapon];
         }
       }
-      localStorage.setItem('EpitomizedPath', JSON.stringify(epitomizedPath));
+      epitomizedPath[banner.id] = currentEpitomizedStats;
+      localStorage.setItem("EpitomizedPath", JSON.stringify(epitomizedPath));
       return returnedWeapon;
     default:
       return items;

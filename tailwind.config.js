@@ -148,7 +148,7 @@ module.exports = {
         "masterless-currency-appearance":
           "masterless-currency-appearance 2s forwards",
         "star-effect": "star-effect 2s forwards",
-        "banner-preview-appearance": "banner-preview-appearance 0.8s forwards",
+        "banner-preview-appearance": "banner-preview-appearance 0.8s",
       },
       fontFamily: {
         genshin: ["var(--font-genshin)"],

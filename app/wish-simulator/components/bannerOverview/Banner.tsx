@@ -1,7 +1,7 @@
 "use client";
 import { useBannerContext } from "@/app/wish-simulator/components/BannerProvider";
 import Image from "next/image";
-import { CSSProperties } from "react";
+import { CSSProperties, useState } from "react";
 import { Character } from "@/app/types/character";
 import { Weapon } from "@/app/types/weapon";
 import star from "@/public/wish-simulator/assets/star-for-description.webp";
@@ -12,11 +12,12 @@ import {
   NamesOffsets,
   TextParameters,
 } from "@/app/types/banner";
-import SwitchBannerArrow from "@/app/wish-simulator/components/SwitchBannerArrow";
+import SwitchBannerArrow from "@/app/wish-simulator/components/bannerOverview/SwitchBannerArrow";
 import classNames from "classnames";
 import { currentGameVersion } from "@/app/types/common";
-import epitomizedPathButton from "@/public/wish-simulator/assets/epitomized-path-button.webp"
-import epitomizedPathButtonActive from "@/public/wish-simulator/assets/epitomized-path-button-active.webp"
+import epitomizedPathButton from "@/public/wish-simulator/assets/epitomized-path-button.webp";
+import epitomizedPathButtonActive from "@/public/wish-simulator/assets/epitomized-path-button-active.webp";
+import EpitomizedPathModal from "@/app/wish-simulator/components/epitomizedPathSystem/EpitomizedPathModal";
 
 const renderCharacterBannerInfo = (
   character: Character,
@@ -202,6 +203,11 @@ const Banner = () => {
     selectedBanner,
   } = useBannerContext();
 
+  const [epitomizedPathIsOpen, setEpitomizedPathIsOpen] =
+    useState<boolean>(false);
+  const [epitomizedPathIsHover, setEpitomizedPathIsHover] =
+    useState<boolean>(false);
+
   const bannerTypeClasses = classNames(
     "absolute text-[2cqw] -left-1 text-white bg-[var(--palette-no-opacity)] rounded-l-full rounded-br-[19999px] pl-3 pr-5 py-0.5",
     {
@@ -236,15 +242,65 @@ const Banner = () => {
   return (
     <section
       className={
-        "flex font-genshin items-center justify-center sm:justify-between z-10"
+        "z-20 flex font-genshin items-center justify-center sm:justify-between"
       }
     >
       <SwitchBannerArrow isForward={false} />
-      {selectedBanner.type === "Weapon Event Wish" ?
-          <div className={"absolute bottom-[18%] left-[8%] transition-all hover:scale-105"}>
-            <Image src={epitomizedPathButton} alt={"Путь воплощения"} width={170} quality={100}/>
-            <p className={"-mt-[23%] text-center text-[#525b6c] leading-[1.1]"}>Путь <br></br> воплощения</p>
-          </div> : ""}
+      {selectedBanner.type === "Weapon Event Wish" ? (
+        <>
+          <div
+            className={
+              "absolute bottom-[22%] flex justify-center left-0 transition-all animate-banner-preview-appearance 2xl:left-[8%] 2xl:bottom-[19%] hover:scale-105"
+            }
+            onMouseEnter={() => setEpitomizedPathIsHover(true)}
+            onMouseLeave={() => setEpitomizedPathIsHover(false)}
+            onClick={() => setEpitomizedPathIsOpen(true)}
+          >
+            <Image
+              src={
+                epitomizedPathIsHover
+                  ? epitomizedPathButtonActive
+                  : epitomizedPathButton
+              }
+              alt={"Путь воплощения"}
+              quality={100}
+              className={"w-4/5 2xl:w-full"}
+            />
+            <p
+              className={
+                "absolute self-end mb-1 text-center text-[#525b6c] leading-[1.1] 2xl:mb-2"
+              }
+            >
+              {JSON.parse(localStorage.getItem("EpitomizedPath")!)[
+                selectedBanner.id
+              ] ? (
+                <>
+                  {
+                    JSON.parse(localStorage.getItem("EpitomizedPath")!)[
+                      selectedBanner.id
+                    ].count
+                  }
+                  /2
+                </>
+              ) : (
+                <>
+                  Путь <br /> воплощения
+                </>
+              )}
+            </p>
+          </div>
+          {epitomizedPathIsOpen ? (
+            <EpitomizedPathModal
+              closeModal={() => setEpitomizedPathIsOpen(false)}
+              weaponBanner={selectedBanner}
+            />
+          ) : (
+            ""
+          )}
+        </>
+      ) : (
+        ""
+      )}
       <div
         key={selectedBanner.type}
         className={
@@ -284,7 +340,7 @@ const Banner = () => {
               quality={100}
               width={22}
               alt={"Звезда"}
-              className={"pl-1"}
+              className={"w-4 pl-1 lg:w-6"}
             />
             <p className={"text-white text-[1.8cqw]"}>
               Every 10 wishes is guaranteed to include at least one 4-star or

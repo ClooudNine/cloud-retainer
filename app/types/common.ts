@@ -39,6 +39,8 @@ export type Elements =
   | "Geo"
   | "Electro";
 
+export type EpitomizedStats = { weaponId: number; count: number };
+export type EpitomizedPath = { [key: string]: EpitomizedStats };
 export const currentGameVersion: Versions = 4.1;
 export const currentGamePhase: BannerPhases = 1;
 export const basedCharacters = ["Amber", "Kaeya", "Lisa"];

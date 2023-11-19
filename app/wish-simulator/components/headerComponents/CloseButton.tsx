@@ -5,7 +5,7 @@ const CloseButton = () => {
       className={`col-start-12 mr-6 w-8 h-8 sm:mr-0 lg:w-12 lg:h-12 place-self-center flex items-center justify-center rounded-full transition-all bg-[#ede6d6] ring-[6px] ring-[rgba(237,230,214,0.5)] cursor-genshin hover:ring-[#fcfdff] hover:ring-4 hover:drop-shadow-[0_0_5px_rgba(255,255,255,1)] active:ring-[#7a8ca4] active:ring-4 active:bg-[#c8c4bb]`}
     >
       <svg
-        className={"h-[80%] group"}
+        className={"h-4/5 group"}
         viewBox="0 0 16 16"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"

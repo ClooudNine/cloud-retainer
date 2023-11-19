@@ -20,6 +20,24 @@
     .scrollbar-for-banner::-webkit-scrollbar-thumb {
         background: #595754;
     }
+
+    .scrollbar-for-epitomized-path {
+        scrollbar-color: #e7e5e3 #c8c5bd;
+        scrollbar-width: thin;
+    }
+
+    .scrollbar-for-epitomized-path::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    .scrollbar-for-epitomized-path::-webkit-scrollbar-track {
+        background: #c8c5bd;
+    }
+
+    .scrollbar-for-epitomized-path::-webkit-scrollbar-thumb {
+        background: #e7e5e3;
+    }
 }
 
 * {
