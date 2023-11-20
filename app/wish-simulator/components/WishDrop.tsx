@@ -67,7 +67,7 @@ const renderWeaponResult = (
         </div>
       </div>
       <Image
-        src={`/wish-simulator/items-backgrounds/${weapon.type}-background.webp`}
+        src={`/wish-simulator/weapon-backgrounds/${weapon.type}-background.webp`}
         alt={"Фон оружия"}
         width={950}
         height={950}
