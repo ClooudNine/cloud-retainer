@@ -41,7 +41,7 @@ export const EpitomizedPathModal = ({
     const epitomizedPath = JSON.parse(localStorage.getItem("EpitomizedPath")!);
     epitomizedPath[weaponBanner.id] = {
       weaponId: epitomizedWeapon,
-      currentCount: 0,
+      count: 0,
     };
     setEpitomizedPathExists(true);
     localStorage.setItem("EpitomizedPath", JSON.stringify(epitomizedPath));

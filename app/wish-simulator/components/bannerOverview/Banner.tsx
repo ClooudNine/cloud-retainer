@@ -264,7 +264,7 @@ const Banner = () => {
               }
               alt={"Путь воплощения"}
               quality={100}
-              className={"w-4/5 2xl:w-full"}
+              className={"w-full h-auto"}
             />
             <p
               className={
