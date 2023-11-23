@@ -1,7 +1,14 @@
 import Image from "next/image";
 import wishSimulatorBackground from "@/public/wish-simulator/assets/wish-simulator-bg.webp";
+import classNames from "classnames";
 
-const Background = () => {
+const Background = ({ isBlurred }: { isBlurred: boolean }) => {
+  const backgroundClasses = classNames(
+    "select-none object-cover object-left brightness-90 -z-10",
+    {
+      blur: isBlurred,
+    },
+  );
   return (
     <div
       className={
@@ -13,7 +20,7 @@ const Background = () => {
         alt={"Фоновое изображение раздела молитв"}
         quality={100}
         fill
-        className={"select-none object-cover object-left brightness-90 -z-10"}
+        className={backgroundClasses}
       />
     </div>
   );

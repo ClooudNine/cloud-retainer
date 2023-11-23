@@ -1,6 +1,8 @@
 import FooterButton from "@/app/wish-simulator/components/footerComponents/FooterButton";
 import WishButton from "@/app/wish-simulator/components/footerComponents/WishButton";
 import MasterlessCurrency from "@/app/wish-simulator/components/footerComponents/MasterlessCurrency";
+import HistoryLink from "@/app/wish-simulator/components/footerComponents/HistoryLink";
+import DetailsLink from "@/app/wish-simulator/components/footerComponents/DetailsLink";
 
 const Footer = () => {
   return (
@@ -21,9 +23,9 @@ const Footer = () => {
             "h-4/5 flex flex-col gap-2 md:flex-row md:items-end md:gap-4 md:h-1/2"
           }
         >
-          <FooterButton title={"Магазин"} />
-          <FooterButton title={"Детали"} />
-          <FooterButton title={"История"} />
+          <FooterButton title={"Магазин"} path={"shop"} />
+          <DetailsLink />
+          <HistoryLink />
         </div>
       </div>
       <div

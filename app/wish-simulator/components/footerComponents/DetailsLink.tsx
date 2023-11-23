@@ -1,8 +1,9 @@
 "use client";
 import Link from "next/link";
 import { useBannerContext } from "@/app/wish-simulator/components/BannerProvider";
+import { currentGamePhase, currentGameVersion } from "@/app/types/common";
 
-const FooterButton = ({ title, path }: { title: string; path: string }) => {
+const HistoryLink = () => {
   const { selectedBanner } = useBannerContext();
   return (
     <Link
@@ -31,11 +32,11 @@ const FooterButton = ({ title, path }: { title: string; path: string }) => {
          md:h-4/5
          md:text-lg
          lg:text-xl`}
-      href={`wish-simulator/${path}?banner=${selectedBanner.title}`}
+      href={`wish-simulator/details?title=${selectedBanner.title}&type=${selectedBanner.type}&version=${currentGameVersion}&phase=${currentGamePhase}&section=increased-chance`}
     >
-      {title}
+      Детали
     </Link>
   );
 };
 
-export default FooterButton;
+export default HistoryLink;

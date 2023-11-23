@@ -1,16 +1,19 @@
 import { Character } from "@/app/types/character";
 import { Weapon } from "@/app/types/weapon";
-import { EpitomizedPath, Rares } from "@/app/types/common";
+import { EpitomizedPath, Rares, WishHistory } from "@/app/types/common";
 import {
   BannerItems,
   Banners,
+  bannerTranslates,
   BannerTypes,
   WeaponBanner,
 } from "@/app/types/banner";
+import { getBannerStatName } from "@/app/wish-simulator/utils";
 
 type BannerStats = {
   fourStarCounter: number;
   fiveStarCounter: number;
+  history: WishHistory;
   fourStarGuaranteed: boolean;
   fiveStarGuaranteed: boolean;
 };
@@ -92,7 +95,7 @@ const getOneMainWeapon = (
     (item) => !item.in_standard_wish && item.rare === 5,
   );
   const droppedWeapon = getRandomItem(mainWeapons) as Weapon;
-  if(epitomizedPath[weaponBanner.id]) {
+  if (epitomizedPath[weaponBanner.id]) {
     if (droppedWeapon.id === epitomizedPath[weaponBanner.id].weaponId) {
       delete epitomizedPath[weaponBanner.id];
     } else {
@@ -101,34 +104,42 @@ const getOneMainWeapon = (
   }
   return [droppedWeapon];
 };
-const getFeaturedFourStarItems = (items: BannerItems, banner: Banners, featuredItems: number[] | null) => {
-  return items.filter(item => {
-    if(banner.type === "Weapon Event Wish") {
-      return featuredItems?.includes(item.id) && "type" in item
-    } else {
-      return featuredItems?.includes(item.id) && "name" in item
-    }
-  })
-}
-const getFourStarItemsByBannerState = (
-    banner: Banners,
-    currentStats: BannerStats,
-    items: BannerItems,
-    featuredItems: number[] | null
+const getFeaturedFourStarItems = (
+  items: BannerItems,
+  banner: Banners,
+  featuredItems: number[] | null,
 ) => {
-  if(banner.type === "Novice Wish" || banner.type === "Standard Wish") {
-    return items
+  return items.filter((item) => {
+    if (banner.type === "Weapon Event Wish") {
+      return featuredItems?.includes(item.id) && "type" in item;
+    } else {
+      return featuredItems?.includes(item.id) && "name" in item;
+    }
+  });
+};
+const getFourStarItemsByBannerState = (
+  banner: Banners,
+  currentStats: BannerStats,
+  items: BannerItems,
+  featuredItems: number[] | null,
+) => {
+  if (banner.type === "Novice Wish" || banner.type === "Standard Wish") {
+    return items;
   }
-  if(currentStats.fourStarGuaranteed) {
+  if (currentStats.fourStarGuaranteed) {
     currentStats.fourStarGuaranteed = false;
     return getFeaturedFourStarItems(items, banner, featuredItems);
   } else {
     const randomNumber = Math.random();
-    if(randomNumber < (banner.type === "Weapon Event Wish" ? 0.75 : 0.5)) {
+    if (randomNumber < (banner.type === "Weapon Event Wish" ? 0.75 : 0.5)) {
       return getFeaturedFourStarItems(items, banner, featuredItems);
     } else {
       currentStats.fourStarGuaranteed = true;
-      return items.filter(item => (!featuredItems?.includes(item.id) && "name" in item) || "type" in item)
+      return items.filter(
+        (item) =>
+          (!featuredItems?.includes(item.id) && "name" in item) ||
+          "type" in item,
+      );
     }
   }
 };
@@ -164,19 +175,15 @@ const getFiveStarItemsByBannerState = (
       let returnedWeapon: Weapon[] = [];
       if (epitomizedPath[banner.id]) {
         if (epitomizedPath[banner.id].count === 2)
-        returnedWeapon = items.filter(
-          (item) =>
-            item.id === epitomizedPath[banner.id].weaponId && item.rare === 5,
-        ) as Weapon[];
+          returnedWeapon = items.filter(
+            (item) =>
+              item.id === epitomizedPath[banner.id].weaponId && item.rare === 5,
+          ) as Weapon[];
         delete epitomizedPath[banner.id];
         currentStats.fiveStarGuaranteed = false;
       } else if (currentStats.fiveStarGuaranteed) {
         currentStats.fiveStarGuaranteed = false;
-        returnedWeapon = getOneMainWeapon(
-          banner,
-          items,
-          epitomizedPath
-        );
+        returnedWeapon = getOneMainWeapon(banner, items, epitomizedPath);
       } else {
         const randomNumber = Math.random();
         if (randomNumber < 0.25) {
@@ -186,11 +193,7 @@ const getFiveStarItemsByBannerState = (
             (item) => item.in_standard_wish && item.rare === 5,
           ) as Weapon[];
         } else {
-          returnedWeapon = getOneMainWeapon(
-            banner,
-            items,
-            epitomizedPath,
-          );
+          returnedWeapon = getOneMainWeapon(banner, items, epitomizedPath);
         }
       }
       localStorage.setItem("EpitomizedPath", JSON.stringify(epitomizedPath));
@@ -199,12 +202,37 @@ const getFiveStarItemsByBannerState = (
       return items;
   }
 };
+const getCurrentDateTime = () => {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  const seconds = String(now.getSeconds()).padStart(2, "0");
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+};
+export const getWishInfo = (
+  bannerType: BannerTypes,
+  droppedItem: Character | Weapon,
+) => {
+  const type = "name" in droppedItem ? "Персонаж" : "Оружие";
+  const name = "name" in droppedItem ? droppedItem.name : droppedItem.title;
+  const wishType = bannerTranslates[bannerType];
+  const date = getCurrentDateTime();
+  return {
+    type: type,
+    item: { name: name, rare: droppedItem.rare },
+    wishType: wishType,
+    date: date,
+  };
+};
 export const wish = (
   banner: Banners,
   items: (Character | Weapon)[],
   featuredItems: number[] | null,
 ) => {
-  const bannerTypeStatName = banner.type.replace(/[^a-zA-Zа-яА-Я]/g, "");
+  const bannerTypeStatName = getBannerStatName(banner.type);
   const currentStat: BannerStats = JSON.parse(
     localStorage.getItem(bannerTypeStatName)!,
   );
@@ -223,7 +251,12 @@ export const wish = (
         currentStat.fourStarCounter++;
         currentStat.fiveStarCounter++;
       } else if (itemRare === 4) {
-        items = getFourStarItemsByBannerState(banner, currentStat, items, featuredItems);
+        items = getFourStarItemsByBannerState(
+          banner,
+          currentStat,
+          items,
+          featuredItems,
+        );
         currentStat.fourStarCounter = 0;
         currentStat.fiveStarCounter++;
       } else {
@@ -231,8 +264,10 @@ export const wish = (
         currentStat.fourStarCounter++;
         currentStat.fiveStarCounter = 0;
       }
+      const droppedItem = dropItem(items, itemRare);
+      currentStat.history.unshift(getWishInfo(banner.type, droppedItem));
       localStorage.setItem(bannerTypeStatName, JSON.stringify(currentStat));
-      return dropItem(items, itemRare);
+      return droppedItem;
     }
   }
 };

@@ -58,7 +58,6 @@ export type WeaponBanner = {
   name_offsets: NamesOffsets;
   four_star_weapon_on_banner: string;
 };
-
 export const bannerOrder: { [key in BannerTypes]: number } = {
   "Novice Wish": 1,
   "Character Event Wish": 2,
@@ -66,7 +65,6 @@ export const bannerOrder: { [key in BannerTypes]: number } = {
   "Weapon Event Wish": 4,
   "Standard Wish": 5,
 };
-
 export const bannerDescriptions: { [key in BannerTypes]: string } = {
   "Novice Wish": '"As a dutiful main would."',
   "Character Event Wish":
@@ -76,11 +74,24 @@ export const bannerDescriptions: { [key in BannerTypes]: string } = {
   "Weapon Event Wish": "View Details for more.",
   "Standard Wish": "Standard wishes have no time limit. View Details for more.",
 };
-
 export const bannerSecondTitle: { [key in BannerTypes]: string } = {
   "Novice Wish": "10-set 20% off. First 10-set will receive Noelle",
   "Character Event Wish": "Probability increased!",
   "Character Event Wish-2": "Probability increased!",
   "Weapon Event Wish": "Probability increased!",
   "Standard Wish": "Standard Wish",
+};
+export const bannerStorages: { [key: string]: string } = {
+  StandardWish: "Стандартная молитва",
+  NoviceWish: "Молитва новичка",
+  CharacterEventWish:
+    "Молитва события персонажа и Молитва события персонажа II",
+  WeaponEventWish: "Молитва события оружия",
+};
+export const bannerTranslates: { [key in BannerTypes]: string } = {
+  "Novice Wish": "Молитва новичка",
+  "Character Event Wish": "Молитва события персонажа",
+  "Character Event Wish-2": "Молитва события персонажа II",
+  "Weapon Event Wish": "Молитва события оружия",
+  "Standard Wish": "Стандартная молитва",
 };

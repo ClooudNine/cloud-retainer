@@ -1,4 +1,9 @@
-import { bannerOrder, BannerPhases, Banners } from "@/app/types/banner";
+import {
+  bannerOrder,
+  BannerPhases,
+  Banners,
+  BannerTypes,
+} from "@/app/types/banner";
 import {
   basedCharacters,
   currentGameVersion,
@@ -196,6 +201,10 @@ export const playObtainAudioByRare = (rare: Rares) => {
   const soundEffect = new Audio(`/sounds/${rare}-star-item-obtain.mp3`);
   soundEffect.play();
 };
+export const playSfxEffect = (path: string) => {
+  const sfx = new Audio(path);
+  sfx.play();
+};
 export const getBannerItemName = (
   banner: Banners,
   characters: Character[],
@@ -247,4 +256,7 @@ export const getFeaturedItems = async (
   } else {
     return null;
   }
+};
+export const getBannerStatName = (bannerType: BannerTypes) => {
+  return bannerType.replace(/[^a-zA-Zа-яА-Я]/g, "");
 };

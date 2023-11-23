@@ -41,6 +41,12 @@ export type Elements =
 
 export type EpitomizedStats = { weaponId: number; count: number };
 export type EpitomizedPath = { [key: string]: EpitomizedStats };
+export type WishHistory = {
+  type: string;
+  item: { name: string; rare: Rares };
+  wishType: string;
+  date: string;
+}[];
 export const currentGameVersion: Versions = 4.1;
 export const currentGamePhase: BannerPhases = 1;
 export const basedCharacters = ["Amber", "Kaeya", "Lisa"];

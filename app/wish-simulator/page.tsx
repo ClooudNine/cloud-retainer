@@ -76,7 +76,7 @@ export default async function WishSimulator() {
         "w-full h-full cursor-genshin grid grid-rows-[1fr_2.5fr_1fr] md:grid-rows-[1fr_5fr_1fr]"
       }
     >
-      <Background />
+      <Background isBlurred={false} />
       <BannerProvider
         allGameBanners={[
           ...allCharacterBanners,
