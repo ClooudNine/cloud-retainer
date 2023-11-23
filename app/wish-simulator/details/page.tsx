@@ -7,7 +7,7 @@ import { BannerPhases, Banners, BannerTypes } from "@/app/types/banner";
 import { Versions } from "@/app/types/common";
 import Title from "@/app/wish-simulator/details/components/Title";
 import Navigation from "@/app/wish-simulator/details/components/Navigation";
-import IncreasedChanceSection from "@/app/wish-simulator/history/components/IncreasedChanceSection";
+import IncreasedChanceSection from "@/app/wish-simulator/details/components/IncreasedChanceSection";
 import { Character } from "@/app/types/character";
 import { Weapon } from "@/app/types/weapon";
 
@@ -73,7 +73,7 @@ export default async function Details({
           draggable={false}
           quality={100}
           alt={"Детали баннера"}
-          className={"w-full md:w-[70vw] h-auto"}
+          className={"w-full md:w-[80vw] h-auto"}
         />
         <Title bannerTitle={banner.title} palette={banner.color_palette} />
         <Navigation />

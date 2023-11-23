@@ -5,6 +5,7 @@ import { Character } from "@/app/types/character";
 import { Weapon } from "@/app/types/weapon";
 import { Elements } from "@/app/types/common";
 import { CSSProperties } from "react";
+import ItemCard from "@/app/wish-simulator/details/components/ItemCard";
 
 const getBannerGuaranteeRules = (bannerType: BannerTypes) => {
   if (bannerType === "Weapon Event Wish") {
@@ -17,7 +18,7 @@ const IncreasedChanceSection = ({
   mainItems,
 }: {
   bannerType: BannerTypes;
-  mainItems: Character[] | Weapon[];
+  mainItems: Character[] | Weapon[] | null;
 }) => {
   const elementToColor: { [key in Elements]: string } = {
     Anemo: "#70c2a7",
@@ -56,21 +57,40 @@ const IncreasedChanceSection = ({
           </div>
         </div>
         <div className={"h-full bg-[#f9f5ee] flex justify-center"}>
-          <div className={"w-[99.5%] h-[99%] border border-[#e7e1d9]"}>
-            {mainItems.map((item) => (
-              <p
-                style={
-                  {
-                    "--item-color":
-                      "name" in item ? elementToColor[item.element] : "#c16028",
-                  } as CSSProperties
-                }
-                key={item.title}
-                className={"text-[var(--item-color)] text-[1vw] ml-10 mt-4"}
-              >
-                {"name" in item ? item.name : item.title}
-              </p>
-            ))}
+          <div
+            className={
+              "relative w-[99.5%] h-[99%] flex gap-10 border border-[#e7e1d9]"
+            }
+          >
+            {mainItems ? (
+              <>
+                <div className={"ml-10 mt-4"}>
+                  {mainItems.map((item) => (
+                    <p
+                      style={
+                        {
+                          "--item-color":
+                            "name" in item
+                              ? elementToColor[item.element]
+                              : "#c16028",
+                        } as CSSProperties
+                      }
+                      key={item.title}
+                      className={"text-[var(--item-color)] text-[1vw]"}
+                    >
+                      {"name" in item ? item.name : item.title}
+                    </p>
+                  ))}
+                </div>
+                <div className={"flex pl-20 items-center gap-4 h-full"}>
+                  {mainItems.map((item) => (
+                    <ItemCard key={item.title} item={item} />
+                  ))}
+                </div>
+              </>
+            ) : (
+              <p>Ошибка загрузки...</p>
+            )}
           </div>
         </div>
       </div>
