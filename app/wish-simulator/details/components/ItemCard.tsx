@@ -20,6 +20,7 @@ const getItemPortrait = (
       .data.publicUrl;
   }
 };
+export const dynamic = "force-dynamic";
 const ItemCard = ({ item }: { item: Character | Weapon }) => {
   const supabase = createServerComponentClient({ cookies });
   return (

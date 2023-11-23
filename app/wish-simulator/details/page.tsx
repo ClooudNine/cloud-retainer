@@ -15,6 +15,7 @@ export const metadata = {
   title: "Cloud Retainer | Симулятор молитв - Детали",
   description: "Здесь вы можете ознакомиться с подробными деталями баннера",
 };
+export const dynamic = "force-dynamic";
 export default async function Details({
   searchParams,
 }: {
