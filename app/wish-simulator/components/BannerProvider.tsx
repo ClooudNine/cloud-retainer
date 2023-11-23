@@ -90,10 +90,14 @@ export default function BannerProvider({
       backgroundMusic.current!.loop = true;
     }
   }, [backgroundMusic, droppedItems.length]);
+
   useEffect(() => {
     getFeaturedItems(supabase, selectedBanner).then(
       setSelectedBannerFeaturedItems,
     );
+  }, [selectedBanner, supabase]);
+
+  useEffect(() => {
     const bannerTypes: BannerTypes[] = [
       "Character Event Wish",
       "Character Event Wish-2",
@@ -135,10 +139,9 @@ export default function BannerProvider({
         localStorage.setItem("lastBanner", getBannerStatName(banner.type));
         setSelectedBanner(banner);
         setSelectedBannerDrop(getBannerDrop(banner, characters, weapons));
-        getFeaturedItems(supabase, banner).then(setSelectedBannerFeaturedItems);
       }
     },
-    [characters, selectedBanner, supabase, weapons],
+    [characters, selectedBanner, weapons],
   );
   return (
     <BannerContext.Provider

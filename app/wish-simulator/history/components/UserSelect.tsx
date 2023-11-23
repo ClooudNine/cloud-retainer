@@ -1,14 +1,15 @@
 "use client";
 import { bannerStorages } from "@/app/types/banner";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export const UserSelect = () => {
   const router = useRouter();
   const [isSelectOpen, setIsSelectOpen] = useState<boolean>(false);
-  const [selectedOption, setSelectedOption] = useState<string>(
-    () => localStorage.getItem("lastBanner") as string,
-  );
+  const [selectedOption, setSelectedOption] = useState<string>("");
+  useEffect(() => {
+    setSelectedOption(localStorage.getItem("lastBanner") as string);
+  }, []);
   const selectOptionClick = useCallback(
     (bannerType: string) => {
       setSelectedOption(bannerType);
