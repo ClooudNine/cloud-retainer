@@ -1,7 +1,10 @@
 "use client";
 import Link from "next/link";
+import { useBannerContext } from "@/app/wish-simulator/components/BannerProvider";
+import { getBannerStatName } from "@/app/wish-simulator/utils";
 
 const HistoryLink = () => {
+  const { selectedBanner } = useBannerContext();
   return (
     <Link
       className={`font-genshin
@@ -29,7 +32,9 @@ const HistoryLink = () => {
          md:h-4/5
          md:text-lg
          lg:text-xl`}
-      href={`wish-simulator/history?type=${localStorage.getItem("lastBanner")}`}
+      href={`wish-simulator/history?type=${getBannerStatName(
+        selectedBanner.type,
+      )}`}
     >
       История
     </Link>

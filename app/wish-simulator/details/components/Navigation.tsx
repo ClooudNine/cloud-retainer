@@ -1,12 +1,22 @@
 "use client";
 import NavigationButton from "@/app/wish-simulator/details/components/NavigationButton";
+import { BannerTypes } from "@/app/types/banner";
 
-const Navigation = () => {
-  const sections = {
+const Navigation = ({ bannerType }: { bannerType: BannerTypes }) => {
+  const sections: {
+    "increased-chance"?: string;
+    "more-info": string;
+    "items-list": string;
+  } = {
     "increased-chance": "Повышенный шанс",
     "more-info": "Подробности",
     "items-list": "Список предметов",
   };
+
+  if (bannerType === "Standard Wish") {
+    delete sections["increased-chance"];
+  }
+
   return (
     <div
       className={

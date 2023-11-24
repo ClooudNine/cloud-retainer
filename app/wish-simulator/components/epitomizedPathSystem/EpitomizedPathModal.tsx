@@ -68,7 +68,9 @@ export const EpitomizedPathModal = ({
         <Image
           src={epitomizedPathModal}
           quality={100}
+          draggable={false}
           alt={"Модальное окно системы 'Путь воплощения'"}
+          className={"h-auto w-full"}
         />
         <p
           className={"absolute top-[7%] left-[11%] text-[#84633e] text-[3cqw]"}
@@ -77,7 +79,7 @@ export const EpitomizedPathModal = ({
         </p>
         <div
           className={
-            "absolute top-[19%] left-[8%] w-[37%] h-[72%] overflow-y-scroll scrollbar-for-epitomized-path"
+            "absolute top-[19%] left-[8%] w-[37%] h-[72%] overflow-y-scroll genshin-scrollbar"
           }
         >
           <div
@@ -129,30 +131,22 @@ export const EpitomizedPathModal = ({
         <svg
           className={"group z-10 absolute w-[5cqw] top-[3%] right-[3%]"}
           onClick={() => closeModal()}
-          viewBox="0 0 16 16"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-          xmlnsXlink="http://www.w3.org/1999/xlink"
+          transform="rotate(45)"
           fill="#000000"
           stroke="#000000"
           strokeWidth="0.00016"
-          transform="rotate(45)"
+          version="1.1"
+          viewBox="0 0 16 16"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlnsXlink="http://www.w3.org/1999/xlink"
         >
-          <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-          <g
-            id="SVGRepo_tracerCarrier"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          ></g>
-          <g id="SVGRepo_iconCarrier">
-            <path
-              className={
-                "transition-all group-hover:fill-[#495366] group-active:fill-[#bebebe]"
-              }
-              fill="#707783"
-              d="M16 8l-3-3v2h-4v-4h2l-3-3-3 3h2v4h-4v-2l-3 3 3 3v-2h4v4h-2l3 3 3-3h-2v-4h4v2z"
-            ></path>
-          </g>
+          <path
+            className={
+              "transition-all group-hover:fill-[#495366] group-active:fill-[#bebebe]"
+            }
+            d="m16 8-3-3v2h-4v-4h2l-3-3-3 3h2v4h-4v-2l-3 3 3 3v-2h4v4h-2l3 3 3-3h-2v-4h4v2z"
+            fill="#707783"
+          />
         </svg>
         {epitomizedPathExists ? (
           <>
@@ -209,23 +203,15 @@ export const EpitomizedPathModal = ({
                 <svg
                   className={"h-[60%]"}
                   fill="#98cb33"
-                  viewBox="0 0 1920.00 1920.00"
-                  xmlns="http://www.w3.org/2000/svg"
                   stroke="#98cb33"
                   strokeWidth="0.019200000000000002"
+                  viewBox="0 0 1920 1920"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                  <g
-                    id="SVGRepo_tracerCarrier"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  ></g>
-                  <g id="SVGRepo_iconCarrier">
-                    <path
-                      d="M960 0v213.333c411.627 0 746.667 334.934 746.667 746.667S1371.627 1706.667 960 1706.667 213.333 1371.733 213.333 960c0-197.013 78.4-382.507 213.334-520.747v254.08H640V106.667H53.333V320h191.04C88.64 494.08 0 720.96 0 960c0 529.28 430.613 960 960 960s960-430.72 960-960S1489.387 0 960 0"
-                      fillRule="evenodd"
-                    ></path>
-                  </g>
+                  <path
+                    d="M960 0v213.333c411.627 0 746.667 334.934 746.667 746.667S1371.627 1706.667 960 1706.667 213.333 1371.733 213.333 960c0-197.013 78.4-382.507 213.334-520.747v254.08H640V106.667H53.333V320h191.04C88.64 494.08 0 720.96 0 960c0 529.28 430.613 960 960 960s960-430.72 960-960S1489.387 0 960 0"
+                    fillRule="evenodd"
+                  />
                 </svg>
               </div>
               <p className={"ml-4"}>Отменить курс</p>
@@ -243,14 +229,14 @@ export const EpitomizedPathModal = ({
           <>
             <p
               className={
-                "absolute text-[#495366] text-[3cqw] top-[9%] right-[11%]"
+                "absolute text-[#495366] text-[4cqw] top-[8%] right-[7%] md:text-[3cqw] md:top-[9%] md:right-[11%]"
               }
             >
               Выбрать оружие
             </p>
             <div
               className={
-                "absolute flex justify-center items-center gap-8 w-[35.5%] h-[30%] top-[25%] right-[7%]"
+                "absolute flex justify-center items-center gap-4 md:gap-8 w-[35.5%] h-[30%] top-[25%] right-[7%]"
               }
             >
               {[
@@ -270,7 +256,7 @@ export const EpitomizedPathModal = ({
               ))}
             </div>
             <div
-              className={"absolute w-[35.5%] h-[30%] bottom-[10%] right-[7%]"}
+              className={"absolute w-[35.5%] h-[12%] bottom-[28%] right-[7%]"}
             >
               <p className={"text-center text-[2.5cqw] text-[#495366]"}>
                 Курс на предмет: <br />
@@ -284,13 +270,13 @@ export const EpitomizedPathModal = ({
             </div>
             <button
               className={
-                "absolute group cursor-genshin w-[25%] h-[8%] transition-all text-[#ece5d8] text-[2cqw] bg-[#4a5366] rounded-full bottom-[10%] right-[11.5%] hover:outline hover:outline-2 hover:outline-offset-0 hover:outline-[#ffe6b2] active:bg-[#ffeccb] active:outline-[#b5b2ae]"
+                "absolute group flex gap-4 md:gap-7 items-center cursor-genshin w-[35%] h-[10%] md:w-[25%] md:h-[8%] right-[7%] transition-all text-[#ece5d8] text-[3cqw] md:text-[2cqw] bg-[#4a5366] rounded-full bottom-[10%] md:right-[11.5%] hover:outline hover:outline-2 hover:outline-offset-0 hover:outline-[#ffe6b2] active:bg-[#ffeccb] active:outline-[#b5b2ae]"
               }
               onClick={() => setEpitomizedPath()}
             >
               <div
                 className={
-                  "absolute flex justify-center items-center ml-2 w-[3cqw] h-[3cqw] bg-[#313131] place-self-start rounded-full group-active:opacity-50"
+                  "flex justify-center items-center ml-2 w-[3cqw] h-[3cqw] bg-[#313131] rounded-full group-active:opacity-50"
                 }
               >
                 <div
@@ -299,7 +285,7 @@ export const EpitomizedPathModal = ({
                   }
                 ></div>
               </div>
-              <p className={"ml-4"}>Выбрать курс</p>
+              <p>Выбрать курс</p>
             </button>
           </>
         )}

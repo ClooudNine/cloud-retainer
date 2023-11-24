@@ -22,7 +22,7 @@ const WeaponPreview = ({
     useBannerContext();
   const weapon = weapons.find((weapon) => weapon.id === weaponId) as Weapon;
   const weaponPreviewClasses = classNames(
-    "group relative w-[30%] h-[70%] bg-[#e9e5dc] rounded transition-all duration-100 active:scale-95",
+    "group relative w-[40%] h-[90%] md:w-[30%] md:h-[70%] bg-[#e9e5dc] rounded transition-all duration-100 active:scale-95",
     {
       "scale-105 border-4 border-y-[#c0ff40] hover:ring-0":
         currentEpitomizedWeapon === weaponId && !isOverview,
@@ -41,7 +41,7 @@ const WeaponPreview = ({
       <Image
         src={fiveStarItemBackground}
         alt={"Фон предмета пятизвёздочной редкости"}
-        className={"rounded-t rounded-br-3xl group-hover:saturate-150"}
+        className={"h-[83%] rounded-t rounded-br-3xl group-hover:saturate-150"}
       />
       {currentEpitomizedWeapon === weaponId && !isOverview ? (
         <div
@@ -62,7 +62,7 @@ const WeaponPreview = ({
         width={130}
         height={130}
         quality={100}
-        className={"absolute top-0"}
+        className={"w-full h-auto absolute top-0"}
       />
       <div className={"-mt-[1.3cqw]"}>
         <div className={"flex justify-center ml-auto"}>
@@ -77,7 +77,11 @@ const WeaponPreview = ({
             />
           ))}
         </div>
-        <p className={"truncate text-[1.5cqw] text-[#495366] pl-1 -mt-1"}>
+        <p
+          className={
+            "truncate text-[2cqw] md:text-[1.5cqw] text-[#495366] pl-1 -mt-1"
+          }
+        >
           {weapon.title}
         </p>
       </div>

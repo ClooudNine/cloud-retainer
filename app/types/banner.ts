@@ -29,7 +29,6 @@ export type CharacterBanner = {
   rerun_number: number;
   type: "Character Event Wish" | "Character Event Wish-2" | "Novice Wish";
   phase: BannerPhases;
-  color_palette: string;
   text_parameters: TextParameters;
 };
 
@@ -41,8 +40,6 @@ export type StandardBanner = {
   preview_version: number;
   text_parameters: NamesOffsets;
   type: "Standard Wish";
-  color_palette: string;
-  is_top_offset: boolean;
 };
 
 export type WeaponBanner = {
@@ -54,7 +51,6 @@ export type WeaponBanner = {
   date: Date;
   phase: BannerPhases;
   type: "Weapon Event Wish";
-  color_palette: string;
   name_offsets: NamesOffsets;
   four_star_weapon_on_banner: string;
 };

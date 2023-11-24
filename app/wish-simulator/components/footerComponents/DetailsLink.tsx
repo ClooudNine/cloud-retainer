@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useBannerContext } from "@/app/wish-simulator/components/BannerProvider";
-import { currentGamePhase, currentGameVersion } from "@/app/types/common";
+import { currentGamePhase } from "@/app/types/common";
 
 const HistoryLink = () => {
   const { selectedBanner } = useBannerContext();
@@ -32,7 +32,13 @@ const HistoryLink = () => {
          md:h-4/5
          md:text-lg
          lg:text-xl`}
-      href={`wish-simulator/details?title=${selectedBanner.title}&type=${selectedBanner.type}&version=${currentGameVersion}&phase=${currentGamePhase}&section=increased-chance`}
+      href={`wish-simulator/details?title=${selectedBanner.title}&type=${
+        selectedBanner.type
+      }&version=${selectedBanner.version}&phase=${currentGamePhase}&section=${
+        selectedBanner.type === "Standard Wish"
+          ? "more-info"
+          : "increased-chance"
+      }`}
     >
       Детали
     </Link>

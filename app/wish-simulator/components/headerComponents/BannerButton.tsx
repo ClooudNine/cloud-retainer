@@ -5,7 +5,7 @@ import bannerButtonBackgroundActive from "@/public/wish-simulator/assets/banner-
 import { Banners } from "@/app/types/banner";
 import { useBannerContext } from "@/app/wish-simulator/components/BannerProvider";
 import classNames from "classnames";
-import { getBannerItemName } from "@/app/wish-simulator/utils";
+import { getBannerMainItemName } from "@/app/wish-simulator/utils";
 
 const BannerButton = ({
   banner,
@@ -17,8 +17,8 @@ const BannerButton = ({
   const { selectedBanner, characters, weapons, switchBanner } =
     useBannerContext();
 
-  const bannerButtonContainerClasses = classNames(
-    "relative h-[45%] w-1/4 select-none transition-all cursor-genshin hover:scale-110 sm:h-3/5 md:h-[30%] lg:h-2/5",
+  const bannerButtonClasses = classNames(
+    "relative h-2/5 w-1/4 select-none transition-all cursor-genshin hover:scale-110 sm:h-3/5 md:h-[30%] lg:h-2/5",
     {
       "scale-110": banner === selectedBanner,
     },
@@ -27,12 +27,12 @@ const BannerButton = ({
   const portraitClasses = classNames(
     "select-none mt-[30%] h-4/5 w-auto transition-all",
     {
-      "-translate-y-[20%]": banner === selectedBanner,
+      "-translate-y-[10%]": banner === selectedBanner,
       "-mx-[15%] -rotate-12": banner.type === "Weapon Event Wish",
     },
   );
   return (
-    <button className={bannerButtonContainerClasses}>
+    <button className={bannerButtonClasses}>
       <Image
         src={
           banner === selectedBanner
@@ -46,14 +46,19 @@ const BannerButton = ({
       />
       <div
         className={
-          "absolute bottom-1 flex justify-center transition-all overflow-hidden w-full h-[215%] pointer-events-none"
+          "absolute bottom-1 flex justify-center overflow-hidden w-full h-[215%] pointer-events-none"
         }
       >
         {portraitUrl.map((url, index) => (
           <Image
             key={url}
             src={url}
-            alt={getBannerItemName(selectedBanner, characters, weapons, index)}
+            alt={getBannerMainItemName(
+              selectedBanner,
+              characters,
+              weapons,
+              index,
+            )}
             quality={100}
             draggable={false}
             width={200}

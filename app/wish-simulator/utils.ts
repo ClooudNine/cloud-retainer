@@ -7,6 +7,7 @@ import {
 import {
   basedCharacters,
   currentGameVersion,
+  elementToColor,
   Rares,
   Versions,
 } from "@/app/types/common";
@@ -205,7 +206,7 @@ export const playSfxEffect = (path: string) => {
   const sfx = new Audio(path);
   sfx.play();
 };
-export const getBannerItemName = (
+export const getBannerMainItemName = (
   banner: Banners,
   characters: Character[],
   weapons: Weapon[],
@@ -259,4 +260,26 @@ export const getFeaturedItems = async (
 };
 export const getBannerStatName = (bannerType: BannerTypes) => {
   return bannerType.replace(/[^a-zA-Zа-яА-Я]/g, "");
+};
+export const getBannerColor = (banner: Banners, characters?: Character[]) => {
+  switch (banner.type) {
+    case "Character Event Wish":
+    case "Character Event Wish-2":
+    case "Novice Wish":
+      return elementToColor[
+        (
+          characters?.find(
+            (character) => character.id === banner.main_character,
+          ) as Character
+        ).element
+      ];
+    case "Weapon Event Wish":
+      return "226,124,35";
+    case "Standard Wish":
+      if (currentGameVersion === 1) {
+        return "230,98,106";
+      } else {
+        return "120,126,201";
+      }
+  }
 };

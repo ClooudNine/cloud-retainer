@@ -5,7 +5,7 @@ const Title = () => {
   return (
     <div
       className={
-        "col-start-1 col-end-3 flex items-center gap-2 md:justify-center md:flex-col lg:flex-row ml-2 sm:gap-4 md:ml-4 xl:gap-6"
+        "col-start-1 col-end-3 ml-2 flex items-center gap-2 md:justify-center md:flex-col lg:flex-row sm:gap-4 md:ml-4 xl:gap-6"
       }
     >
       <Image

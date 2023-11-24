@@ -6,7 +6,7 @@ const CurrentBalance = () => {
   return (
     <div
       className={
-        "col-start-5 col-end-11 flex items-center gap-3 sm:col-start-8 sm:col-end-12 md:ml-4 md:col-start-9 xl:col-start-10 justify-end select-none font-genshin"
+        "flex items-center justify-end select-none font-genshin col-start-5 col-end-11 gap-3 sm:col-start-8 sm:col-end-12 md:ml-4 md:col-start-9 xl:col-start-10"
       }
     >
       <div
@@ -22,7 +22,7 @@ const CurrentBalance = () => {
           draggable={false}
           width={40}
           className={
-            "h-[85%] w-auto drop-shadow-lg transition-all active:opacity-50 peer-active:opacity-50"
+            "h-[95%] w-auto drop-shadow-lg transition-all active:opacity-50 peer-active:opacity-50"
           }
         />
         <p
@@ -42,7 +42,7 @@ const CurrentBalance = () => {
       </div>
       <div
         className={
-          "group flex w-[30%] items-center h-[30%] md:h-1/4 bg-[rgba(0,0,0,0.4)] rounded-full ring-2 ring-[#84a4c5] 2xl:min-w-max"
+          "group flex items-center h-[30%] w-[30%] md:h-1/4 bg-[rgba(0,0,0,0.4)] rounded-full ring-2 ring-[#84a4c5] 2xl:min-w-max"
         }
       >
         <Image
@@ -52,7 +52,7 @@ const CurrentBalance = () => {
           draggable={false}
           width={40}
           className={
-            "h-full w-auto drop-shadow-lg select-none transition-all group-active:opacity-50"
+            "h-[95%] w-auto drop-shadow-lg select-none transition-all group-active:opacity-50"
           }
         />
         <p className={"text-white text-base ml-1 max-2xl:truncate md:text-lg"}>

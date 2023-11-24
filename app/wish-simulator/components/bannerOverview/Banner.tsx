@@ -1,7 +1,7 @@
 "use client";
 import { useBannerContext } from "@/app/wish-simulator/components/BannerProvider";
 import Image from "next/image";
-import { CSSProperties, useState } from "react";
+import { CSSProperties } from "react";
 import { Character } from "@/app/types/character";
 import { Weapon } from "@/app/types/weapon";
 import star from "@/public/wish-simulator/assets/star-for-description.webp";
@@ -15,9 +15,8 @@ import {
 import SwitchBannerArrow from "@/app/wish-simulator/components/bannerOverview/SwitchBannerArrow";
 import classNames from "classnames";
 import { currentGameVersion } from "@/app/types/common";
-import epitomizedPathButton from "@/public/wish-simulator/assets/epitomized-path-button.webp";
-import epitomizedPathButtonActive from "@/public/wish-simulator/assets/epitomized-path-button-active.webp";
-import EpitomizedPathModal from "@/app/wish-simulator/components/epitomizedPathSystem/EpitomizedPathModal";
+import { getBannerColor } from "@/app/wish-simulator/utils";
+import EpitomizedPathButton from "@/app/wish-simulator/components/epitomizedPathSystem/EpitomizedPathButton";
 
 const renderCharacterBannerInfo = (
   character: Character,
@@ -188,12 +187,6 @@ const getMainItemsNamesAndTitles = (
       );
   }
 };
-const isNonStandardOffset = (currentBanner: Banners) => {
-  return (
-    currentBanner.type !== "Standard Wish" ||
-    (currentBanner.type === "Standard Wish" && !currentBanner.is_top_offset)
-  );
-};
 const Banner = () => {
   const {
     characters,
@@ -203,41 +196,11 @@ const Banner = () => {
     selectedBanner,
   } = useBannerContext();
 
-  const [epitomizedPathIsOpen, setEpitomizedPathIsOpen] =
-    useState<boolean>(false);
-  const [epitomizedPathIsHover, setEpitomizedPathIsHover] =
-    useState<boolean>(false);
-
-  const bannerTypeClasses = classNames(
-    "absolute text-[2cqw] -left-1 text-white bg-[var(--palette-no-opacity)] rounded-l-full rounded-br-[19999px] pl-3 pr-5 py-0.5",
-    {
-      "top-[8%]":
-        selectedBanner.type === "Standard Wish" && selectedBanner.is_top_offset,
-      "-top-1": isNonStandardOffset(selectedBanner),
-    },
-  );
-  const bannerTitleClasses = classNames(
-    "absolute text-[#595957] text-[5cqw] leading-tight left-[5%] [&_em]:text-[var(--palette-no-opacity)] [&_em]:not-italic",
-    {
-      "top-[15%]":
-        selectedBanner.type === "Standard Wish" && selectedBanner.is_top_offset,
-      "top-[8%]": isNonStandardOffset(selectedBanner),
-    },
-  );
-  const bannerDescriptionClasses = classNames(
-    "absolute overflow-y-scroll w-1/2 pl-[5%] h-2/5 scrollbar-for-banner sm:w-[40%]",
-    {
-      "bottom-[16%]":
-        selectedBanner.type === "Standard Wish" && selectedBanner.is_top_offset,
-      "bottom-[23%]": isNonStandardOffset(selectedBanner),
-    },
-  );
-
   const rulesClasses = classNames("flex items-center gap-1 mt-1 md:mt-2", {
     "bg-[var(--palette-opacity)]": currentGameVersion !== 1,
     "bg-[rgba(65,163,162,0.8)]":
       currentGameVersion === 1 && selectedBanner.type === "Standard Wish",
-    "bg-[rgba(230,98,106,255)]": selectedBanner.type === "Novice Wish",
+    "bg-[rgba(230,98,106,1)]": selectedBanner.type === "Novice Wish",
   });
   return (
     <section
@@ -247,57 +210,7 @@ const Banner = () => {
     >
       <SwitchBannerArrow isForward={false} />
       {selectedBanner.type === "Weapon Event Wish" ? (
-        <>
-          <div
-            className={
-              "absolute bottom-[22%] flex justify-center left-0 transition-all animate-banner-preview-appearance 2xl:left-[8%] 2xl:bottom-[19%] hover:scale-105"
-            }
-            onMouseEnter={() => setEpitomizedPathIsHover(true)}
-            onMouseLeave={() => setEpitomizedPathIsHover(false)}
-            onClick={() => setEpitomizedPathIsOpen(true)}
-          >
-            <Image
-              src={
-                epitomizedPathIsHover
-                  ? epitomizedPathButtonActive
-                  : epitomizedPathButton
-              }
-              alt={"Путь воплощения"}
-              quality={100}
-              className={"w-full h-auto"}
-            />
-            <p
-              className={
-                "absolute self-end mb-1 text-center text-[#525b6c] leading-[1.1] 2xl:mb-2"
-              }
-            >
-              {JSON.parse(localStorage.getItem("EpitomizedPath")!)[
-                selectedBanner.id
-              ] ? (
-                <>
-                  {
-                    JSON.parse(localStorage.getItem("EpitomizedPath")!)[
-                      selectedBanner.id
-                    ].count
-                  }
-                  /2
-                </>
-              ) : (
-                <>
-                  Путь <br /> воплощения
-                </>
-              )}
-            </p>
-          </div>
-          {epitomizedPathIsOpen ? (
-            <EpitomizedPathModal
-              closeModal={() => setEpitomizedPathIsOpen(false)}
-              weaponBanner={selectedBanner}
-            />
-          ) : (
-            ""
-          )}
-        </>
+        <EpitomizedPathButton weaponBanner={selectedBanner} />
       ) : (
         ""
       )}
@@ -308,8 +221,14 @@ const Banner = () => {
         }
         style={
           {
-            "--palette-opacity": `rgba(${selectedBanner.color_palette}, 0.8)`,
-            "--palette-no-opacity": `rgba(${selectedBanner.color_palette}, 1)`,
+            "--palette-opacity": `rgba(${getBannerColor(
+              selectedBanner,
+              characters,
+            )}, 0.8)`,
+            "--palette-no-opacity": `rgba(${getBannerColor(
+              selectedBanner,
+              characters,
+            )}, 1)`,
             containerType: "inline-size",
           } as CSSProperties
         }
@@ -323,14 +242,33 @@ const Banner = () => {
           width={1200}
           height={600}
           quality={100}
-          className={"rounded-2xl h-auto w-full select-none"}
+          className={"rounded-2xl w-full h-auto select-none"}
         />
-        <div className={bannerTypeClasses}>{selectedBanner.type}</div>
+        <div
+          className={`absolute text-[2cqw] ${
+            selectedBanner.type === "Standard Wish" && currentGameVersion > 1
+              ? "top-[8%]"
+              : "-top-1"
+          } -left-1 text-white bg-[var(--palette-no-opacity)] rounded-l-full rounded-br-[19999px] pl-3 pr-5 py-0.5`}
+        >
+          {selectedBanner.type}
+        </div>
         <p
-          className={bannerTitleClasses}
+          className={`absolute ${
+            selectedBanner.type === "Standard Wish" && currentGameVersion > 1
+              ? "top-[16%]"
+              : "top-[8%]"
+          } text-[#595957] text-[5cqw] leading-tight left-[5%] [&_em]:text-[var(--palette-no-opacity)] [&_em]:not-italic`}
           dangerouslySetInnerHTML={{ __html: selectedBanner.title }}
         ></p>
-        <div dir={"rtl"} className={bannerDescriptionClasses}>
+        <div
+          dir={"rtl"}
+          className={`absolute ${
+            selectedBanner.type === "Standard Wish" && currentGameVersion > 1
+              ? "bottom-[18%]"
+              : "bottom-[23%]"
+          } overflow-y-scroll w-1/2 pl-[5%] h-2/5 scrollbar-for-banner sm:w-[40%]`}
+        >
           <p dir={"ltr"} className={"text-[#595957] text-[2.5cqw]"}>
             {bannerSecondTitle[selectedBanner.type]}
           </p>

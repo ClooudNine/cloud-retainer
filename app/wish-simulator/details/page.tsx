@@ -10,6 +10,9 @@ import Navigation from "@/app/wish-simulator/details/components/Navigation";
 import IncreasedChanceSection from "@/app/wish-simulator/details/components/IncreasedChanceSection";
 import { Character } from "@/app/types/character";
 import { Weapon } from "@/app/types/weapon";
+import { getBannerColor } from "@/app/wish-simulator/utils";
+import MoreInfo from "@/app/wish-simulator/details/components/MoreInfo";
+import ItemsList from "@/app/wish-simulator/details/components/ItemsList";
 
 export const metadata = {
   title: "Cloud Retainer | Симулятор молитв - Детали",
@@ -35,13 +38,38 @@ export default async function Details({
     "Weapon Event Wish": "weapons_banners",
     "Standard Wish": "standard_banners",
   };
+  const itemsType =
+    searchParams.type === "Weapon Event Wish" ? "weapon" : "character";
   const { data: banner }: { data: Banners | null } = await supabase
     .from(bannerTableName[searchParams.type])
     .select("*")
     .eq("title", searchParams.title)
     .eq("version", searchParams.version)
-    .eq("phase", searchParams.phase)
+    .eq(
+      searchParams.type === "Standard Wish" ? "type" : "phase",
+      searchParams.type === "Standard Wish"
+        ? "Standard Wish"
+        : searchParams.phase,
+    )
     .single();
+
+  const {
+    data: featuredItemsId,
+  }: { data: ({ weapon_id: number } | { character_id: number })[] | null } =
+    await supabase
+      .from(`featured_${itemsType}s_in_banners`)
+      .select(`${itemsType}_id`)
+      .eq("banner_id", banner?.id);
+
+  const itemsId = featuredItemsId
+    ?.map((itemId) => Object.values(itemId))
+    .flat(1) as number[];
+
+  const {
+    data: featuredItems,
+  }: {
+    data: Character[] | Weapon[] | null;
+  } = await supabase.from(`${itemsType}s`).select("*").in("id", itemsId);
 
   const {
     data: bannerMainItems,
@@ -61,6 +89,8 @@ export default async function Details({
     return <p>Not found :(</p>;
   }
 
+  const bannerColor = getBannerColor(banner, bannerMainItems as Character[]);
+
   return (
     <main
       className={
@@ -76,17 +106,27 @@ export default async function Details({
           alt={"Детали баннера"}
           className={"w-full md:w-[80vw] h-auto"}
         />
-        <Title bannerTitle={banner.title} palette={banner.color_palette} />
-        <Navigation />
+        <Title bannerTitle={banner.title} palette={bannerColor} />
+        <Navigation bannerType={searchParams.type} />
         {searchParams.section === "increased-chance" ? (
           <IncreasedChanceSection
             bannerType={searchParams.type}
             mainItems={bannerMainItems}
+            featuredItems={featuredItems}
           />
         ) : searchParams.section === "more-info" ? (
-          ""
+          <MoreInfo
+            banner={banner}
+            mainItems={bannerMainItems}
+            featuredItems={featuredItems}
+            palette={bannerColor}
+          />
         ) : (
-          ""
+          <ItemsList
+            banner={banner}
+            mainItems={bannerMainItems}
+            featuredItems={featuredItems}
+          />
         )}
       </div>
     </main>
