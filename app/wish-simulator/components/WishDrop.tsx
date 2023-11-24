@@ -11,21 +11,9 @@ import masterlessStardust from "@/public/wish-simulator/assets/masterless-stardu
 import wishResultBackground from "@/public/wish-simulator/assets/wish-result-bg.webp";
 import { useBannerContext } from "@/app/wish-simulator/components/BannerProvider";
 
-const renderWeaponResult = (
-  supabase: SupabaseClient,
-  weapon: Weapon,
-  index: number,
-) => {
+const renderWeaponResult = (supabase: SupabaseClient, weapon: Weapon) => {
   return (
-    <div
-      key={index}
-      className={"h-full w-full flex items-center justify-center"}
-    >
-      <video
-        className={"absolute top-0 left-0 object-cover w-screen h-screen -z-10"}
-        src={`/wish-simulator/wish-animations/${weapon.rare}stareffect.mp4`}
-        autoPlay
-      ></video>
+    <>
       <div
         className={
           "absolute top-[7%] w-[90%] flex items-center justify-center animate-item-description-appearance md:top-[55%] md:w-[30%] md:left-[6vw]"
@@ -45,7 +33,7 @@ const renderWeaponResult = (
         <div>
           <p
             className={
-              "font-genshin text-white text-3xl leading-[1.1] animate-item-title-appearance md:text-5xl md:leading-[1.1]"
+              "text-white text-3xl leading-[1.1] animate-item-title-appearance md:text-5xl md:leading-[1.1]"
             }
           >
             {weapon.title}
@@ -84,9 +72,9 @@ const renderWeaponResult = (
         width={700}
         height={700}
         alt={weapon.title}
-        className={
-          "h-auto w-auto max-h-[60%] -z-10 animate-wish-item-appearance md:max-h-full"
-        }
+        className={`${
+          weapon.type === "Catalyst" ? "h-[25%]" : "h-[80%]"
+        } w-auto max-h-[60%] -z-10 animate-wish-item-appearance md:max-h-full`}
       />
       <div
         className={
@@ -111,7 +99,7 @@ const renderWeaponResult = (
             }
           />
         </div>
-        <div className={"font-genshin flex flex-col gap-3 mb-10 ml-6"}>
+        <div className={"flex flex-col gap-3 mb-10 ml-6"}>
           <p className={"text-white text-lg md:text-xl"}>Extra</p>
           <p className={"text-[#f1aafc] text-xl md:text-2xl"}>
             Masterless Stardust
@@ -119,25 +107,16 @@ const renderWeaponResult = (
           <p className={"text-[#f1aafc] text-xl md:text-2xl"}>x15</p>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
 const renderCharacterResult = (
   supabase: SupabaseClient,
   character: Character,
-  index: number,
 ) => {
   return (
-    <div
-      key={index}
-      className={"h-full w-full flex items-center justify-center"}
-    >
-      <video
-        className={"absolute top-0 left-0 object-cover w-screen h-screen -z-10"}
-        src={`/wish-simulator/wish-animations/${character.rare}stareffect.mp4`}
-        autoPlay
-      ></video>
+    <>
       <div
         className={
           "absolute top-[7%] w-[90%] flex items-center justify-center animate-item-description-appearance md:top-[55%] md:w-[30%] md:left-[6vw]"
@@ -155,7 +134,7 @@ const renderCharacterResult = (
         <div>
           <p
             className={
-              "font-genshin text-white text-3xl leading-[1.1] animate-item-title-appearance md:text-5xl md:leading-[1.1]"
+              "text-white text-3xl leading-[1.1] animate-item-title-appearance md:text-5xl md:leading-[1.1]"
             }
           >
             {character.name}
@@ -182,15 +161,12 @@ const renderCharacterResult = (
             .from("characters splash arts")
             .getPublicUrl(`${character.name}.webp`).data.publicUrl
         }
-        width={2000}
-        height={2000}
         quality={100}
         alt={character.name}
-        className={
-          "h-auto w-auto max-h-[60%] -z-10 animate-wish-item-appearance md:max-h-full"
-        }
+        fill
+        className={" -z-10 animate-wish-item-appearance object-contain"}
       />
-    </div>
+    </>
   );
 };
 
@@ -222,7 +198,9 @@ const WishDrop = ({
 
   return (
     <section
-      className={"absolute h-full w-full z-20 overflow-hidden select-none"}
+      className={
+        "absolute h-full w-full z-20 overflow-hidden select-none font-genshin"
+      }
       onClick={
         isAnimationPlaying
           ? undefined
@@ -251,19 +229,27 @@ const WishDrop = ({
           }}
         ></video>
       ) : (
-        <>
+        <div
+          key={currentItemIndex}
+          className={"h-full w-full flex items-center justify-center"}
+        >
+          <video
+            className={
+              "absolute top-0 left-0 object-cover w-screen h-screen -z-10"
+            }
+            src={`/wish-simulator/wish-animations/${droppedItems[currentItemIndex].rare}stareffect.mp4`}
+            autoPlay
+          ></video>
           {"type" in droppedItems[currentItemIndex]
             ? renderWeaponResult(
                 supabase,
                 droppedItems[currentItemIndex] as Weapon,
-                currentItemIndex,
               )
             : renderCharacterResult(
                 supabase,
                 droppedItems[currentItemIndex] as Character,
-                currentItemIndex,
               )}
-        </>
+        </div>
       )}
     </section>
   );
