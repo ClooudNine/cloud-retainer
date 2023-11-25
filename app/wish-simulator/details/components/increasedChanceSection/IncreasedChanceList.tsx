@@ -18,14 +18,14 @@ const IncreasedChanceList = ({
   items: Character[] | Weapon[] | null;
 }) => {
   return (
-    <div className={`h-[70%] md:h-[45%] ${rare === 4 ? "mt-2 md:mt-4" : ""}`}>
+    <div className={`min-h-max md:h-[45%] ${rare === 4 ? "mt-2 md:mt-4" : ""}`}>
       <div
         className={`h-[20%] flex justify-center items-center ${
           rare === 5 ? "bg-[#cfb383]" : "bg-[#b5a8c9]"
         }`}
       >
         <div
-          className={`flex items-center pl-4 md:pl-8 w-[99.5%] h-[90%] border-2 ${
+          className={`flex items-center pl-2 md:pl-8 w-[99.5%] h-[90%] border-2 ${
             rare === 5 ? "border-[#c5a875]" : "border-[#ac9dc1]"
           }`}
         >
@@ -37,7 +37,7 @@ const IncreasedChanceList = ({
               className={"h-[70%] w-auto drop-shadow pl-1"}
             />
           ))}
-          <p className={"text-white text-[2.5vw] md:text-[1.1vw] ml-4"}>
+          <p className={"text-white text-[2.5vw] md:text-[1.1vw] pl-4"}>
             Шанс получения {rare}★: {getBannerGuaranteeRules(bannerType)}
           </p>
         </div>
@@ -45,12 +45,12 @@ const IncreasedChanceList = ({
       <div className={"h-[80%] bg-[#f9f5ee] flex justify-center"}>
         <div
           className={
-            "relative w-[99.5%] h-[99%] flex gap-10 border border-[#e7e1d9]"
+            "relative w-[99.5%] h-[99%] flex gap-6 md:gap-10 border border-[#e7e1d9]"
           }
         >
           {items ? (
             <>
-              <div className={"pl-6 md:pl-10 pt-4 w-[25%]"}>
+              <div className={"pl-4 pt-2 w-[30%] md:pl-10 md:pt-4 md:w-[25%]"}>
                 {items.map((item) => (
                   <p
                     style={
@@ -70,7 +70,7 @@ const IncreasedChanceList = ({
                   </p>
                 ))}
               </div>
-              <div className={"flex items-center gap-4 h-full w-[75%]"}>
+              <div className={"flex flex-wrap items-center gap-4 w-[75%]"}>
                 {items.map((item) => (
                   <ItemCard key={item.title} item={item} />
                 ))}

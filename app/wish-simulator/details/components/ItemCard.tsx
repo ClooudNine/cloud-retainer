@@ -26,7 +26,7 @@ const ItemCard = ({ item }: { item: Character | Weapon }) => {
   return (
     <div
       className={
-        "relative h-[80%] w-[30%] md:w-[15%] bg-white drop-shadow rounded-md"
+        "relative h-[50%] w-[30%] md:w-[15%] bg-white drop-shadow rounded-md"
       }
     >
       <div
@@ -56,7 +56,7 @@ const ItemCard = ({ item }: { item: Character | Weapon }) => {
         ) : (
           <div
             className={
-              "absolute w-[15%] text-center rounded top-1 left-1 bg-[rgba(0,0,0,0.4)] text-[#cfcfcf]"
+              "absolute w-[20%] text-[2vw] md:text-[1vw] text-center rounded top-1 left-1 bg-[rgba(0,0,0,0.4)] text-[#cfcfcf]"
             }
           >
             1
