@@ -1,27 +1,19 @@
 import { Banners } from "@/app/types/banner";
 import { Character } from "@/app/types/character";
 import { Weapon } from "@/app/types/weapon";
-import { CSSProperties } from "react";
 import striptags from "striptags";
 
 const WeaponEventWish = ({
   banner,
   mainItems,
   featuredItems,
-  palette,
 }: {
   banner: Banners;
   mainItems: Character[] | Weapon[] | null;
   featuredItems: Character[] | Weapon[] | null;
-  palette: string;
 }) => {
   return (
-    <div
-      style={{ "--palette": palette } as CSSProperties}
-      className={
-        "mt-4 text-[#595252] text-[1.2vw] [&_em]:text-[rgb(var(--palette))] [&_em]:not-italic [&_i]:not-italic"
-      }
-    >
+    <>
       <p>
         «Молитва события:{" "}
         <i
@@ -54,12 +46,12 @@ const WeaponEventWish = ({
         ※ Эксклюзивное оружие из этого списка не будет доступно в стандартной
         Молитве «Жажда странствий».
       </p>
-      <p className={"mt-7"}>
+      <p className={"mt-3 md:mt-7"}>
         ※ При обычных условиях базовая вероятность получения всех персонажей и
         оружия распределяется равномерно. Если действуют какие-либо усиления или
         гарантии, пожалуйста, прочтите соответствующие правила.
       </p>
-      <p className={"mt-7"}>〓 Правила 〓</p>
+      <p className={"mt-3 md:mt-7"}>〓 Правила 〓</p>
       <p>Предметы 5★</p>
       <p>
         Пока доступна «Молитва события:{" "}
@@ -169,14 +161,14 @@ const WeaponEventWish = ({
         получении предмета 4★ Молитвы шанс получить любое оружие 4★ события
         будет равным.
       </p>
-      <p className={"mt-7"}>
+      <p className={"mt-3 md:mt-7"}>
         К каждому оружию 5★, полученному из этой Молитвы, прилагается{" "}
         <i className={"text-[#bd6932]"}>Блуждающий звёздный блеск </i> ×10. К
         каждому оружию 4★ прилагается Блуждающий звёздный блеск ×2. К каждому
         оружию 3★ прилагается{" "}
         <i className={"text-[#bd6932]"}>Блуждающая звёздная пыль </i> ×15.
       </p>
-      <p className={"mt-7"}>〓 Дубликаты 〓</p>
+      <p className={"mt-3 md:mt-7"}>〓 Дубликаты 〓</p>
       <p>
         Если у вас есть повторяющиеся персонажи 4★ (открытые в игре, купленные в
         магазине или выигранные в Молитве), то начиная с 2 по 7 они
@@ -187,12 +179,12 @@ const WeaponEventWish = ({
         <i className={"text-[#bd6932]"}>Блуждающий звёздный блеск </i>
         ×5.
       </p>
-      <p className={"mt-7 pb-7"}>
+      <p className={"mt-3 md:mt-7 pb-3 md:pb-7"}>
         ※ Это молитва события оружия. Количество гарантированных попыток для неё
         подсчитывается отдельно и на число гарантированных попыток других молитв
         не влияет.
       </p>
-    </div>
+    </>
   );
 };
 

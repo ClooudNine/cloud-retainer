@@ -1,4 +1,3 @@
-import { CSSProperties } from "react";
 import striptags from "striptags";
 import { Banners } from "@/app/types/banner";
 import { Character } from "@/app/types/character";
@@ -9,21 +8,14 @@ const CharacterEventWish = ({
   banner,
   mainItems,
   featuredItems,
-  palette,
 }: {
   banner: Banners;
   mainItems: Character[] | Weapon[] | null;
   featuredItems: Character[] | Weapon[] | null;
-  palette: string;
 }) => {
   const character = mainItems![0] as Character;
   return (
-    <div
-      style={{ "--palette": palette } as CSSProperties}
-      className={
-        "mt-4 text-[#595252] text-[1.2vw] [&_em]:text-[rgb(var(--palette))] [&_em]:not-italic [&_i]:not-italic"
-      }
-    >
+    <>
       <p>
         «Молитва события:{" "}
         <i
@@ -53,12 +45,12 @@ const CharacterEventWish = ({
         ※ Эксклюзивный персонаж из этого списка не будет доступен в стандартной
         Молитве «Жажда странствий».
       </p>
-      <p className={"mt-7"}>
+      <p className={"mt-3 md:mt-7"}>
         ※ При обычных условиях базовая вероятность получения всех персонажей и
         оружия распределяется равномерно. Если действуют какие-либо усиления или
         гарантии, пожалуйста, прочтите соответствующие правила.
       </p>
-      <p className={"mt-7"}>〓 Правила 〓</p>
+      <p className={"mt-3 md:mt-7"}>〓 Правила 〓</p>
       <p>Предметы 5★</p>
       <p>
         Пока доступна «Молитва события:{" "}
@@ -121,13 +113,13 @@ const CharacterEventWish = ({
         им. При получении предмета 4★ Молитвы шанс получить любого персонажа 4★
         события будет равным.
       </p>
-      <p className={"mt-7"}>
+      <p className={"mt-3 mb:mt-7"}>
         К каждому оружию 4★, полученному из этой Молитвы, прилагается{" "}
         <i className={"text-[#bd6932]"}>Блуждающий звёздный блеск</i> ×2. К
         каждому оружию 3★ прилагается{" "}
         <i className={"text-[#a256e1]"}>Блуждающая звёздная пыль</i> ×15.
       </p>
-      <p className={"mt-7"}>〓 Дубликаты 〓</p>
+      <p className={"mt-3 mb:mt-7"}>〓 Дубликаты 〓</p>
       <p>
         Если у вас есть повторяющиеся персонажи 5★ (открытые в игре, купленные в
         магазине или выигранные в Молитве), то начиная с 2 по 7 они
@@ -147,7 +139,7 @@ const CharacterEventWish = ({
         <i className={"text-[#bd6932]"}>Блуждающий звёздный блеск </i>
         ×5.
       </p>
-      <p className={"mt-7 pb-7"}>
+      <p className={"mt-3 md:mt-7 pb-3 md:pb-7"}>
         ※ Это Молитва события персонажей
         {banner.type === "Character Event Wish" ? "" : "II"}. Количество
         гарантированных попыток Молитвы события персонажей накапливается
@@ -155,7 +147,7 @@ const CharacterEventWish = ({
         попыток для них подсчитывается отдельно и на число гарантированных
         попыток других Молитв не влияет.
       </p>
-    </div>
+    </>
   );
 };
 

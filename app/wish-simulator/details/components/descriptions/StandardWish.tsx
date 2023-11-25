@@ -1,27 +1,9 @@
 import { Banners } from "@/app/types/banner";
-import { Character } from "@/app/types/character";
-import { Weapon } from "@/app/types/weapon";
-import { CSSProperties } from "react";
 import striptags from "striptags";
 
-const StandardWish = ({
-  banner,
-  mainItems,
-  featuredItems,
-  palette,
-}: {
-  banner: Banners;
-  mainItems: Character[] | Weapon[] | null;
-  featuredItems: Character[] | Weapon[] | null;
-  palette: string;
-}) => {
+const StandardWish = ({ banner }: { banner: Banners }) => {
   return (
-    <div
-      style={{ "--palette": palette } as CSSProperties}
-      className={
-        "mt-4 text-[#595252] text-[1.2vw] [&_em]:text-[rgb(var(--palette))] [&_em]:not-italic [&_i]:not-italic"
-      }
-    >
+    <>
       <p>
         <i
           dangerouslySetInnerHTML={{ __html: striptags(banner.title, "<em>") }}
@@ -34,12 +16,12 @@ const StandardWish = ({
         <i className={"text-[#c93f23]"}>гарантированно</i> получите как минимум
         одного персонажа или оружие качеством 4★ или выше.
       </p>
-      <p className={"mt-7"}>
+      <p className={"mt-3 md:mt-7"}>
         ※ При обычных условиях базовая вероятность получения всех персонажей и
         оружия распределяется равномерно. Если действуют какие-либо усиления или
         гарантии, пожалуйста, прочтите соответствующие правила.
       </p>
-      <p className={"mt-7"}>〓 Правила 〓</p>
+      <p className={"mt-3 md:mt-7"}>〓 Правила 〓</p>
       <p>
         Базовая вероятность получения предмета 5★ ={" "}
         <i className={"text-[#c93f23]"}>0,600%</i>, вероятность получения
@@ -71,7 +53,7 @@ const StandardWish = ({
         каждому оружию 3★ прилагается{" "}
         <i className={"text-[#a256e1]"}>Блуждающая звёздная пыль</i> ×15.
       </p>
-      <p className={"mt-7"}>〓 Дубликаты 〓</p>
+      <p className={"mt-3 md:mt-7"}>〓 Дубликаты 〓</p>
       <p>
         Если у вас есть повторяющиеся персонажи 5★ (открытые в игре, купленные в
         магазине или выигранные в Молитве), то начиная с 2 по 7 они
@@ -81,7 +63,7 @@ const StandardWish = ({
         ×10. За 8 и далее персонажа вы сможете получить{" "}
         <i className={"text-[#bd6932]"}>Блуждающий звёздный блеск</i> ×25.
       </p>
-      <p className={"pb-7"}>
+      <p className={"pb-3 md:pb-7"}>
         Если у вас есть повторяющиеся персонажи 4★ (открытые в игре, купленные в
         магазине или выигранные в Молитве), то начиная с 2 по 7 они
         конвертируются в соответствующую персонажу{" "}
@@ -91,7 +73,7 @@ const StandardWish = ({
         <i className={"text-[#bd6932]"}>Блуждающий звёздный блеск </i>
         ×5.
       </p>
-    </div>
+    </>
   );
 };
 

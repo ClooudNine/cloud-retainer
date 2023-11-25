@@ -26,7 +26,7 @@ const ItemCard = ({ item }: { item: Character | Weapon }) => {
   return (
     <div
       className={
-        "relative h-[50%] w-[30%] md:w-[15%] bg-white drop-shadow rounded-md"
+        "relative h-[70px] md:h-[80%] w-[30%] md:w-[15%] bg-white drop-shadow rounded-md"
       }
     >
       <div

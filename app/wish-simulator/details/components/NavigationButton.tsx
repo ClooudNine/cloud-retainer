@@ -20,7 +20,7 @@ const NavigationButton = ({
     router.replace(pathname + "?" + params.toString());
   }, [param, pathname, router, searchParams]);
   const buttonClasses = classNames(
-    "relative group h-full px-4 flex-1 flex justify-center items-center hover:text-white",
+    "max-md:relative group h-full px-4 flex-1 flex justify-center items-center hover:text-white",
     {
       "text-white": searchParams.get("section") === param,
     },

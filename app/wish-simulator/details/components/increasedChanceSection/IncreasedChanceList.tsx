@@ -42,7 +42,7 @@ const IncreasedChanceList = ({
           </p>
         </div>
       </div>
-      <div className={"h-[80%] bg-[#f9f5ee] flex justify-center"}>
+      <div className={"md:h-[80%] bg-[#f9f5ee] flex justify-center"}>
         <div
           className={
             "relative w-[99.5%] h-[99%] flex gap-6 md:gap-10 border border-[#e7e1d9]"
@@ -58,7 +58,9 @@ const IncreasedChanceList = ({
                         "--item-color":
                           "name" in item
                             ? elementToColor[item.element]
-                            : "193, 96, 40",
+                            : item.rare === 5
+                            ? "193, 96, 40"
+                            : "161,88,225",
                       } as CSSProperties
                     }
                     key={item.title}
