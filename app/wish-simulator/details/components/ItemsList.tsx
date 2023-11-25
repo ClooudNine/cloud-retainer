@@ -1,6 +1,6 @@
 import Image from "next/image";
 import star from "@/public/common-icons/star.webp";
-import { getBannerGuaranteeRules } from "@/app/wish-simulator/details/components/IncreasedChanceSection";
+import { getBannerGuaranteeRules } from "@/app/wish-simulator/details/components/increasedChanceSection/IncreasedChanceSection";
 import { BannerItems, Banners } from "@/app/types/banner";
 import { getBannerDrop } from "@/app/wish-simulator/utils";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";

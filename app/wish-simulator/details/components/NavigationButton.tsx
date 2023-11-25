@@ -20,13 +20,14 @@ const NavigationButton = ({
     router.replace(pathname + "?" + params.toString());
   }, [param, pathname, router, searchParams]);
   const buttonClasses = classNames(
-    "h-full px-4 flex-1 flex justify-center items-center",
+    "relative group h-full px-4 flex-1 flex justify-center items-center hover:text-white",
     {
       "text-white": searchParams.get("section") === param,
     },
   );
-  const backgroundButtonClasses = classNames("absolute h-[97%] w-auto", {
-    hidden: searchParams.get("section") !== param,
+  const backgroundButtonClasses = classNames("absolute h-full w-auto", {
+    "hidden group-hover:block group-hover:brightness-110":
+      searchParams.get("section") !== param,
   });
   return (
     <button className={buttonClasses} onClick={selectSection}>

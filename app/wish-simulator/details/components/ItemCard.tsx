@@ -24,10 +24,14 @@ export const dynamic = "force-dynamic";
 const ItemCard = ({ item }: { item: Character | Weapon }) => {
   const supabase = createServerComponentClient({ cookies });
   return (
-    <div className={"relative h-[80%] w-[15%] bg-white drop-shadow rounded-md"}>
+    <div
+      className={
+        "relative h-[80%] w-[30%] md:w-[15%] bg-white drop-shadow rounded-md"
+      }
+    >
       <div
         className={
-          "relative h-[80%] px-0.5 pt-0.5 rounded-md rounded-br-3xl overflow-hidden"
+          "relative h-[80%] px-0.5 pt-0.5 rounded-md rounded-br-2xl md:rounded-br-3xl overflow-hidden"
         }
       >
         <Image
@@ -45,7 +49,9 @@ const ItemCard = ({ item }: { item: Character | Weapon }) => {
             alt={item.element}
             width={30}
             height={30}
-            className={"absolute top-1 left-1 "}
+            className={
+              "z-10 w-[30%] md:w-[22%] absolute top-0.5 left-0.5 md:top-1 md:left-1 "
+            }
           />
         ) : (
           <div
@@ -67,8 +73,8 @@ const ItemCard = ({ item }: { item: Character | Weapon }) => {
           className={"w-full h-auto absolute bottom-0"}
         />
       </div>
-      <div className={"w-full flex justify-center -mt-4"}>
-        {Array.from(Array(5).keys()).map((number) => (
+      <div className={"w-full flex justify-center -mt-2 md:-mt-4"}>
+        {Array.from(Array(item.rare).keys()).map((number) => (
           <Image
             key={number}
             src={star}
@@ -78,7 +84,11 @@ const ItemCard = ({ item }: { item: Character | Weapon }) => {
           />
         ))}
       </div>
-      <p className={"truncate text-[1vw] text-center text-[#495366] -mt-1"}>
+      <p
+        className={
+          "truncate text-[2.5vw] md:text-[1vw] text-center text-[#495366] -mt-1"
+        }
+      >
         Ур. 1
       </p>
     </div>

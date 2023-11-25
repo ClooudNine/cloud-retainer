@@ -14,7 +14,7 @@ export const UserSelect = () => {
     (bannerType: string) => {
       setSelectedOption(bannerType);
       setIsSelectOpen(false);
-      router.replace(`/wish-simulator/history/?type=${bannerType}`);
+      router.replace(`/wish-simulator/history/?type=${bannerType}&page=1`);
     },
     [router],
   );
@@ -22,52 +22,32 @@ export const UserSelect = () => {
     <>
       <p
         className={
-          "absolute text-[#595252] text-[1.7vw] md:text-[1.3vw] top-[13.5%] left-[15%]"
+          "absolute text-[#595252] text-[2vw] md:text-[1.3vw] top-[13.5%] left-[15%]"
         }
       >
         Тип Молитвы
       </p>
-      <div className="z-10 absolute w-[58%] h-[6.5%] select-none text-[#595252] text-[1.7vw] md:text-[1.3vw] top-[13%] left-[32%]">
+      <div className="z-10 absolute w-[58%] h-[6.5%] select-none text-[#595252] text-[2vw] md:text-[1.3vw] top-[13%] left-[32%]">
         <div
           className="h-full flex justify-between items-center mx-3"
           onClick={() => setIsSelectOpen(!isSelectOpen)}
         >
           <p className={"truncate"}>{bannerStorages[selectedOption]}</p>
           <svg
-            viewBox="0 -4.5 20 20"
+            className={`w-[2vw] ${isSelectOpen ? "rotate-0" : "rotate-180"}`}
+            fill="#595252"
             version="1.1"
+            viewBox="0 -4.5 20 20"
             xmlns="http://www.w3.org/2000/svg"
             xmlnsXlink="http://www.w3.org/1999/xlink"
-            fill="#595252"
-            className={`w-[2vw] ${isSelectOpen ? "rotate-0" : "rotate-180"}`}
           >
-            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-            <g
-              id="SVGRepo_tracerCarrier"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            ></g>
-            <g id="SVGRepo_iconCarrier">
+            <g>
               <title>arrow_up [#337]</title>
               <desc>Created with Sketch.</desc>
-              <defs></defs>
-              <g
-                id="Page-1"
-                stroke="none"
-                strokeWidth="1"
-                fill="none"
-                fillRule="evenodd"
-              >
-                <g
-                  id="Dribbble-Light-Preview"
-                  transform="translate(-260.000000, -6684.000000)"
-                  fill="#595252"
-                >
-                  <g id="icons" transform="translate(56.000000, 160.000000)">
-                    <path
-                      d="M223.707692,6534.63378 L223.707692,6534.63378 C224.097436,6534.22888 224.097436,6533.57338 223.707692,6533.16951 L215.444127,6524.60657 C214.66364,6523.79781 213.397472,6523.79781 212.616986,6524.60657 L204.29246,6533.23165 C203.906714,6533.6324 203.901717,6534.27962 204.282467,6534.68555 C204.671211,6535.10081 205.31179,6535.10495 205.70653,6534.69695 L213.323521,6526.80297 C213.714264,6526.39807 214.346848,6526.39807 214.737591,6526.80297 L222.294621,6534.63378 C222.684365,6535.03868 223.317949,6535.03868 223.707692,6534.63378"
-                      id="arrow_up-[#337]"
-                    ></path>
+              <g fill="none" fillRule="evenodd" strokeWidth="1">
+                <g transform="translate(-260 -6684)" fill="#595252">
+                  <g transform="translate(56 160)">
+                    <path d="m223.71 6534.6c0.38974-0.4049 0.38974-1.0604 0-1.4643l-8.2636-8.5629c-0.78049-0.80876-2.0467-0.80876-2.8271 0l-8.3245 8.6251c-0.38575 0.40075-0.39074 1.048-0.009993 1.4539 0.38874 0.41526 1.0293 0.4194 1.4241 0.0114l7.617-7.894c0.39074-0.4049 1.0233-0.4049 1.4141 0l7.557 7.8308c0.38974 0.4049 1.0233 0.4049 1.4131 0" />
                   </g>
                 </g>
               </g>

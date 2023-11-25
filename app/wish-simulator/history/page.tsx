@@ -24,7 +24,7 @@ export default function WishHistory() {
           draggable={false}
           quality={100}
           alt={"История молитв"}
-          className={"w-full md:w-[70vw] h-auto"}
+          className={"w-full md:w-[80vw] h-auto"}
         />
         <Title />
         <UserSelect />
@@ -33,7 +33,7 @@ export default function WishHistory() {
           className={"absolute cursor-genshin top-[6%] right-[2.2%]"}
         >
           <svg
-            className={"w-[2.5vw]"}
+            className={"w-[3.5vw] md:w-[2.7vw]"}
             transform="rotate(45)"
             fill="#000000"
             stroke="#000000"

@@ -7,12 +7,13 @@ import { BannerPhases, Banners, BannerTypes } from "@/app/types/banner";
 import { Versions } from "@/app/types/common";
 import Title from "@/app/wish-simulator/details/components/Title";
 import Navigation from "@/app/wish-simulator/details/components/Navigation";
-import IncreasedChanceSection from "@/app/wish-simulator/details/components/IncreasedChanceSection";
+import IncreasedChanceSection from "@/app/wish-simulator/details/components/increasedChanceSection/IncreasedChanceSection";
 import { Character } from "@/app/types/character";
 import { Weapon } from "@/app/types/weapon";
 import { getBannerColor } from "@/app/wish-simulator/utils";
 import MoreInfo from "@/app/wish-simulator/details/components/MoreInfo";
 import ItemsList from "@/app/wish-simulator/details/components/ItemsList";
+import Link from "next/link";
 
 export const metadata = {
   title: "Cloud Retainer | Симулятор молитв - Детали",
@@ -52,7 +53,9 @@ export default async function Details({
         : searchParams.phase,
     )
     .single();
-
+  if (banner === null) {
+    return <p>Not found :(</p>;
+  }
   const {
     data: featuredItemsId,
   }: { data: ({ weapon_id: number } | { character_id: number })[] | null } =
@@ -64,7 +67,6 @@ export default async function Details({
   const itemsId = featuredItemsId
     ?.map((itemId) => Object.values(itemId))
     .flat(1) as number[];
-
   const {
     data: featuredItems,
   }: {
@@ -84,13 +86,7 @@ export default async function Details({
         ? [banner.first_main_weapon, banner.second_main_weapon]
         : [banner?.main_character],
     );
-
-  if (banner === null) {
-    return <p>Not found :(</p>;
-  }
-
   const bannerColor = getBannerColor(banner, bannerMainItems as Character[]);
-
   return (
     <main
       className={
@@ -107,6 +103,27 @@ export default async function Details({
           className={"w-full md:w-[80vw] h-auto"}
         />
         <Title bannerTitle={banner.title} palette={bannerColor} />
+        <Link
+          href={"/wish-simulator"}
+          className={"absolute cursor-genshin top-[6%] right-[2.2%]"}
+        >
+          <svg
+            className={"w-[3.5vw] md:w-[2.8vw]"}
+            transform="rotate(45)"
+            fill="#000000"
+            stroke="#000000"
+            strokeWidth=".00016"
+            version="1.1"
+            viewBox="0 0 16 16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              className={"group-active:fill-[#fefeff]"}
+              d="m16 8-3-3v2h-4v-4h2l-3-3-3 3h2v4h-4v-2l-3 3 3 3v-2h4v4h-2l3 3 3-3h-2v-4h4v2z"
+              fill="#e9d5af"
+            />
+          </svg>
+        </Link>
         <Navigation bannerType={searchParams.type} />
         {searchParams.section === "increased-chance" ? (
           <IncreasedChanceSection

@@ -20,7 +20,7 @@ const Navigation = ({ bannerType }: { bannerType: BannerTypes }) => {
   return (
     <div
       className={
-        "absolute bg-[radial-gradient(circle,rgba(232,223,207,1)_90%,rgba(232,223,207,0.1)_100%)] text-[#595252] text-[1.3vw] w-[80%] h-[9%] top-[12.5%] left-[10%] flex justify-between items-center"
+        "absolute bg-[radial-gradient(circle,rgba(232,223,207,1)_90%,rgba(232,223,207,0.1)_100%)] text-[#595252] text-[2.5vw] md:text-[1.3vw] w-[85%] md:w-[80%] h-[15%] md:h-[7.5%] top-[12.5%] left-[8%] md:left-[10%] flex justify-between items-center"
       }
     >
       <div

@@ -56,7 +56,7 @@ const MoreInfo = ({
   return (
     <div
       className={
-        "absolute overflow-y-scroll scrollbar-for-epitomized-path w-[81%] h-[68%] top-[23%] left-[10%]"
+        "absolute overflow-y-scroll genshin-scrollbar w-[81%] h-[68%] top-[21%] left-[10%]"
       }
     >
       <p className={"text-[#595252] text-[1.3vw]"}>Подробнее о Молитвах</p>

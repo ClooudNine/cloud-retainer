@@ -34,7 +34,7 @@ const HistoryLink = () => {
          lg:text-xl`}
       href={`wish-simulator/history?type=${getBannerStatName(
         selectedBanner.type,
-      )}`}
+      )}&page=1`}
     >
       История
     </Link>
