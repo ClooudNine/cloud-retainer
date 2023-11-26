@@ -136,6 +136,7 @@ export const getBannerDrop = (
   banner: Banners,
   characters: Character[],
   weapons: Weapon[],
+  featuredItems?: number[] | null,
 ) => {
   switch (banner.type) {
     case "Character Event Wish":
@@ -143,7 +144,8 @@ export const getBannerDrop = (
       const characterBannerCharacters = characters.filter(
         (character) =>
           (character.in_standard_wish ||
-            character.id === banner.main_character) &&
+            character.id === banner.main_character ||
+            featuredItems?.includes(character.id)) &&
           !basedCharacters.includes(character.name) &&
           character.appearance_version <= currentGameVersion,
       );
@@ -178,7 +180,8 @@ export const getBannerDrop = (
         (weapon) =>
           (weapon.in_standard_wish ||
             weapon.id === banner.first_main_weapon ||
-            weapon.id === banner.second_main_weapon) &&
+            weapon.id === banner.second_main_weapon ||
+            featuredItems?.includes(weapon.id)) &&
           weapon.appearance_version <= currentGameVersion,
       );
       return [...weaponBannerCharacters, ...weaponBannerWeapons];

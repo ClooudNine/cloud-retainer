@@ -41,7 +41,7 @@ type BannerContext = {
   currentBannersPortraits: string[][];
   currentBannersPreviewsUrl: string[];
   selectedBanner: Banners;
-  selectedBannerDrop: (Character | Weapon)[];
+  selectedBannerDrop: (Character | Weapon)[] | null;
   selectedBannerFeaturedItems: number[] | null;
   switchBanner: (
     banner: Banners,
@@ -76,11 +76,11 @@ export default function BannerProvider({
   const [selectedBanner, setSelectedBanner] = useState<Banners>(
     currentBanners[0],
   );
-  const [selectedBannerDrop, setSelectedBannerDrop] = useState<
-    (Character | Weapon)[]
-  >(() => getBannerDrop(selectedBanner, characters, weapons));
   const [selectedBannerFeaturedItems, setSelectedBannerFeaturedItems] =
     useState<number[] | null>(null);
+  const [selectedBannerDrop, setSelectedBannerDrop] = useState<
+    (Character | Weapon)[] | null
+  >(null);
   const [droppedItems, setDroppedItems] = useState<BannerItems>([]);
   useEffect(() => {
     if (droppedItems.length > 0) {
@@ -92,12 +92,20 @@ export default function BannerProvider({
   }, [backgroundMusic, droppedItems.length]);
 
   useEffect(() => {
+    setSelectedBannerDrop(
+      getBannerDrop(
+        selectedBanner,
+        characters,
+        weapons,
+        selectedBannerFeaturedItems,
+      ),
+    );
+  }, [characters, selectedBanner, selectedBannerFeaturedItems, weapons]);
+
+  useEffect(() => {
     getFeaturedItems(supabase, selectedBanner).then(
       setSelectedBannerFeaturedItems,
     );
-  }, [selectedBanner, supabase]);
-
-  useEffect(() => {
     const bannerTypes: BannerTypes[] = [
       "Character Event Wish",
       "Character Event Wish-2",
@@ -138,10 +146,10 @@ export default function BannerProvider({
       if (banner !== selectedBanner) {
         localStorage.setItem("lastBanner", getBannerStatName(banner.type));
         setSelectedBanner(banner);
-        setSelectedBannerDrop(getBannerDrop(banner, characters, weapons));
+        getFeaturedItems(supabase, banner).then(setSelectedBannerFeaturedItems);
       }
     },
-    [characters, selectedBanner, weapons],
+    [selectedBanner, supabase],
   );
   return (
     <BannerContext.Provider

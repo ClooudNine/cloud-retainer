@@ -12,7 +12,7 @@ import { Character } from "@/app/types/character";
 import { Weapon } from "@/app/types/weapon";
 import { getBannerColor } from "@/app/wish-simulator/utils";
 import MoreInfo from "@/app/wish-simulator/details/components/MoreInfo";
-import ItemsList from "@/app/wish-simulator/details/components/ItemsList";
+import ItemsList from "@/app/wish-simulator/details/components/itemsListSection/ItemsList";
 import Link from "next/link";
 
 export const metadata = {

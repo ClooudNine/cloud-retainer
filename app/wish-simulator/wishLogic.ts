@@ -33,7 +33,7 @@ const getBaseChances = (bannerType: BannerTypes) => {
     return { threeStar: 0.943, fourStar: 0.051, fiveStar: 0.006 };
   }
 };
-const getPityRules = (bannerType: BannerTypes) => {
+export const getPityRules = (bannerType: BannerTypes) => {
   if (bannerType === "Weapon Event Wish") {
     return {
       softFourStar: 8,
