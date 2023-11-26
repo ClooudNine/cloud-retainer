@@ -6,6 +6,7 @@ import { Character } from "@/app/types/character";
 import { Weapon } from "@/app/types/weapon";
 import { Rares } from "@/app/types/common";
 import ItemsTable from "@/app/wish-simulator/details/components/itemsListSection/ItemsTable";
+import {PostgrestError} from "@supabase/supabase-js";
 
 const getItemsByRarity = (
   bannerType: BannerTypes,
@@ -44,8 +45,10 @@ const ItemsList = async ({
   const supabase = createServerComponentClient({ cookies });
   const {
     data: allCharactersFromWishes,
+    error: charactersError
   }: {
     data: Character[] | null;
+    error: PostgrestError | null
   } = await supabase
     .from("characters")
     .select("*")
@@ -53,8 +56,10 @@ const ItemsList = async ({
 
   const {
     data: allWeaponsFromWishes,
+    error: weaponsError
   }: {
     data: Weapon[] | null;
+    error: PostgrestError | null
   } = await supabase
     .from("weapons")
     .select("*")
@@ -62,6 +67,10 @@ const ItemsList = async ({
 
   if (allCharactersFromWishes === null || allWeaponsFromWishes === null) {
     return <p>Data miss :(</p>;
+  }
+
+  if(charactersError || weaponsError) {
+    console.log(charactersError, weaponsError)
   }
 
   const bannerItems = getBannerDrop(
