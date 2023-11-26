@@ -229,9 +229,12 @@ export const getWishInfo = (
 };
 export const wish = (
   banner: Banners,
-  items: (Character | Weapon)[],
+  items: (Character | Weapon)[] | null,
   featuredItems: number[] | null,
 ) => {
+  if(items === null || featuredItems === null) {
+    return ;
+  }
   const bannerTypeStatName = getBannerStatName(banner.type);
   const currentStat: BannerStats = JSON.parse(
     localStorage.getItem(bannerTypeStatName)!,
