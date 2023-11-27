@@ -1,9 +1,9 @@
 import Image from "next/image";
 import star from "@/public/common-icons/star.webp";
-import { BannerTypes } from "@/app/types/banner";
-import { Rares } from "@/app/types/common";
-import { Character } from "@/app/types/character";
-import { Weapon } from "@/app/types/weapon";
+import { BannerTypes } from "@/app/lib/banner";
+import { Rares } from "@/app/lib/common";
+import { Character } from "@/app/lib/character";
+import { Weapon } from "@/app/lib/weapon";
 import ItemCell from "@/app/wish-simulator/details/components/itemsListSection/ItemCell";
 
 const getBaseChances = (

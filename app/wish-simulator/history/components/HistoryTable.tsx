@@ -1,7 +1,7 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { WishHistory } from "@/app/types/common";
+import { WishHistory } from "@/app/lib/common";
 import TablePagination from "@/app/wish-simulator/history/components/TablePagination";
 
 const HistoryTable = () => {

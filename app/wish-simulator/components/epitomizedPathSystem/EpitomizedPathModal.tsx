@@ -1,12 +1,12 @@
 import Image from "next/image";
 import epitomizedPathModal from "@/public/wish-simulator/assets/epitomized-path-modal.webp";
 import epitomizedPathExistsImage from "@/public/wish-simulator/assets/epitomized-path-exists.webp";
-import { WeaponBanner } from "@/app/types/banner";
+import { WeaponBanner } from "@/app/lib/banner";
 import WeaponPreview from "@/app/wish-simulator/components/epitomizedPathSystem/WeaponPreview";
 import { useCallback, useEffect, useState } from "react";
 import { useBannerContext } from "@/app/wish-simulator/components/BannerProvider";
 import ResetEpitomizedPathModal from "@/app/wish-simulator/components/epitomizedPathSystem/ResetEpitomizedPathModal";
-import { EpitomizedStats } from "@/app/types/common";
+import { EpitomizedStats } from "@/app/lib/common";
 
 export const EpitomizedPathModal = ({
   closeModal,

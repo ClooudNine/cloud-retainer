@@ -1,12 +1,12 @@
 import Image from "next/image";
 import star from "@/public/common-icons/star.webp";
-import { elementToColor, Rares } from "@/app/types/common";
+import { elementToColor, Rares } from "@/app/lib/common";
 import { CSSProperties } from "react";
 import ItemCard from "@/app/wish-simulator/details/components/ItemCard";
 import { getBannerGuaranteeRules } from "@/app/wish-simulator/details/components/increasedChanceSection/IncreasedChanceSection";
-import { BannerTypes } from "@/app/types/banner";
-import { Character } from "@/app/types/character";
-import { Weapon } from "@/app/types/weapon";
+import { BannerTypes } from "@/app/lib/banner";
+import { Character } from "@/app/lib/character";
+import { Weapon } from "@/app/lib/weapon";
 
 const IncreasedChanceList = ({
   rare,

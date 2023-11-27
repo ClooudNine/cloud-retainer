@@ -150,6 +150,14 @@ module.exports = {
         "star-effect": "star-effect 2s forwards",
         "banner-preview-appearance": "banner-preview-appearance 0.8s",
       },
+      dropShadow: {
+        shop: [
+          "0 5px 0 #ffffff",
+          "0 -5px 0 #ffffff",
+          "5px 0 0 #ffffff",
+          "-5px 0 0 #ffffff",
+        ],
+      },
       fontFamily: {
         genshin: ["var(--font-genshin)"],
       },

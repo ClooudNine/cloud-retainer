@@ -1,17 +1,17 @@
-import primogem from "@/public/wish-simulator/assets/primogem.webp";
 import intertwinedFate from "@/public/wish-simulator/assets/intertwined-fate.webp";
 import Image from "next/image";
+import primogem from "@/public/wish-simulator/assets/primogem.webp";
 
 const CurrentBalance = () => {
   return (
     <div
       className={
-        "flex items-center justify-end select-none font-genshin col-start-5 col-end-11 gap-3 sm:col-start-8 sm:col-end-12 md:ml-4 md:col-start-9 xl:col-start-10"
+        "flex items-center justify-end font-genshin col-start-5 col-end-11 gap-3 sm:col-start-8 sm:col-end-12 md:ml-4 md:col-start-9 xl:ml-0 xl:col-start-10"
       }
     >
       <div
         className={
-          "relative flex h-[30%] w-[70%] items-center bg-[rgba(0,0,0,0.4)] rounded-full ring-2 ring-[#84a4c5] md:h-1/4 2xl:min-w-max 2xl:w-1/2"
+          "relative flex items-center h-[30%] w-[70%] bg-[rgba(0,0,0,0.4)] rounded-full ring-2 ring-[#84a4c5] md:h-1/4 2xl:min-w-max 2xl:w-1/2"
         }
       >
         <div className={"absolute h-full w-full peer"}></div>
@@ -22,19 +22,15 @@ const CurrentBalance = () => {
           draggable={false}
           width={40}
           className={
-            "h-[95%] w-auto drop-shadow-lg transition-all active:opacity-50 peer-active:opacity-50"
+            "h-[95%] w-auto select-none drop-shadow transition-all active:opacity-50 peer-active:opacity-50"
           }
         />
-        <p
-          className={
-            "text-white text-base ml-2 mr-1 max-2xl:truncate md:text-lg"
-          }
-        >
+        <p className={"text-white text-base ml-2 max-2xl:truncate md:text-lg"}>
           0
         </p>
         <button
           className={
-            "bg-[#ece5d8] z-10 text-[#3b4354] w-1/4 h-[90%] ml-auto mr-0.5 text-lg font-bold flex justify-center items-center rounded-full transition-all cursor-genshin md:text-xl active:opacity-50 active:scale-95 hover:scale-110"
+            "z-10 bg-[#ece5d8] text-[#3b4354] w-1/4 h-[90%] ml-auto mr-0.5 text-lg font-bold flex justify-center items-center rounded-full transition-all cursor-genshin md:text-xl active:opacity-50 active:scale-95 hover:scale-110"
           }
         >
           +
@@ -52,10 +48,10 @@ const CurrentBalance = () => {
           draggable={false}
           width={40}
           className={
-            "h-[95%] w-auto drop-shadow-lg select-none transition-all group-active:opacity-50"
+            "h-[95%] w-auto drop-shadow select-none transition-all group-active:opacity-50"
           }
         />
-        <p className={"text-white text-base ml-1 max-2xl:truncate md:text-lg"}>
+        <p className={"text-white text-base ml-2 max-2xl:truncate md:text-lg"}>
           0
         </p>
       </div>

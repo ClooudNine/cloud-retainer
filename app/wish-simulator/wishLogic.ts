@@ -1,13 +1,13 @@
-import { Character } from "@/app/types/character";
-import { Weapon } from "@/app/types/weapon";
-import { EpitomizedPath, Rares, WishHistory } from "@/app/types/common";
+import { Character } from "@/app/lib/character";
+import { Weapon } from "@/app/lib/weapon";
+import { EpitomizedPath, Rares, WishHistory } from "@/app/lib/common";
 import {
   BannerItems,
   Banners,
   bannerTranslates,
   BannerTypes,
   WeaponBanner,
-} from "@/app/types/banner";
+} from "@/app/lib/banner";
 import { getBannerStatName } from "@/app/wish-simulator/utils";
 
 type BannerStats = {
@@ -232,8 +232,8 @@ export const wish = (
   items: (Character | Weapon)[] | null,
   featuredItems: number[] | null,
 ) => {
-  if(items === null || featuredItems === null) {
-    return ;
+  if (items === null) {
+    return;
   }
   const bannerTypeStatName = getBannerStatName(banner.type);
   const currentStat: BannerStats = JSON.parse(

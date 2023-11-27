@@ -5,14 +5,15 @@ const Title = () => {
   return (
     <div
       className={
-        "col-start-1 col-end-3 ml-2 flex items-center gap-2 md:justify-center md:flex-col lg:flex-row sm:gap-4 md:ml-4 xl:gap-6"
+        "col-start-1 col-end-3 ml-2 flex items-center gap-2 md:justify-center md:flex-col md:ml-4 lg:flex-row xl:gap-6"
       }
     >
       <Image
         src={wishIcon}
         alt={"Иконка раздела молитв"}
+        draggable={false}
         quality={100}
-        className={"h-[30%] w-auto xl:h-2/5"}
+        className={"select-none h-[30%] w-auto xl:h-2/5"}
       />
       <p
         className={

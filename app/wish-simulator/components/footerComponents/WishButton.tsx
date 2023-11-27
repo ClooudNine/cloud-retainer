@@ -5,8 +5,8 @@ import intertwinedFate from "@/public/wish-simulator/assets/intertwined-fate.web
 import { useBannerContext } from "@/app/wish-simulator/components/BannerProvider";
 import { useCallback } from "react";
 import { wish } from "@/app/wish-simulator/wishLogic";
-import { Character } from "@/app/types/character";
-import { Weapon } from "@/app/types/weapon";
+import { Character } from "@/app/lib/character";
+import { Weapon } from "@/app/lib/weapon";
 
 const WishButton = ({ count }: { count: number }) => {
   const {
@@ -27,6 +27,7 @@ const WishButton = ({ count }: { count: number }) => {
         ) as Character | Weapon,
       );
     }
+    console.log(droppedItems);
     setDroppedItems(droppedItems);
   }, [
     count,

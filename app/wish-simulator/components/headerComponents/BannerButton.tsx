@@ -2,10 +2,14 @@
 import Image from "next/image";
 import bannerButtonBackground from "@/public/wish-simulator/assets/banner-button-background.webp";
 import bannerButtonBackgroundActive from "@/public/wish-simulator/assets/banner-button-background-active.webp";
-import { Banners } from "@/app/types/banner";
+import { Banners } from "@/app/lib/banner";
 import { useBannerContext } from "@/app/wish-simulator/components/BannerProvider";
 import classNames from "classnames";
-import { getBannerMainItemName } from "@/app/wish-simulator/utils";
+import {
+  getBannerMainItemName,
+  playSfxEffect,
+} from "@/app/wish-simulator/utils";
+import { useCallback, useMemo } from "react";
 
 const BannerButton = ({
   banner,
@@ -16,21 +20,24 @@ const BannerButton = ({
 }) => {
   const { selectedBanner, characters, weapons, switchBanner } =
     useBannerContext();
-
   const bannerButtonClasses = classNames(
     "relative h-2/5 w-1/4 select-none transition-all cursor-genshin hover:scale-110 sm:h-3/5 md:h-[30%] lg:h-2/5",
     {
       "scale-110": banner === selectedBanner,
     },
   );
-
-  const portraitClasses = classNames(
-    "select-none mt-[30%] h-4/5 w-auto transition-all",
-    {
-      "-translate-y-[10%]": banner === selectedBanner,
-      "-mx-[15%] -rotate-12": banner.type === "Weapon Event Wish",
-    },
+  const portraitClasses = classNames("mt-[30%] h-4/5 w-auto transition-all", {
+    "-translate-y-[10%]": banner === selectedBanner,
+    "-mx-[15%] -rotate-12": banner.type === "Weapon Event Wish",
+  });
+  const itemNames = useMemo(
+    () => getBannerMainItemName(banner, characters, weapons),
+    [banner, characters, weapons],
   );
+  const handleSwitchBanner = useCallback(() => {
+    playSfxEffect("/sounds/click-on-banner.mp3");
+    switchBanner(banner);
+  }, [banner, switchBanner]);
   return (
     <button className={bannerButtonClasses}>
       <Image
@@ -42,7 +49,7 @@ const BannerButton = ({
         alt={"Фон кнопки выбора баннера"}
         draggable={false}
         fill
-        onClick={() => switchBanner(banner, "Banner button")}
+        onClick={handleSwitchBanner}
       />
       <div
         className={
@@ -53,12 +60,7 @@ const BannerButton = ({
           <Image
             key={url}
             src={url}
-            alt={getBannerMainItemName(
-              selectedBanner,
-              characters,
-              weapons,
-              index,
-            )}
+            alt={itemNames[index]}
             quality={100}
             draggable={false}
             width={200}

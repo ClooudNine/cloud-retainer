@@ -8,10 +8,10 @@ import {
   CharacterBanner,
   StandardBanner,
   WeaponBanner,
-} from "@/app/types/banner";
+} from "@/app/lib/banner";
 import BannerProvider from "@/app/wish-simulator/components/BannerProvider";
-import { Character } from "@/app/types/character";
-import { Weapon } from "@/app/types/weapon";
+import { Character } from "@/app/lib/character";
+import { Weapon } from "@/app/lib/weapon";
 
 export const metadata = {
   title: "Cloud Retainer | Симулятор молитв",
@@ -23,25 +23,25 @@ export default async function WishSimulator() {
   const supabase = createServerComponentClient({ cookies });
 
   const {
-    data: allCharacterBanners,
+    data: characterBanners,
   }: {
     data: CharacterBanner[] | null;
   } = await supabase.from("characters_banners").select("*");
 
   const {
-    data: allWeaponBanners,
+    data: weaponBanners,
   }: {
     data: WeaponBanner[] | null;
   } = await supabase.from("weapons_banners").select("*");
 
   const {
-    data: allStandardBanners,
+    data: standardBanners,
   }: {
     data: StandardBanner[] | null;
   } = await supabase.from("standard_banners").select("*");
 
   const {
-    data: allCharactersFromWishes,
+    data: charactersFromWishes,
   }: {
     data: Character[] | null;
   } = await supabase
@@ -50,7 +50,7 @@ export default async function WishSimulator() {
     .not("in_standard_wish", "is", null);
 
   const {
-    data: allWeaponsFromWishes,
+    data: weaponsFromWishes,
   }: {
     data: Weapon[] | null;
   } = await supabase
@@ -59,14 +59,18 @@ export default async function WishSimulator() {
     .not("in_standard_wish", "is", null);
 
   if (
-    allCharacterBanners === null ||
-    allWeaponBanners === null ||
-    allStandardBanners === null ||
-    allCharactersFromWishes === null ||
-    allWeaponsFromWishes === null
+    characterBanners === null ||
+    weaponBanners === null ||
+    standardBanners === null ||
+    charactersFromWishes === null ||
+    weaponsFromWishes === null
   ) {
     return (
-      <div className={"flex justify-center items-center text-9xl"}>Oops...</div>
+      <div
+        className={"w-full h-full flex justify-center items-center text-9xl"}
+      >
+        Oops...
+      </div>
     );
   }
 
@@ -78,13 +82,9 @@ export default async function WishSimulator() {
     >
       <Background isBlurred={false} />
       <BannerProvider
-        allGameBanners={[
-          ...allCharacterBanners,
-          ...allWeaponBanners,
-          ...allStandardBanners,
-        ]}
-        characters={allCharactersFromWishes}
-        weapons={allWeaponsFromWishes}
+        banners={[...characterBanners, ...weaponBanners, ...standardBanners]}
+        characters={charactersFromWishes}
+        weapons={weaponsFromWishes}
       >
         <Header />
         <Banner />

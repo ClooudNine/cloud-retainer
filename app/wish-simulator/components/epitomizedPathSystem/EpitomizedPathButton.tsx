@@ -3,7 +3,7 @@ import epitomizedPathButtonActive from "@/public/wish-simulator/assets/epitomize
 import epitomizedPathButton from "@/public/wish-simulator/assets/epitomized-path-button.webp";
 import { useState } from "react";
 import EpitomizedPathModal from "@/app/wish-simulator/components/epitomizedPathSystem/EpitomizedPathModal";
-import { WeaponBanner } from "@/app/types/banner";
+import { WeaponBanner } from "@/app/lib/banner";
 
 const EpitomizedPathButton = ({
   weaponBanner,

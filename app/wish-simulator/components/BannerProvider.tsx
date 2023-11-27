@@ -4,17 +4,16 @@ import React, {
   useCallback,
   useContext,
   useEffect,
-  useRef,
   useState,
 } from "react";
-import { BannerItems, Banners, BannerTypes } from "@/app/types/banner";
-import { Weapon } from "@/app/types/weapon";
-import { Character } from "@/app/types/character";
+import { BannerItems, Banners, BannerTypes } from "@/app/lib/banner";
+import { Weapon } from "@/app/lib/weapon";
+import { Character } from "@/app/lib/character";
 import {
   currentGamePhase,
   currentGameVersion,
   WishHistory,
-} from "@/app/types/common";
+} from "@/app/lib/common";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import {
   getBannerDrop,
@@ -22,86 +21,56 @@ import {
   getBannerStatName,
   getButtonsPortraitsUrl,
   getFeaturedItems,
-  getPreviewsUrlForCurrentBanners,
-  playSfxEffect,
 } from "@/app/wish-simulator/utils";
 import WishDrop from "@/app/wish-simulator/components/WishDrop";
 
 type BannerContextProviderProps = {
   children: React.ReactNode;
-  allGameBanners: Banners[];
+  banners: Banners[];
   characters: Character[];
   weapons: Weapon[];
 };
-
 type BannerContext = {
   characters: Character[];
   weapons: Weapon[];
   currentBanners: Banners[];
   currentBannersPortraits: string[][];
-  currentBannersPreviewsUrl: string[];
   selectedBanner: Banners;
-  selectedBannerDrop: (Character | Weapon)[] | null;
+  selectedBannerDrop: (Character | Weapon)[];
   selectedBannerFeaturedItems: number[] | null;
-  switchBanner: (
-    banner: Banners,
-    trigger: "Banner button" | "Arrow button",
-  ) => void;
+  switchBanner: (banner: Banners) => void;
   setDroppedItems: React.Dispatch<React.SetStateAction<(Character | Weapon)[]>>;
 };
 export const BannerContext = createContext<BannerContext | null>(null);
 export default function BannerProvider({
   children,
-  allGameBanners,
+  banners,
   characters,
   weapons,
 }: BannerContextProviderProps) {
   const supabase = createClientComponentClient();
-  const backgroundMusic = useRef<HTMLAudioElement | undefined>(
-    typeof Audio !== "undefined"
+  const [audio] = useState<HTMLAudioElement | null>(
+    typeof window !== "undefined"
       ? new Audio("/sounds/statue-of-the-seven.mp3")
-      : undefined,
+      : null,
   );
   const [currentBanners, setCurrentBanners] = useState<Banners[]>(() =>
-    getBannersSet(allGameBanners, currentGameVersion, currentGamePhase),
+    getBannersSet(banners, currentGameVersion, currentGamePhase),
   );
   const [currentBannersPortraits, setCurrentBannersPortraits] = useState<
     string[][]
   >(() =>
     getButtonsPortraitsUrl(supabase, currentBanners, characters, weapons),
   );
-  const [currentBannersPreviewsUrl, setCurrentBannersPreviewsUrl] = useState<
-    string[]
-  >(() => getPreviewsUrlForCurrentBanners(supabase, currentBanners));
   const [selectedBanner, setSelectedBanner] = useState<Banners>(
     currentBanners[0],
   );
   const [selectedBannerFeaturedItems, setSelectedBannerFeaturedItems] =
     useState<number[] | null>(null);
   const [selectedBannerDrop, setSelectedBannerDrop] = useState<
-    (Character | Weapon)[] | null
-  >(null);
+    (Character | Weapon)[]
+  >([]);
   const [droppedItems, setDroppedItems] = useState<BannerItems>([]);
-  useEffect(() => {
-    if (droppedItems.length > 0) {
-      backgroundMusic.current?.pause();
-    } else {
-      backgroundMusic.current?.play();
-      backgroundMusic.current!.loop = true;
-    }
-  }, [backgroundMusic, droppedItems.length]);
-
-  useEffect(() => {
-    setSelectedBannerDrop(
-      getBannerDrop(
-        selectedBanner,
-        characters,
-        weapons,
-        selectedBannerFeaturedItems,
-      ),
-    );
-  }, [characters, selectedBanner, selectedBannerFeaturedItems, weapons]);
-
   useEffect(() => {
     getFeaturedItems(supabase, selectedBanner).then(
       setSelectedBannerFeaturedItems,
@@ -136,13 +105,29 @@ export default function BannerProvider({
       localStorage.setItem("EpitomizedPath", JSON.stringify({}));
     }
   }, []);
+  useEffect(() => {
+    if (droppedItems.length > 0) {
+      audio?.pause();
+    } else {
+      audio?.play();
+      audio!.loop = true;
+    }
+    return () => {
+      audio?.pause();
+    };
+  }, [audio, droppedItems.length]);
+  useEffect(() => {
+    setSelectedBannerDrop(
+      getBannerDrop(
+        selectedBanner,
+        characters,
+        weapons,
+        selectedBannerFeaturedItems,
+      ),
+    );
+  }, [characters, selectedBanner, selectedBannerFeaturedItems, weapons]);
   const switchBanner = useCallback(
-    (banner: Banners, trigger: "Banner button" | "Arrow button") => {
-      if (trigger === "Banner button") {
-        playSfxEffect("/sounds/click-on-banner.mp3");
-      } else {
-        playSfxEffect("/sounds/click-on-arrow.mp3");
-      }
+    (banner: Banners) => {
       if (banner !== selectedBanner) {
         localStorage.setItem("lastBanner", getBannerStatName(banner.type));
         setSelectedBanner(banner);
@@ -158,7 +143,6 @@ export default function BannerProvider({
         weapons,
         currentBanners,
         currentBannersPortraits,
-        currentBannersPreviewsUrl,
         selectedBanner,
         selectedBannerDrop,
         selectedBannerFeaturedItems,

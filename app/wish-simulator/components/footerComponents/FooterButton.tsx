@@ -1,9 +1,7 @@
 "use client";
 import Link from "next/link";
-import { useBannerContext } from "@/app/wish-simulator/components/BannerProvider";
 
 const FooterButton = ({ title, path }: { title: string; path: string }) => {
-  const { selectedBanner } = useBannerContext();
   return (
     <Link
       className={`font-genshin
@@ -31,7 +29,7 @@ const FooterButton = ({ title, path }: { title: string; path: string }) => {
          md:h-4/5
          md:text-lg
          lg:text-xl`}
-      href={`wish-simulator/${path}?banner=${selectedBanner.title}`}
+      href={`wish-simulator/${path}?section=paimonBargain`}
     >
       {title}
     </Link>

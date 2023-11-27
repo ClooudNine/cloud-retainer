@@ -1,4 +1,4 @@
-import { BannerPhases } from "@/app/types/banner";
+import { BannerPhases } from "@/app/lib/banner";
 
 export type Rares = 1 | 2 | 3 | 4 | 5;
 export type Versions =

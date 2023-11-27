@@ -1,9 +1,9 @@
 "use client";
 import { useBannerContext } from "@/app/wish-simulator/components/BannerProvider";
 import Image from "next/image";
-import { CSSProperties } from "react";
-import { Character } from "@/app/types/character";
-import { Weapon } from "@/app/types/weapon";
+import { CSSProperties, useState } from "react";
+import { Character } from "@/app/lib/character";
+import { Weapon } from "@/app/lib/weapon";
 import star from "@/public/wish-simulator/assets/star-for-description.webp";
 import {
   bannerDescriptions,
@@ -11,12 +11,16 @@ import {
   bannerSecondTitle,
   NamesOffsets,
   TextParameters,
-} from "@/app/types/banner";
+} from "@/app/lib/banner";
 import SwitchBannerArrow from "@/app/wish-simulator/components/bannerOverview/SwitchBannerArrow";
 import classNames from "classnames";
-import { currentGameVersion } from "@/app/types/common";
-import { getBannerColor } from "@/app/wish-simulator/utils";
+import { currentGameVersion } from "@/app/lib/common";
+import {
+  getBannerColor,
+  getPreviewsUrlForCurrentBanners,
+} from "@/app/wish-simulator/utils";
 import EpitomizedPathButton from "@/app/wish-simulator/components/epitomizedPathSystem/EpitomizedPathButton";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const renderCharacterBannerInfo = (
   character: Character,
@@ -188,14 +192,13 @@ const getMainItemsNamesAndTitles = (
   }
 };
 const Banner = () => {
-  const {
-    characters,
-    weapons,
-    currentBanners,
-    currentBannersPreviewsUrl,
-    selectedBanner,
-  } = useBannerContext();
-
+  console.count("banner rerender");
+  const supabase = createClientComponentClient();
+  const { characters, weapons, currentBanners, selectedBanner } =
+    useBannerContext();
+  const [currentBannersPreviewsUrl, setCurrentBannersPreviewsUrl] = useState<
+    string[]
+  >(() => getPreviewsUrlForCurrentBanners(supabase, currentBanners));
   const rulesClasses = classNames("flex items-center gap-1 mt-1 md:mt-2", {
     "bg-[var(--palette-opacity)]": currentGameVersion !== 1,
     "bg-[rgba(65,163,162,0.8)]":

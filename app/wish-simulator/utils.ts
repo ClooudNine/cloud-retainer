@@ -3,30 +3,18 @@ import {
   BannerPhases,
   Banners,
   BannerTypes,
-} from "@/app/types/banner";
+} from "@/app/lib/banner";
 import {
   basedCharacters,
   currentGameVersion,
   elementToColor,
-  Rares,
   Versions,
-} from "@/app/types/common";
-import { Character } from "@/app/types/character";
-import { Weapon } from "@/app/types/weapon";
+} from "@/app/lib/common";
+import { Character } from "@/app/lib/character";
+import { Weapon } from "@/app/lib/weapon";
 import { SupabaseClient } from "@supabase/supabase-js";
 import striptags from "striptags";
 
-const getNearestVersion = (
-  availableVersions: Versions[],
-  currentGameVersion: Versions,
-) => {
-  return availableVersions.reduce((prev, curr) => {
-    return Math.abs(curr - currentGameVersion) <
-      Math.abs(prev - currentGameVersion)
-      ? curr
-      : prev;
-  });
-};
 const getCharacterPortraitUrl = (
   supabase: SupabaseClient,
   characters: Character[],
@@ -55,6 +43,8 @@ const getWeaponPortraitUrl = (
   }
   return "";
 };
+const getBannerPreviewUrl = (supabase: SupabaseClient, fileName: string) =>
+  supabase.storage.from("wish banners").getPublicUrl(fileName).data.publicUrl;
 export const getButtonsPortraitsUrl = (
   supabase: SupabaseClient,
   currentBanners: Banners[],
@@ -81,28 +71,28 @@ export const getPreviewsUrlForCurrentBanners = (
   supabase: SupabaseClient,
   currentBanners: Banners[],
 ): string[] => {
+  console.log("call!");
   return currentBanners.map((banner) => {
     const bannerTitle = striptags(banner.title);
     switch (banner.type) {
       case "Character Event Wish":
       case "Character Event Wish-2":
-        return supabase.storage
-          .from("wish banners")
-          .getPublicUrl(`${bannerTitle} ${banner.rerun_number}.webp`).data
-          .publicUrl;
+        return getBannerPreviewUrl(
+          supabase,
+          `${bannerTitle} ${banner.rerun_number}.webp`,
+        );
       case "Weapon Event Wish":
-        return supabase.storage
-          .from("wish banners")
-          .getPublicUrl(`${bannerTitle} ${banner.date}.webp`).data.publicUrl;
+        return getBannerPreviewUrl(
+          supabase,
+          `${bannerTitle} ${banner.date}.webp`,
+        );
       case "Standard Wish":
-        return supabase.storage
-          .from("wish banners")
-          .getPublicUrl(`${bannerTitle} ${banner.preview_version}.webp`).data
-          .publicUrl;
+        return getBannerPreviewUrl(
+          supabase,
+          `${bannerTitle} ${banner.preview_version}.webp`,
+        );
       case "Novice Wish":
-        return supabase.storage
-          .from("wish banners")
-          .getPublicUrl(`${bannerTitle}.webp`).data.publicUrl;
+        return getBannerPreviewUrl(supabase, `${bannerTitle}.webp`);
     }
   });
 };
@@ -111,22 +101,15 @@ export const getBannersSet = (
   version: Versions,
   phase: BannerPhases,
 ): Banners[] => {
-  const standardBanners = banners.filter(
-    (banner) => banner.type === "Standard Wish",
-  );
-  const standardBannerVersions = standardBanners.map(
-    (standardBanner) => standardBanner.version,
-  );
-  const standardBannerVersion = getNearestVersion(
-    standardBannerVersions,
-    version,
-  );
-  const bannersByVersion = banners.filter((banner) => {
+  let standardBanner = null;
+  let bannersByVersion = banners.filter((banner) => {
     if (banner.type === "Standard Wish") {
-      return banner.version === standardBannerVersion;
+      if (banner.version <= currentGameVersion) standardBanner = banner;
+    } else {
+      return banner.version === version && banner.phase === phase;
     }
-    return banner.version === version && banner.phase === phase;
   });
+  if (standardBanner) bannersByVersion.push(standardBanner);
   return bannersByVersion.sort(
     (firstBanner, secondBanner) =>
       bannerOrder[firstBanner.type] - bannerOrder[secondBanner.type],
@@ -201,10 +184,6 @@ export const getBannerDrop = (
       return [...noviceBannerCharacters, ...noviceBannerWeapons];
   }
 };
-export const playObtainAudioByRare = (rare: Rares) => {
-  const soundEffect = new Audio(`/sounds/${rare}-star-item-obtain.mp3`);
-  soundEffect.play();
-};
 export const playSfxEffect = (path: string) => {
   const sfx = new Audio(path);
   sfx.play();
@@ -213,20 +192,22 @@ export const getBannerMainItemName = (
   banner: Banners,
   characters: Character[],
   weapons: Weapon[],
-  index: number,
 ) => {
   if (banner.type !== "Weapon Event Wish") {
     const mainCharacter = characters.find(
       (character) => character.id === banner.main_character,
-    ) as Character;
-    return mainCharacter.name;
+    );
+    if (mainCharacter === undefined) {
+      throw new Error("Not found character!");
+    }
+    return [mainCharacter.name];
   } else {
-    const mainWeapon = weapons.find((weapon) =>
-      index === 0
-        ? weapon.id === banner.first_main_weapon
-        : weapon.id === banner.second_main_weapon,
-    ) as Weapon;
-    return mainWeapon.title;
+    const mainWeapons = weapons.filter(
+      (weapon) =>
+        weapon.id === banner.first_main_weapon ||
+        weapon.id === banner.second_main_weapon,
+    );
+    return mainWeapons.map((weapon) => weapon.title);
   }
 };
 export const getFeaturedItems = async (
@@ -240,7 +221,9 @@ export const getFeaturedItems = async (
         .select("weapon_id")
         .eq("banner_id", banner.id);
     if (!featuredWeapons) {
-      return null;
+      throw new Error(
+        `Not found featured weapons for ${banner.id} weapon banner!`,
+      );
     }
     return featuredWeapons.map((weaponId) => weaponId.weapon_id);
   } else if (
@@ -254,7 +237,11 @@ export const getFeaturedItems = async (
       .select("character_id")
       .eq("banner_id", banner.id);
     if (!featuredCharacters) {
-      return null;
+      throw new Error(
+        `Not found featured characters for ${
+          banner.title + "-" + banner.rerun_number
+        } banner!`,
+      );
     }
     return featuredCharacters.map((characterId) => characterId.character_id);
   } else {

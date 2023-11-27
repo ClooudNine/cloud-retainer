@@ -1,6 +1,6 @@
-import { Character } from "@/app/types/character";
-import { Weapon } from "@/app/types/weapon";
-import { Banners } from "@/app/types/banner";
+import { Character } from "@/app/lib/character";
+import { Weapon } from "@/app/lib/weapon";
+import { Banners } from "@/app/lib/banner";
 import CharacterEventWish from "@/app/wish-simulator/details/components/descriptions/CharacterEventWish";
 import WeaponEventWish from "@/app/wish-simulator/details/components/descriptions/WeaponEventWish";
 import StandardWish from "@/app/wish-simulator/details/components/descriptions/StandardWish";

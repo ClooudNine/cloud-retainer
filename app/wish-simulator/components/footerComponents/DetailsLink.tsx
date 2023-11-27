@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useBannerContext } from "@/app/wish-simulator/components/BannerProvider";
-import { currentGamePhase } from "@/app/types/common";
+import { currentGamePhase } from "@/app/lib/common";
 
 const HistoryLink = () => {
   const { selectedBanner } = useBannerContext();

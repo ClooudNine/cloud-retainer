@@ -1,6 +1,6 @@
-import { Versions } from "@/app/types/common";
-import { Character } from "@/app/types/character";
-import { Weapon } from "@/app/types/weapon";
+import { Versions } from "@/app/lib/common";
+import { Character } from "@/app/lib/character";
+import { Weapon } from "@/app/lib/weapon";
 
 export type BannerTypes =
   | "Character Event Wish"

@@ -1,10 +1,12 @@
-const CloseButton = () => {
+"use client";
+const CloseButton = ({ handler }: { handler: (() => void) | undefined }) => {
   return (
     <button
       aria-label={"Все баннеры"}
       className={
-        "col-start-12 mr-6 w-8 h-8 sm:mr-0 lg:w-12 lg:h-12 place-self-center rounded-full transition-all bg-[#ede6d6] ring-[6px] ring-[rgba(237,230,214,0.5)] cursor-genshin hover:ring-[#fcfdff] hover:ring-4 hover:drop-shadow-[0_0_5px_rgba(255,255,255,1)] active:ring-[#7a8ca4] active:ring-4 active:bg-[#c8c4bb]"
+        "col-start-12 mr-6 sm:mr-0 w-8 h-8 lg:w-12 lg:h-12 place-self-center rounded-full transition-all bg-[#ede6d6] ring-[6px] ring-[rgba(237,230,214,0.5)] cursor-genshin hover:ring-[#fcfdff] hover:ring-4 hover:drop-shadow-[0_0_5px_rgba(255,255,255,1)] active:ring-[#7a8ca4] active:ring-4 active:bg-[#c8c4bb]"
       }
+      onClick={handler}
     >
       <svg
         className={"group h-4/5 mx-auto"}

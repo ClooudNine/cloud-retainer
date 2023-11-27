@@ -1,8 +1,8 @@
 import Image from "next/image";
 import up from "@/public/wish-simulator/assets/up-icon.webp";
-import { Character } from "@/app/types/character";
-import { Weapon } from "@/app/types/weapon";
-import { BannerTypes } from "@/app/types/banner";
+import { Character } from "@/app/lib/character";
+import { Weapon } from "@/app/lib/weapon";
+import { BannerTypes } from "@/app/lib/banner";
 
 const ItemCell = ({
   item,

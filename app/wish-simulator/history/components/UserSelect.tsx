@@ -1,5 +1,5 @@
 "use client";
-import { bannerStorages } from "@/app/types/banner";
+import { bannerStorages } from "@/app/lib/banner";
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 

@@ -1,10 +1,10 @@
-import { BannerItems, Banners, BannerTypes } from "@/app/types/banner";
+import { BannerItems, Banners, BannerTypes } from "@/app/lib/banner";
 import { getBannerDrop } from "@/app/wish-simulator/utils";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import { Character } from "@/app/types/character";
-import { Weapon } from "@/app/types/weapon";
-import { Rares } from "@/app/types/common";
+import { Character } from "@/app/lib/character";
+import { Weapon } from "@/app/lib/weapon";
+import { Rares } from "@/app/lib/common";
 import ItemsTable from "@/app/wish-simulator/details/components/itemsListSection/ItemsTable";
 
 const getItemsByRarity = (

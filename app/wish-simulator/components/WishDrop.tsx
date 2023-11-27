@@ -1,15 +1,15 @@
 "use client";
-import { Character } from "@/app/types/character";
-import { Weapon } from "@/app/types/weapon";
+import { Character } from "@/app/lib/character";
+import { Weapon } from "@/app/lib/weapon";
 import Image from "next/image";
 import { useCallback, useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { playObtainAudioByRare } from "@/app/wish-simulator/utils";
 import { SupabaseClient } from "@supabase/supabase-js";
 import star from "@/public/common-icons/star.webp";
 import masterlessStardust from "@/public/wish-simulator/assets/masterless-stardust.webp";
 import wishResultBackground from "@/public/wish-simulator/assets/wish-result-bg.webp";
 import { useBannerContext } from "@/app/wish-simulator/components/BannerProvider";
+import { playSfxEffect } from "@/app/wish-simulator/utils";
 
 const renderWeaponResult = (supabase: SupabaseClient, weapon: Weapon) => {
   return (
@@ -189,7 +189,11 @@ const WishDrop = ({
     if (currentItemIndex < droppedItems.length - 1) {
       setCurrentItemIndex(currentItemIndex + 1);
       setObtainItemAnimationPlaying(true);
-      playObtainAudioByRare(droppedItems[currentItemIndex + 1].rare);
+      playSfxEffect(
+        `/sounds/${
+          droppedItems[currentItemIndex + 1].rare
+        }-star-item-obtain.mp3`,
+      );
       setTimeout(() => setObtainItemAnimationPlaying(false), 2000);
     } else {
       setDroppedItems([]);
@@ -224,7 +228,9 @@ const WishDrop = ({
           autoPlay
           onEnded={() => {
             setIsAnimationPlaying(false);
-            playObtainAudioByRare(droppedItems[currentItemIndex].rare);
+            playSfxEffect(
+              `/sounds/${droppedItems[currentItemIndex].rare}-star-item-obtain.mp3`,
+            );
             setTimeout(() => setObtainItemAnimationPlaying(false), 2000);
           }}
         ></video>
