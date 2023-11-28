@@ -192,7 +192,6 @@ const getMainItemsNamesAndTitles = (
   }
 };
 const Banner = () => {
-  console.count("banner rerender");
   const supabase = createClientComponentClient();
   const { characters, weapons, currentBanners, selectedBanner } =
     useBannerContext();

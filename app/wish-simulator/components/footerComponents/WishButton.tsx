@@ -27,7 +27,6 @@ const WishButton = ({ count }: { count: number }) => {
         ) as Character | Weapon,
       );
     }
-    console.log(droppedItems);
     setDroppedItems(droppedItems);
   }, [
     count,

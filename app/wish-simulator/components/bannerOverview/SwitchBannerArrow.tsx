@@ -7,7 +7,6 @@ import { playSfxEffect } from "@/app/wish-simulator/utils";
 
 const SwitchBannerArrow = ({ isForward }: { isForward: boolean }) => {
   const { currentBanners, selectedBanner, switchBanner } = useBannerContext();
-  console.count("arrow rerender");
   const switchBannerArrowClasses = classNames(
     "hidden sm:block sm:mx-2 md:mx-8 lg:mx-16 xl:mx-20",
     {
