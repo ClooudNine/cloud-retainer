@@ -47,6 +47,7 @@ export type WishHistory = {
   wishType: string;
   date: string;
 }[];
+export type PaymentValets = "intertwined-fate" | "acquaint-fate";
 export const currentGameVersion: Versions = 4.1;
 export const currentGamePhase: BannerPhases = 1;
 export const basedCharacters = ["Amber", "Kaeya", "Lisa"];

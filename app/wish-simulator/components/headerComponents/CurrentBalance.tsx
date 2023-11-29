@@ -1,8 +1,10 @@
-import intertwinedFate from "@/public/wish-simulator/assets/intertwined-fate.webp";
+"use client";
 import Image from "next/image";
 import primogem from "@/public/wish-simulator/assets/primogem.webp";
+import { useBannerContext } from "@/app/wish-simulator/components/BannerProvider";
 
 const CurrentBalance = () => {
+  const { paymentValet } = useBannerContext();
   return (
     <div
       className={
@@ -26,7 +28,7 @@ const CurrentBalance = () => {
           }
         />
         <p className={"text-white text-base ml-2 max-2xl:truncate md:text-lg"}>
-          0
+          {JSON.parse(localStorage.getItem("Balance")!)["primogems"]}
         </p>
         <button
           className={
@@ -42,17 +44,18 @@ const CurrentBalance = () => {
         }
       >
         <Image
-          src={intertwinedFate}
+          src={`/wish-simulator/assets/${paymentValet}.webp`}
           alt={"Переплетающиеся судьбы"}
           quality={100}
           draggable={false}
           width={40}
+          height={40}
           className={
             "h-[95%] w-auto drop-shadow select-none transition-all group-active:opacity-50"
           }
         />
         <p className={"text-white text-base ml-2 max-2xl:truncate md:text-lg"}>
-          0
+          {JSON.parse(localStorage.getItem("Balance")!)[paymentValet]}
         </p>
       </div>
     </div>

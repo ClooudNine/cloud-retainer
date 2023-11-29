@@ -13,10 +13,17 @@ const WishButton = ({ count }: { count: number }) => {
     selectedBanner,
     selectedBannerDrop,
     selectedBannerFeaturedItems,
+    paymentValet,
     setDroppedItems,
   } = useBannerContext();
 
   const makeWish = useCallback(() => {
+    let balance = JSON.parse(localStorage.getItem("Balance")!);
+    if (balance[paymentValet] < count) {
+      return;
+    }
+    balance[paymentValet] -= count;
+    localStorage.setItem("Balance", JSON.stringify(balance));
     let droppedItems: (Character | Weapon)[] = [];
     for (let i = 0; i < count; i++) {
       droppedItems.push(
@@ -30,6 +37,7 @@ const WishButton = ({ count }: { count: number }) => {
     setDroppedItems(droppedItems);
   }, [
     count,
+    paymentValet,
     selectedBanner,
     selectedBannerDrop,
     selectedBannerFeaturedItems,
@@ -40,7 +48,7 @@ const WishButton = ({ count }: { count: number }) => {
       className={
         "relative w-full h-2/5 min-w-min transition-all select-none cursor-genshin duration-300 active:brightness-[0.85] md:h-3/5 md:w-[45%] xl:w-[35%]"
       }
-      onClick={() => makeWish()}
+      onClick={makeWish}
     >
       <Image
         src={wishButton}

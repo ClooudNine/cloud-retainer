@@ -38,6 +38,46 @@
     .genshin-scrollbar::-webkit-scrollbar-thumb {
         background: #e7e5e3;
     }
+
+    input[type='range'],
+    input[type='range']::-webkit-slider-runnable-track,
+    input[type='range']::-webkit-slider-thumb {
+        appearance: none;
+        -webkit-appearance: none;
+        background: transparent;
+    }
+
+    input[type=range]::-webkit-slider-runnable-track {
+        width: 80%;
+        height: 8px;
+        background: #586b8c;
+        border-radius: 20px;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+        height: 30px;
+        width: 30px;
+        background: url("/wish-simulator/assets/input-track.webp");
+        background-size: 100% 100%;
+        border: none;
+        margin-top: -10px;
+    }
+
+    input[type=range]::-moz-range-track {
+        width: 95%;
+        height: 8px;
+        background: #586b8c;
+        border-radius: 20px;
+        border: 1px solid #62697b;
+    }
+
+    input[type=range]::-moz-range-thumb {
+        height: 30px;
+        width: 30px;
+        background: url("/wish-simulator/assets/input-track.webp");
+        background-size: 100% 100%;
+        border: none;
+    }
 }
 
 * {

@@ -12,6 +12,7 @@ import { Character } from "@/app/lib/character";
 import {
   currentGamePhase,
   currentGameVersion,
+  PaymentValets,
   WishHistory,
 } from "@/app/lib/common";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -38,6 +39,7 @@ type BannerContext = {
   selectedBanner: Banners;
   selectedBannerDrop: (Character | Weapon)[];
   selectedBannerFeaturedItems: number[] | null;
+  paymentValet: PaymentValets;
   switchBanner: (banner: Banners) => void;
   setDroppedItems: React.Dispatch<React.SetStateAction<(Character | Weapon)[]>>;
 };
@@ -70,6 +72,8 @@ export default function BannerProvider({
   const [selectedBannerDrop, setSelectedBannerDrop] = useState<
     (Character | Weapon)[]
   >([]);
+  const [paymentValet, setPaymentValet] =
+    useState<PaymentValets>("intertwined-fate");
   const [droppedItems, setDroppedItems] = useState<BannerItems>([]);
   useEffect(() => {
     getFeaturedItems(supabase, selectedBanner).then(
@@ -104,6 +108,18 @@ export default function BannerProvider({
     if (!localStorage.getItem("EpitomizedPath")) {
       localStorage.setItem("EpitomizedPath", JSON.stringify({}));
     }
+    if (!localStorage.getItem("Balance")) {
+      localStorage.setItem(
+        "Balance",
+        JSON.stringify({
+          "intertwined-fate": 0,
+          "acquaint-fate": 20,
+          primogems: 1600,
+          "masterless-stardust": 0,
+          "masterless-starglitter": 0,
+        }),
+      );
+    }
   }, []);
   useEffect(() => {
     if (droppedItems.length > 0) {
@@ -129,6 +145,11 @@ export default function BannerProvider({
   const switchBanner = useCallback(
     (banner: Banners) => {
       if (banner !== selectedBanner) {
+        if (banner.type === "Standard Wish") {
+          setPaymentValet("acquaint-fate");
+        } else {
+          setPaymentValet("intertwined-fate");
+        }
         localStorage.setItem("lastBanner", getBannerStatName(banner.type));
         setSelectedBanner(banner);
         getFeaturedItems(supabase, banner).then(setSelectedBannerFeaturedItems);
@@ -146,6 +167,7 @@ export default function BannerProvider({
         selectedBanner,
         selectedBannerDrop,
         selectedBannerFeaturedItems,
+        paymentValet,
         switchBanner,
         setDroppedItems,
       }}

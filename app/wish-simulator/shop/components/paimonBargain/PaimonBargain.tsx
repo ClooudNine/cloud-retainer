@@ -8,6 +8,8 @@ import Image from "next/image";
 import intertwinedFate from "@/public/wish-simulator/assets/intertwined-fate.webp";
 import acquaintFate from "@/public/wish-simulator/assets/acquaint-fate.webp";
 import fiveStarItemCard from "@/public/wish-simulator/assets/5-star-shop-card.webp";
+import PaymentModal from "@/app/wish-simulator/shop/components/PaymentModal";
+import { PaymentValets } from "@/app/lib/common";
 
 export type Currency =
   | "masterless-stardust"
@@ -28,6 +30,8 @@ const PaimonBargain = () => {
   const [currentCurrency, setCurrentCurrency] = useState<Currency>(
     "masterless-starglitter",
   );
+  const [isPayment, setIsPayment] = useState<boolean>(false);
+  const [shopItem, setShopItem] = useState<PaymentValets | null>(null);
   return (
     <section className={"z-10 flex-1"}>
       <header className={"flex gap-10 justify-end items-center h-20 pr-10"}>
@@ -43,6 +47,10 @@ const PaimonBargain = () => {
           className={
             "relative w-fit transition-all hover:scale-105 hover:drop-shadow-shop"
           }
+          onClick={() => {
+            setShopItem("intertwined-fate");
+            setIsPayment(true);
+          }}
         >
           <Image
             src={fiveStarItemCard}
@@ -81,6 +89,10 @@ const PaimonBargain = () => {
           className={
             "relative w-fit transition-all hover:scale-105 hover:drop-shadow-shop"
           }
+          onClick={() => {
+            setShopItem("acquaint-fate");
+            setIsPayment(true);
+          }}
         >
           <Image
             src={fiveStarItemCard}
@@ -116,6 +128,14 @@ const PaimonBargain = () => {
           </div>
         </div>
       </div>
+      {isPayment ? (
+        <PaymentModal
+          shopItem={shopItem as PaymentValets}
+          closePaymentModal={() => setIsPayment(false)}
+        />
+      ) : (
+        ""
+      )}
     </section>
   );
 };
