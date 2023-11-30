@@ -23,7 +23,7 @@ const Footer = () => {
             "h-4/5 flex flex-col gap-2 md:flex-row md:items-end md:gap-4 md:h-1/2"
           }
         >
-          <ShopLink title={"Магазин"} path={"shop"} />
+          <ShopLink />
           <DetailsLink />
           <HistoryLink />
         </div>
