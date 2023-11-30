@@ -28,7 +28,7 @@ const CurrentBalance = () => {
           }
         />
         <p className={"text-white text-base ml-2 max-2xl:truncate md:text-lg"}>
-          {JSON.parse(localStorage.getItem("Balance")!)["primogems"]}
+          {localStorage.getItem("Balance") ? JSON.parse(localStorage.getItem("Balance")!)["primogems"] : 0}
         </p>
         <button
           className={
@@ -55,7 +55,7 @@ const CurrentBalance = () => {
           }
         />
         <p className={"text-white text-base ml-2 max-2xl:truncate md:text-lg"}>
-          {JSON.parse(localStorage.getItem("Balance")!)[paymentValet]}
+          {localStorage.getItem("Balance") ? JSON.parse(localStorage.getItem("Balance")!)[paymentValet] : 0}
         </p>
       </div>
     </div>
