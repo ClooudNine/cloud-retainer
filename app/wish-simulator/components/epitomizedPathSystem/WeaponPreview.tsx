@@ -3,7 +3,7 @@ import fiveStarItemBackground from "@/public/wish-simulator/items-backgrounds-by
 import star from "@/public/common-icons/star.webp";
 import { useBannerContext } from "@/app/wish-simulator/components/BannerProvider";
 import { Weapon } from "@/app/lib/weapon";
-import classNames from "classnames";
+import clsx from "clsx";
 
 const WeaponPreview = ({
   isOverview,
@@ -21,7 +21,7 @@ const WeaponPreview = ({
   const { weapons, currentBanners, selectedBanner, currentBannersPortraits } =
     useBannerContext();
   const weapon = weapons.find((weapon) => weapon.id === weaponId) as Weapon;
-  const weaponPreviewClasses = classNames(
+  const weaponPreviewClasses = clsx(
     "group relative w-[40%] h-[90%] md:w-[30%] md:h-[70%] bg-[#e9e5dc] rounded transition-all duration-100 active:scale-95",
     {
       "scale-105 border-4 border-y-[#c0ff40] hover:ring-0":

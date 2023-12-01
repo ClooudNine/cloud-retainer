@@ -1,13 +1,13 @@
 import Image from "next/image";
 import arrow from "@/public/wish-simulator/assets/switch-banner-arrow.webp";
-import classNames from "classnames";
 import { useCallback } from "react";
 import { useBannerContext } from "@/app/wish-simulator/components/BannerProvider";
 import { playSfxEffect } from "@/app/wish-simulator/utils";
+import clsx from "clsx";
 
 const SwitchBannerArrow = ({ isForward }: { isForward: boolean }) => {
   const { currentBanners, selectedBanner, switchBanner } = useBannerContext();
-  const switchBannerArrowClasses = classNames(
+  const switchBannerArrowClasses = clsx(
     "hidden sm:block sm:mx-2 md:mx-8 lg:mx-16 xl:mx-20",
     {
       "rotate-180": !isForward,

@@ -4,12 +4,12 @@ import bannerButtonBackground from "@/public/wish-simulator/assets/banner-button
 import bannerButtonBackgroundActive from "@/public/wish-simulator/assets/banner-button-background-active.webp";
 import { Banners } from "@/app/lib/banner";
 import { useBannerContext } from "@/app/wish-simulator/components/BannerProvider";
-import classNames from "classnames";
 import {
   getBannerMainItemName,
   playSfxEffect,
 } from "@/app/wish-simulator/utils";
 import { useCallback, useMemo } from "react";
+import clsx from "clsx";
 
 const BannerButton = ({
   banner,
@@ -20,13 +20,13 @@ const BannerButton = ({
 }) => {
   const { selectedBanner, characters, weapons, switchBanner } =
     useBannerContext();
-  const bannerButtonClasses = classNames(
+  const bannerButtonClasses = clsx(
     "relative h-2/5 w-1/4 select-none transition-all cursor-genshin hover:scale-110 sm:h-3/5 md:h-[30%] lg:h-2/5",
     {
       "scale-110": banner === selectedBanner,
     },
   );
-  const portraitClasses = classNames("mt-[30%] h-4/5 w-auto transition-all", {
+  const portraitClasses = clsx("mt-[30%] h-4/5 w-auto transition-all", {
     "-translate-y-[10%]": banner === selectedBanner,
     "-mx-[15%] -rotate-12": banner.type === "Weapon Event Wish",
   });

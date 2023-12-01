@@ -12,6 +12,7 @@ import {
 import BannerProvider from "@/app/wish-simulator/components/BannerProvider";
 import { Character } from "@/app/lib/character";
 import { Weapon } from "@/app/lib/weapon";
+import { PostgrestError } from "@supabase/supabase-js";
 
 export const metadata = {
   title: "Cloud Retainer | Симулятор молитв",
@@ -24,26 +25,34 @@ export default async function WishSimulator() {
 
   const {
     data: characterBanners,
+    error: charactersBannersError,
   }: {
     data: CharacterBanner[] | null;
+    error: PostgrestError | null;
   } = await supabase.from("characters_banners").select("*");
 
   const {
     data: weaponBanners,
+    error: weaponsBannersError,
   }: {
     data: WeaponBanner[] | null;
+    error: PostgrestError | null;
   } = await supabase.from("weapons_banners").select("*");
 
   const {
     data: standardBanners,
+    error: standardBannersError,
   }: {
     data: StandardBanner[] | null;
+    error: PostgrestError | null;
   } = await supabase.from("standard_banners").select("*");
 
   const {
     data: charactersFromWishes,
+    error: charactersError,
   }: {
     data: Character[] | null;
+    error: PostgrestError | null;
   } = await supabase
     .from("characters")
     .select("*")
@@ -51,8 +60,10 @@ export default async function WishSimulator() {
 
   const {
     data: weaponsFromWishes,
+    error: weaponsError,
   }: {
     data: Weapon[] | null;
+    error: PostgrestError | null;
   } = await supabase
     .from("weapons")
     .select("*")
@@ -67,9 +78,29 @@ export default async function WishSimulator() {
   ) {
     return (
       <div
-        className={"w-full h-full flex justify-center items-center text-9xl"}
+        className={
+          "w-full h-full flex justify-center items-center text-9xl font-genshin"
+        }
       >
-        Oops...
+        Banners not found...
+      </div>
+    );
+  }
+
+  if (
+    charactersBannersError ||
+    weaponsBannersError ||
+    standardBannersError ||
+    charactersError ||
+    weaponsError
+  ) {
+    return (
+      <div
+        className={
+          "w-full h-full flex justify-center items-center text-9xl font-genshin"
+        }
+      >
+        Banners fetch error!
       </div>
     );
   }

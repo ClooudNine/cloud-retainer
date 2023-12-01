@@ -1,9 +1,9 @@
 import Image from "next/image";
 import wishSimulatorBackground from "@/public/wish-simulator/assets/wish-simulator-bg.webp";
-import classNames from "classnames";
+import clsx from "clsx";
 
 const Background = ({ isBlurred }: { isBlurred: boolean }) => {
-  const backgroundClasses = classNames(
+  const backgroundClasses = clsx(
     "select-none object-cover object-left brightness-90 -z-10",
     {
       blur: isBlurred,

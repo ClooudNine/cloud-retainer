@@ -13,7 +13,6 @@ import {
   TextParameters,
 } from "@/app/lib/banner";
 import SwitchBannerArrow from "@/app/wish-simulator/components/bannerOverview/SwitchBannerArrow";
-import classNames from "classnames";
 import { currentGameVersion } from "@/app/lib/common";
 import {
   getBannerColor,
@@ -21,6 +20,7 @@ import {
 } from "@/app/wish-simulator/utils";
 import EpitomizedPathButton from "@/app/wish-simulator/components/epitomizedPathSystem/EpitomizedPathButton";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import clsx from "clsx";
 
 const renderCharacterBannerInfo = (
   character: Character,
@@ -198,7 +198,7 @@ const Banner = () => {
   const [currentBannersPreviewsUrl, setCurrentBannersPreviewsUrl] = useState<
     string[]
   >(() => getPreviewsUrlForCurrentBanners(supabase, currentBanners));
-  const rulesClasses = classNames("flex items-center gap-1 mt-1 md:mt-2", {
+  const rulesClasses = clsx("flex items-center gap-1 mt-1 md:mt-2", {
     "bg-[var(--palette-opacity)]": currentGameVersion !== 1,
     "bg-[rgba(65,163,162,0.8)]":
       currentGameVersion === 1 && selectedBanner.type === "Standard Wish",
