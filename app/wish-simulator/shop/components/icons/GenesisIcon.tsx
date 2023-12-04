@@ -1,11 +1,11 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import classNames from "classnames";
 import { Sections } from "@/app/wish-simulator/shop/page";
+import clsx from "clsx";
 
 const GenesisIcon = ({ param }: { param: Sections }) => {
   const searchParams = useSearchParams();
-  const iconClasses = classNames("z-10 w-10 ml-6", {
+  const iconClasses = clsx("z-10 w-10 ml-6", {
     "fill-[#3b4254]": searchParams.get("section") === param,
     "fill-[#ece5d7] group-active:fill-[#3b4254]":
       searchParams.get("section") !== param,

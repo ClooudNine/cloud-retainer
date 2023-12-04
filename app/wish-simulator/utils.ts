@@ -71,7 +71,6 @@ export const getPreviewsUrlForCurrentBanners = (
   supabase: SupabaseClient,
   currentBanners: Banners[],
 ): string[] => {
-  console.log("call!");
   return currentBanners.map((banner) => {
     const bannerTitle = striptags(banner.title);
     switch (banner.type) {

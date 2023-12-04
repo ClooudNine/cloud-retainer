@@ -10,14 +10,16 @@ import { Weapon } from "@/app/lib/weapon";
 
 const WishButton = ({ count }: { count: number }) => {
   const {
+    audio,
     selectedBanner,
-    selectedBannerDrop,
-    selectedBannerFeaturedItems,
+    drop,
+    featuredItems,
     paymentValet,
     setDroppedItems,
   } = useBannerContext();
 
   const makeWish = useCallback(() => {
+    audio?.pause();
     let balance = JSON.parse(localStorage.getItem("Balance")!);
     if (balance[paymentValet] < count) {
       return;
@@ -27,20 +29,17 @@ const WishButton = ({ count }: { count: number }) => {
     let droppedItems: (Character | Weapon)[] = [];
     for (let i = 0; i < count; i++) {
       droppedItems.push(
-        wish(
-          selectedBanner,
-          selectedBannerDrop,
-          selectedBannerFeaturedItems,
-        ) as Character | Weapon,
+        wish(selectedBanner, drop, featuredItems) as Character | Weapon,
       );
     }
     setDroppedItems(droppedItems);
   }, [
+    audio,
     count,
+    drop,
+    featuredItems,
     paymentValet,
     selectedBanner,
-    selectedBannerDrop,
-    selectedBannerFeaturedItems,
     setDroppedItems,
   ]);
   return (

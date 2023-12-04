@@ -2,9 +2,22 @@
 import Image from "next/image";
 import primogem from "@/public/wish-simulator/assets/primogem.webp";
 import { useBannerContext } from "@/app/wish-simulator/components/BannerProvider";
+import { useEffect, useState } from "react";
+import { BalanceState } from "@/app/lib/common";
 
 const CurrentBalance = () => {
   const { paymentValet } = useBannerContext();
+  const [primogems, setPrimogems] = useState(0);
+  const [pullValetCount, setPullValetCount] = useState(0);
+  useEffect(() => {
+    const currentBalance: BalanceState = JSON.parse(
+      localStorage.getItem("Balance")!,
+    );
+    if (currentBalance) {
+      setPrimogems(currentBalance["primogems"]);
+      setPullValetCount(currentBalance[paymentValet]);
+    }
+  }, [paymentValet]);
   return (
     <div
       className={
@@ -28,7 +41,7 @@ const CurrentBalance = () => {
           }
         />
         <p className={"text-white text-base ml-2 max-2xl:truncate md:text-lg"}>
-          {localStorage.getItem("Balance") ? JSON.parse(localStorage.getItem("Balance")!)["primogems"] : 0}
+          {primogems}
         </p>
         <button
           className={
@@ -55,7 +68,7 @@ const CurrentBalance = () => {
           }
         />
         <p className={"text-white text-base ml-2 max-2xl:truncate md:text-lg"}>
-          {localStorage.getItem("Balance") ? JSON.parse(localStorage.getItem("Balance")!)[paymentValet] : 0}
+          {pullValetCount}
         </p>
       </div>
     </div>

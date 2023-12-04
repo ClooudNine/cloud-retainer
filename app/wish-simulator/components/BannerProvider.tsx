@@ -12,7 +12,7 @@ import { Character } from "@/app/lib/character";
 import {
   currentGamePhase,
   currentGameVersion,
-  PaymentValets,
+  PullValets,
   WishHistory,
 } from "@/app/lib/common";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -32,14 +32,15 @@ type BannerContextProviderProps = {
   weapons: Weapon[];
 };
 type BannerContext = {
+  audio: HTMLAudioElement | null;
   characters: Character[];
   weapons: Weapon[];
   currentBanners: Banners[];
   currentBannersPortraits: string[][];
   selectedBanner: Banners;
-  selectedBannerDrop: (Character | Weapon)[];
-  selectedBannerFeaturedItems: number[] | null;
-  paymentValet: PaymentValets;
+  drop: (Character | Weapon)[];
+  featuredItems: number[] | null;
+  paymentValet: PullValets;
   switchBanner: (banner: Banners) => void;
   setDroppedItems: React.Dispatch<React.SetStateAction<(Character | Weapon)[]>>;
 };
@@ -51,11 +52,14 @@ export default function BannerProvider({
   weapons,
 }: BannerContextProviderProps) {
   const supabase = createClientComponentClient();
-  const [audio] = useState<HTMLAudioElement | null>(
-    typeof window !== "undefined"
-      ? new Audio("/sounds/statue-of-the-seven.mp3")
-      : null,
-  );
+  const [audio] = useState<HTMLAudioElement | null>(() => {
+    if (typeof window !== "undefined") {
+      const backgroundMusic = new Audio("/sounds/statue-of-the-seven.mp3");
+      backgroundMusic.autoplay = true;
+      return backgroundMusic;
+    }
+    return null;
+  });
   const [currentBanners, setCurrentBanners] = useState<Banners[]>(() =>
     getBannersSet(banners, currentGameVersion, currentGamePhase),
   );
@@ -67,18 +71,14 @@ export default function BannerProvider({
   const [selectedBanner, setSelectedBanner] = useState<Banners>(
     currentBanners[0],
   );
-  const [selectedBannerFeaturedItems, setSelectedBannerFeaturedItems] =
-    useState<number[] | null>(null);
-  const [selectedBannerDrop, setSelectedBannerDrop] = useState<
-    (Character | Weapon)[]
-  >([]);
+  const [featuredItems, setFeaturedItems] = useState<number[] | null>(null);
+  const [drop, setDrop] = useState<(Character | Weapon)[]>([]);
   const [paymentValet, setPaymentValet] =
-    useState<PaymentValets>("intertwined-fate");
+    useState<PullValets>("intertwined-fate");
   const [droppedItems, setDroppedItems] = useState<BannerItems>([]);
+
   useEffect(() => {
-    getFeaturedItems(supabase, selectedBanner).then(
-      setSelectedBannerFeaturedItems,
-    );
+    getFeaturedItems(supabase, selectedBanner).then(setFeaturedItems);
     const bannerTypes: BannerTypes[] = [
       "Character Event Wish",
       "Character Event Wish-2",
@@ -121,27 +121,11 @@ export default function BannerProvider({
       );
     }
   }, []);
+
   useEffect(() => {
-    if (droppedItems.length > 0) {
-      audio?.pause();
-    } else {
-      audio?.play();
-      audio!.loop = true;
-    }
-    return () => {
-      audio?.pause();
-    };
-  }, [audio, droppedItems.length]);
-  useEffect(() => {
-    setSelectedBannerDrop(
-      getBannerDrop(
-        selectedBanner,
-        characters,
-        weapons,
-        selectedBannerFeaturedItems,
-      ),
-    );
-  }, [characters, selectedBanner, selectedBannerFeaturedItems, weapons]);
+    setDrop(getBannerDrop(selectedBanner, characters, weapons, featuredItems));
+  }, [featuredItems]);
+
   const switchBanner = useCallback(
     (banner: Banners) => {
       if (banner !== selectedBanner) {
@@ -150,9 +134,9 @@ export default function BannerProvider({
         } else {
           setPaymentValet("intertwined-fate");
         }
-        localStorage.setItem("lastBanner", getBannerStatName(banner.type));
+        localStorage.setItem("LastBanner", getBannerStatName(banner.type));
         setSelectedBanner(banner);
-        getFeaturedItems(supabase, banner).then(setSelectedBannerFeaturedItems);
+        getFeaturedItems(supabase, banner).then(setFeaturedItems);
       }
     },
     [selectedBanner, supabase],
@@ -160,13 +144,14 @@ export default function BannerProvider({
   return (
     <BannerContext.Provider
       value={{
+        audio,
         characters,
         weapons,
         currentBanners,
         currentBannersPortraits,
         selectedBanner,
-        selectedBannerDrop,
-        selectedBannerFeaturedItems,
+        drop,
+        featuredItems,
         paymentValet,
         switchBanner,
         setDroppedItems,

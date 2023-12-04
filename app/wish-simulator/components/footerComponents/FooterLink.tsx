@@ -1,7 +1,6 @@
-"use client";
 import Link from "next/link";
 
-const ShopLink = () => {
+const FooterLink = ({ title, link }: { title: string; link: string }) => {
   return (
     <Link
       className={`font-genshin
@@ -29,11 +28,11 @@ const ShopLink = () => {
          md:h-4/5
          md:text-lg
          lg:text-xl`}
-      href={`wish-simulator/shop?section=paimonBargain`}
+      href={`/wish-simulator/${link}`}
     >
-      Магазин
+      {title}
     </Link>
   );
 };
 
-export default ShopLink;
+export default FooterLink;

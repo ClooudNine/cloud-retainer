@@ -2,10 +2,10 @@
 import Image from "next/image";
 import shopButtonActive from "@/public/wish-simulator/assets/shop-button-active-background.webp";
 import star from "@/public/wish-simulator/assets/star-for-description.webp";
-import classNames from "classnames";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Sections } from "@/app/wish-simulator/shop/page";
 import { useCallback } from "react";
+import clsx from "clsx";
 
 const SidebarButton = ({
   title,
@@ -18,7 +18,7 @@ const SidebarButton = ({
 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const paimonBargainButtonClasses = classNames(
+  const paimonBargainButtonClasses = clsx(
     "relative group flex gap-4 w-full h-12 items-center text-xl transition-all hover:bg-[rgba(236,229,216,0.2)]",
     {
       "text-[#3b4254]": searchParams.get("section") === param,
@@ -26,7 +26,7 @@ const SidebarButton = ({
         searchParams.get("section") !== param,
     },
   );
-  const buttonBackgroundClasses = classNames(
+  const buttonBackgroundClasses = clsx(
     "w-[105%] max-w-none h-auto absolute transition-all",
     {
       "opacity-100": searchParams.get("section") === param,
@@ -34,7 +34,7 @@ const SidebarButton = ({
         searchParams.get("section") !== param,
     },
   );
-  const starClasses = classNames(
+  const starClasses = clsx(
     "absolute right-0 transition-all duration-300 h-[50%] w-auto",
     {
       "opacity-100 translate-x-9": searchParams.get("section") === param,

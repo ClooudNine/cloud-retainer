@@ -176,7 +176,7 @@ const WishDrop = ({
   droppedItems: (Character | Weapon)[];
 }) => {
   const supabase = createClientComponentClient();
-  const { setDroppedItems } = useBannerContext();
+  const { audio, setDroppedItems } = useBannerContext();
   const [isAnimationPlaying, setIsAnimationPlaying] = useState<boolean>(true);
   const [obtainItemAnimationPlaying, setObtainItemAnimationPlaying] =
     useState<boolean>(true);
@@ -196,9 +196,10 @@ const WishDrop = ({
       );
       setTimeout(() => setObtainItemAnimationPlaying(false), 2000);
     } else {
+      audio?.play();
       setDroppedItems([]);
     }
-  }, [currentItemIndex, droppedItems, setDroppedItems]);
+  }, [audio, currentItemIndex, droppedItems, setDroppedItems]);
 
   return (
     <section
@@ -209,8 +210,8 @@ const WishDrop = ({
         isAnimationPlaying
           ? undefined
           : obtainItemAnimationPlaying
-          ? undefined
-          : () => nextItemCallback()
+            ? undefined
+            : () => nextItemCallback()
       }
     >
       <Image

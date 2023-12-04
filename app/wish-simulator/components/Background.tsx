@@ -12,7 +12,7 @@ const Background = ({ isBlurred }: { isBlurred: boolean }) => {
   return (
     <div
       className={
-        "absolute w-full h-full shadow-[0_-50px_100px_50px_rgba(0,0,0,0.26)_inset]"
+        "absolute w-full h-full shadow-[0_-50px_100px_50px_rgba(0,0,0,0.25)_inset]"
       }
     >
       <Image

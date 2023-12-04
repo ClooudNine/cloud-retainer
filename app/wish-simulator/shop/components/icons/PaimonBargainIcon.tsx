@@ -1,11 +1,11 @@
 "use client";
-import classNames from "classnames";
 import { useSearchParams } from "next/navigation";
 import { Sections } from "@/app/wish-simulator/shop/page";
+import clsx from "clsx";
 
 const PaimonBargainIcon = ({ param }: { param: Sections }) => {
   const searchParams = useSearchParams();
-  const iconClasses = classNames("z-10 w-8 ml-6", {
+  const iconClasses = clsx("z-10 w-8 ml-6", {
     "fill-[#3b4254]": searchParams.get("section") === param,
     "fill-[#ece5d7] group-active:fill-[#3b4254]":
       searchParams.get("section") !== param,
