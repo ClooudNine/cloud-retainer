@@ -13,7 +13,7 @@ const TablePagination = ({
   return (
     <div
       className={
-        "absolute flex items-center justify-center w-full h-[10%] bottom-[6.5%] gap-20"
+        "absolute flex items-center justify-center w-full h-[10%] bottom-[6.5%] gap-8 md:gap-20"
       }
     >
       <button
@@ -23,7 +23,12 @@ const TablePagination = ({
         disabled={currentPage === 1}
         onClick={() => setPage(currentPage - 1)}
       >
-        <Image src={arrow} alt={"Предыдущие 5 молитв"} quality={100} />
+        <Image
+          src={arrow}
+          alt={"Предыдущие 5 молитв"}
+          quality={100}
+          draggable={false}
+        />
       </button>
       <p className={"text-[#595252] text-[3vw] md:text-[1.5vw]"}>
         {currentPage}
@@ -39,6 +44,7 @@ const TablePagination = ({
           src={arrow}
           alt={"Следующие 5 молитв"}
           quality={100}
+          draggable={false}
           className={"rotate-180"}
         />
       </button>

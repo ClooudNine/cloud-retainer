@@ -1,5 +1,5 @@
 "use client";
-import { bannerStorages } from "@/app/lib/banner";
+import { bannerHistoryTypes } from "@/lib/banners";
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -8,7 +8,7 @@ export const UserSelect = () => {
   const [isSelectOpen, setIsSelectOpen] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<string>("");
   useEffect(() => {
-    setSelectedOption(localStorage.getItem("lastBanner") as string);
+    setSelectedOption(localStorage.getItem("LastBanner") as string);
   }, []);
   const selectOptionClick = useCallback(
     (bannerType: string) => {
@@ -22,7 +22,7 @@ export const UserSelect = () => {
     <>
       <p
         className={
-          "absolute text-[#595252] text-[2vw] md:text-[1.3vw] top-[13.5%] left-[15%]"
+          "absolute text-[#595252] text-[2vw] md:text-[1.3vw] top-[14%] left-[15%]"
         }
       >
         Тип Молитвы
@@ -32,7 +32,7 @@ export const UserSelect = () => {
           className="h-full flex justify-between items-center mx-3"
           onClick={() => setIsSelectOpen(!isSelectOpen)}
         >
-          <p className={"truncate"}>{bannerStorages[selectedOption]}</p>
+          <p className={"truncate"}>{bannerHistoryTypes[selectedOption]}</p>
           <svg
             className={`w-[2vw] ${isSelectOpen ? "rotate-0" : "rotate-180"}`}
             fill="#595252"
@@ -42,8 +42,6 @@ export const UserSelect = () => {
             xmlnsXlink="http://www.w3.org/1999/xlink"
           >
             <g>
-              <title>arrow_up [#337]</title>
-              <desc>Created with Sketch.</desc>
               <g fill="none" fillRule="evenodd" strokeWidth="1">
                 <g transform="translate(-260 -6684)" fill="#595252">
                   <g transform="translate(56 160)">
@@ -56,7 +54,7 @@ export const UserSelect = () => {
         </div>
         {isSelectOpen && (
           <div className="bg-[rgba(95,101,114,0.9)] rounded-3xl mt-[3%] ">
-            {Object.entries(bannerStorages).map((option) => (
+            {Object.entries(bannerHistoryTypes).map((option) => (
               <div
                 key={option[0]}
                 className={

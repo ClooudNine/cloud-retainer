@@ -5,14 +5,18 @@ import Link from "next/link";
 import Title from "@/app/wish-simulator/history/components/Title";
 import UserSelect from "@/app/wish-simulator/history/components/UserSelect";
 import HistoryTable from "@/app/wish-simulator/history/components/HistoryTable";
-import {Suspense} from "react";
+import { Suspense } from "react";
 
 export const metadata = {
   title: "Cloud Retainer | Симулятор молитв - История",
   description: "Здесь отображены все сделанные вами молитвы в симуляторе",
 };
 function HistoryFallback() {
-  return <>Loading...</>
+  return (
+    <p className={"font-genshin text-7xl flex items-center justify-center"}>
+      Loading history...
+    </p>
+  );
 }
 export default function WishHistory() {
   return (
@@ -54,7 +58,7 @@ export default function WishHistory() {
           </svg>
         </Link>
         <Suspense fallback={<HistoryFallback />}>
-        <HistoryTable />
+          <HistoryTable />
         </Suspense>
       </div>
     </main>

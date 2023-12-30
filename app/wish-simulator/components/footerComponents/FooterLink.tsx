@@ -1,5 +1,4 @@
 import Link from "next/link";
-
 const FooterLink = ({ title, link }: { title: string; link: string }) => {
   return (
     <Link

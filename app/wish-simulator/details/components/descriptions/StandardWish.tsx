@@ -1,4 +1,4 @@
-import { Banners } from "@/app/lib/banner";
+import { Banners } from "@/lib/banners";
 import striptags from "striptags";
 
 const StandardWish = ({ banner }: { banner: Banners }) => {

@@ -1,9 +1,9 @@
 import Image from "next/image";
-import fiveStarItemBackground from "@/public/wish-simulator/items-backgrounds-by-rarity/background-item-5-star.webp";
-import star from "@/public/common-icons/star.webp";
+import fiveStarItemBackground from "@/public/common/items-backgrounds-by-rarity/background-item-5-star.webp";
+import star from "@/public/common/star.webp";
 import { useBannerContext } from "@/app/wish-simulator/components/BannerProvider";
-import { Weapon } from "@/app/lib/weapon";
 import clsx from "clsx";
+import { Weapon } from "@/lib/db/schema";
 
 const WeaponPreview = ({
   isOverview,

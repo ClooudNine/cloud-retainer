@@ -1,11 +1,16 @@
-import { BannerItems, Banners, BannerTypes } from "@/app/lib/banner";
+import { BannerItems, Banners } from "@/lib/banners";
 import { getBannerDrop } from "@/app/wish-simulator/utils";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-import { Character } from "@/app/lib/character";
-import { Weapon } from "@/app/lib/weapon";
-import { Rares } from "@/app/lib/common";
 import ItemsTable from "@/app/wish-simulator/details/components/itemsListSection/ItemsTable";
+import {
+  BannerTypes,
+  Character,
+  characters,
+  Rares,
+  Weapon,
+  weapons,
+} from "@/lib/db/schema";
+import { db } from "@/lib/db";
+import { isNotNull } from "drizzle-orm";
 
 const getItemsByRarity = (
   bannerType: BannerTypes,
@@ -38,52 +43,43 @@ const ItemsList = async ({
   featuredItems,
 }: {
   banner: Banners;
-  mainItems: Character[] | Weapon[] | null;
-  featuredItems: Character[] | Weapon[] | null;
+  mainItems: (Character | Weapon)[] | null;
+  featuredItems: (Character | Weapon)[] | null;
 }) => {
-  const supabase = createServerComponentClient({ cookies });
-  const {
-    data: allCharactersFromWishes,
-  }: {
-    data: Character[] | null;
-  } = await supabase
-    .from("characters")
-    .select("*")
-    .not("in_standard_wish", "is", null);
+  const charactersFromWishes: Character[] = await db
+    .select()
+    .from(characters)
+    .where(isNotNull(characters.inStandardWish));
 
-  const {
-    data: allWeaponsFromWishes,
-  }: {
-    data: Weapon[] | null;
-  } = await supabase
-    .from("weapons")
-    .select("*")
-    .not("in_standard_wish", "is", null);
+  const weaponsFromWishes: Weapon[] = await db
+    .select()
+    .from(weapons)
+    .where(isNotNull(weapons.inStandardWish));
 
-  if (allCharactersFromWishes === null || allWeaponsFromWishes === null) {
+  if (charactersFromWishes === null || weaponsFromWishes === null) {
     return <p>Data miss :(</p>;
   }
 
   const bannerItems = getBannerDrop(
     banner,
-    allCharactersFromWishes,
-    allWeaponsFromWishes,
+    charactersFromWishes,
+    weaponsFromWishes,
     featuredItems?.map((item) => item.id),
   );
 
   const fiveStarItems = getItemsByRarity(
     banner.type,
     bannerItems,
-    5,
+    "5",
     mainItems,
   );
   const fourStarItems = getItemsByRarity(
     banner.type,
     bannerItems,
-    4,
+    "4",
     featuredItems,
   );
-  const threeStarItems = getItemsByRarity(banner.type, bannerItems, 3);
+  const threeStarItems = getItemsByRarity(banner.type, bannerItems, "3");
 
   return (
     <div
@@ -95,18 +91,18 @@ const ItemsList = async ({
         Список предметов, доступных для получения с помощью Молитвы:
       </p>
       <ItemsTable
-        rare={5}
+        rare={"5"}
         items={fiveStarItems}
         mainItems={mainItems}
         bannerType={banner.type}
       />
       <ItemsTable
-        rare={4}
+        rare={"4"}
         items={fourStarItems}
         mainItems={featuredItems}
         bannerType={banner.type}
       />
-      <ItemsTable rare={3} items={threeStarItems} bannerType={banner.type} />
+      <ItemsTable rare={"3"} items={threeStarItems} bannerType={banner.type} />
     </div>
   );
 };

@@ -1,16 +1,28 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { WishHistory } from "@/app/lib/common";
+import { useCallback, useEffect, useState } from "react";
+import { BaseBannerStats, WishHistory } from "@/lib/banners";
 import TablePagination from "@/app/wish-simulator/history/components/TablePagination";
+import { WishHistoryTypes } from "@/lib/banners";
+import GuaranteeStatus from "@/app/wish-simulator/history/components/GuaranteeStatus";
 
 const HistoryTable = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [currentType, setCurrentType] = useState<WishHistoryTypes | null>(null);
   const [history, setHistory] = useState<WishHistory>([]);
+  const removeHistory = useCallback(() => {
+    let bannerStats: BaseBannerStats = JSON.parse(
+      localStorage.getItem(currentType as string)!,
+    );
+    bannerStats.history = [];
+    localStorage.setItem(currentType as string, JSON.stringify(bannerStats));
+    setHistory([]);
+  }, [currentType]);
 
   useEffect(() => {
-    const bannerType = searchParams.get("type") as string;
+    const bannerType = searchParams.get("type") as WishHistoryTypes;
+    setCurrentType(bannerType);
     setHistory(JSON.parse(localStorage.getItem(bannerType)!)["history"]);
   }, [searchParams]);
 
@@ -18,7 +30,7 @@ const HistoryTable = () => {
     return (
       <p
         className={
-          "absolute text-[#595252] text-[3vw] md:text-[2.1vw] top-[45%] left-[20%]"
+          "absolute text-[#595252] w-full text-[3vw] md:text-[2.1vw] top-[45%] text-center"
         }
       >
         История по данному типу отсутствует!
@@ -36,44 +48,48 @@ const HistoryTable = () => {
         <p className={"text-[3vw] md:text-[1vw] text-[#9a8e8e]"}>
           Всего молитв сделано: {history.length}
         </p>
-        <div className={"flex gap-3.5 md:gap-12"}>
+        <div className={"flex md:h-[15%] md:gap-12"}>
           <div>
             <p className={"text-[3vw] md:text-[1vw] text-[#9659c7]"}>
-              Всего предметов 4★ получено:{" "}
+              Всего предметов 4★ получено:&nbsp;
               {history.filter((wish) => wish.item.rare === 4).length}
             </p>
             <p className={"text-[3vw] md:text-[1vw] text-[#bd6932]"}>
-              Всего предметов 5★ получено:{" "}
+              Всего предметов 5★ получено:&nbsp;
               {history.filter((wish) => wish.item.rare === 5).length}
             </p>
           </div>
-          {searchParams.get("type") === "CharacterEventWish" ||
-          searchParams.get("type") === "WeaponEventWish" ? (
+          {currentType === "CharacterEventWish" ||
+          currentType === "WeaponEventWish" ? (
             <div>
-              <p className={"text-[3vw] md:text-[1vw] text-[#9659c7]"}>
-                Текущий статус гаранта 4★:
-                {JSON.parse(localStorage.getItem(searchParams.get("type")!)!)[
-                  "fourStarGuaranteed"
-                ] ? (
-                  <em className={"not-italic text-green-500"}> Да</em>
-                ) : (
-                  <em className={"not-italic text-red-600"}> Нет</em>
-                )}
-              </p>
-              <p className={"text-[3vw] md:text-[1vw] text-[#bd6932]"}>
-                Текущий статус гаранта 5★:
-                {JSON.parse(localStorage.getItem(searchParams.get("type")!)!)[
-                  "fiveStarGuaranteed"
-                ] ? (
-                  <em className={"not-italic text-green-500"}> Да</em>
-                ) : (
-                  <em className={"not-italic text-red-600"}> Нет</em>
-                )}
-              </p>
+              <GuaranteeStatus bannerType={currentType} rare={4} />
+              <GuaranteeStatus bannerType={currentType} rare={5} />
             </div>
           ) : (
             ""
           )}
+          <button
+            className={
+              "flex items-center justify-evenly mr-2 w-[35%] md:w-[25%] h-full bg-red-300 rounded-full text-[2vw] md:text-[1vw] place-self-start cursor-genshin p-2"
+            }
+            onClick={removeHistory}
+          >
+            <svg
+              className={"h-full"}
+              fill="none"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6M18 6V16.2C18 17.8802 18 18.7202 17.673 19.362C17.3854 19.9265 16.9265 20.3854 16.362 20.673C15.7202 21 14.8802 21 13.2 21H10.8C9.11984 21 8.27976 21 7.63803 20.673C7.07354 20.3854 6.6146 19.9265 6.32698 19.362C6 18.7202 6 17.8802 6 16.2V6M14 10V17M10 10V17"
+                stroke="#000"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+              />
+            </svg>
+            <p>Удалить историю</p>
+          </button>
         </div>
         <table
           className={
@@ -133,8 +149,8 @@ const HistoryTable = () => {
                             param.rare === 5
                               ? "text-[#bd6932]"
                               : param.rare === 4
-                              ? "text-[#9659c7]"
-                              : ""
+                                ? "text-[#9659c7]"
+                                : ""
                           }`}
                         >
                           {param.name}

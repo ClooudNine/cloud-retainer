@@ -1,8 +1,8 @@
 import striptags from "striptags";
-import { Banners } from "@/app/lib/banner";
-import { Character } from "@/app/lib/character";
-import { Weapon } from "@/app/lib/weapon";
-import { elementToColor } from "@/app/lib/common";
+import { Banners } from "@/lib/banners";
+import { Character } from "@/lib/character";
+import { Weapon } from "@/lib/weapon";
+import { elementToColor } from "@/lib/common";
 
 const CharacterEventWish = ({
   banner,

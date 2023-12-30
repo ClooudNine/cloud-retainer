@@ -1,6 +1,6 @@
-import { BannerTypes } from "@/app/lib/banner";
-import { Character } from "@/app/lib/character";
-import { Weapon } from "@/app/lib/weapon";
+import { BannerTypes } from "@/lib/banners";
+import { Character } from "@/lib/character";
+import { Weapon } from "@/lib/weapon";
 import IncreasedChanceList from "@/app/wish-simulator/details/components/increasedChanceSection/IncreasedChanceList";
 
 export const getBannerGuaranteeRules = (bannerType: BannerTypes) => {

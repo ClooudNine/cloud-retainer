@@ -1,12 +1,7 @@
 import Image from "next/image";
-import fiveStarItemBackground from "@/public/wish-simulator/items-backgrounds-by-rarity/background-item-5-star.webp";
-import fourStarItemBackground from "@/public/wish-simulator/items-backgrounds-by-rarity/background-item-4-star.webp";
-import star from "@/public/common-icons/star.webp";
-import { Character } from "@/app/lib/character";
-import { Weapon } from "@/app/lib/weapon";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-import { SupabaseClient } from "@supabase/supabase-js";
+import fiveStarItemBackground from "@/public/common/items-backgrounds-by-rarity/background-item-5-star.webp";
+import fourStarItemBackground from "@/public/common/items-backgrounds-by-rarity/background-item-4-star.webp";
+import star from "@/public/common/star.webp";
 
 const getItemPortrait = (
   supabase: SupabaseClient,
@@ -86,7 +81,7 @@ const ItemCard = ({ item }: { item: Character | Weapon }) => {
       </div>
       <p
         className={
-          "truncate text-[2.5vw] md:text-[1vw] text-center text-[#495366] -mt-1"
+          "truncate text-[2.5vw] md:text-[1vw] text-center text-[#495366]"
         }
       >
         Ур. 1

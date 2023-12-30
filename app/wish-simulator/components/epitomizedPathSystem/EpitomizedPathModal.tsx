@@ -1,12 +1,12 @@
 import Image from "next/image";
 import epitomizedPathModal from "@/public/wish-simulator/assets/epitomized-path-modal.webp";
 import epitomizedPathExistsImage from "@/public/wish-simulator/assets/epitomized-path-exists.webp";
-import { WeaponBanner } from "@/app/lib/banner";
 import WeaponPreview from "@/app/wish-simulator/components/epitomizedPathSystem/WeaponPreview";
 import { useCallback, useEffect, useState } from "react";
 import { useBannerContext } from "@/app/wish-simulator/components/BannerProvider";
 import ResetEpitomizedPathModal from "@/app/wish-simulator/components/epitomizedPathSystem/ResetEpitomizedPathModal";
-import { EpitomizedStats } from "@/app/lib/common";
+import { EpitomizedStats } from "@/lib/common";
+import { WeaponBanner } from "@/lib/db/schema";
 
 export const EpitomizedPathModal = ({
   closeModal,
@@ -32,7 +32,7 @@ export const EpitomizedPathModal = ({
       setEpitomizedCount(epitomizedPath.count);
       setEpitomizedPathExists(true);
     } else {
-      setEpitomizedWeapon(weaponBanner.first_main_weapon);
+      setEpitomizedWeapon(weaponBanner.firstMainWeaponId);
       setEpitomizedCount(0);
     }
   }, [weaponBanner]);
@@ -175,8 +175,8 @@ export const EpitomizedPathModal = ({
                 }
                 weaponId={epitomizedWeapon as number}
                 order={[
-                  weaponBanner.first_main_weapon,
-                  weaponBanner.second_main_weapon,
+                  weaponBanner.firstMainWeaponId,
+                  weaponBanner.secondMainWeaponId,
                 ].indexOf(epitomizedWeapon as number)}
               />
             </div>
@@ -240,8 +240,8 @@ export const EpitomizedPathModal = ({
               }
             >
               {[
-                weaponBanner.first_main_weapon,
-                weaponBanner.second_main_weapon,
+                weaponBanner.firstMainWeaponId,
+                weaponBanner.secondMainWeaponId,
               ].map((mainWeapon, index) => (
                 <WeaponPreview
                   key={mainWeapon}

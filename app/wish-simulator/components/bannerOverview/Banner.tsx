@@ -1,37 +1,32 @@
 "use client";
 import { useBannerContext } from "@/app/wish-simulator/components/BannerProvider";
 import Image from "next/image";
-import { CSSProperties, useState } from "react";
-import { Character } from "@/app/lib/character";
-import { Weapon } from "@/app/lib/weapon";
+import { CSSProperties } from "react";
 import star from "@/public/wish-simulator/assets/star-for-description.webp";
-import {
-  bannerDescriptions,
-  Banners,
-  bannerSecondTitle,
-  NamesOffsets,
-  TextParameters,
-} from "@/app/lib/banner";
+import { bannerDescriptions, Banners, bannerSecondTitle } from "@/lib/banners";
 import SwitchBannerArrow from "@/app/wish-simulator/components/bannerOverview/SwitchBannerArrow";
-import { currentGameVersion } from "@/app/lib/common";
-import {
-  getBannerColor,
-  getPreviewsUrlForCurrentBanners,
-} from "@/app/wish-simulator/utils";
+import { currentGameVersion } from "@/lib/common";
+import { getBannerColor, getPreviewUrl } from "@/app/wish-simulator/utils";
 import EpitomizedPathButton from "@/app/wish-simulator/components/epitomizedPathSystem/EpitomizedPathButton";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import clsx from "clsx";
+import {
+  Character,
+  CharacterBanner,
+  StandardBanner,
+  Weapon,
+  WeaponBanner,
+} from "@/lib/db/schema";
 
-const renderCharacterBannerInfo = (
+const renderCharacterName = (
   character: Character,
-  offsets: TextParameters,
+  offsets: { r: string; b: string },
 ) => {
   return (
     <div
       style={
         {
-          "--right-offset": offsets["r"],
-          "--bottom-offset": offsets["b"],
+          "--right-offset": offsets.r,
+          "--bottom-offset": offsets.b,
         } as CSSProperties
       }
       className={
@@ -51,17 +46,20 @@ const renderCharacterBannerInfo = (
 };
 const renderWeaponBannerInfo = (
   fiveStarWeapons: Weapon[],
-  fourStarWeapon: string,
-  offset: NamesOffsets,
+  offset: {
+    fiveStar: { r: string; b: string; fontSize: string };
+    [key: string]: { r: string; b: string; fontSize: string };
+  },
 ) => {
+  const fourStarWeaponText = Object.values(offset)[1];
   return (
     <>
       <div
         style={
           {
-            "--right-offset": offset["five_star"]["r"],
-            "--bottom-offset": offset["five_star"]["b"],
-            "--title-size": offset["five_star"]["fontSize"],
+            "--right-offset": offset.fiveStar.r,
+            "--bottom-offset": offset.fiveStar.b,
+            "--title-size": offset.fiveStar.fontSize,
           } as CSSProperties
         }
         className={
@@ -82,9 +80,9 @@ const renderWeaponBannerInfo = (
       <div
         style={
           {
-            "--right-offset": offset["four_star"]["r"],
-            "--bottom-offset": offset["four_star"]["b"],
-            "--title-size": offset["four_star"]["fontSize"],
+            "--right-offset": fourStarWeaponText.r,
+            "--bottom-offset": fourStarWeaponText.b,
+            "--title-size": fourStarWeaponText.fontSize,
           } as CSSProperties
         }
         className={
@@ -95,7 +93,7 @@ const renderWeaponBannerInfo = (
           className={
             "text-white leading-tight text-[length:var(--title-size)] drop-shadow-[0_0_2px_rgba(0,0,0,1)]"
           }
-          dangerouslySetInnerHTML={{ __html: fourStarWeapon }}
+          dangerouslySetInnerHTML={{ __html: Object.keys(offset)[1] }}
         ></p>
       </div>
     </>
@@ -104,7 +102,9 @@ const renderWeaponBannerInfo = (
 const renderStandardBannerInfo = (
   titlesOnBanner: string[],
   characters: Character[],
-  standardBannerParameters: NamesOffsets,
+  standardBannerParameters: {
+    [key: string]: { r: string; b: string; fontSize: string };
+  },
 ) => {
   return (
     <>
@@ -152,52 +152,46 @@ const renderStandardBannerInfo = (
     </>
   );
 };
-const getMainItemsNamesAndTitles = (
+const renderBannerInfo = (
   characters: Character[],
   weapons: Weapon[],
   selectedBanner: Banners,
 ) => {
-  switch (selectedBanner.type) {
-    case "Character Event Wish":
-    case "Character Event Wish-2":
-    case "Novice Wish":
-      const mainCharacter = characters.find(
-        (character) => character.id === selectedBanner.main_character,
-      ) as Character;
-      const characterNameOffset =
-        selectedBanner.text_parameters as TextParameters;
-      return renderCharacterBannerInfo(mainCharacter, characterNameOffset);
-    case "Weapon Event Wish":
-      const mainWeaponsId = [
-        selectedBanner.first_main_weapon,
-        selectedBanner.second_main_weapon,
-      ];
-      const mainFiveStarWeapons = mainWeaponsId.map(
-        (weaponId) =>
-          weapons.find((weapon) => weapon.id === weaponId) as Weapon,
-      );
-      const weaponsTitlesOffset = selectedBanner.name_offsets;
-      return renderWeaponBannerInfo(
-        mainFiveStarWeapons,
-        selectedBanner.four_star_weapon_on_banner,
-        weaponsTitlesOffset,
-      );
-    case "Standard Wish":
-      const titlesOnBanner = Object.keys(selectedBanner.text_parameters);
-      return renderStandardBannerInfo(
-        titlesOnBanner,
-        characters,
-        selectedBanner.text_parameters,
-      );
+  if (
+    selectedBanner.type === "Character Event Wish" ||
+    selectedBanner.type === "Character Event Wish-2"
+  ) {
+    const mainCharacter = characters.find(
+      (character) =>
+        character.id === (selectedBanner as CharacterBanner).mainCharacterId,
+    ) as Character;
+    return renderCharacterName(
+      mainCharacter,
+      (selectedBanner as CharacterBanner).textParameters,
+    );
+  } else if (selectedBanner.type === "Weapon Event Wish") {
+    const mainWeaponsId = [
+      (selectedBanner as WeaponBanner).firstMainWeaponId,
+      (selectedBanner as WeaponBanner).secondMainWeaponId,
+    ];
+    const mainFiveStarWeapons = mainWeaponsId.map(
+      (weaponId) => weapons.find((weapon) => weapon.id === weaponId) as Weapon,
+    );
+    return renderWeaponBannerInfo(
+      mainFiveStarWeapons,
+      (selectedBanner as WeaponBanner).textParameters,
+    );
+  } else {
+    const titlesOnBanner = Object.keys(selectedBanner.textParameters);
+    return renderStandardBannerInfo(
+      titlesOnBanner,
+      characters,
+      (selectedBanner as StandardBanner).textParameters,
+    );
   }
 };
 const Banner = () => {
-  const supabase = createClientComponentClient();
-  const { characters, weapons, currentBanners, selectedBanner } =
-    useBannerContext();
-  const [currentBannersPreviewsUrl, setCurrentBannersPreviewsUrl] = useState<
-    string[]
-  >(() => getPreviewsUrlForCurrentBanners(supabase, currentBanners));
+  const { characters, weapons, selectedBanner } = useBannerContext();
   const rulesClasses = clsx("flex items-center gap-1 mt-1 md:mt-2", {
     "bg-[var(--palette-opacity)]": currentGameVersion !== 1,
     "bg-[rgba(65,163,162,0.8)]":
@@ -211,10 +205,8 @@ const Banner = () => {
       }
     >
       <SwitchBannerArrow isForward={false} />
-      {selectedBanner.type === "Weapon Event Wish" ? (
-        <EpitomizedPathButton weaponBanner={selectedBanner} />
-      ) : (
-        ""
+      {selectedBanner.type === "Weapon Event Wish" && (
+        <EpitomizedPathButton weaponBanner={selectedBanner as WeaponBanner} />
       )}
       <div
         key={selectedBanner.type}
@@ -236,9 +228,7 @@ const Banner = () => {
         }
       >
         <Image
-          src={
-            currentBannersPreviewsUrl[currentBanners.indexOf(selectedBanner)]
-          }
+          src={`/wish-simulator/banners/${getPreviewUrl(selectedBanner)}.webp`}
           alt={"Картинка баннера"}
           draggable={false}
           width={1200}
@@ -296,7 +286,7 @@ const Banner = () => {
             {bannerDescriptions[selectedBanner.type]}
           </p>
         </div>
-        {getMainItemsNamesAndTitles(characters, weapons, selectedBanner)}
+        {renderBannerInfo(characters, weapons, selectedBanner)}
       </div>
       <SwitchBannerArrow isForward={true} />
     </section>

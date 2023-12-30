@@ -1,6 +1,6 @@
 "use client";
 import NavigationButton from "@/app/wish-simulator/details/components/NavigationButton";
-import { BannerTypes } from "@/app/lib/banner";
+import { BannerTypes } from "@/lib/banners";
 
 const Navigation = ({ bannerType }: { bannerType: BannerTypes }) => {
   const sections: {

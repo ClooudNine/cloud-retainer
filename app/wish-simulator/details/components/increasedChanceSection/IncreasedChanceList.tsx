@@ -1,13 +1,10 @@
 import Image from "next/image";
-import star from "@/public/common-icons/star.webp";
-import { elementToColor, Rares } from "@/app/lib/common";
+import star from "@/public/common/star.webp";
+import { elementToColor } from "@/lib/common";
 import { CSSProperties } from "react";
 import ItemCard from "@/app/wish-simulator/details/components/ItemCard";
 import { getBannerGuaranteeRules } from "@/app/wish-simulator/details/components/increasedChanceSection/IncreasedChanceSection";
-import { BannerTypes } from "@/app/lib/banner";
-import { Character } from "@/app/lib/character";
-import { Weapon } from "@/app/lib/weapon";
-
+import { BannerTypes, Character, Rares, Weapon } from "@/lib/db/schema";
 const IncreasedChanceList = ({
   rare,
   bannerType,
@@ -18,15 +15,17 @@ const IncreasedChanceList = ({
   items: Character[] | Weapon[] | null;
 }) => {
   return (
-    <div className={`min-h-max md:h-[45%] ${rare === 4 ? "mt-2 md:mt-4" : ""}`}>
+    <div
+      className={`min-h-max md:h-[44%] ${rare === "4" ? "mt-2 md:mt-4" : ""}`}
+    >
       <div
         className={`h-[20%] flex justify-center items-center ${
-          rare === 5 ? "bg-[#cfb383]" : "bg-[#b5a8c9]"
+          rare === "5" ? "bg-[#cfb383]" : "bg-[#b5a8c9]"
         }`}
       >
         <div
           className={`flex items-center pl-2 md:pl-8 w-[99.5%] h-[90%] border-2 ${
-            rare === 5 ? "border-[#c5a875]" : "border-[#ac9dc1]"
+            rare === "5" ? "border-[#c5a875]" : "border-[#ac9dc1]"
           }`}
         >
           {Array.from(Array(rare).keys()).map((number) => (
@@ -58,9 +57,9 @@ const IncreasedChanceList = ({
                         "--item-color":
                           "name" in item
                             ? elementToColor[item.element]
-                            : item.rare === 5
-                            ? "193, 96, 40"
-                            : "161,88,225",
+                            : item.rare === "5"
+                              ? "193, 96, 40"
+                              : "161,88,225",
                       } as CSSProperties
                     }
                     key={item.title}

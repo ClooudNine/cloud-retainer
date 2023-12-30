@@ -1,92 +1,99 @@
 import Background from "@/app/wish-simulator/components/Background";
 import detailsBook from "@/public/wish-simulator/assets/details-book.webp";
 import Image from "next/image";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-import { BannerPhases, Banners, BannerTypes } from "@/app/lib/banner";
-import { Versions } from "@/app/lib/common";
 import Title from "@/app/wish-simulator/details/components/Title";
 import Navigation from "@/app/wish-simulator/details/components/Navigation";
 import IncreasedChanceSection from "@/app/wish-simulator/details/components/increasedChanceSection/IncreasedChanceSection";
-import { Character } from "@/app/lib/character";
-import { Weapon } from "@/app/lib/weapon";
 import { getBannerColor } from "@/app/wish-simulator/utils";
 import MoreInfo from "@/app/wish-simulator/details/components/MoreInfo";
 import ItemsList from "@/app/wish-simulator/details/components/itemsListSection/ItemsList";
 import Link from "next/link";
+import { sql } from "drizzle-orm";
+import { db } from "@/lib/db";
+import {
+  BannerTypes,
+  Character,
+  CharacterBanner,
+  characterBanners,
+  featuredCharactersInBanners,
+  featuredWeaponsInBanners,
+  standardBanners,
+  Weapon,
+  WeaponBanner,
+  weaponBanners,
+} from "@/lib/db/schema";
+import { Banners } from "@/lib/banners";
 
 export const metadata = {
   title: "Cloud Retainer | Симулятор молитв - Детали",
   description: "Здесь вы можете ознакомиться с подробными деталями баннера",
 };
-export const dynamic = "force-dynamic";
 export default async function Details({
   searchParams,
 }: {
   searchParams: {
-    title: string;
+    id: number;
     type: BannerTypes;
-    version: Versions;
-    phase: BannerPhases;
     section: string;
   };
 }) {
-  const supabase = createServerComponentClient({ cookies });
-  const bannerTableName: { [key in BannerTypes]: string } = {
-    "Character Event Wish": "characters_banners",
-    "Character Event Wish-2": "characters_banners",
-    "Novice Wish": "character_banners",
-    "Weapon Event Wish": "weapons_banners",
-    "Standard Wish": "standard_banners",
+  const bannerTableName = {
+    "Character Event Wish": characterBanners,
+    "Character Event Wish-2": characterBanners,
+    "Novice Wish": characterBanners,
+    "Weapon Event Wish": weaponBanners,
+    "Standard Wish": standardBanners,
   };
+
+  const bannerTable = bannerTableName[searchParams.type];
+
+  const banner: Banners[] = await db.execute(
+    sql`select * from ${bannerTable} where ${bannerTable.id} = ${searchParams.id}`,
+  );
+
+  if (banner === null) {
+    return (
+      <p
+        className={
+          "w-full h-full flex items-center justify-center font-genshin text-9xl"
+        }
+      >
+        Banner not found :(
+      </p>
+    );
+  }
+
+  const featuredItemsTable =
+    searchParams.type === "Weapon Event Wish"
+      ? featuredWeaponsInBanners
+      : featuredCharactersInBanners;
+
   const itemsType =
     searchParams.type === "Weapon Event Wish" ? "weapon" : "character";
-  const { data: banner }: { data: Banners | null } = await supabase
-    .from(bannerTableName[searchParams.type])
-    .select("*")
-    .eq("title", searchParams.title)
-    .eq("version", searchParams.version)
-    .eq(
-      searchParams.type === "Standard Wish" ? "type" : "phase",
-      searchParams.type === "Standard Wish"
-        ? "Standard Wish"
-        : searchParams.phase,
-    )
-    .single();
-  if (banner === null) {
-    return <p>Not found :(</p>;
-  }
-  const {
-    data: featuredItemsId,
-  }: { data: ({ weapon_id: number } | { character_id: number })[] | null } =
-    await supabase
-      .from(`featured_${itemsType}s_in_banners`)
-      .select(`${itemsType}_id`)
-      .eq("banner_id", banner?.id);
 
-  const itemsId = featuredItemsId
-    ?.map((itemId) => Object.values(itemId))
-    .flat(1) as number[];
-  const {
-    data: featuredItems,
-  }: {
-    data: Character[] | Weapon[] | null;
-  } = await supabase.from(`${itemsType}s`).select("*").in("id", itemsId);
+  const featuredItemsId: { id: number }[] = await db.execute(
+    sql`select ${itemsType}_id from ${featuredItemsTable} where ${featuredItemsTable.bannerId} = ${banner[0].id}`,
+  );
 
-  const {
-    data: bannerMainItems,
-  }: {
-    data: Character[] | Weapon[] | null;
-  } = await supabase
-    .from(banner?.type === "Weapon Event Wish" ? "weapons" : "characters")
-    .select("*")
-    .in(
-      "id",
-      banner?.type === "Weapon Event Wish"
-        ? [banner.first_main_weapon, banner.second_main_weapon]
-        : [banner?.main_character],
-    );
-  const bannerColor = getBannerColor(banner, bannerMainItems as Character[]);
+  const itemsId = featuredItemsId.map((itemId) => itemId.id);
+
+  const featuredItems: (Character | Weapon)[] = await db.execute(
+    sql`select * from ${itemsType}s where id in ${itemsId}`,
+  );
+
+  const mainItems: (Character | Weapon)[] = await db.execute(
+    sql`select * from ${itemsType}s where id in ${
+      banner[0].type === "Weapon Event Wish"
+        ? [
+            (banner[0] as WeaponBanner).firstMainWeaponId,
+            (banner[0] as WeaponBanner).secondMainWeaponId,
+          ]
+        : [(banner[0] as CharacterBanner).mainCharacterId]
+    }`,
+  );
+
+  const bannerColor = getBannerColor(banner[0], mainItems as Character[]);
+
   return (
     <main
       className={
@@ -102,7 +109,7 @@ export default async function Details({
           alt={"Детали баннера"}
           className={"w-full md:w-[80vw] h-auto"}
         />
-        <Title bannerTitle={banner.title} palette={bannerColor} />
+        <Title bannerTitle={banner[0].title} palette={bannerColor} />
         <Link
           href={"/wish-simulator"}
           className={"absolute cursor-genshin top-[6%] right-[2.2%]"}
@@ -128,20 +135,20 @@ export default async function Details({
         {searchParams.section === "increased-chance" ? (
           <IncreasedChanceSection
             bannerType={searchParams.type}
-            mainItems={bannerMainItems}
+            mainItems={mainItems}
             featuredItems={featuredItems}
           />
         ) : searchParams.section === "more-info" ? (
           <MoreInfo
-            banner={banner}
-            mainItems={bannerMainItems}
+            banner={banner[0]}
+            mainItems={mainItems}
             featuredItems={featuredItems}
             palette={bannerColor}
           />
         ) : (
           <ItemsList
-            banner={banner}
-            mainItems={bannerMainItems}
+            banner={banner[0]}
+            mainItems={mainItems}
             featuredItems={featuredItems}
           />
         )}

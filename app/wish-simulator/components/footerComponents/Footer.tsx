@@ -1,7 +1,6 @@
 import WishButton from "@/app/wish-simulator/components/footerComponents/WishButton";
 import MasterlessCurrency from "@/app/wish-simulator/components/footerComponents/MasterlessCurrency";
 import Links from "@/app/wish-simulator/components/footerComponents/Links";
-
 const Footer = () => {
   return (
     <footer className={"z-10 flex justify-between pb-4 px-4 md:px-8 lg:px-16"}>

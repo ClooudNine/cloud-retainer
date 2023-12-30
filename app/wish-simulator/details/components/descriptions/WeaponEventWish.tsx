@@ -1,6 +1,6 @@
-import { Banners } from "@/app/lib/banner";
-import { Character } from "@/app/lib/character";
-import { Weapon } from "@/app/lib/weapon";
+import { Banners } from "@/lib/banners";
+import { Character } from "@/lib/character";
+import { Weapon } from "@/lib/weapon";
 import striptags from "striptags";
 
 const WeaponEventWish = ({

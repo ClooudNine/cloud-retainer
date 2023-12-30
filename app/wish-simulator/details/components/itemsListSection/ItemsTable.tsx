@@ -1,10 +1,7 @@
 import Image from "next/image";
-import star from "@/public/common-icons/star.webp";
-import { BannerTypes } from "@/app/lib/banner";
-import { Rares } from "@/app/lib/common";
-import { Character } from "@/app/lib/character";
-import { Weapon } from "@/app/lib/weapon";
+import star from "@/public/common/star.webp";
 import ItemCell from "@/app/wish-simulator/details/components/itemsListSection/ItemCell";
+import { BannerTypes, Rares } from "@/lib/db/schema";
 
 const getBaseChances = (
   bannerType: BannerTypes,
@@ -44,8 +41,8 @@ const ItemsTable = ({
           rare === 5
             ? "bg-[#cfb383]"
             : rare === 4
-            ? "mt-3 md:mt-7 bg-[#b6a8c9]"
-            : "mt-3 md:mt-7 bg-[#a9bcca]"
+              ? "mt-3 md:mt-7 bg-[#b6a8c9]"
+              : "mt-3 md:mt-7 bg-[#a9bcca]"
         }`}
       >
         <div
@@ -53,8 +50,8 @@ const ItemsTable = ({
             rare === 5
               ? "border-[#c5a875]"
               : rare === 4
-              ? "border-[#ae9fc3]"
-              : "border-[#9fb4c1]"
+                ? "border-[#ae9fc3]"
+                : "border-[#9fb4c1]"
           }`}
         >
           {Array.from(Array(rare).keys()).map((number) => (

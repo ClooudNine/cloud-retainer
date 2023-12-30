@@ -1,0 +1,41 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1703448802250,
+      "tag": "0000_clear_wrecker",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1703449413783,
+      "tag": "0001_fearless_prima",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1703574165922,
+      "tag": "0002_last_karen_page",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1703576264266,
+      "tag": "0003_faulty_caretaker",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1703668240819,
+      "tag": "0004_fuzzy_klaw",
+      "breakpoints": true
+    }
+  ]
+}
