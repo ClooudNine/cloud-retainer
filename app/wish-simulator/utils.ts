@@ -10,14 +10,14 @@ import {
     WeaponBanner,
 } from '@/lib/db/schema';
 
-const getCharacterPortraitUrl = (characters: Character[], characterId: number) => {
+const getCharacterPortrait = (characters: Character[], characterId: number) => {
     const character = characters.find((character) => character.id === characterId);
     if (character) {
         return `/characters/portraits/${character.name}.webp`;
     }
     return '';
 };
-const getWeaponPortraitUrl = (weapons: Weapon[], weaponId: number) => {
+const getWeaponPortrait = (weapons: Weapon[], weaponId: number) => {
     const weapon = weapons.find((weapon) => weapon.id === weaponId);
     if (weapon) {
         return `/weapons/portraits/${weapon.title}.webp`;
@@ -31,9 +31,9 @@ export const getButtonPortraitUrl = (
 ): string[] => {
     if ('firstMainWeaponId' in banner) {
         const mainWeaponsId = [banner.firstMainWeaponId, banner.secondMainWeaponId];
-        return mainWeaponsId.map((weaponId) => getWeaponPortraitUrl(weapons, weaponId));
+        return mainWeaponsId.map((weaponId) => getWeaponPortrait(weapons, weaponId));
     } else {
-        return [getCharacterPortraitUrl(characters, banner.mainCharacterId)];
+        return [getCharacterPortrait(characters, banner.mainCharacterId)];
     }
 };
 export const getPreviewUrl = (banner: Banners): string => {

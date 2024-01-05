@@ -24,7 +24,7 @@ const Links = () => {
             />
             <FooterLink
                 title={'История'}
-                link={`history?type=${getBannerStatName(selectedBanner.type)}&page=1`}
+                link={`history?type=${getBannerStatName(selectedBanner.type)}`}
             />
         </div>
     );

@@ -1,93 +1,81 @@
-import Image from "next/image";
-import fiveStarItemBackground from "@/public/common/items-backgrounds-by-rarity/background-item-5-star.webp";
-import fourStarItemBackground from "@/public/common/items-backgrounds-by-rarity/background-item-4-star.webp";
-import star from "@/public/common/star.webp";
+import Image from 'next/image';
+import star from '@/public/common/star.webp';
+import { Character, Weapon } from '@/lib/db/schema';
 
-const getItemPortrait = (
-  supabase: SupabaseClient,
-  item: Character | Weapon,
-) => {
-  if ("name" in item) {
-    return supabase.storage.from("characters profiles").getPublicUrl(item.name)
-      .data.publicUrl;
-  } else {
-    return supabase.storage.from("weapons portraits").getPublicUrl(item.title)
-      .data.publicUrl;
-  }
+const getItemPortrait = (item: Character | Weapon) => {
+    if ('name' in item) {
+        return `/characters/profiles/${item.name}.webp`;
+    } else {
+        return `/weapons/portraits/${item.title}.webp`;
+    }
 };
-export const dynamic = "force-dynamic";
 const ItemCard = ({ item }: { item: Character | Weapon }) => {
-  const supabase = createServerComponentClient({ cookies });
-  return (
-    <div
-      className={
-        "relative h-[70px] md:h-[80%] w-[30%] md:w-[15%] bg-white drop-shadow rounded-md"
-      }
-    >
-      <div
-        className={
-          "relative h-[80%] px-0.5 pt-0.5 rounded-md rounded-br-2xl md:rounded-br-3xl overflow-hidden"
-        }
-      >
-        <Image
-          src={
-            item.rare === 5 ? fiveStarItemBackground : fourStarItemBackground
-          }
-          alt={`Фон предмета ${
-            item.rare === 5 ? "пятизвёздочной" : "четырёхзвёздочной"
-          } редкости`}
-          fill
-        />
-        {"name" in item ? (
-          <Image
-            src={`/common-icons/elements/${item.element}.svg`}
-            alt={item.element}
-            width={30}
-            height={30}
+    return (
+        <div
             className={
-              "z-10 w-[30%] md:w-[22%] absolute top-0.5 left-0.5 md:top-1 md:left-1 "
+                'relative h-[120px] w-[100px] bg-white drop-shadow rounded-md md:w-[15%] md:h-4/5'
             }
-          />
-        ) : (
-          <div
-            className={
-              "absolute w-[20%] text-[2vw] md:text-[1vw] text-center rounded top-1 left-1 bg-[rgba(0,0,0,0.4)] text-[#cfcfcf]"
-            }
-          >
-            1
-          </div>
-        )}
-        <Image
-          src={getItemPortrait(supabase, item) + ".webp"}
-          alt={`Портрет ${
-            "name" in item ? `персонажа ${item.name}` : `оружия ${item.title}`
-          }`}
-          width={130}
-          height={130}
-          quality={100}
-          className={"w-full h-auto absolute bottom-0"}
-        />
-      </div>
-      <div className={"w-full flex justify-center -mt-2 md:-mt-4"}>
-        {Array.from(Array(item.rare).keys()).map((number) => (
-          <Image
-            key={number}
-            src={star}
-            alt={"Звезда"}
-            quality={100}
-            className={"z-10 w-[17%] drop-shadow"}
-          />
-        ))}
-      </div>
-      <p
-        className={
-          "truncate text-[2.5vw] md:text-[1vw] text-center text-[#495366]"
-        }
-      >
-        Ур. 1
-      </p>
-    </div>
-  );
+        >
+            <div
+                className={
+                    'relative h-4/5 rounded-md rounded-br-2xl overflow-hidden md:rounded-br-3xl'
+                }
+            >
+                <Image
+                    src={`/common/items-backgrounds-by-rarity/background-item-${item.rare}-star.webp`}
+                    alt={`Фон предмета ${
+                        item.rare === '5' ? 'пятизвёздочной' : 'четырёхзвёздочной'
+                    } редкости`}
+                    fill
+                />
+                {'name' in item ? (
+                    <Image
+                        src={`/common/elements/${item.element}.svg`}
+                        alt={item.element}
+                        width={30}
+                        height={30}
+                        className={'z-10 absolute w-[30%] top-1 left-1'}
+                    />
+                ) : (
+                    <div
+                        className={
+                            'absolute w-1/5 text-[3vw] text-center rounded top-1 left-1 bg-[rgba(0,0,0,0.4)] text-[#cfcfcf] md:text-[1vw]'
+                        }
+                    >
+                        1
+                    </div>
+                )}
+                <Image
+                    src={getItemPortrait(item)}
+                    alt={`Портрет ${
+                        'name' in item ? `персонажа ${item.name}` : `оружия ${item.title}`
+                    }`}
+                    width={130}
+                    height={130}
+                    quality={100}
+                    className={'absolute w-full h-auto bottom-0'}
+                />
+            </div>
+            <div className={'absolute w-full flex justify-center bottom-[15%]'}>
+                {Array.from(Array(Number(item.rare)).keys()).map((number) => (
+                    <Image
+                        key={number}
+                        src={star}
+                        alt={'Звезда'}
+                        quality={100}
+                        className={'w-[17%] h-auto drop-shadow'}
+                    />
+                ))}
+            </div>
+            <p
+                className={
+                    'w-full absolute bottom-0 text-[3vw] text-center text-[#495366] md:text-[1vw]'
+                }
+            >
+                Ур. 1
+            </p>
+        </div>
+    );
 };
 
 export default ItemCard;

@@ -120,9 +120,11 @@ export default function BannerProvider({
     const switchBanner = useCallback(
         (banner: Banners) => {
             if (banner !== selectedBanner) {
+                localStorage.setItem('LastBanner', banner.type);
                 setSelectedBanner(banner);
                 if (banner.type === 'Standard Wish' || banner.type === 'Novice Wish') {
                     setPullCurrency('acquaint-fate');
+                    setFeaturedItems([]);
                     setDrop(getBannerDrop(banner, characters, weapons));
                 } else {
                     setPullCurrency('intertwined-fate');
