@@ -14,29 +14,21 @@ import {
     characters,
     Weapon,
     weapons,
-    Phases,
 } from '@/lib/db/schema';
 import { db } from '@/lib/db';
-import { eq, isNotNull } from 'drizzle-orm';
+import { isNotNull } from 'drizzle-orm';
 
 export const metadata = {
     title: 'Cloud Retainer | Симулятор молитв',
     description:
         'Симулятор молитв из игры Genshin Impact, который позволяет путешественникам совершать молитвы в неограниченном количестве для развлечения и сбора статистики.',
 };
-export default async function WishSimulator({
-    searchParams,
-}: {
-    searchParams: { version: number; phase: Phases };
-}) {
+export default async function WishSimulator() {
     const allCharactersBanners: CharacterBanner[] = await db
         .select()
         .from(characterBanners);
 
-    const allWeaponBanners: WeaponBanner[] = await db
-        .select()
-        .from(weaponBanners)
-        .where(eq(weaponBanners.version, searchParams.version));
+    const allWeaponBanners: WeaponBanner[] = await db.select().from(weaponBanners);
 
     const allStandardBanners: StandardBanner[] = await db.select().from(standardBanners);
 

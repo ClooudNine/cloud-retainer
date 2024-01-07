@@ -7,6 +7,5 @@ const queryClient = postgres({
     database: process.env.DATABASE_DEFAULT,
     username: process.env.DATABASE_USERNAME,
     password: process.env.DATABASE_PASSWORD,
-    ssl: true,
 });
 export const db = drizzle(queryClient);
