@@ -23,6 +23,7 @@ export const metadata = {
     description:
         'Симулятор молитв из игры Genshin Impact, который позволяет путешественникам совершать молитвы в неограниченном количестве для развлечения и сбора статистики.',
 };
+export const dynamic = 'force-dynamic';
 export default async function WishSimulator() {
     const allCharactersBanners: CharacterBanner[] = await db
         .select()
