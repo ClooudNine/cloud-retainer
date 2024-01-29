@@ -1,10 +1,17 @@
 'use client';
-const CloseButton = ({ handler }: { handler: (() => void) | undefined }) => {
+const CloseButton = ({
+    handler,
+    styles,
+}: {
+    handler: (() => void) | undefined;
+    styles: string;
+}) => {
     return (
         <button
-            aria-label={'Все баннеры'}
+            aria-label={'Закрыть'}
             className={
-                'col-start-12 size-8 lg:size-12 place-self-center rounded-full transition-all bg-[#ede6d6] ring-[6px] ring-[rgba(237,230,214,0.5)] cursor-genshin hover:ring-[#fcfdff] hover:ring-4 hover:drop-shadow-[0_0_5px_rgba(255,255,255,1)] active:ring-[#7a8ca4] active:ring-4 active:bg-[#c8c4bb]'
+                styles +
+                ' cursor-genshin hover:ring-[#fcfdff] hover:ring-4 hover:drop-shadow-[0_0_5px_rgba(255,255,255,1)] active:ring-[#7a8ca4] active:ring-4 active:bg-[#c8c4bb]'
             }
             onClick={handler}
         >

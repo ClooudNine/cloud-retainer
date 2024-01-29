@@ -1,14 +1,11 @@
-'use client';
-import { useSearchParams } from 'next/navigation';
 import clsx from 'clsx';
 
-const GenesisIcon = () => {
-    const searchParams = useSearchParams();
-    const isActiveSection = searchParams.get('section') === 'genesisCrystals';
-    const iconClasses = clsx('z-10 w-10 ml-6', {
+const GenesisIcon = ({ isActiveSection }: { isActiveSection: boolean }) => {
+    const iconClasses = clsx('z-10 w-8 ml-4 lg:w-12 lg:ml-6', {
         'fill-[#3b4254]': isActiveSection,
         'fill-[#ece5d7] group-active:fill-[#3b4254]': !isActiveSection,
     });
+
     return (
         <svg
             className={iconClasses}

@@ -11,7 +11,11 @@ const Links = () => {
                 'h-4/5 flex flex-col gap-2 md:flex-row md:items-end md:gap-4 md:h-1/2'
             }
         >
-            <FooterLink title={'Магазин'} link={'shop?section=paimonBargain'} />
+            <FooterLink
+                title={'Магазин'}
+                link={'shop/paimon-bargain'}
+                sfxEffect={'click-5'}
+            />
             <FooterLink
                 title={'Детали'}
                 link={`details?id=${selectedBanner.id}&type=${
@@ -21,10 +25,12 @@ const Links = () => {
                         ? 'more-info'
                         : 'increased-chance'
                 }`}
+                sfxEffect={'click-4'}
             />
             <FooterLink
                 title={'История'}
                 link={`history?type=${getBannerStatName(selectedBanner.type)}`}
+                sfxEffect={'click-4'}
             />
         </div>
     );

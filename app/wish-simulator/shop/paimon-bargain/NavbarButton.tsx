@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import currencyButtonBackground from '@/public/wish-simulator/assets/select-currency-background.webp';
+import currencyButtonBackground from '@/public/wish-simulator/assets/shop/select-currency-background.webp';
 import clsx from 'clsx';
 import { PurchasesCurrency } from '@/lib/common';
 
@@ -14,7 +14,7 @@ const NavbarButton = ({
 }) => {
     const isActiveCurrency = currentCurrency === currency[0];
     const currencyButtonClasses = clsx(
-        'group relative cursor-genshin h-full w-[30%] transition',
+        'group h-full w-[30%] relative cursor-genshin transition',
         {
             'text-[#ece5d7] hover:drop-shadow-[0px_0px_15px_#ffffff] active:drop-shadow-none active:text-[#3b4254]':
                 !isActiveCurrency,
@@ -23,7 +23,7 @@ const NavbarButton = ({
     );
 
     const currencyButtonBackgroundClasses = clsx(
-        'absolute transition -mt-1 h-[115%] w-full top-0',
+        'w-full h-[115%] absolute -top-[7%] transition',
         {
             'opacity-0 group-active:opacity-100': !isActiveCurrency,
             'opacity-100': isActiveCurrency,

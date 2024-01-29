@@ -2,9 +2,13 @@
 import Image from 'next/image';
 import primogem from '@/public/wish-simulator/assets/primogems.webp';
 import { useBannerContext } from '@/app/wish-simulator/components/BannerProvider';
+import { useState } from 'react';
+import CurrencyExchanger from '@/app/wish-simulator/components/CurrencyExchanger';
 
 const CurrentBalance = () => {
-    const { pullCurrency, balance } = useBannerContext();
+    const { pullCurrency, balance, setBalance } = useBannerContext();
+    const [isExchange, setIsExchange] = useState<boolean>(false);
+
     return (
         <div
             className={
@@ -28,9 +32,10 @@ const CurrentBalance = () => {
                     }
                 />
                 <p className={'text-white text-base ml-2 max-2xl:truncate md:text-lg'}>
-                    {balance && balance['primogems']}
+                    {balance['primogems']}
                 </p>
                 <button
+                    onClick={() => setIsExchange(true)}
                     className={
                         'z-10 bg-[#ece5d8] text-[#3b4354] w-1/4 h-[90%] ml-auto mr-0.5 text-lg font-bold flex justify-center items-center rounded-full transition-all cursor-genshin md:text-xl active:opacity-50 active:scale-95 hover:scale-110'
                     }
@@ -58,6 +63,13 @@ const CurrentBalance = () => {
                     {balance && balance[pullCurrency]}
                 </p>
             </div>
+            {isExchange && (
+                <CurrencyExchanger
+                    balance={balance}
+                    setBalance={setBalance}
+                    closeCurrencyExchanger={() => setIsExchange(false)}
+                />
+            )}
         </div>
     );
 };

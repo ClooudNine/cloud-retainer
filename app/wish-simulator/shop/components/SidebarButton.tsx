@@ -1,61 +1,69 @@
 'use client';
 import Image from 'next/image';
-import shopButtonActive from '@/public/wish-simulator/assets/shop-button-active-background.webp';
-import star from '@/public/wish-simulator/assets/star-for-description.webp';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { Sections } from '@/app/wish-simulator/shop/page';
-import { useCallback } from 'react';
+import shopButtonActive from '@/public/wish-simulator/assets/shop/shop-button-active.webp';
+import { usePathname, useRouter } from 'next/navigation';
 import clsx from 'clsx';
+import PaimonBargainIcon from '@/app/wish-simulator/components/icons/PaimonBargainIcon';
+import GenesisIcon from '@/app/wish-simulator/components/icons/GenesisIcon';
+import StarIcon from '@/app/wish-simulator/components/icons/StarIcon';
+import { playSfxEffect } from '@/app/wish-simulator/utils';
 
 const SidebarButton = ({
     title,
-    param,
-    children,
+    section,
 }: {
     title: string;
-    param: Sections;
-    children: React.ReactNode;
+    section: 'paimon-bargain' | 'genesis-crystals';
 }) => {
     const router = useRouter();
-    const searchParams = useSearchParams();
-    const isActiveSection = searchParams.get('section') === param;
+    const pathname = usePathname();
+    const currentSection = pathname.split('/').pop();
 
-    const paimonBargainButtonClasses = clsx(
-        'relative group flex gap-4 w-full h-12 items-center text-xl transition hover:bg-[rgba(236,229,216,0.2)]',
+    const isActiveSection = currentSection === section;
+
+    const shopButtonClasses = clsx(
+        'relative group flex items-center gap-4 w-full h-12 my-2 text-xs transition hover:bg-[rgba(236,229,216,0.2)] lg:text-xl lg:my-10 ',
         {
             'text-[#3b4254]': isActiveSection,
             'text-[#ece5d7] active:text-[#3b4254]': !isActiveSection,
         }
     );
 
-    const buttonBackgroundClasses = clsx(
-        'max-w-none w-[105%] h-auto absolute transition',
+    const buttonBackgroundClasses = clsx('absolute w-[105%] transition sm:max-w-none', {
+        'opacity-100': isActiveSection,
+        'opacity-0 group-active:opacity-100': !isActiveSection,
+    });
+
+    const starClasses = clsx(
+        'hidden absolute w-4 fill-[#efe6df] right-0 transition duration-300 sm:block lg:w-8',
         {
-            'opacity-100': isActiveSection,
-            'opacity-0 group-active:opacity-100': !isActiveSection,
+            'opacity-100 translate-x-[125%]': isActiveSection,
+            'opacity-0': !isActiveSection,
         }
     );
 
-    const starClasses = clsx('absolute right-0 transition duration-300 h-1/2 w-auto', {
-        'opacity-100 translate-x-9': isActiveSection,
-        'opacity-0': !isActiveSection,
-    });
-
-    const selectShopSection = useCallback(() => {
-        router.replace(`/wish-simulator/shop?section=${param}`);
-    }, [param, router]);
-
     return (
-        <button className={paimonBargainButtonClasses} onClick={selectShopSection}>
+        <button
+            className={shopButtonClasses}
+            onClick={() => {
+                playSfxEffect('/sounds/click-1.mp3');
+                router.replace(`/wish-simulator/shop/${section}`);
+            }}
+        >
             <Image
                 src={shopButtonActive}
                 alt={'Фон активной кнопки магазина'}
+                draggable={false}
                 quality={100}
                 className={buttonBackgroundClasses}
             />
-            {children}
-            <p className={'relative leading-tight text-left z-10'}>{title}</p>
-            <Image src={star} alt={'Звезда'} className={starClasses} />
+            {section === 'paimon-bargain' ? (
+                <PaimonBargainIcon isActiveSection={isActiveSection} />
+            ) : (
+                <GenesisIcon isActiveSection={isActiveSection} />
+            )}
+            <p className={'relative leading-tight text-left'}>{title}</p>
+            <StarIcon styles={starClasses} />
         </button>
     );
 };

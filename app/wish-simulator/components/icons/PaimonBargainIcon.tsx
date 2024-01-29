@@ -1,14 +1,11 @@
-'use client';
-import { useSearchParams } from 'next/navigation';
 import clsx from 'clsx';
 
-const PaimonBargainIcon = () => {
-    const searchParams = useSearchParams();
-    const isActiveSection = searchParams.get('section') === 'paimonBargain';
-    const iconClasses = clsx('z-10 w-8 ml-6', {
+const PaimonBargainIcon = ({ isActiveSection }: { isActiveSection: boolean }) => {
+    const iconClasses = clsx('z-10 w-5 ml-4 lg:w-8 lg:ml-6', {
         'fill-[#3b4254]': isActiveSection,
         'fill-[#ece5d7] group-active:fill-[#3b4254]': !isActiveSection,
     });
+
     return (
         <svg
             className={iconClasses}

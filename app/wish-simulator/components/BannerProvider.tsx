@@ -4,19 +4,22 @@ import React, {
     useCallback,
     useContext,
     useEffect,
-    useRef,
     useState,
 } from 'react';
 import {
-    Balance,
+    Currencies,
     currentGamePhase,
     currentGameVersion,
     PullCurrency,
 } from '@/lib/common';
-import { getBannerDrop, getBannersSet } from '@/app/wish-simulator/utils';
+import {
+    getBannerDrop,
+    getBannersSet,
+    getFeaturedItems,
+} from '@/app/wish-simulator/utils';
 import WishDrop from '@/app/wish-simulator/components/WishDrop';
 import { BannerItems, Banners, WishHistory, WishHistoryTypes } from '@/lib/banners';
-import { BannerTypes, Character, Weapon } from '@/lib/db/schema';
+import { Character, Weapon } from '@/lib/db/schema';
 
 type BannerContextProviderProps = {
     children: React.ReactNode;
@@ -25,7 +28,6 @@ type BannerContextProviderProps = {
     weapons: Weapon[];
 };
 type BannerContext = {
-    audio: React.MutableRefObject<HTMLAudioElement | undefined>;
     characters: Character[];
     weapons: Weapon[];
     currentBanners: Banners[];
@@ -33,16 +35,10 @@ type BannerContext = {
     drop: BannerItems;
     featuredItems: number[] | null;
     pullCurrency: PullCurrency;
-    balance: { [key in Balance]: number };
+    balance: { [key in Currencies]: number };
+    setBalance: (newBalance: { [key in Currencies]: number }) => void;
     switchBanner: (banner: Banners) => void;
     setDroppedItems: React.Dispatch<React.SetStateAction<(Character | Weapon)[]>>;
-};
-const getFeaturedItems = async (id: number, type: BannerTypes) => {
-    const res = await fetch(
-        `http://localhost:3000/api/featuredItems?id=${id}&type=${type}`
-    );
-    const featuredItems = await res.json();
-    return (featuredItems.res as { id: number }[]).map((itemId) => itemId.id);
 };
 export const BannerContext = createContext<BannerContext | null>(null);
 export default function BannerProvider({
@@ -51,12 +47,6 @@ export default function BannerProvider({
     characters,
     weapons,
 }: BannerContextProviderProps) {
-    const audio = useRef<HTMLAudioElement | undefined>(
-        typeof Audio !== 'undefined'
-            ? new Audio('/sounds/statue-of-the-seven.mp3')
-            : undefined
-    );
-
     const [currentBanners, setCurrentBanners] = useState<Banners[]>(() =>
         getBannersSet(banners, currentGameVersion, currentGamePhase)
     );
@@ -67,18 +57,18 @@ export default function BannerProvider({
     const [drop, setDrop] = useState<(Character | Weapon)[]>([]);
 
     const [pullCurrency, setPullCurrency] = useState<PullCurrency>('intertwined-fate');
-    const [balance, setBalance] = useState<{ [key in Balance]: number }>({
+    const [balance, setBalance] = useState<{ [key in Currencies]: number }>({
         'intertwined-fate': 0,
         'acquaint-fate': 20,
         primogems: 1600,
         'masterless-stardust': 0,
         'masterless-starglitter': 0,
+        'genesis-crystal': 0,
     });
 
     const [droppedItems, setDroppedItems] = useState<BannerItems>([]);
 
     useEffect(() => {
-        audio.current?.play();
         getFeaturedItems(selectedBanner.id, selectedBanner.type).then((result) => {
             setFeaturedItems(result);
             setDrop(getBannerDrop(selectedBanner, characters, weapons, result));
@@ -112,8 +102,9 @@ export default function BannerProvider({
             localStorage.setItem('EpitomizedPath', JSON.stringify({}));
         }
 
-        if (localStorage.getItem('Balance')) {
-            setBalance(JSON.parse(localStorage.getItem('Balance')!));
+        const maybeBalance = localStorage.getItem('Balance');
+        if (maybeBalance) {
+            setBalance(JSON.parse(maybeBalance));
         }
     }, []);
 
@@ -141,7 +132,6 @@ export default function BannerProvider({
     return (
         <BannerContext.Provider
             value={{
-                audio,
                 characters,
                 weapons,
                 currentBanners,
@@ -150,6 +140,7 @@ export default function BannerProvider({
                 featuredItems,
                 pullCurrency,
                 balance,
+                setBalance,
                 switchBanner,
                 setDroppedItems,
             }}

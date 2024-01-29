@@ -9,10 +9,11 @@ import { wish } from '@/app/wish-simulator/wishLogic';
 import { BannerItems } from '@/lib/banners';
 import { Character, Weapon } from '@/lib/db/schema';
 import clsx from 'clsx';
+import { useAudioContext } from '@/app/wish-simulator/AudioProvider';
 
 const WishButton = ({ count }: { count: number }) => {
+    const { audio } = useAudioContext();
     const {
-        audio,
         selectedBanner,
         drop,
         featuredItems,

@@ -8,6 +8,7 @@ import { useBannerContext } from '@/app/wish-simulator/components/BannerProvider
 import { playSfxEffect } from '@/app/wish-simulator/utils';
 import { Character, Weapon } from '@/lib/db/schema';
 import { BannerItems } from '@/lib/banners';
+import { useAudioContext } from '@/app/wish-simulator/AudioProvider';
 
 const renderWeaponResult = (weapon: Weapon) => {
     return (
@@ -37,25 +38,18 @@ const renderWeaponResult = (weapon: Weapon) => {
                         {weapon.title}
                     </p>
                     <div className={'flex gap-1 mt-2'}>
-                        {Array.from(
-                            { length: Number(weapon.rare) },
-                            (_, index) => (
-                                <Image
-                                    key={index}
-                                    src={star}
-                                    alt={'Звезда'}
-                                    quality={100}
-                                    style={{
-                                        animationDelay: `${
-                                            (index + 1) * 100
-                                        }ms`,
-                                    }}
-                                    className={
-                                        'opacity-0 animate-item-stars-appearance'
-                                    }
-                                />
-                            )
-                        )}
+                        {Array.from({ length: Number(weapon.rare) }, (_, index) => (
+                            <Image
+                                key={index}
+                                src={star}
+                                alt={'Звезда'}
+                                quality={100}
+                                style={{
+                                    animationDelay: `${(index + 1) * 100}ms`,
+                                }}
+                                className={'opacity-0 animate-item-stars-appearance'}
+                            />
+                        ))}
                     </div>
                 </div>
             </div>
@@ -127,9 +121,7 @@ const renderCharacterResult = (character: Character) => {
                     height={100}
                     quality={100}
                     draggable={false}
-                    className={
-                        '-mt-[10%] -mr-[1%] -z-10 animate-item-icon-appearance'
-                    }
+                    className={'-mt-[10%] -mr-[1%] -z-10 animate-item-icon-appearance'}
                 />
                 <div>
                     <p
@@ -140,25 +132,18 @@ const renderCharacterResult = (character: Character) => {
                         {character.name}
                     </p>
                     <div className={'flex gap-1 mt-2'}>
-                        {Array.from(
-                            { length: Number(character.rare) },
-                            (_, index) => (
-                                <Image
-                                    key={index}
-                                    src={star}
-                                    alt={'Звезда'}
-                                    quality={100}
-                                    style={{
-                                        animationDelay: `${
-                                            (index + 1) * 100
-                                        }ms`,
-                                    }}
-                                    className={
-                                        'opacity-0 animate-item-stars-appearance'
-                                    }
-                                />
-                            )
-                        )}
+                        {Array.from({ length: Number(character.rare) }, (_, index) => (
+                            <Image
+                                key={index}
+                                src={star}
+                                alt={'Звезда'}
+                                quality={100}
+                                style={{
+                                    animationDelay: `${(index + 1) * 100}ms`,
+                                }}
+                                className={'opacity-0 animate-item-stars-appearance'}
+                            />
+                        ))}
                     </div>
                 </div>
             </div>
@@ -174,7 +159,8 @@ const renderCharacterResult = (character: Character) => {
 };
 
 const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
-    const { audio, setDroppedItems } = useBannerContext();
+    const { audio } = useAudioContext();
+    const { setDroppedItems } = useBannerContext();
     const [isAnimationPlaying, setIsAnimationPlaying] = useState<boolean>(true);
     const [obtainItemAnimationPlaying, setObtainItemAnimationPlaying] =
         useState<boolean>(true);
@@ -188,9 +174,7 @@ const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
             setCurrentItemIndex(currentItemIndex + 1);
             setObtainItemAnimationPlaying(true);
             playSfxEffect(
-                `/sounds/${
-                    droppedItems[currentItemIndex + 1].rare
-                }-star-item-obtain.mp3`
+                `/sounds/${droppedItems[currentItemIndex + 1].rare}-star-item-obtain.mp3`
             );
             setTimeout(() => setObtainItemAnimationPlaying(false), 2000);
         } else {
@@ -222,9 +206,7 @@ const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
             />
             {isAnimationPlaying ? (
                 <video
-                    className={
-                        'absolute top-0 left-0 object-cover w-screen h-screen'
-                    }
+                    className={'absolute top-0 left-0 object-cover w-screen h-screen'}
                     src={`/wish-simulator/animations/${pullCounts}-pull-${maxRare}-star.mp4`}
                     autoPlay
                     onEnded={() => {
@@ -232,10 +214,7 @@ const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
                         playSfxEffect(
                             `/sounds/${droppedItems[currentItemIndex].rare}-star-item-obtain.mp3`
                         );
-                        setTimeout(
-                            () => setObtainItemAnimationPlaying(false),
-                            2000
-                        );
+                        setTimeout(() => setObtainItemAnimationPlaying(false), 2000);
                     }}
                 ></video>
             ) : (
@@ -251,9 +230,7 @@ const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
                         autoPlay
                     ></video>
                     {'type' in droppedItems[currentItemIndex]
-                        ? renderWeaponResult(
-                              droppedItems[currentItemIndex] as Weapon
-                          )
+                        ? renderWeaponResult(droppedItems[currentItemIndex] as Weapon)
                         : renderCharacterResult(
                               droppedItems[currentItemIndex] as Character
                           )}

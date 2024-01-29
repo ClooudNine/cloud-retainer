@@ -49,12 +49,12 @@ export default async function Details({
         'Standard Wish': standardBanners,
     };
 
-    const banners = await db
+    const maybeBanner = await db
         .select()
         .from(bannerTableName[searchParams.type])
         .where(eq(bannerTableName[searchParams.type].id, searchParams.id));
 
-    const banner = banners[0] as Banners;
+    const banner = maybeBanner[0] as Banners;
 
     if (banner === undefined) {
         return (
@@ -135,7 +135,7 @@ export default async function Details({
                     draggable={false}
                     quality={100}
                     alt={'Детали баннера'}
-                    className={'select-none w-full md:w-[80vw]'}
+                    className={'w-full md:w-[80vw]'}
                 />
                 <Title title={banner.title} palette={bannerColor} />
                 <Link

@@ -48,36 +48,43 @@
     }
 
     input[type=range]::-webkit-slider-runnable-track {
-        width: 80%;
-        height: 8px;
+        height: 100%;
         background: #586b8c;
         border-radius: 20px;
     }
 
     input[type=range]::-webkit-slider-thumb {
-        height: 30px;
-        width: 30px;
+        height: 4cqw;
+        width: 4cqw;
         background: url("/wish-simulator/assets/input-track.webp");
         background-size: 100% 100%;
         border: none;
-        margin-top: -10px;
+        margin-top: -1.5cqw;
     }
 
-    input[type=range]::-moz-range-track {
-        width: 95%;
-        height: 8px;
-        background: #586b8c;
+    input[type="range"]::-moz-range-progress {
+        background-color: #5b6983;
         border-radius: 20px;
-        border: 1px solid #62697b;
+        border: 2px solid #5b6983;
+        height: 100%;
     }
 
-    input[type=range]::-moz-range-thumb {
-        height: 30px;
-        width: 30px;
-        background: url("/wish-simulator/assets/input-track.webp");
+    input[type="range"]::-moz-range-thumb {
+        height: 2vw;
+        width: 2vw;
+        background: transparent url("/wish-simulator/assets/input-track.webp");
         background-size: 100% 100%;
         border: none;
     }
+
+    input[type="range"]::-moz-range-track {
+        height: 100%;
+        background-color: #f0eee9;
+        border-radius: 20px;
+        border: 2px solid #d1cbbf;
+    }
+
+
 }
 
 * {

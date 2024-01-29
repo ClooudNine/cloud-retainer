@@ -129,6 +129,26 @@ module.exports = {
                         transform: 'translateX(0)',
                     },
                 },
+                'modal-appearance': {
+                    '0%': {
+                        opacity: 0,
+                        transform: 'scale(0.95)',
+                    },
+                    '100%': {
+                        opacity: 1,
+                        transform: 'scale(1)',
+                    },
+                },
+                'obtain-item': {
+                    '0%': {
+                        transform: 'scale(0)',
+                        opacity: 1,
+                    },
+                    '100%': {
+                        transform: 'scale(1)',
+                        opacity: 0,
+                    },
+                },
             },
             animation: {
                 'wish-item-appearance': 'wish-item-appearance 1.3s forwards',
@@ -141,7 +161,9 @@ module.exports = {
                 'masterless-currency-appearance':
                     'masterless-currency-appearance 2s forwards',
                 'star-effect': 'star-effect 2s forwards',
-                'banner-preview-appearance': 'banner-preview-appearance 0.8s',
+                'banner-preview-appearance': 'banner-preview-appearance 0.8s forwards',
+                'modal-appearance': 'modal-appearance 0.3s ',
+                'obtain-item': 'obtain-item 0.6s forwards',
             },
             dropShadow: {
                 'shop-item': [

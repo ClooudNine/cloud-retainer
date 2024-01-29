@@ -1,12 +1,18 @@
-import Link from "next/link";
-const FooterLink = ({ title, link }: { title: string; link: string }) => {
-  return (
-    <Link
-      className={`font-genshin
-         cursor-genshin
-         flex
-         justify-center
-         items-center
+import Link from 'next/link';
+import { playSfxEffect } from '@/app/wish-simulator/utils';
+const FooterLink = ({
+    title,
+    link,
+    sfxEffect,
+}: {
+    title: string;
+    link: string;
+    sfxEffect: string;
+}) => {
+    return (
+        <Link
+            onClick={() => playSfxEffect(`/sounds/${sfxEffect}.mp3`)}
+            className={`font-genshin cursor-genshin flex justify-center items-center
          w-4/5
          h-1/3
          min-w-max
@@ -27,11 +33,11 @@ const FooterLink = ({ title, link }: { title: string; link: string }) => {
          md:h-4/5
          md:text-lg
          lg:text-xl`}
-      href={`/wish-simulator/${link}`}
-    >
-      {title}
-    </Link>
-  );
+            href={`/wish-simulator/${link}`}
+        >
+            {title}
+        </Link>
+    );
 };
 
 export default FooterLink;

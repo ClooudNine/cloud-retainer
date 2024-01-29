@@ -10,6 +10,12 @@ import {
     WeaponBanner,
 } from '@/lib/db/schema';
 
+export const getFeaturedItems = async (id: number, type: BannerTypes) => {
+    const baseUrl = window.location.origin;
+    const res = await fetch(`${baseUrl}/api/featuredItems?id=${id}&type=${type}`);
+    const featuredItems = await res.json();
+    return (featuredItems.res as { id: number }[]).map((itemId) => itemId.id);
+};
 const getCharacterPortrait = (characters: Character[], characterId: number) => {
     const character = characters.find((character) => character.id === characterId);
     if (character) {

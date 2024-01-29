@@ -7,7 +7,8 @@ export type PurchasesCurrency =
     | 'primogems'
     | 'masterless-stardust'
     | 'masterless-starglitter';
-export type Balance = PullCurrency | PurchasesCurrency;
+export type Currencies = PullCurrency | PurchasesCurrency | 'genesis-crystal';
+export type BalanceStats = { [key in Currencies]: number };
 export const currentGameVersion: number = 4.1;
 export const currentGamePhase: Phases = '1';
 export const basedCharacters = ['Amber', 'Kaeya', 'Lisa'];
