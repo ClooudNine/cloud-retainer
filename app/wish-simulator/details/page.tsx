@@ -1,5 +1,5 @@
 import Background from '@/app/wish-simulator/components/Background';
-import detailsBook from '@/public/wish-simulator/assets/details-book.webp';
+import bookBackground from '@/public/wish-simulator/assets/book-background.webp';
 import Image from 'next/image';
 import Title from '@/app/wish-simulator/details/components/Title';
 import Navigation from '@/app/wish-simulator/details/components/Navigation';
@@ -30,7 +30,7 @@ export const metadata = {
     description: 'Здесь вы можете ознакомиться с подробными деталями баннера',
 };
 
-export type Sections = 'increased-chance' | 'more-info' | 'items-list';
+export type DetailsSections = 'increased-chance' | 'more-info' | 'items-list';
 
 export default async function Details({
     searchParams,
@@ -38,7 +38,7 @@ export default async function Details({
     searchParams: {
         id: number;
         type: BannerTypes;
-        section: Sections;
+        section: DetailsSections;
     };
 }) {
     const bannerTableName = {
@@ -48,6 +48,21 @@ export default async function Details({
         'Weapon Event Wish': weaponBanners,
         'Standard Wish': standardBanners,
     };
+
+    if (
+        bannerTableName[searchParams.type] === undefined ||
+        isNaN(Number(searchParams.id))
+    ) {
+        return (
+            <p
+                className={
+                    'w-full h-full flex items-center justify-center font-genshin text-6xl'
+                }
+            >
+                Некорректные параметры запроса!
+            </p>
+        );
+    }
 
     const maybeBanner = await db
         .select()
@@ -129,21 +144,30 @@ export default async function Details({
             }
         >
             <Background isBlurred={true} />
-            <div className={'relative'}>
+            <div
+                style={{ containerType: 'inline-size' }}
+                className={
+                    'flex justify-center items-center h-[85vh] w-[45vh] sm:w-[150vh] sm:h-auto'
+                }
+            >
                 <Image
-                    src={detailsBook}
+                    src={bookBackground}
                     draggable={false}
                     quality={100}
                     alt={'Детали баннера'}
-                    className={'w-full md:w-[80vw]'}
+                    className={
+                        'max-w-none w-[85vh] -rotate-90 -scale-y-100 sm:rotate-0 sm:scale-y-100 sm:max-w-full sm:w-[150vh]'
+                    }
                 />
                 <Title title={banner.title} palette={bannerColor} />
                 <Link
                     href={'/wish-simulator'}
-                    className={'absolute cursor-genshin top-[6.2%] right-[2.4%]'}
+                    className={
+                        'absolute cursor-genshin top-[2.5%] right-[7%] sm:top-[6.2%] sm:right-[2.4%]'
+                    }
                 >
                     <svg
-                        className={'w-[3.5vw] md:w-[2.7vw]'}
+                        className={'w-[5cqw] sm:w-[3.5cqw]'}
                         transform="rotate(45)"
                         fill="#000000"
                         stroke="#000000"

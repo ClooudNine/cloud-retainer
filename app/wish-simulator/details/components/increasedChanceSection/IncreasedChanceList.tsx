@@ -14,13 +14,17 @@ const IncreasedChanceList = ({
     bannerType: BannerTypes;
     items: Character[] | Weapon[] | null;
 }) => {
-    const headerClasses = clsx('h-[20px] flex justify-center items-center md:h-1/5', {
+    const itemsListClasses = clsx('sm:h-1/2', {
+        'h-[30%]': rare === '5',
+        'h-[70%]': rare === '4',
+    });
+    const headerClasses = clsx('flex justify-center items-center h-[8cqw] sm:h-[15%]', {
         'bg-[#cfb383]': rare === '5',
         'bg-[#b5a8c9]': rare !== '5',
     });
 
     const innerHeaderClasses = clsx(
-        'w-[99.5%] h-[90%] flex items-center gap-1 pl-2 border-2 md:pl-8',
+        'w-[99.5%] h-[90%] flex items-center gap-[0.3cqw] pl-[3cqw] border-2',
         {
             'border-[#c5a875]': rare === '5',
             'border-[#ac9dc1]': rare !== '5',
@@ -28,7 +32,7 @@ const IncreasedChanceList = ({
     );
 
     return (
-        <div className={'h-1/2'}>
+        <div className={itemsListClasses}>
             <div className={headerClasses}>
                 <div className={innerHeaderClasses}>
                     {Array.from(Array(Number(rare)).keys()).map((number) => (
@@ -37,12 +41,13 @@ const IncreasedChanceList = ({
                             src={star}
                             alt={'Звезда'}
                             draggable={false}
-                            className={'h-[70%] w-auto drop-shadow'}
+                            quality={100}
+                            className={'h-4/5 w-auto drop-shadow'}
                         />
                     ))}
                     <p
                         className={
-                            'whitespace-nowrap ml-auto mr-[55%] text-white text-[2.5vw] md:text-[1.1vw]'
+                            'text-white ml-auto mr-1 text-[3cqw] sm:text-[1.5cqw] sm:mr-[50%]'
                         }
                     >
                         Шанс получения {rare}★:&nbsp;
@@ -50,15 +55,13 @@ const IncreasedChanceList = ({
                     </p>
                 </div>
             </div>
-            <div className={'flex justify-center items-center h-[80%] bg-[#f9f5ee]'}>
+            <div className={'h-[85%] flex justify-center items-center bg-[#f9f5ee]'}>
                 <div
                     className={
-                        'relative w-[99.5%] h-[99%] flex gap-6 md:gap-10 border border-[#e7e1d9]'
+                        'relative w-[99.5%] h-[99%] flex gap-[5cqw] px-[3cqw] py-[2cqw] border border-[#e7e1d9]'
                     }
                 >
-                    <div
-                        className={'pl-4 pt-2 w-1/2 md:pl-6 lg:pt-4 lg:pl-10 md:w-[30%]'}
-                    >
+                    <div className={'w-[55%] text-[2.5cqw] sm:text-[1.3cqw] sm:w-[30%]'}>
                         {items?.map((item) => (
                             <p
                                 key={item.title}
@@ -68,19 +71,21 @@ const IncreasedChanceList = ({
                                             'name' in item
                                                 ? elementToColor[item.element]
                                                 : item.rare === '5'
-                                                  ? '193, 96, 40'
+                                                  ? '193,96,40'
                                                   : '161,88,225',
                                     } as CSSProperties
                                 }
-                                className={
-                                    'text-[rgb(var(--item-color))] text-[3vw] md:text-[1vw]'
-                                }
+                                className={'text-[rgb(var(--item-color))]'}
                             >
                                 {'name' in item ? item.name : item.title}
                             </p>
                         ))}
                     </div>
-                    <div className={'flex flex-wrap items-center gap-4 w-3/4'}>
+                    <div
+                        className={
+                            'w-1/2 h-fit flex flex-wrap gap-[2cqw] sm:h-full sm:w-[70%]'
+                        }
+                    >
                         {items?.map((item) => <ItemCard key={item.title} item={item} />)}
                     </div>
                 </div>

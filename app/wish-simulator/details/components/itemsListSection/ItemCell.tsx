@@ -13,10 +13,10 @@ const ItemCell = ({
 }) => {
     return (
         <>
-            <td className={'border border-[#dac69f] p-2 md:p-4'}>
+            <td className={'border border-[#dac69f] p-[2cqw]'}>
                 {'name' in item ? 'Персонаж' : 'Оружие'}
             </td>
-            <td className={'relative border border-[#dac69f] p-4'}>
+            <td className={'relative border border-[#dac69f] p-[2cqw]'}>
                 {'name' in item ? item.name : item.title}
                 {mainItems?.some((mainItem) => {
                     const isTypeCheck =
@@ -24,14 +24,16 @@ const ItemCell = ({
                             ? 'name' in item
                             : 'type' in item;
                     return item.id === mainItem.id && isTypeCheck;
-                }) ? (
+                }) && (
                     <Image
                         src={up}
                         alt={'Up!'}
-                        className={'w-[9%] absolute top-2 right-2'}
+                        quality={100}
+                        draggable={false}
+                        className={
+                            'absolute w-[15%] top-0.5 right-0.5 sm:w-[9%] sm:top-2 sm:right-2'
+                        }
                     />
-                ) : (
-                    ''
                 )}
             </td>
         </>

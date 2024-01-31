@@ -13,13 +13,13 @@ const IncreasedChance = ({
     return (
         <div
             className={
-                'absolute w-[81%] h-[60%] top-[30%] left-[10%] genshin-scrollbar overflow-y-scroll pr-2 md:pr-0 md:overflow-auto md:top-[21%] md:h-[70%]'
+                'absolute w-[81%] h-[76%] left-[10%] top-[16%] sm:top-[21%] sm:h-[63%]'
             }
         >
-            <p className={'text-[#595252] text-[2.5vw] md:text-[1.3vw]'}>
+            <p className={'text-[#595252] text-[2.5cqw] sm:text-[1.7cqw]'}>
                 Вероятность получения следующих предметов повышена!
             </p>
-            <div className={'mt-1 flex flex-col gap-3 h-fit md:h-[92%]'}>
+            <div className={'mt-1 h-full flex flex-col gap-[1.2cqw]'}>
                 <IncreasedChanceList
                     rare={'5'}
                     bannerType={bannerType}

@@ -7,6 +7,7 @@ import React, {
     useState,
 } from 'react';
 import {
+    BalanceStats,
     Currencies,
     currentGamePhase,
     currentGameVersion,
@@ -57,10 +58,10 @@ export default function BannerProvider({
     const [drop, setDrop] = useState<(Character | Weapon)[]>([]);
 
     const [pullCurrency, setPullCurrency] = useState<PullCurrency>('intertwined-fate');
-    const [balance, setBalance] = useState<{ [key in Currencies]: number }>({
+    const [balance, setBalance] = useState<BalanceStats>({
         'intertwined-fate': 0,
         'acquaint-fate': 20,
-        primogems: 1600,
+        primogems: 3200,
         'masterless-stardust': 0,
         'masterless-starglitter': 0,
         'genesis-crystal': 0,

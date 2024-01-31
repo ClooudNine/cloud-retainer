@@ -1,6 +1,6 @@
 import Background from '@/app/wish-simulator/components/Background';
 import Image from 'next/image';
-import historyBook from '@/public/wish-simulator/assets/history-book.webp';
+import bookBackground from '@/public/wish-simulator/assets/book-background.webp';
 import Link from 'next/link';
 import Title from '@/app/wish-simulator/history/components/Title';
 import UserSelect from '@/app/wish-simulator/history/components/UserSelect';
@@ -9,7 +9,7 @@ import { WishHistoryTypes } from '@/lib/banners';
 
 export const metadata = {
     title: 'Cloud Retainer | Симулятор молитв - История',
-    description: 'Здесь отображены все сделанные вами молитвы в симуляторе',
+    description: 'Здесь отображены все сделанные молитвы в симуляторе',
 };
 export default function WishHistory({
     searchParams,
@@ -25,22 +25,31 @@ export default function WishHistory({
             }
         >
             <Background isBlurred={true} />
-            <div className={'relative'}>
+            <div
+                style={{ containerType: 'inline-size' }}
+                className={
+                    'flex justify-center items-center h-[85vh] w-[45vh] sm:w-[150vh] sm:h-auto'
+                }
+            >
                 <Image
-                    src={historyBook}
-                    draggable={false}
+                    src={bookBackground}
                     quality={100}
                     alt={'История молитв'}
-                    className={'w-full select-none md:w-[80vw]'}
+                    draggable={false}
+                    className={
+                        'max-w-none w-[85vh] -rotate-90 -scale-y-100 sm:rotate-0 sm:scale-y-100 sm:max-w-full sm:w-[150vh] sm:h-auto'
+                    }
                 />
                 <Title />
                 <UserSelect type={searchParams['type']} />
                 <Link
                     href={'/wish-simulator'}
-                    className={'absolute cursor-genshin top-[6.2%] right-[2.2%]'}
+                    className={
+                        'absolute cursor-genshin top-[2.5%] right-[7%] sm:top-[6.2%] sm:right-[2.4%]'
+                    }
                 >
                     <svg
-                        className={'w-[3.5vw] md:w-[2.7vw]'}
+                        className={'w-[5cqw] sm:w-[3.5cqw]'}
                         transform="rotate(45)"
                         fill="#000000"
                         stroke="#000000"

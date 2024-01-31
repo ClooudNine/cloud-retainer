@@ -29,7 +29,7 @@ const getBannerMoreInfo = (
                 />
             );
         case 'Standard Wish':
-            return <StandardWish banner={banner} />;
+            return <StandardWish />;
     }
 };
 const MoreInfo = ({
@@ -46,23 +46,23 @@ const MoreInfo = ({
     return (
         <div
             className={
-                'absolute overflow-y-scroll genshin-scrollbar w-[81%] h-[60%] top-[30%] left-[10%] md:h-[68%] md:top-[21%]'
+                'absolute overflow-y-scroll genshin-scrollbar w-[81%] h-[76%] top-[16%] left-[10%] pr-2 sm:h-[68%] sm:top-[21%]'
             }
         >
-            <p className={'text-[#595252] text-[3.5vw] md:text-[1.3vw]'}>
+            <p className={'text-[#595252] text-[3.5cqw] sm:text-[1.8cqw]'}>
                 Подробнее о Молитвах
             </p>
             <div
                 className={
-                    'h-[12%] mt-2 flex justify-center items-center bg-[#6f778a] md:h-[7%]'
+                    'h-4 mt-2 flex justify-center items-center bg-[#6f778a] sm:h-[7%]'
                 }
             >
                 <div
                     className={
-                        'flex items-center pl-4 w-[99.5%] h-[90%] border-2 border-[#757d90] md:pl-8'
+                        'flex items-center w-[99.5%] h-[90%] border-2 border-[#757d90] pl-[5%]'
                     }
                 >
-                    <p className={'text-white text-[3vw] md:text-[1.1vw]'}>
+                    <p className={'text-white text-[3cqw] sm:text-[1.6cqw]'}>
                         {banner.type === 'Standard Wish'
                             ? 'Нет ограничения по времени'
                             : 'Временное событие'}
@@ -72,7 +72,7 @@ const MoreInfo = ({
             <div
                 style={{ '--palette': palette } as CSSProperties}
                 className={
-                    'mt-2 md:mt-4 text-[#595252] text-[3vw] md:text-[1.2vw] [&_em]:text-[rgb(var(--palette))] [&_em]:not-italic [&_i]:not-italic'
+                    'mt-2 text-[#595252] text-[3.5cqw] sm:text-[1.6cqw] sm:mt-4 [&_em]:text-[rgb(var(--palette))] [&_em]:not-italic [&_i]:not-italic'
                 }
             >
                 {getBannerMoreInfo(banner, mainItems, featuredItems)}

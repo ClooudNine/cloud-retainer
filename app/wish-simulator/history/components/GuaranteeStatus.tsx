@@ -3,7 +3,7 @@ import { Rares } from '@/lib/db/schema';
 
 const GuaranteeStatus = ({ bannerType, rare }: { bannerType: string; rare: Rares }) => {
     const statusStorageName = `${rare === '5' ? 'five' : 'four'}StarGuaranteed`;
-    const guaranteeStatusClasses = clsx('text-[3vw] md:text-[1vw] [&_em]:not-italic', {
+    const guaranteeStatusClasses = clsx('[&_em]:not-italic', {
         'text-[#9659c7]': rare === '4',
         'text-[#bd6932]': rare === '5',
     });

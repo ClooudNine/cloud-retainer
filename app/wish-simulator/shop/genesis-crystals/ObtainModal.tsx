@@ -60,7 +60,7 @@ const ObtainModal = ({
                     className={obtainModalClasses}
                 >
                     <Image
-                        src={`/wish-simulator/assets/genesis-crystals/${count}-crystals.webp`}
+                        src={`/wish-simulator/assets/shop/genesis-crystals/${count}-crystals.webp`}
                         alt={count + ' Кристаллов Сотворения'}
                         width={300}
                         height={300}

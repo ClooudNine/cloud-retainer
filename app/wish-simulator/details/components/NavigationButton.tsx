@@ -4,9 +4,15 @@ import detailsButton from '@/public/wish-simulator/assets/details-button.webp';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
 import clsx from 'clsx';
-import { Sections } from '@/app/wish-simulator/details/page';
+import { DetailsSections } from '@/app/wish-simulator/details/page';
 
-const NavigationButton = ({ title, param }: { title: string; param: Sections }) => {
+const NavigationButton = ({
+    title,
+    param,
+}: {
+    title: string;
+    param: DetailsSections;
+}) => {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
@@ -31,7 +37,13 @@ const NavigationButton = ({ title, param }: { title: string; param: Sections }) 
 
     return (
         <button className={buttonClasses} onClick={selectSection}>
-            <Image src={detailsButton} alt={title} className={backgroundButtonClasses} />
+            <Image
+                src={detailsButton}
+                alt={title}
+                quality={100}
+                draggable={false}
+                className={backgroundButtonClasses}
+            />
             <p className={'z-10'}>{title}</p>
         </button>
     );

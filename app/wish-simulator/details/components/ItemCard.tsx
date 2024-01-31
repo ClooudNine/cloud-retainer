@@ -13,12 +13,12 @@ const ItemCard = ({ item }: { item: Character | Weapon }) => {
     return (
         <div
             className={
-                'relative h-[120px] w-[100px] bg-white drop-shadow rounded-md md:w-[15%] md:h-4/5'
+                'bg-white drop-shadow rounded-md w-[45%] h-[20cqw] sm:w-[8cqw] sm:h-full'
             }
         >
             <div
                 className={
-                    'relative h-4/5 rounded-md rounded-br-2xl overflow-hidden md:rounded-br-3xl'
+                    'relative h-4/5 rounded-t-md rounded-br-[3cqw] overflow-hidden'
                 }
             >
                 <Image
@@ -27,6 +27,8 @@ const ItemCard = ({ item }: { item: Character | Weapon }) => {
                         item.rare === '5' ? 'пятизвёздочной' : 'четырёхзвёздочной'
                     } редкости`}
                     fill
+                    quality={100}
+                    draggable={false}
                 />
                 {'name' in item ? (
                     <Image
@@ -39,7 +41,7 @@ const ItemCard = ({ item }: { item: Character | Weapon }) => {
                 ) : (
                     <div
                         className={
-                            'absolute w-1/5 text-[3vw] text-center rounded top-1 left-1 bg-[rgba(0,0,0,0.4)] text-[#cfcfcf] md:text-[1vw]'
+                            'z-10 absolute size-1/4 text-[2cqw] text-center leading-[1.8] rounded top-0.5 left-0.5 bg-black bg-opacity-40 text-[#cfcfcf] sm:text-[1cqw]'
                         }
                     >
                         1
@@ -53,23 +55,25 @@ const ItemCard = ({ item }: { item: Character | Weapon }) => {
                     width={130}
                     height={130}
                     quality={100}
-                    className={'absolute w-full h-auto bottom-0'}
+                    draggable={false}
+                    className={'absolute bottom-0'}
                 />
             </div>
-            <div className={'absolute w-full flex justify-center bottom-[15%]'}>
+            <div className={'absolute flex justify-center bottom-[15%]'}>
                 {Array.from(Array(Number(item.rare)).keys()).map((number) => (
                     <Image
                         key={number}
                         src={star}
                         alt={'Звезда'}
                         quality={100}
-                        className={'w-[17%] h-auto drop-shadow'}
+                        draggable={false}
+                        className={'w-[17%] drop-shadow'}
                     />
                 ))}
             </div>
             <p
                 className={
-                    'w-full absolute bottom-0 text-[3vw] text-center text-[#495366] md:text-[1vw]'
+                    'w-full absolute bottom-0 text-center text-[2.5cqw] text-[#495366] sm:text-[1.2cqw]'
                 }
             >
                 Ур. 1

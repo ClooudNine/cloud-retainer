@@ -1,6 +1,6 @@
 'use client';
 import { useCallback, useEffect, useState } from 'react';
-import { BaseBannerStats, WishHistory } from '@/lib/banners';
+import { WishHistory } from '@/lib/banners';
 import TablePagination from '@/app/wish-simulator/history/components/TablePagination';
 import { WishHistoryTypes } from '@/lib/banners';
 import GuaranteeStatus from '@/app/wish-simulator/history/components/GuaranteeStatus';
@@ -18,8 +18,14 @@ const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
     }, [type]);
 
     const removeHistory = useCallback(() => {
-        let bannerStats: BaseBannerStats = JSON.parse(localStorage.getItem(type)!);
+        let bannerStats = JSON.parse(localStorage.getItem(type)!);
+        bannerStats.fourStarCounter = 0;
+        bannerStats.fiveStarCounter = 0;
         bannerStats.history = [];
+        if (type === 'CharacterEventWish' || type === 'WeaponEventWish') {
+            bannerStats.fourStarGuaranteed = false;
+            bannerStats.fiveStarGuaranteed = false;
+        }
         localStorage.setItem(type, JSON.stringify(bannerStats));
         setHistory([]);
     }, [type]);
@@ -28,7 +34,7 @@ const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
         return (
             <p
                 className={
-                    'absolute text-[#595252] w-full text-[3vw] md:text-[2.1vw] top-[45%] text-center'
+                    'absolute text-[#595252] w-full top-[45%] text-center text-[6cqw] sm:text-[3cqw]'
                 }
             >
                 История по данному типу отсутствует!
@@ -40,19 +46,23 @@ const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
         <>
             <div
                 className={
-                    'absolute w-[81.5%] h-[60%] top-[24%] left-[9%] overflow-y-scroll genshin-scrollbar'
+                    'absolute w-[86%] h-[70%] top-[17%] left-[9%] overflow-y-scroll genshin-scrollbar sm:top-[22%] sm:w-[84%] sm:h-[63%]'
                 }
             >
-                <p className={'text-[3vw] md:text-[1vw] text-[#9a8e8e]'}>
+                <p className={'text-[4cqw] text-[#9a8e8e] sm:text-[1.4cqw]'}>
                     Всего молитв сделано: {history.length}
                 </p>
-                <div className={'flex md:h-[13%] md:gap-12'}>
+                <div
+                    className={
+                        'flex flex-col text-[4cqw] gap-[2cqw] sm:text-[1.4cqw] sm:flex-row'
+                    }
+                >
                     <div>
-                        <p className={'text-[3vw] md:text-[1vw] text-[#9659c7]'}>
+                        <p className={'text-[#9659c7]'}>
                             Всего предметов 4★ получено:&nbsp;
                             {history.filter((wish) => wish.item.rare === '4').length}
                         </p>
-                        <p className={'text-[3vw] md:text-[1vw] text-[#bd6932]'}>
+                        <p className={'text-[#bd6932]'}>
                             Всего предметов 5★ получено:&nbsp;
                             {history.filter((wish) => wish.item.rare === '5').length}
                         </p>
@@ -65,12 +75,12 @@ const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
                     )}
                     <button
                         className={
-                            'flex items-center justify-evenly mr-2 w-[20%] h-[20%] md:w-[25%] md:h-auto bg-red-300 transition  rounded-full text-[2vw] md:text-[1vw] cursor-genshin p-2 hover:bg-red-500'
+                            'h-[8cqw] flex items-center justify-evenly bg-red-300 transition rounded-full gap-2 cursor-genshin p-2 hover:bg-red-500 sm:h-[4cqw]'
                         }
                         onClick={removeHistory}
                     >
                         <svg
-                            className={'h-full'}
+                            className={'h-[6cqw] w-auto sm:h-[4cqw]'}
                             fill="none"
                             viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg"
@@ -83,60 +93,56 @@ const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
                                 strokeWidth="2"
                             />
                         </svg>
-                        <p className={'hidden md:block'}>Удалить историю</p>
+                        <p>Удалить историю</p>
                     </button>
                 </div>
                 <table
                     className={
-                        'absolute border mt-2 mr-2 border-[#dac69f] text-[2.5vw] md:text-[1.2vw] leading-tight'
+                        'absolute h-[80%] border border-[#dac69f] mt-2 text-[2.7cqw] leading-tight mr-2 sm:text-[1.5cqw]'
                     }
                 >
                     <thead>
-                        <tr className={'text-[#595252]'}>
+                        <tr className={'text-[#595252] bg-[#ede1ca]'}>
                             <th
                                 className={
-                                    'w-[15%] border border-[#dac69f] bg-[#ede1ca] font-normal md:p-4'
+                                    'w-1/5 border border-[#dac69f] font-normal p-[1cqw]'
                                 }
                             >
                                 Тип
                             </th>
                             <th
                                 className={
-                                    'w-1/4 border border-[#dac69f] bg-[#ede1ca] font-normal md:p-4'
+                                    'w-[30%] border border-[#dac69f] font-normal p-[1cqw]'
                                 }
                             >
                                 Имя
                             </th>
                             <th
                                 className={
-                                    'w-[35%] border border-[#dac69f] bg-[#ede1ca] font-normal md:p-4'
+                                    'w-1/4 border border-[#dac69f] font-normal p-[1cqw]'
                                 }
                             >
                                 Тип Молитвы
                             </th>
                             <th
                                 className={
-                                    'w-1/4 border border-[#dac69f] bg-[#ede1ca] font-normal md:p-4'
+                                    'w-1/4 border border-[#dac69f] font-normal p-[1cqw]'
                                 }
                             >
                                 Время молитвы
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className={'text-[#9a8e8e] bg-[#f6f1e7] text-center'}>
                         {history
                             .slice((page - 1) * 5, (page - 1) * 5 + 5)
                             .map((wish, index) => (
-                                <tr key={index} className={'text-[#9a8e8e]'}>
-                                    <td
-                                        className={
-                                            'border border-[#dac69f] bg-[#f6f1e7] text-center p-2 md:p-4'
-                                        }
-                                    >
+                                <tr key={index}>
+                                    <td className={'border border-[#dac69f] p-[1cqw]'}>
                                         {wish.type}
                                     </td>
                                     <td
-                                        className={`border border-[#dac69f] bg-[#f6f1e7] text-center p-2 md:p-4 ${
+                                        className={`border border-[#dac69f] p-[1cqw] ${
                                             wish.item.rare === '5'
                                                 ? 'text-[#bd6932]'
                                                 : wish.item.rare === '4' &&
@@ -147,18 +153,10 @@ const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
                                         {Number(wish.item.rare) > 3 &&
                                             ` (${wish.item.rare}★)`}
                                     </td>
-                                    <td
-                                        className={
-                                            'border border-[#dac69f] bg-[#f6f1e7] text-center p-2 md:p-4'
-                                        }
-                                    >
+                                    <td className={'border border-[#dac69f] p-[1cqw]'}>
                                         {wish.wishType}
                                     </td>
-                                    <td
-                                        className={
-                                            'border border-[#dac69f] bg-[#f6f1e7] text-center p-2 md:p-4'
-                                        }
-                                    >
+                                    <td className={'border border-[#dac69f] p-[1cqw]'}>
                                         {wish.date}
                                     </td>
                                 </tr>

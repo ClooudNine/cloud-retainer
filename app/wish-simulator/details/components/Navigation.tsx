@@ -1,9 +1,9 @@
 import NavigationButton from '@/app/wish-simulator/details/components/NavigationButton';
-import { Sections } from '@/app/wish-simulator/details/page';
+import { DetailsSections } from '@/app/wish-simulator/details/page';
 import { BannerTypes } from '@/lib/db/schema';
 
 const Navigation = ({ bannerType }: { bannerType: BannerTypes }) => {
-    const sections: { [key in Sections]?: string } = {
+    const sections: { [key in DetailsSections]?: string } = {
         'increased-chance': 'Повышенный шанс',
         'more-info': 'Подробности',
         'items-list': 'Список предметов',
@@ -14,9 +14,9 @@ const Navigation = ({ bannerType }: { bannerType: BannerTypes }) => {
     }
 
     return (
-        <div
+        <nav
             className={
-                'absolute bg-[radial-gradient(circle,rgba(232,223,207,1)_90%,rgba(232,223,207,0.1)_100%)] text-[#595252] text-[2.5vw] md:text-[1.3vw] w-[85%] md:w-[80%] h-[15%] md:h-[7.5%] top-[12.5%] left-[8%] md:left-[10%]'
+                'absolute bg-[radial-gradient(circle,rgba(232,223,207,1)_90%,rgba(232,223,207,0.1)_100%)] text-[#595252] text-[2.5cqw] w-[85%] h-[4%] top-[11%] left-[9%] sm:h-[7.5%] sm:w-4/5 sm:top-[12%] sm:text-[1.7cqw]'
             }
         >
             <div
@@ -28,11 +28,11 @@ const Navigation = ({ bannerType }: { bannerType: BannerTypes }) => {
                     <NavigationButton
                         key={section[0]}
                         title={section[1]}
-                        param={section[0] as Sections}
+                        param={section[0] as DetailsSections}
                     />
                 ))}
             </div>
-        </div>
+        </nav>
     );
 };
 

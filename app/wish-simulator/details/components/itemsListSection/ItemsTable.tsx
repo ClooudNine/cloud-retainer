@@ -35,20 +35,20 @@ const ItemsTable = ({
     mainItems?: Character[] | Weapon[] | null;
     bannerType: BannerTypes;
 }) => {
-    const headerClasses = clsx(
-        'mt-4 h-[17%] flex justify-center items-center md:h-[12%]',
+    const headerClasses = clsx('mt-2 h-6 flex justify-center items-center sm:h-[12%]', {
+        'bg-[#cfb383]': rare === '5',
+        'bg-[#b6a8c9]': rare === '4',
+        'bg-[#a9bcca]': rare === '3',
+    });
+
+    const innerHeaderClasses = clsx(
+        'flex items-center pl-[5%] w-[99.5%] h-[90%] gap-[0.3cqw] border-2',
         {
-            'bg-[#cfb383]': rare === '5',
-            'bg-[#b6a8c9]': rare === '4',
-            'bg-[#a9bcca]': rare === '3',
+            'border-[#c5a875]': rare === '5',
+            'border-[#ae9fc3]': rare === '4',
+            'border-[#9fb4c1]': rare === '3',
         }
     );
-
-    const innerHeaderClasses = clsx('flex items-center pl-8 w-[99.5%] h-[90%] border-2', {
-        'border-[#c5a875]': rare === '5',
-        'border-[#ae9fc3]': rare === '4',
-        'border-[#9fb4c1]': rare === '3',
-    });
 
     const chances = getBaseChances(bannerType);
 
@@ -61,10 +61,12 @@ const ItemsTable = ({
                             key={number}
                             src={star}
                             alt={'Звезда'}
+                            quality={100}
+                            draggable={false}
                             className={'h-[70%] w-auto drop-shadow'}
                         />
                     ))}
-                    <p className={'text-white text-[2vw] md:text-[1.1vw] ml-4'}>
+                    <p className={'text-white text-[2cqw] ml-4 sm:text-[1.4cqw]'}>
                         Базовый шанс получения предмета {rare}★:{' '}
                         {chances[rare]?.baseChance} (Включая гарантию:{' '}
                         {chances[rare]?.includingGuarantee})
@@ -73,47 +75,47 @@ const ItemsTable = ({
             </div>
             <table
                 className={
-                    'w-full text-[#595252] border border-[#dac69f] text-[2.3vw] md:text-[1.2vw]'
+                    'bg-[#ede1ca] text-[#595252] border border-[#dac69f] text-[2.5cqw] leading-tight sm:text-[1.5cqw]'
                 }
             >
                 <thead>
                     <tr>
                         <th
                             className={
-                                'bg-[#ede1ca] w-[15%] border border-[#dac69f] font-normal p-1 md:p-2'
+                                'w-[15%] border border-[#dac69f] font-normal p-[1cqw]'
                             }
                         >
                             Тип
                         </th>
                         <th
                             className={
-                                'bg-[#ede1ca] w-[30%] border border-[#dac69f] font-normal p-1 md:p-2'
+                                'w-[35%] border border-[#dac69f] font-normal p-[1cqw]'
                             }
                         >
                             Имя
                         </th>
                         <th
                             className={
-                                'bg-[#ede1ca] w-[15%] border border-[#dac69f] font-normal p-1 md:p-2'
+                                'w-[15%] border border-[#dac69f] font-normal p-[1cqw]'
                             }
                         >
                             Тип
                         </th>
                         <th
                             className={
-                                'bg-[#ede1ca] w-[30%] border border-[#dac69f] font-normal p-1 md:p-2'
+                                'w-[35%] border border-[#dac69f] font-normal p-1 sm:p-2'
                             }
                         >
                             Имя
                         </th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className={'bg-[#f4f1ec] text-center'}>
                     {items.map((item, index) => {
                         const nextItem = items[index + 1];
                         if (index % 2 === 0) {
                             return (
-                                <tr key={index} className={'bg-[#f4f1ec] text-center'}>
+                                <tr key={index}>
                                     <ItemCell
                                         item={item}
                                         mainItems={mainItems}
