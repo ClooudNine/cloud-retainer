@@ -4,73 +4,72 @@ import primogem from '@/public/wish-simulator/assets/primogems.webp';
 import { useBannerContext } from '@/app/wish-simulator/components/BannerProvider';
 import { useState } from 'react';
 import CurrencyExchanger from '@/app/wish-simulator/components/CurrencyExchanger';
+import { playSfxEffect } from '@/app/wish-simulator/utils';
 
 const CurrentBalance = () => {
     const { pullCurrency, balance, setBalance } = useBannerContext();
     const [isExchange, setIsExchange] = useState<boolean>(false);
 
     return (
-        <div
-            className={
-                'flex items-center justify-end font-genshin col-start-5 col-end-11 gap-3 sm:col-start-8 sm:col-end-12 md:ml-4 md:col-start-9 xl:ml-0 xl:col-start-10'
-            }
-        >
+        <>
             <div
                 className={
-                    'relative flex items-center h-[30%] w-[70%] bg-[rgba(0,0,0,0.4)] rounded-full ring-2 ring-[#84a4c5] md:h-1/4 2xl:min-w-max 2xl:w-1/2'
+                    'absolute top-12 right-20 flex items-center gap-4 text-white text-2xl xs:text-base xs:max-lg:top-4 lg:right-24'
                 }
             >
-                <div className={'absolute h-full w-full peer'}></div>
-                <Image
-                    src={primogem}
-                    alt={'Примогем'}
-                    quality={100}
-                    draggable={false}
-                    width={40}
+                <div
                     className={
-                        'h-[95%] w-auto select-none drop-shadow transition-all active:opacity-50 peer-active:opacity-50'
-                    }
-                />
-                <p className={'text-white text-base ml-2 max-2xl:truncate md:text-lg'}>
-                    {balance['primogems']}
-                </p>
-                <button
-                    onClick={() => setIsExchange(true)}
-                    className={
-                        'z-10 bg-[#ece5d8] text-[#3b4354] w-1/4 h-[90%] ml-auto mr-0.5 text-lg font-bold flex justify-center items-center rounded-full transition-all cursor-genshin md:text-xl active:opacity-50 active:scale-95 hover:scale-110'
+                        'relative flex items-center bg-black bg-opacity-40 rounded-full gap-2 px-1 ring-2 ring-[#84a4c5]'
                     }
                 >
-                    +
-                </button>
-            </div>
-            <div
-                className={
-                    'group flex items-center h-[30%] w-[30%] md:h-1/4 bg-[rgba(0,0,0,0.4)] rounded-full ring-2 ring-[#84a4c5] 2xl:min-w-max'
-                }
-            >
-                <Image
-                    src={`/wish-simulator/assets/${pullCurrency}.webp`}
-                    alt={'Переплетающиеся судьбы'}
-                    quality={100}
-                    draggable={false}
-                    width={40}
-                    height={40}
+                    <Image
+                        src={primogem}
+                        alt={'Примогем'}
+                        quality={100}
+                        draggable={false}
+                        className={'size-8 xs:size-6'}
+                    />
+                    <p>{balance['primogems']}</p>
+                    <button
+                        onClick={() => {
+                            playSfxEffect('/sounds/click-8.mp3');
+                            setIsExchange(true);
+                        }}
+                        className={
+                            'bg-[#ece5d8] text-[#3b4354] size-7 text-xl font-bold leading-none rounded-full transition cursor-genshin active:opacity-50 active:scale-95 hover:scale-110 xs:size-5'
+                        }
+                    >
+                        +
+                    </button>
+                </div>
+                <div
                     className={
-                        'h-[95%] w-auto drop-shadow select-none transition-all group-active:opacity-50'
+                        'flex items-center bg-black bg-opacity-40 rounded-full ring-2 px-1 gap-1 ring-[#84a4c5]'
                     }
-                />
-                <p className={'text-white text-base ml-2 max-2xl:truncate md:text-lg'}>
-                    {balance && balance[pullCurrency]}
-                </p>
+                >
+                    <Image
+                        src={`/wish-simulator/assets/${pullCurrency}.webp`}
+                        alt={'Переплетающиеся судьбы'}
+                        quality={100}
+                        draggable={false}
+                        width={140}
+                        height={140}
+                        className={'size-8 xs:size-6'}
+                    />
+                    <p>{balance[pullCurrency]}</p>
+                </div>
             </div>
             {isExchange && (
                 <CurrencyExchanger
                     balance={balance}
                     setBalance={setBalance}
-                    closeCurrencyExchanger={() => setIsExchange(false)}
+                    closeCurrencyExchanger={() => {
+                        playSfxEffect('/sounds/click-7.mp3');
+                        setIsExchange(false);
+                    }}
                 />
             )}
-        </div>
+        </>
     );
 };
 export default CurrentBalance;

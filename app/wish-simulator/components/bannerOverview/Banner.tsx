@@ -30,10 +30,10 @@ const renderCharacterName = (character: Character, offsets: { r: string; b: stri
                 'absolute bottom-[var(--bottom-offset)] right-[var(--right-offset)]'
             }
         >
-            <p className={'text-[4cqw] text-white drop-shadow-[0_0_2px_rgba(0,0,0,1)]'}>
+            <p className={'text-3xl text-white drop-shadow-[0_0_2px_rgba(0,0,0,1)]'}>
                 {character.name}
             </p>
-            <p className={'text-[1.8cqw] mt-[3cqw] text-[#c2bd96]'}>{character.title}</p>
+            <p className={'text-sm mt-7 text-[#c2bd96]'}>{character.title}</p>
         </div>
     );
 };
@@ -95,7 +95,7 @@ const renderWeaponBannerInfo = (
 const renderStandardBannerInfo = (
     titlesOnBanner: string[],
     characters: Character[],
-    standardBannerParameters: {
+    textParameters: {
         [key: string]: { r: string; b: string; fontSize: string };
     }
 ) => {
@@ -110,35 +110,24 @@ const renderStandardBannerInfo = (
                         key={title}
                         style={
                             {
-                                '--right-offset': standardBannerParameters[title]['r'],
-                                '--bottom-offset': standardBannerParameters[title]['b'],
-                                '--name-size':
-                                    standardBannerParameters[title]['fontSize'],
+                                '--right-offset': textParameters[title]['r'],
+                                '--bottom-offset': textParameters[title]['b'],
+                                '--name-size': textParameters[title]['fontSize'],
                             } as CSSProperties
                         }
-                        className={`absolute bottom-[var(--bottom-offset)] right-[var(--right-offset)]`}
+                        className={
+                            'absolute text-white bottom-[var(--bottom-offset)] right-[var(--right-offset)] text-[length:var(--name-size)] drop-shadow-[0_0_2px_rgba(0,0,0,1)]'
+                        }
                     >
                         {maybeCharacter ? (
                             <>
-                                <pre
-                                    className={
-                                        'font-genshin text-[length:var(--name-size)] leading-tight text-white drop-shadow-[0_0_2px_rgba(0,0,0,1)]'
-                                    }
-                                >
-                                    {maybeCharacter.name}
-                                </pre>
-                                <p className={'text-[1.5cqw] mt-[2cqw] text-[#c2bd96]'}>
+                                <p>{maybeCharacter.name}</p>
+                                <p className={'text-xs mt-3 text-[#c2bd96]'}>
                                     {maybeCharacter.title}
                                 </p>
                             </>
                         ) : (
-                            <pre
-                                className={
-                                    'font-genshin text-[length:var(--name-size)] leading-tight text-white drop-shadow-[0_0_2px_rgba(0,0,0,1)]'
-                                }
-                            >
-                                {title}
-                            </pre>
+                            <pre className={'font-genshin leading-tight'}>{title}</pre>
                         )}
                     </div>
                 );
@@ -151,10 +140,15 @@ const renderBannerInfo = (
     weapons: Weapon[],
     selectedBanner: Banners
 ) => {
-    if (
-        selectedBanner.type === 'Character Event Wish' ||
-        selectedBanner.type === 'Character Event Wish-2'
-    ) {
+    if ('mainCharacterId' in selectedBanner) {
+        if (selectedBanner.type === 'Standard Wish') {
+            const titlesOnBanner = Object.keys(selectedBanner.textParameters);
+            return renderStandardBannerInfo(
+                titlesOnBanner,
+                characters,
+                (selectedBanner as StandardBanner).textParameters
+            );
+        }
         const mainCharacter = characters.find(
             (character) =>
                 character.id === (selectedBanner as CharacterBanner).mainCharacterId
@@ -163,7 +157,7 @@ const renderBannerInfo = (
             mainCharacter,
             (selectedBanner as CharacterBanner).textParameters
         );
-    } else if (selectedBanner.type === 'Weapon Event Wish') {
+    } else {
         const mainWeaponsId = [
             (selectedBanner as WeaponBanner).firstMainWeaponId,
             (selectedBanner as WeaponBanner).secondMainWeaponId,
@@ -175,108 +169,98 @@ const renderBannerInfo = (
             mainFiveStarWeapons,
             (selectedBanner as WeaponBanner).textParameters
         );
-    } else {
-        const titlesOnBanner = Object.keys(selectedBanner.textParameters);
-        return renderStandardBannerInfo(
-            titlesOnBanner,
-            characters,
-            (selectedBanner as StandardBanner).textParameters
-        );
     }
 };
 const Banner = () => {
     const { characters, weapons, selectedBanner } = useBannerContext();
-    const rulesClasses = clsx('flex items-center gap-1 mt-1 md:mt-2', {
-        'bg-[var(--palette-opacity)]': currentGameVersion !== 1,
+
+    const infoContainerClasses = clsx('absolute flex flex-col gap-6', {
+        'top-0': selectedBanner.type !== 'Standard Wish',
+        'top-10': selectedBanner.type === 'Standard Wish' && currentGameVersion > 1,
+    });
+
+    const rulesClasses = clsx('flex items-center gap-1 mt-2', {
+        'bg-[rgba(var(--palette),0.8)]': currentGameVersion !== 1,
         'bg-[rgba(65,163,162,0.8)]':
             currentGameVersion === 1 && selectedBanner.type === 'Standard Wish',
         'bg-[rgba(230,98,106,1)]': selectedBanner.type === 'Novice Wish',
     });
 
     return (
-        <section
-            className={'flex font-genshin items-center justify-center sm:justify-between'}
-        >
-            <SwitchBannerArrow isForward={false} />
+        <>
+            <section
+                className={
+                    'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-1 overflow-hidden flex items-center justify-around xs:max-lg:pl-20'
+                }
+            >
+                <SwitchBannerArrow isForward={false} />
+                <div
+                    key={selectedBanner.type}
+                    className={'animate-banner-preview-appearance'}
+                    style={
+                        {
+                            '--palette': `${getBannerColor(selectedBanner, characters)}`,
+                        } as CSSProperties
+                    }
+                >
+                    <Image
+                        src={`/wish-simulator/banners/${getPreviewUrl(
+                            selectedBanner
+                        )}.webp`}
+                        alt={`Картинка баннера ${selectedBanner.title}`}
+                        draggable={false}
+                        priority={true}
+                        width={1200}
+                        height={600}
+                        quality={100}
+                        className={'rounded-xl w-[50rem]'}
+                    />
+                    <div className={infoContainerClasses}>
+                        <div
+                            className={
+                                'w-max text-sm text-white bg-[rgb(var(--palette))] -ml-1 rounded-l-3xl rounded-br-[3rem] px-6 py-0.5 lg:text-base'
+                            }
+                        >
+                            {selectedBanner.type}
+                        </div>
+                        <p
+                            className={`pl-10 text-[#595957] text-4xl leading-tight [&_em]:text-[rgb(var(--palette))] [&_em]:not-italic`}
+                            dangerouslySetInnerHTML={{ __html: selectedBanner.title }}
+                        ></p>
+                        <div
+                            dir={'rtl'}
+                            className={
+                                'pl-10 w-80 h-44 overflow-y-scroll scrollbar-for-banner'
+                            }
+                        >
+                            <p dir={'ltr'} className={'text-[#595957] text-xl'}>
+                                {bannerSecondTitle[selectedBanner.type]}
+                            </p>
+                            <div dir={'ltr'} className={rulesClasses}>
+                                <StarIcon styles={'fill-white w-8 pl-1'} />
+                                <p className={'text-white text-sm'}>
+                                    Every 10 wishes is guaranteed to include at least one
+                                    4-star or higher item.
+                                </p>
+                            </div>
+                            <p
+                                dir={'ltr'}
+                                className={
+                                    'mt-2 text-[#595957] text-sm drop-shadow-[0_0_2px_rgba(255,255,255,1)]'
+                                }
+                            >
+                                {bannerDescriptions[selectedBanner.type]}
+                            </p>
+                        </div>
+                    </div>
+                    {renderBannerInfo(characters, weapons, selectedBanner)}
+                </div>
+                <SwitchBannerArrow isForward={true} />
+            </section>
             {selectedBanner.type === 'Weapon Event Wish' && (
                 <EpitomizedPathButton weaponBanner={selectedBanner as WeaponBanner} />
             )}
-            <div
-                key={selectedBanner.type}
-                className={
-                    'relative w-[95%] md:w-[90%] lg:w-[70%] xl:w-[60%] 2xl:w-[55%] transition-all animate-banner-preview-appearance'
-                }
-                style={
-                    {
-                        '--palette-opacity': `rgba(${getBannerColor(
-                            selectedBanner,
-                            characters
-                        )}, 0.8)`,
-                        '--palette-no-opacity': `rgba(${getBannerColor(
-                            selectedBanner,
-                            characters
-                        )}, 1)`,
-                        containerType: 'inline-size',
-                    } as CSSProperties
-                }
-            >
-                <Image
-                    src={`/wish-simulator/banners/${getPreviewUrl(selectedBanner)}.webp`}
-                    alt={'Картинка баннера'}
-                    draggable={false}
-                    width={1200}
-                    height={600}
-                    quality={100}
-                    className={'rounded-2xl w-full h-auto select-none'}
-                />
-                <div
-                    className={`absolute text-[2cqw] ${
-                        selectedBanner.type === 'Standard Wish' && currentGameVersion > 1
-                            ? 'top-[8%]'
-                            : '-top-1'
-                    } -left-1 text-white bg-[var(--palette-no-opacity)] rounded-l-full rounded-br-[19999px] pl-3 pr-5 py-0.5`}
-                >
-                    {selectedBanner.type}
-                </div>
-                <p
-                    className={`absolute ${
-                        selectedBanner.type === 'Standard Wish' && currentGameVersion > 1
-                            ? 'top-[16%]'
-                            : 'top-[8%]'
-                    } text-[#595957] text-[5cqw] leading-tight left-[5%] [&_em]:text-[var(--palette-no-opacity)] [&_em]:not-italic`}
-                    dangerouslySetInnerHTML={{ __html: selectedBanner.title }}
-                ></p>
-                <div
-                    dir={'rtl'}
-                    className={`absolute ${
-                        selectedBanner.type === 'Standard Wish' && currentGameVersion > 1
-                            ? 'bottom-[18%]'
-                            : 'bottom-[23%]'
-                    } overflow-y-scroll w-1/2 pl-[5%] h-2/5 scrollbar-for-banner sm:w-[40%]`}
-                >
-                    <p dir={'ltr'} className={'text-[#595957] text-[2.5cqw]'}>
-                        {bannerSecondTitle[selectedBanner.type]}
-                    </p>
-                    <div dir={'ltr'} className={rulesClasses}>
-                        <StarIcon styles={'fill-white w-4 pl-1 lg:w-6'} />
-                        <p className={'text-white text-[1.8cqw]'}>
-                            Every 10 wishes is guaranteed to include at least one 4-star
-                            or higher item.
-                        </p>
-                    </div>
-                    <p
-                        dir={'ltr'}
-                        className={
-                            'mt-1 text-[#595957] text-[1.7cqw] drop-shadow-[0_0_2px_rgba(255,255,255,1)] md:mt-2'
-                        }
-                    >
-                        {bannerDescriptions[selectedBanner.type]}
-                    </p>
-                </div>
-                {renderBannerInfo(characters, weapons, selectedBanner)}
-            </div>
-            <SwitchBannerArrow isForward={true} />
-        </section>
+        </>
     );
 };
 export default Banner;

@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+import defaultTheme from 'tailwindcss/defaultTheme';
 module.exports = {
     content: [
         './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -6,6 +7,10 @@ module.exports = {
         './app/**/*.{js,ts,jsx,tsx,mdx}',
     ],
     theme: {
+        screens: {
+            xs: '481px',
+            ...defaultTheme.screens,
+        },
         extend: {
             keyframes: {
                 'wish-item-appearance': {
@@ -149,6 +154,11 @@ module.exports = {
                         opacity: 0,
                     },
                 },
+                'multi-wish-appearance': {
+                    to: {
+                        transform: 'translateX(0)',
+                    },
+                },
             },
             animation: {
                 'wish-item-appearance': 'wish-item-appearance 1.3s forwards',
@@ -164,6 +174,7 @@ module.exports = {
                 'banner-preview-appearance': 'banner-preview-appearance 0.8s forwards',
                 'modal-appearance': 'modal-appearance 0.3s ',
                 'obtain-item': 'obtain-item 0.6s forwards',
+                'multi-wish-appearance': 'multi-wish-appearance 1s forwards',
             },
             dropShadow: {
                 'shop-item': [
@@ -172,6 +183,9 @@ module.exports = {
                     '5px 0 0 #ffffff',
                     '-5px 0 0 #ffffff',
                 ],
+                'three-star-item': ['0 -8px 2px #b5e2fe', '0 8px 2px #b5e2fe'],
+                'four-star-item': ['0 -14px 2px #a898fd', '0 14px 2px #a898fd'],
+                'five-star-item': ['0 -20px 2px #fffd84', '0 20px 2px #fffd84'],
             },
             fontFamily: {
                 genshin: ['var(--font-genshin)'],

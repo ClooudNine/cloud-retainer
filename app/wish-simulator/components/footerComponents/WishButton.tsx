@@ -22,7 +22,7 @@ const WishButton = ({ count }: { count: number }) => {
         setDroppedItems,
     } = useBannerContext();
 
-    const countClasses = clsx('font-genshin text-sm sm:text-base lg:text-xl', {
+    const countClasses = clsx({
         'text-[#ff5f40]': count > balance[pullCurrency],
         'text-[#b4a08c]': count <= balance[pullCurrency],
     });
@@ -56,26 +56,21 @@ const WishButton = ({ count }: { count: number }) => {
     return (
         <button
             className={
-                'relative w-full h-2/5 min-w-min transition-all select-none cursor-genshin duration-300 active:brightness-[0.85] md:h-3/5 md:w-[45%] xl:w-[35%]'
+                'relative transition text-2xl flex flex-col justify-center items-center cursor-genshin duration-300 active:brightness-90 xs:text-base'
             }
             onClick={makeWish}
         >
             <Image
                 src={wishButton}
-                quality={100}
-                fill
-                sizes={'(max-width: 768px) 50vw, 20vw'}
                 alt={`Помолиться ${count} раз`}
-                className={'-z-10'}
+                quality={100}
+                draggable={false}
+                className={'w-[22rem] xs:w-64'}
             />
-            <p
-                className={
-                    'font-genshin text-sm text-[#b4a08c] whitespace-nowrap sm:text-base lg:text-xl'
-                }
-            >
+            <p className={'absolute top-1 text-[#b4a08c] whitespace-nowrap'}>
                 Помолиться {count} раз
             </p>
-            <div className={'flex h-1/2 justify-center items-center'}>
+            <div className={'absolute top-8 flex justify-center items-center xs:top-7'}>
                 <Image
                     src={
                         pullCurrency === 'intertwined-fate'
@@ -83,9 +78,9 @@ const WishButton = ({ count }: { count: number }) => {
                             : acquaintFate
                     }
                     alt={'Переплетающиеся судьбы'}
-                    width={32}
-                    height={32}
-                    className={'pointer-events-none'}
+                    quality={100}
+                    draggable={false}
+                    className={'w-12 xs:w-6'}
                 />
                 <p className={countClasses}>x {count}</p>
             </div>

@@ -24,12 +24,6 @@ export type WishHistory = {
     date: string;
 }[];
 
-export type BaseBannerStats = {
-    fourStarCounter: 0;
-    fiveStarCounter: 0;
-    history: WishHistory;
-};
-
 export const bannerOrder: { [key in BannerTypes]: number } = {
     'Novice Wish': 1,
     'Character Event Wish': 2,

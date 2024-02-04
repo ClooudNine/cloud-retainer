@@ -24,17 +24,25 @@ const ObtainModal = ({
     const confirmObtain = useCallback(() => {
         playSfxEffect('/sounds/click-7.mp3');
         let newBalance = { ...balance };
+        playSfxEffect('/sounds/obtain-item.mp3');
         if (convertToPrimogems) {
             newBalance['primogems'] += count;
+            closeObtainModal();
         } else {
             newBalance['genesis-crystal'] += count;
             setBalanceInModal();
-            playSfxEffect('/sounds/obtain-item.mp3');
             setIsSuccessful(true);
         }
         setBalance(newBalance);
         localStorage.setItem('Balance', JSON.stringify(newBalance));
-    }, [balance, convertToPrimogems, count, setBalance, setBalanceInModal]);
+    }, [
+        balance,
+        closeObtainModal,
+        convertToPrimogems,
+        count,
+        setBalance,
+        setBalanceInModal,
+    ]);
 
     const closeObtainModalHandler = useCallback(() => {
         playSfxEffect('/sounds/click-7.mp3');

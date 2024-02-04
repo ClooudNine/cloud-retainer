@@ -1,5 +1,3 @@
-import Footer from '@/app/wish-simulator/components/footerComponents/Footer';
-import Header from '@/app/wish-simulator/components/headerComponents/Header';
 import Background from '@/app/wish-simulator/components/Background';
 import Banner from '@/app/wish-simulator/components/bannerOverview/Banner';
 import BannerProvider from '@/app/wish-simulator/components/BannerProvider';
@@ -17,6 +15,13 @@ import {
 } from '@/lib/db/schema';
 import { db } from '@/lib/db';
 import { isNotNull } from 'drizzle-orm';
+import Title from '@/app/wish-simulator/components/headerComponents/Title';
+import BannerList from '@/app/wish-simulator/components/headerComponents/BannerList';
+import CurrentBalance from '@/app/wish-simulator/components/headerComponents/CurrentBalance';
+import CloseButton from '@/app/wish-simulator/components/headerComponents/CloseButton';
+import MasterlessCurrency from '@/app/wish-simulator/components/footerComponents/MasterlessCurrency';
+import Links from '@/app/wish-simulator/components/footerComponents/Links';
+import WishButton from '@/app/wish-simulator/components/footerComponents/WishButton';
 
 export const metadata = {
     title: 'Cloud Retainer | Симулятор молитв',
@@ -74,10 +79,11 @@ export default async function WishSimulator() {
     return (
         <main
             className={
-                'w-full h-full cursor-genshin grid grid-rows-[1fr_2.5fr_1fr] md:grid-rows-[1fr_5fr_1fr] overflow-hidden'
+                'w-full h-full cursor-genshin font-genshin flex flex-col justify-between overflow-hidden'
             }
         >
             <Background isBlurred={false} />
+            <Title />
             <BannerProvider
                 banners={[
                     ...allCharactersBanners,
@@ -87,9 +93,31 @@ export default async function WishSimulator() {
                 characters={charactersFromWishes}
                 weapons={weaponsFromWishes}
             >
-                <Header />
+                <BannerList />
+                <CurrentBalance />
+                <CloseButton
+                    handler={undefined}
+                    styles={
+                        'absolute top-12 right-5 size-8 xs:max-lg:top-4 lg:top-11 lg:right-8'
+                    }
+                />
                 <Banner />
-                <Footer />
+                <MasterlessCurrency />
+                <div
+                    className={
+                        'z-10 absolute w-full bottom-4 px-2 flex justify-between items-end gap-3 xs:max-lg:pl-32 xs:px-16'
+                    }
+                >
+                    <Links />
+                    <div
+                        className={
+                            'flex justify-end flex-col gap-3 xs:max-lg:flex-wrap xs:flex-row'
+                        }
+                    >
+                        <WishButton count={1} />
+                        <WishButton count={10} />
+                    </div>
+                </div>
             </BannerProvider>
         </main>
     );

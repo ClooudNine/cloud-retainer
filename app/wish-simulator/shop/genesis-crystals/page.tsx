@@ -70,9 +70,7 @@ export default function GenesisCrystals() {
                         playSfxEffect('/sounds/return.mp3');
                         router.replace('/wish-simulator');
                     }}
-                    styles={
-                        'size-6 rounded-full transition bg-[#ede6d6] ring-4 ring-[rgba(237,230,214,0.5)] sm:size-4 lg:ring-8 lg:size-10'
-                    }
+                    styles={'size-6 sm:size-4 lg:size-10'}
                 />
             </header>
             <div

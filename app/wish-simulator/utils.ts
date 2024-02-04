@@ -167,7 +167,13 @@ export const getBannerStatName = (bannerType: BannerTypes) => {
     return bannerType.replace(/[^a-zA-Zа-яА-Я]/g, '');
 };
 export const getBannerColor = (banner: Banners, characters?: Character[]) => {
-    if ('mainCharacterId' in banner && banner.type !== 'Standard Wish') {
+    if ('mainCharacterId' in banner) {
+        if (banner.type === 'Standard Wish') {
+            if (currentGameVersion === 1) {
+                return '230,98,106';
+            }
+            return '120,126,201';
+        }
         return elementToColor[
             (
                 characters?.find(
@@ -175,13 +181,6 @@ export const getBannerColor = (banner: Banners, characters?: Character[]) => {
                 ) as Character
             ).element
         ];
-    } else if ('firstMainWeaponId' in banner) {
-        return '226,124,35';
-    } else {
-        if (currentGameVersion === 1) {
-            return '230,98,106';
-        } else {
-            return '120,126,201';
-        }
     }
+    return '226,124,35';
 };

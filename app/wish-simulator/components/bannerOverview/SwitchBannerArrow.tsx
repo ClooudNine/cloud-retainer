@@ -7,12 +7,11 @@ import clsx from 'clsx';
 
 const SwitchBannerArrow = ({ isForward }: { isForward: boolean }) => {
     const { currentBanners, selectedBanner, switchBanner } = useBannerContext();
-    const switchBannerArrowClasses = clsx(
-        'hidden sm:block sm:mx-2 md:mx-8 lg:mx-16 xl:mx-20',
-        {
-            'rotate-180': !isForward,
-        }
-    );
+
+    const switchBannerArrowClasses = clsx('w-8 hidden lg:block', {
+        'rotate-180': !isForward,
+    });
+
     const handleSwitchBanner = useCallback(() => {
         const currentBannerIndex = currentBanners.indexOf(selectedBanner);
         const targetBannerIndex = isForward
@@ -21,6 +20,7 @@ const SwitchBannerArrow = ({ isForward }: { isForward: boolean }) => {
         playSfxEffect('/sounds/click-1.mp3');
         switchBanner(currentBanners[targetBannerIndex]);
     }, [currentBanners, isForward, selectedBanner, switchBanner]);
+
     return (
         <Image
             src={arrow}

@@ -87,6 +87,10 @@
 
 }
 
+:root{
+    font-size: 1.1vmax;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;

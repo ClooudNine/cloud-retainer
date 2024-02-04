@@ -70,6 +70,16 @@ export default function BannerProvider({
     const [droppedItems, setDroppedItems] = useState<BannerItems>([]);
 
     useEffect(() => {
+        const noviceWishStat = localStorage.getItem('NoviceWish');
+        if (noviceWishStat) {
+            const noviceWishPullCount = JSON.parse(noviceWishStat).history;
+            if (noviceWishPullCount < 20) {
+                const noviceWish = banners.find(
+                    (banner) => banner.type === 'Novice Wish'
+                ) as Banners;
+                setCurrentBanners([noviceWish, ...currentBanners]);
+            }
+        }
         getFeaturedItems(selectedBanner.id, selectedBanner.type).then((result) => {
             setFeaturedItems(result);
             setDrop(getBannerDrop(selectedBanner, characters, weapons, result));

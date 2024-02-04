@@ -9,26 +9,24 @@ import {
     getMainItemsName,
     playSfxEffect,
 } from '@/app/wish-simulator/utils';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import clsx from 'clsx';
 
 const BannerButton = ({ banner }: { banner: Banners }) => {
     const { selectedBanner, characters, weapons, switchBanner } = useBannerContext();
 
-    const [portrait, setPortrait] = useState<string[]>(() =>
-        getButtonPortraitUrl(banner, characters, weapons)
-    );
+    const portrait = getButtonPortraitUrl(banner, characters, weapons);
 
     const bannerButtonClasses = clsx(
-        'relative h-2/5 w-1/4 select-none transition-all cursor-genshin hover:scale-110 sm:h-3/5 md:h-[30%] lg:h-2/5',
+        'relative transition cursor-genshin flex-1 h-full hover:scale-110 xs:flex-none xs:w-36 xs:h-16 lg:w-28 lg:h-10',
         {
             'scale-110': banner === selectedBanner,
         }
     );
 
-    const portraitClasses = clsx('mt-[30%] w-auto h-4/5 transition', {
-        '-translate-y-[10%]': banner === selectedBanner,
-        '-mx-[15%] -rotate-12': banner.type === 'Weapon Event Wish',
+    const portraitClasses = clsx('mt-7 h-4/5 w-auto object-contain transition', {
+        '-translate-y-1': banner === selectedBanner,
+        '-mx-4 -rotate-12': banner.type === 'Weapon Event Wish',
     });
 
     const itemNames = useMemo(
@@ -50,13 +48,14 @@ const BannerButton = ({ banner }: { banner: Banners }) => {
                         : bannerButtonBackground
                 }
                 alt={'Фон кнопки выбора баннера'}
+                quality={100}
                 draggable={false}
                 fill
                 onClick={handleSwitchBanner}
             />
             <div
                 className={
-                    'absolute bottom-1 flex justify-center overflow-hidden w-full h-[215%] pointer-events-none'
+                    'absolute bottom-0.5 flex justify-center overflow-hidden w-full h-32 pointer-events-none xs:h-24'
                 }
             >
                 {portrait.map((url, index) => (

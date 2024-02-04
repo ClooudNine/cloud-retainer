@@ -17,6 +17,7 @@ export default function AudioProvider({ children }: { children: React.ReactNode 
     useEffect(() => {
         if (audio.current) {
             audio.current.autoplay = true;
+            audio.current.loop = true;
         }
     }, []);
 

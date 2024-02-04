@@ -8,7 +8,7 @@ const Links = () => {
     return (
         <div
             className={
-                'h-4/5 flex flex-col gap-2 md:flex-row md:items-end md:gap-4 md:h-1/2'
+                'flex justify-center flex-col gap-y-4 gap-x-2 xs:max-lg:flex-wrap xs:flex-row'
             }
         >
             <FooterLink
@@ -21,7 +21,8 @@ const Links = () => {
                 link={`details?id=${selectedBanner.id}&type=${
                     selectedBanner.type
                 }&section=${
-                    selectedBanner.type === 'Standard Wish'
+                    selectedBanner.type === 'Standard Wish' ||
+                    selectedBanner.type === 'Novice Wish'
                         ? 'more-info'
                         : 'increased-chance'
                 }`}
