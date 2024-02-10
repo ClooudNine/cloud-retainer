@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import rareStar from '@/public/common/star.webp';
 import fiveStarItemBackground from '@/public/common/items-backgrounds-by-rarity/background-item-5-star.webp';
-import { Currencies } from '@/lib/common';
 import StarIcon from '@/app/wish-simulator/components/icons/StarIcon';
 import stars from '@/public/wish-simulator/assets/stars-animation.webp';
 import { playSfxEffect } from '@/app/wish-simulator/utils';
 import { useCallback } from 'react';
+import { Currencies } from '@/lib/banners';
 
 const currenciesTranslate: { [key in Currencies]: string } = {
     'intertwined-fate': 'Переплетающиеся судьбы',

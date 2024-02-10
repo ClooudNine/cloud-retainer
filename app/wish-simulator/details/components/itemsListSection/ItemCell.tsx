@@ -13,10 +13,10 @@ const ItemCell = ({
 }) => {
     return (
         <>
-            <td className={'border border-[#dac69f] p-[2cqw]'}>
+            <td className={'border border-[#dac69f] p-4'}>
                 {'name' in item ? 'Персонаж' : 'Оружие'}
             </td>
-            <td className={'relative border border-[#dac69f] p-[2cqw]'}>
+            <td className={'relative border border-[#dac69f] p-4'}>
                 {'name' in item ? item.name : item.title}
                 {mainItems?.some((mainItem) => {
                     const isTypeCheck =
@@ -30,9 +30,7 @@ const ItemCell = ({
                         alt={'Up!'}
                         quality={100}
                         draggable={false}
-                        className={
-                            'absolute w-[15%] top-0.5 right-0.5 sm:w-[9%] sm:top-2 sm:right-2'
-                        }
+                        className={'absolute w-6 top-0.5 right-0.5 xs:top-2 xs:right-2'}
                     />
                 )}
             </td>

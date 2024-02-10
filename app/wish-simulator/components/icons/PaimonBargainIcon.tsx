@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 
 const PaimonBargainIcon = ({ isActiveSection }: { isActiveSection: boolean }) => {
-    const iconClasses = clsx('z-10 w-5 ml-4 lg:w-8 lg:ml-6', {
+    const iconClasses = clsx('z-10 w-7 ml-6', {
         'fill-[#3b4254]': isActiveSection,
         'fill-[#ece5d7] group-active:fill-[#3b4254]': !isActiveSection,
     });

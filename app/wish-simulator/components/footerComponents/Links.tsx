@@ -1,6 +1,6 @@
 'use client';
 import FooterLink from '@/app/wish-simulator/components/footerComponents/FooterLink';
-import { useBannerContext } from '@/app/wish-simulator/components/BannerProvider';
+import { useBannerContext } from '@/app/wish-simulator/BannerProvider';
 import { getBannerStatName } from '@/app/wish-simulator/utils';
 
 const Links = () => {

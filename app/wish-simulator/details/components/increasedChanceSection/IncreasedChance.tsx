@@ -13,13 +13,13 @@ const IncreasedChance = ({
     return (
         <div
             className={
-                'absolute w-[81%] h-[76%] left-[10%] top-[16%] sm:top-[21%] sm:h-[63%]'
+                'absolute w-[81%] h-[76%] left-[10%] top-[16%] xs:top-[21%] xs:h-[63%]'
             }
         >
-            <p className={'text-[#595252] text-[2.5cqw] sm:text-[1.7cqw]'}>
+            <p className={'text-[#595252] text-lg'}>
                 Вероятность получения следующих предметов повышена!
             </p>
-            <div className={'mt-1 h-full flex flex-col gap-[1.2cqw]'}>
+            <div className={'mt-1 h-full flex flex-col gap-8 xs:gap-2'}>
                 <IncreasedChanceList
                     rare={'5'}
                     bannerType={bannerType}

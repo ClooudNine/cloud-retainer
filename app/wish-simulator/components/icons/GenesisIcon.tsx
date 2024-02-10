@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 
 const GenesisIcon = ({ isActiveSection }: { isActiveSection: boolean }) => {
-    const iconClasses = clsx('z-10 w-8 ml-4 lg:w-12 lg:ml-6', {
+    const iconClasses = clsx('z-10 w-11 ml-6', {
         'fill-[#3b4254]': isActiveSection,
         'fill-[#ece5d7] group-active:fill-[#3b4254]': !isActiveSection,
     });

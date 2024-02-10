@@ -2,13 +2,13 @@ const Cancel = ({ handler }: { handler: () => void }) => {
     return (
         <button
             className={
-                'group w-2/5 flex items-center cursor-genshin text-[#ece5d8] text-[2.5cqw] bg-[#4a5366] transition rounded-full hover:ring-4 hover:ring-[#ffe6b2] active:bg-[#ffeccb] active:ring-[#b5b2ae]'
+                'group w-72 flex items-center cursor-genshin text-[#ece5d8] text-xl bg-[#4a5366] transition rounded-full hover:ring-4 hover:ring-[#ffe6b2] active:bg-[#ffeccb] active:ring-[#b5b2ae]'
             }
             onClick={handler}
         >
             <div
                 className={
-                    'size-[2vw] bg-[#313131] ml-2 rounded-full group-active:opacity-50'
+                    'size-7 bg-[#313131] ml-2 rounded-full group-active:opacity-50'
                 }
             >
                 <svg

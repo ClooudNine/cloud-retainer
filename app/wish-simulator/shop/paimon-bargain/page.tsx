@@ -6,13 +6,13 @@ import intertwinedFate from '@/public/wish-simulator/assets/intertwined-fate.web
 import acquaintFate from '@/public/wish-simulator/assets/acquaint-fate.webp';
 import fiveStarItemCard from '@/public/wish-simulator/assets/shop/5-star-shop-card.webp';
 import PaymentModal from '@/app/wish-simulator/shop/paimon-bargain/PaymentModal';
-import { BalanceStats, PullCurrency, PurchasesCurrency } from '@/lib/common';
 import { useRouter } from 'next/navigation';
 import Balance from '@/app/wish-simulator/shop/components/Balance';
 import CloseButton from '@/app/wish-simulator/components/headerComponents/CloseButton';
 import { purchasesCurrencies, priceOfFate } from '@/lib/shop';
 import { playSfxEffect } from '@/app/wish-simulator/utils';
 import { useAudioContext } from '@/app/wish-simulator/AudioProvider';
+import { BalanceStats, PullCurrency, PurchasesCurrency } from '@/lib/banners';
 
 export default function PaimonBargain() {
     const { audio } = useAudioContext();
@@ -44,7 +44,7 @@ export default function PaimonBargain() {
             currentAudio.pause();
             currentAudio.currentTime = 0;
         }
-        const balance = localStorage.getItem('Balance');
+        const balance = localStorage.getItem('balance');
         if (balance) {
             setBalance(JSON.parse(balance));
         }
@@ -60,7 +60,7 @@ export default function PaimonBargain() {
         <>
             <header
                 className={
-                    'flex items-center justify-end gap-4 px-4 py-3 text-sm lg:pr-10 lg:gap-10 lg:text-xl lg:py-5'
+                    'flex items-center justify-end gap-8 px-6 py-6 text-2xl xs:py-4 lg:text-base'
                 }
             >
                 <Balance
@@ -76,7 +76,7 @@ export default function PaimonBargain() {
                         playSfxEffect('/sounds/return.mp3');
                         router.replace('/wish-simulator');
                     }}
-                    styles={'size-6 sm:size-4 lg:size-10'}
+                    styles={'size-12 xs:size-10'}
                 />
             </header>
             <Navbar
@@ -85,12 +85,12 @@ export default function PaimonBargain() {
             />
             <div
                 className={
-                    'flex flex-wrap justify-center gap-2 mt-4 text-[#f7f5f6] text-sm sm:justify-start sm:ml-7 sm:gap-6 lg:ml-28 lg:mt-12 lg:text-2xl'
+                    'flex flex-wrap justify-center gap-4 mt-10 text-[#f7f5f6] text-3xl xs:justify-start xs:text-xl xs:ml-7 lg:ml-28'
                 }
             >
                 <div
                     className={
-                        'relative size-52 flex flex-col items-center transition hover:scale-105 hover:drop-shadow-shop-item sm:size-44 lg:size-80'
+                        'relative size-96 flex flex-col items-center transition hover:scale-105 hover:drop-shadow-shop-item xs:size-64'
                     }
                     onClick={() => buyItem('intertwined-fate')}
                 >
@@ -99,6 +99,7 @@ export default function PaimonBargain() {
                         alt={'Фон пятизвёздочного предмета в магазине'}
                         quality={100}
                         draggable={false}
+                        className={'w-full'}
                     />
                     <Image
                         src={intertwinedFate}
@@ -116,7 +117,7 @@ export default function PaimonBargain() {
                     </p>
                     <div
                         className={
-                            'absolute bottom-[8%] flex items-center justify-center gap-1 lg:bottom-[10%]'
+                            'absolute bottom-[8%] flex items-center justify-center gap-1'
                         }
                     >
                         <Image
@@ -126,14 +127,14 @@ export default function PaimonBargain() {
                             width={40}
                             height={40}
                             draggable={false}
-                            className={'size-5 lg:size-9'}
+                            className={'size-12 xs:size-7'}
                         />
                         <p>{priceOfFate[currentCurrency]}</p>
                     </div>
                 </div>
                 <div
                     className={
-                        'relative size-52 flex flex-col items-center transition hover:scale-105 hover:drop-shadow-shop-item sm:size-44 lg:size-80'
+                        'relative size-96 flex flex-col items-center transition hover:scale-105 hover:drop-shadow-shop-item xs:size-64'
                     }
                     onClick={() => buyItem('acquaint-fate')}
                 >
@@ -142,13 +143,14 @@ export default function PaimonBargain() {
                         alt={'Фон пятизвёздочного предмета в магазине'}
                         quality={100}
                         draggable={false}
+                        className={'w-full'}
                     />
                     <Image
                         src={acquaintFate}
                         alt={'Судьбоносные встречи'}
                         quality={100}
-                        className={'absolute top-0 w-[65%]'}
                         draggable={false}
+                        className={'absolute top-0 w-[65%]'}
                     />
                     <p
                         className={
@@ -159,7 +161,7 @@ export default function PaimonBargain() {
                     </p>
                     <div
                         className={
-                            'absolute bottom-[8%] flex items-center justify-center gap-1 lg:bottom-[10%]'
+                            'absolute bottom-[8%] flex items-center justify-center gap-1'
                         }
                     >
                         <Image
@@ -169,7 +171,7 @@ export default function PaimonBargain() {
                             width={40}
                             height={40}
                             draggable={false}
-                            className={'size-5 lg:size-9'}
+                            className={'size-12 xs:size-7'}
                         />
                         <p>{priceOfFate[currentCurrency]}</p>
                     </div>

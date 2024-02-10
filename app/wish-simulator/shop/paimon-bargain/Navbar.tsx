@@ -1,8 +1,8 @@
 import NavbarButton from '@/app/wish-simulator/shop/paimon-bargain/NavbarButton';
-import { PurchasesCurrency } from '@/lib/common';
 import { purchasesCurrencies } from '@/lib/shop';
 import { playSfxEffect } from '@/app/wish-simulator/utils';
 import { useCallback } from 'react';
+import { PurchasesCurrency } from '@/lib/banners';
 
 export const Navbar = ({
     currentCurrency,
@@ -22,7 +22,7 @@ export const Navbar = ({
     return (
         <nav
             className={
-                'mx-auto w-[95%] h-10 leading-tight flex items-center text-xs border-y-2 border-y-black border-opacity-20 bg-[radial-gradient(circle,rgba(59,66,84,0.7)_90%,rgba(59,66,84,0)_100%)] sm:h-8 lg:leading-none lg:ml-12 lg:text-xl lg:w-[70%] lg:h-14'
+                'mx-4 h-16 flex items-center text-xl/tight border-y-2 border-y-black border-opacity-20 bg-[radial-gradient(circle,rgba(59,66,84,0.7)_90%,rgba(59,66,84,0)_100%)] lg:ml-12 lg:text-base lg:w-[70%] lg:h-11'
             }
         >
             <div

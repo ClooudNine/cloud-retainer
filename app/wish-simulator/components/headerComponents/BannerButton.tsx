@@ -3,7 +3,7 @@ import Image from 'next/image';
 import bannerButtonBackground from '@/public/wish-simulator/assets/banner-button-background.webp';
 import bannerButtonBackgroundActive from '@/public/wish-simulator/assets/banner-button-background-active.webp';
 import { Banners } from '@/lib/banners';
-import { useBannerContext } from '@/app/wish-simulator/components/BannerProvider';
+import { useBannerContext } from '@/app/wish-simulator/BannerProvider';
 import {
     getButtonPortraitUrl,
     getMainItemsName,
@@ -71,6 +71,15 @@ const BannerButton = ({ banner }: { banner: Banners }) => {
                     />
                 ))}
             </div>
+            {banner.type === 'Novice Wish' && (
+                <div
+                    className={
+                        'z-10 text-white text-xs left-1/2 -translate-x-1/2 rounded-full absolute bg-[#90ab63] w-10 -bottom-0.5 pointer-events-none'
+                    }
+                >
+                    -20%
+                </div>
+            )}
         </button>
     );
 };

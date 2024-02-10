@@ -1,7 +1,7 @@
 'use client';
 import BannerButton from '@/app/wish-simulator/components/headerComponents/BannerButton';
 import wishButtonsBackground from '@/public/wish-simulator/assets/wish-buttons-background.webp';
-import { useBannerContext } from '@/app/wish-simulator/components/BannerProvider';
+import { useBannerContext } from '@/app/wish-simulator/BannerProvider';
 import Image from 'next/image';
 
 const BannerList = () => {

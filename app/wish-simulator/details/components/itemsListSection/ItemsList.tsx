@@ -53,10 +53,10 @@ const ItemsList = async ({
     return (
         <div
             className={
-                'absolute overflow-y-scroll genshin-scrollbar flex flex-col w-[86%] h-[75%] top-[16%] pr-2 left-[10%] sm:top-[21%] sm:h-[69%] sm:w-[83%]'
+                'absolute overflow-y-scroll genshin-scrollbar flex flex-col w-[86%] h-[75%] top-[16%] pr-2 left-[10%] xs:top-[21%] xs:h-[69%] xs:w-[83%]'
             }
         >
-            <p className={'text-[#595252] text-[3cqw] sm:text-[1.7cqw]'}>
+            <p className={'text-[#595252] text-xl'}>
                 Список предметов, доступных для получения с помощью Молитвы:
             </p>
             <ItemsTable

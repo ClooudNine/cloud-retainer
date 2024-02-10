@@ -35,14 +35,14 @@ const ItemsTable = ({
     mainItems?: Character[] | Weapon[] | null;
     bannerType: BannerTypes;
 }) => {
-    const headerClasses = clsx('mt-2 h-6 flex justify-center items-center sm:h-[12%]', {
+    const headerClasses = clsx('mt-2 flex justify-center items-center', {
         'bg-[#cfb383]': rare === '5',
         'bg-[#b6a8c9]': rare === '4',
         'bg-[#a9bcca]': rare === '3',
     });
 
     const innerHeaderClasses = clsx(
-        'flex items-center pl-[5%] w-[99.5%] h-[90%] gap-[0.3cqw] border-2',
+        'flex items-center py-1 pl-[5%] w-[99.5%] h-[90%] gap-1 border-2',
         {
             'border-[#c5a875]': rare === '5',
             'border-[#ae9fc3]': rare === '4',
@@ -63,10 +63,10 @@ const ItemsTable = ({
                             alt={'Звезда'}
                             quality={100}
                             draggable={false}
-                            className={'h-[70%] w-auto drop-shadow'}
+                            className={'w-5 drop-shadow'}
                         />
                     ))}
-                    <p className={'text-white text-[2cqw] ml-4 sm:text-[1.4cqw]'}>
+                    <p className={'text-white text-base ml-4'}>
                         Базовый шанс получения предмета {rare}★:{' '}
                         {chances[rare]?.baseChance} (Включая гарантию:{' '}
                         {chances[rare]?.includingGuarantee})
@@ -75,37 +75,21 @@ const ItemsTable = ({
             </div>
             <table
                 className={
-                    'bg-[#ede1ca] text-[#595252] border border-[#dac69f] text-[2.5cqw] leading-tight sm:text-[1.5cqw]'
+                    'bg-[#ede1ca] text-[#595252] border border-[#dac69f] text-base/tight'
                 }
             >
                 <thead>
                     <tr>
-                        <th
-                            className={
-                                'w-[15%] border border-[#dac69f] font-normal p-[1cqw]'
-                            }
-                        >
+                        <th className={'w-[15%] border border-[#dac69f] font-normal p-2'}>
                             Тип
                         </th>
-                        <th
-                            className={
-                                'w-[35%] border border-[#dac69f] font-normal p-[1cqw]'
-                            }
-                        >
+                        <th className={'w-[35%] border border-[#dac69f] font-normal p-2'}>
                             Имя
                         </th>
-                        <th
-                            className={
-                                'w-[15%] border border-[#dac69f] font-normal p-[1cqw]'
-                            }
-                        >
+                        <th className={'w-[15%] border border-[#dac69f] font-normal p-2'}>
                             Тип
                         </th>
-                        <th
-                            className={
-                                'w-[35%] border border-[#dac69f] font-normal p-1 sm:p-2'
-                            }
-                        >
+                        <th className={'w-[35%] border border-[#dac69f] font-normal p-2'}>
                             Имя
                         </th>
                     </tr>

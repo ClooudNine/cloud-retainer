@@ -1,10 +1,10 @@
 'use client';
-import { useBannerContext } from '@/app/wish-simulator/components/BannerProvider';
+import { useBannerContext } from '@/app/wish-simulator/BannerProvider';
 import Image from 'next/image';
 import { CSSProperties } from 'react';
 import { bannerDescriptions, Banners, bannerSecondTitle } from '@/lib/banners';
 import SwitchBannerArrow from '@/app/wish-simulator/components/bannerOverview/SwitchBannerArrow';
-import { currentGameVersion } from '@/lib/common';
+import { currentGameVersion } from '@/lib/constants';
 import { getBannerColor, getPreviewUrl } from '@/app/wish-simulator/utils';
 import EpitomizedPathButton from '@/app/wish-simulator/components/epitomizedPathSystem/EpitomizedPathButton';
 import clsx from 'clsx';
@@ -172,7 +172,7 @@ const renderBannerInfo = (
     }
 };
 const Banner = () => {
-    const { characters, weapons, selectedBanner } = useBannerContext();
+    const { characters, weapons, selectedBanner, bannerStats } = useBannerContext();
 
     const infoContainerClasses = clsx('absolute flex flex-col gap-6', {
         'top-0': selectedBanner.type !== 'Standard Wish',
@@ -195,7 +195,7 @@ const Banner = () => {
             >
                 <SwitchBannerArrow isForward={false} />
                 <div
-                    key={selectedBanner.type}
+                    key={selectedBanner.type + '-' + selectedBanner.id}
                     className={'animate-banner-preview-appearance'}
                     style={
                         {
@@ -254,12 +254,16 @@ const Banner = () => {
                         </div>
                     </div>
                     {renderBannerInfo(characters, weapons, selectedBanner)}
+                    {selectedBanner.type === 'Novice Wish' && (
+                        <p className={'absolute text-[#d8d4d3] right-[5%] bottom-[7%]'}>
+                            Попыток: {20 - bannerStats.NoviceWish.history.length}
+                            /20
+                        </p>
+                    )}
                 </div>
                 <SwitchBannerArrow isForward={true} />
             </section>
-            {selectedBanner.type === 'Weapon Event Wish' && (
-                <EpitomizedPathButton weaponBanner={selectedBanner as WeaponBanner} />
-            )}
+            {selectedBanner.type === 'Weapon Event Wish' && <EpitomizedPathButton />}
         </>
     );
 };

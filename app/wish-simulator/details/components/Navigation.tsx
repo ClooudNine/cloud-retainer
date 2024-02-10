@@ -9,14 +9,14 @@ const Navigation = ({ bannerType }: { bannerType: BannerTypes }) => {
         'items-list': 'Список предметов',
     };
 
-    if (bannerType === 'Standard Wish') {
+    if (bannerType === 'Standard Wish' || bannerType === 'Novice Wish') {
         delete sections['increased-chance'];
     }
 
     return (
         <nav
             className={
-                'absolute bg-[radial-gradient(circle,rgba(232,223,207,1)_90%,rgba(232,223,207,0.1)_100%)] text-[#595252] text-[2.5cqw] w-[85%] h-[4%] top-[11%] left-[9%] sm:h-[7.5%] sm:w-4/5 sm:top-[12%] sm:text-[1.7cqw]'
+                'absolute bg-[radial-gradient(circle,rgba(232,223,207,1)_90%,rgba(232,223,207,0.1)_100%)] text-[#595252] text-lg w-[85%] h-[4%] top-[11%] left-[9%] xs:h-[7%] xs:top-[13%] xs:left-[7%]'
             }
         >
             <div

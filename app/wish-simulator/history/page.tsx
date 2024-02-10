@@ -26,9 +26,8 @@ export default function WishHistory({
         >
             <Background isBlurred={true} />
             <div
-                style={{ containerType: 'inline-size' }}
                 className={
-                    'flex justify-center items-center h-[85vh] w-[45vh] sm:w-[150vh] sm:h-auto'
+                    'relative flex justify-center items-center h-[85vh] w-[45vh] xs:w-[150vh] xs:h-auto'
                 }
             >
                 <Image
@@ -37,7 +36,7 @@ export default function WishHistory({
                     alt={'История молитв'}
                     draggable={false}
                     className={
-                        'max-w-none w-[85vh] -rotate-90 -scale-y-100 sm:rotate-0 sm:scale-y-100 sm:max-w-full sm:w-[150vh] sm:h-auto'
+                        'max-w-none w-[85vh] -rotate-90 -scale-y-100 xs:rotate-0 xs:scale-y-100 xs:max-w-full xs:w-[150vh] xs:h-auto'
                     }
                 />
                 <Title />
@@ -45,11 +44,11 @@ export default function WishHistory({
                 <Link
                     href={'/wish-simulator'}
                     className={
-                        'absolute cursor-genshin top-[2.5%] right-[7%] sm:top-[6.2%] sm:right-[2.4%]'
+                        'absolute cursor-genshin top-[2.5%] right-[7%] xs:top-[6.2%] xs:right-[2.4%]'
                     }
                 >
                     <svg
-                        className={'w-[5cqw] sm:w-[3.5cqw]'}
+                        className={'w-9'}
                         transform="rotate(45)"
                         fill="#000000"
                         stroke="#000000"

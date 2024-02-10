@@ -1,7 +1,8 @@
 import Image from 'next/image';
 import currencyButtonBackground from '@/public/wish-simulator/assets/shop/select-currency-background.webp';
 import clsx from 'clsx';
-import { PurchasesCurrency } from '@/lib/common';
+
+import { PurchasesCurrency } from '@/lib/banners';
 
 const NavbarButton = ({
     currentCurrency,
@@ -14,7 +15,7 @@ const NavbarButton = ({
 }) => {
     const isActiveCurrency = currentCurrency === currency[0];
     const currencyButtonClasses = clsx(
-        'group h-full w-[30%] relative cursor-genshin transition',
+        'group h-full flex-1 relative cursor-genshin transition',
         {
             'text-[#ece5d7] hover:drop-shadow-[0px_0px_15px_#ffffff] active:drop-shadow-none active:text-[#3b4254]':
                 !isActiveCurrency,

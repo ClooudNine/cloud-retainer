@@ -4,12 +4,12 @@ import genesisCrystal from '@/public/wish-simulator/assets/genesis-crystal.webp'
 import primogem from '@/public/wish-simulator/assets/primogems.webp';
 import exchangerArrow from '@/public/wish-simulator/assets/exchanger-arrow.webp';
 import { useCallback, useState } from 'react';
-import { BalanceStats } from '@/lib/common';
 import clsx from 'clsx';
 import Cancel from '@/app/wish-simulator/components/actionButtons/Cancel';
 import Confirm from '@/app/wish-simulator/components/actionButtons/Confirm';
 import { useRouter } from 'next/navigation';
 import { playSfxEffect } from '@/app/wish-simulator/utils';
+import { BalanceStats } from '@/lib/banners';
 
 const CurrencyExchanger = ({
     balance,
@@ -43,7 +43,7 @@ const CurrencyExchanger = ({
             newBalance.primogems += count;
             newBalance['genesis-crystal'] -= count;
             setBalance(newBalance);
-            localStorage.setItem('Balance', JSON.stringify(newBalance));
+            localStorage.setItem('balance', JSON.stringify(newBalance));
             closeCurrencyExchanger();
         }
     }, [balance, closeCurrencyExchanger, count, setBalance]);
@@ -55,28 +55,23 @@ const CurrencyExchanger = ({
     return (
         <section
             className={
-                'absolute z-10 top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center'
+                'absolute z-20 top-0 left-0 w-full h-full bg-black/50 flex justify-center items-center'
             }
         >
-            <div
-                style={{ containerType: 'inline-size' }}
-                className={
-                    'relative text-[#525a68] w-[110vh] animate-modal-appearance mx-[2vw]'
-                }
-            >
+            <div className={'relative text-[#525a68] animate-modal-appearance mx-4'}>
                 <Image
                     src={confirmationModal}
                     alt={'Покупка предмета'}
                     quality={100}
-                    className={'w-full'}
                     draggable={false}
+                    className={'w-[120vh]'}
                 />
-                <p className={'absolute w-full text-center text-[3.5cqw] top-[7%]'}>
+                <p className={'absolute w-full text-center text-2xl top-[6%]'}>
                     Получить Камни Истока
                 </p>
                 <div
                     className={
-                        'absolute flex top-[18%] w-full h-[23%] items-center justify-center text-[2cqw]'
+                        'absolute flex top-[18%] w-full h-[23%] items-center justify-center text-lg'
                     }
                 >
                     <div
@@ -117,7 +112,7 @@ const CurrencyExchanger = ({
                 </div>
                 <div
                     className={
-                        'absolute w-full flex flex-col items-center gap-[2cqw] top-[44%] text-[2cqw] leading-none'
+                        'absolute w-full h-[33%] flex flex-col items-center justify-between gap-2.5 top-[44%] text-lg/none xs:gap-4'
                     }
                 >
                     <p>Количество</p>
@@ -129,7 +124,7 @@ const CurrencyExchanger = ({
                             }}
                             disabled={count === 0}
                             className={
-                                'absolute left-0 size-[3cqw] rounded-full bg-[#5b5f71] text-[#f0e3da] transition disabled:opacity-50 active:opacity-50'
+                                'absolute left-0 size-7 rounded-full bg-[#5b5f71] text-[#f0e3da] transition disabled:opacity-50 active:opacity-50'
                             }
                         >
                             -
@@ -139,7 +134,7 @@ const CurrencyExchanger = ({
                             value={count}
                             onInput={handleInput}
                             className={
-                                'h-[3.5cqw] w-full rounded-full text-center outline-4 outline-double outline-[#ebe8e5] selection:bg-[#fdf4d7]'
+                                'h-8 w-full rounded-full text-center outline-2 outline-double outline-[#ebe8e5] selection:bg-[#fdf4d7] lg:outline-4'
                             }
                         />
                         <button
@@ -149,13 +144,13 @@ const CurrencyExchanger = ({
                             }}
                             disabled={count === 320000}
                             className={
-                                'absolute right-0 size-[3cqw] rounded-full bg-[#5b5f71] text-[#f0e3da] transition disabled:opacity-50 active:opacity-50'
+                                'absolute right-0 size-7 rounded-full bg-[#5b5f71] text-[#f0e3da] transition disabled:opacity-50 active:opacity-50'
                             }
                         >
                             +
                         </button>
                     </div>
-                    <div className={'w-1/2 flex gap-[2cqw] h-[4cqw] text-[#eae3db]'}>
+                    <div className={'w-1/2 flex gap-4 h-8 text-[#eae3db]'}>
                         <button
                             onClick={() => {
                                 playSfxEffect('/sounds/click-4.mp3');
@@ -163,7 +158,7 @@ const CurrencyExchanger = ({
                             }}
                             disabled={count === 0}
                             className={
-                                'flex-1 bg-[#5b5f71] rounded-full transition hover:ring-[0.5cqw] hover:ring-[#f7e8c7] disabled:bg-opacity-0 disabled:ring-2 disabled:ring-[#d4d2d0] disabled:text-[#d3d0ca] active:bg-[#e7d0b1] active:ring-[#9d9a92]'
+                                'flex-1 bg-[#5b5f71] flex justify-center items-center py-5 rounded-full transition hover:ring-2 hover:ring-[#f7e8c7] disabled:bg-opacity-0 disabled:ring-2 disabled:ring-[#d4d2d0] disabled:text-[#d3d0ca] active:bg-[#e7d0b1] active:ring-[#9d9a92] lg:hover:ring-4'
                             }
                         >
                             -100
@@ -175,7 +170,7 @@ const CurrencyExchanger = ({
                             }}
                             disabled={count === 320000}
                             className={
-                                'flex-1 bg-[#5b5f71] rounded-full transition hover:ring-[0.5cqw] hover:ring-[#f7e8c7] disabled:bg-opacity-0 disabled:ring-2 disabled:ring-[#d4d2d0] disabled:text-[#d3d0ca] active:bg-[#e7d0b1] active:ring-[#9d9a92]'
+                                'flex-1 bg-[#5b5f71] flex justify-center items-center py-5 rounded-full transition hover:ring-2 hover:ring-[#f7e8c7] disabled:bg-opacity-0 disabled:ring-2 disabled:ring-[#d4d2d0] disabled:text-[#d3d0ca] active:bg-[#e7d0b1] active:ring-[#9d9a92] lg:hover:ring-4'
                             }
                         >
                             +100
@@ -186,27 +181,31 @@ const CurrencyExchanger = ({
                                 setCount(balance['genesis-crystal']);
                             }}
                             className={
-                                'flex-1 bg-[#5b5f71] rounded-full transition hover:ring-[0.5cqw] hover:ring-[#f7e8c7] active:bg-[#e7d0b1] active:ring-[#9d9a92]'
+                                'flex-1 bg-[#5b5f71] flex justify-center items-center py-5 rounded-full transition hover:ring-2 hover:ring-[#f7e8c7] active:bg-[#e7d0b1] active:ring-[#9d9a92] lg:hover:ring-4'
                             }
                         >
                             Максимум
                         </button>
                     </div>
-                    <div className={'flex gap-[1.5cqw] items-center text-[2cqw]'}>
+                    <div className={'flex gap-3 items-center text-xl'}>
                         <p>Стоимость:</p>
                         <Image
                             src={genesisCrystal}
                             alt={'Кристалл Сотворения'}
                             quality={100}
                             draggable={false}
-                            className={'h-[4cqw] w-auto'}
+                            className={'h-10 w-auto'}
                         />
                         <p className={priceClasses}>{count}</p>
                     </div>
                 </div>
                 <div className={'absolute flex justify-evenly w-full h-[10%] top-[83%]'}>
                     <Cancel handler={closeCurrencyExchanger} />
-                    <Confirm handler={confirmExchange} disabledCondition={count === 0} />
+                    <Confirm
+                        title={'Обменять'}
+                        handler={confirmExchange}
+                        disabledCondition={count === 0}
+                    />
                 </div>
                 {receiptOffer && (
                     <div
@@ -223,14 +222,10 @@ const CurrencyExchanger = ({
                             draggable={false}
                             className={'h-full w-auto'}
                         />
-                        <p className={'absolute top-[6.5%] text-[4cqw] sm:text-[3.5cqw]'}>
+                        <p className={'absolute top-[5.5%] text-3xl'}>
                             Пополнение кристаллов
                         </p>
-                        <p
-                            className={
-                                'absolute top-[38%] text-center leading-tight text-[3.2cqw]'
-                            }
-                        >
+                        <p className={'absolute top-[38%] text-center text-2xl/tight'}>
                             Недостаточно Кристаллов Сотворения.
                             <br />
                             Перейти на экран получения Кристаллов?
@@ -242,6 +237,7 @@ const CurrencyExchanger = ({
                         >
                             <Cancel handler={closeCurrencyExchanger} />
                             <Confirm
+                                title={'Перейти'}
                                 handler={() => {
                                     closeCurrencyExchanger();
                                     router.push('/wish-simulator/shop/genesis-crystals');

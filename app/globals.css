@@ -39,56 +39,54 @@
         background: #e7e5e3;
     }
 
-    input[type='range'],
-    input[type='range']::-webkit-slider-runnable-track,
-    input[type='range']::-webkit-slider-thumb {
+    .payment-track,
+    .payment-track::-webkit-slider-runnable-track,
+    .payment-track::-webkit-slider-thumb {
         appearance: none;
         -webkit-appearance: none;
         background: transparent;
     }
 
-    input[type=range]::-webkit-slider-runnable-track {
+    .payment-track::-webkit-slider-runnable-track {
         height: 100%;
         background: #586b8c;
         border-radius: 20px;
     }
 
-    input[type=range]::-webkit-slider-thumb {
-        height: 4cqw;
-        width: 4cqw;
+    .payment-track::-webkit-slider-thumb {
+        height: 2vmax;
+        width: 2vmax;
         background: url("/wish-simulator/assets/input-track.webp");
         background-size: 100% 100%;
         border: none;
-        margin-top: -1.5cqw;
+        margin-top: -0.8vmax;
     }
 
-    input[type="range"]::-moz-range-progress {
+    .payment-track::-moz-range-progress {
         background-color: #5b6983;
         border-radius: 20px;
         border: 2px solid #5b6983;
         height: 100%;
     }
 
-    input[type="range"]::-moz-range-thumb {
-        height: 2vw;
-        width: 2vw;
+    .payment-track::-moz-range-thumb {
+        height: 2vmax;
+        width: 2vmax;
         background: transparent url("/wish-simulator/assets/input-track.webp");
         background-size: 100% 100%;
         border: none;
     }
 
-    input[type="range"]::-moz-range-track {
+    .payment-track::-moz-range-track {
         height: 100%;
         background-color: #f0eee9;
         border-radius: 20px;
         border: 2px solid #d1cbbf;
     }
-
-
 }
 
 :root{
-    font-size: 1.1vmax;
+    font-size: max(5px, 1.1vmax);
 }
 
 * {

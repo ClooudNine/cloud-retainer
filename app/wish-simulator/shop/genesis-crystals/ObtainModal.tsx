@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import { useCallback, useState } from 'react';
-import { BalanceStats } from '@/lib/common';
 import ObtainItemScreen from '@/app/wish-simulator/components/ObtainItemScreen';
 import clsx from 'clsx';
 import { playSfxEffect } from '@/app/wish-simulator/utils';
+import { BalanceStats } from '@/lib/banners';
 
 const ObtainModal = ({
     balance,
@@ -34,7 +34,7 @@ const ObtainModal = ({
             setIsSuccessful(true);
         }
         setBalance(newBalance);
-        localStorage.setItem('Balance', JSON.stringify(newBalance));
+        localStorage.setItem('balance', JSON.stringify(newBalance));
     }, [
         balance,
         closeObtainModal,
@@ -60,13 +60,10 @@ const ObtainModal = ({
         <>
             <section
                 className={
-                    'absolute z-10 top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center'
+                    'absolute z-10 top-0 left-0 w-full h-full bg-black/50 flex justify-center items-center'
                 }
             >
-                <div
-                    style={{ containerType: 'inline-size' }}
-                    className={obtainModalClasses}
-                >
+                <div className={obtainModalClasses}>
                     <Image
                         src={`/wish-simulator/assets/shop/genesis-crystals/${count}-crystals.webp`}
                         alt={count + ' Кристаллов Сотворения'}
@@ -76,8 +73,8 @@ const ObtainModal = ({
                         draggable={false}
                         className={'h-1/2 w-auto'}
                     />
-                    <p className={'text-[4cqw]'}>{count} Кристаллов Сотворения</p>
-                    <div className={'flex items-center gap-2 text-[3cqw]'}>
+                    <p className={'text-2xl'}>{count} Кристаллов Сотворения</p>
+                    <div className={'flex items-center gap-2 text-lg'}>
                         <input
                             type={'checkbox'}
                             name={'convertToPrimogems'}
@@ -86,21 +83,19 @@ const ObtainModal = ({
                                 playSfxEffect('/sounds/click-1.mp3');
                                 setConvertToPrimogems(e.target.checked);
                             }}
-                            className={'size-[3cqw] cursor-genshin'}
+                            className={'size-4 cursor-genshin'}
                         />
                         <label htmlFor={'convertToPrimogems'}>
                             Автоматически конвертировать в примогемы
                         </label>
                     </div>
                     <div
-                        className={
-                            'w-full flex justify-center text-white gap-4 text-[3.5cqw]'
-                        }
+                        className={'w-full flex justify-center text-white gap-4 text-xl'}
                     >
                         <button
                             onClick={closeObtainModalHandler}
                             className={
-                                'w-[30%] bg-red-600 rounded-2xl py-[1.5cqw] cursor-genshin transition hover:bg-red-700'
+                                'w-[30%] bg-red-600 rounded-2xl py-2 cursor-genshin transition hover:bg-red-700'
                             }
                         >
                             Отмена
@@ -108,7 +103,7 @@ const ObtainModal = ({
                         <button
                             onClick={confirmObtain}
                             className={
-                                'w-[30%] bg-green-600 rounded-2xl py-[1.5cqw] cursor-genshin transition hover:bg-green-700'
+                                'w-[30%] bg-green-600 rounded-2xl py-2 cursor-genshin transition hover:bg-green-700'
                             }
                         >
                             Получить

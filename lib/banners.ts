@@ -24,6 +24,34 @@ export type WishHistory = {
     date: string;
 }[];
 
+export type EpitomizedStats = { weaponId: number; count: number };
+export type EpitomizedPath = { [key: number]: EpitomizedStats };
+
+export type BaseBannerStats = {
+    fourStarCounter: number;
+    fiveStarCounter: number;
+    history: WishHistory;
+};
+
+export type BaseBannerStatsWithGuaranteed = BaseBannerStats & {
+    fourStarGuaranteed: boolean;
+    fiveStarGuaranteed: boolean;
+};
+
+export type BannerStats = {
+    [key in WishHistoryTypes]: key extends 'CharacterEventWish' | 'WeaponEventWish'
+        ? BaseBannerStatsWithGuaranteed
+        : BaseBannerStats;
+};
+
+export type PullCurrency = 'intertwined-fate' | 'acquaint-fate';
+export type PurchasesCurrency =
+    | 'primogems'
+    | 'masterless-stardust'
+    | 'masterless-starglitter';
+export type Currencies = PullCurrency | PurchasesCurrency | 'genesis-crystal';
+export type BalanceStats = { [key in Currencies]: number };
+
 export const bannerOrder: { [key in BannerTypes]: number } = {
     'Novice Wish': 1,
     'Character Event Wish': 2,

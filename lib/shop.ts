@@ -1,4 +1,4 @@
-import { PullCurrency, PurchasesCurrency } from '@/lib/common';
+import { PullCurrency, PurchasesCurrency } from '@/lib/banners';
 
 export const purchasesCurrencies: { [key in PurchasesCurrency]: string } = {
     'masterless-starglitter': 'Звёздный блеск',

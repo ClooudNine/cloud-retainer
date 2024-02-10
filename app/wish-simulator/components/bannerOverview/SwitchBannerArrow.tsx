@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import arrow from '@/public/wish-simulator/assets/switch-banner-arrow.webp';
 import { useCallback } from 'react';
-import { useBannerContext } from '@/app/wish-simulator/components/BannerProvider';
+import { useBannerContext } from '@/app/wish-simulator/BannerProvider';
 import { playSfxEffect } from '@/app/wish-simulator/utils';
 import clsx from 'clsx';
 

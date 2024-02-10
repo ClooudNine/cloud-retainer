@@ -1,6 +1,6 @@
 import Background from '@/app/wish-simulator/components/Background';
 import Banner from '@/app/wish-simulator/components/bannerOverview/Banner';
-import BannerProvider from '@/app/wish-simulator/components/BannerProvider';
+import BannerProvider from '@/app/wish-simulator/BannerProvider';
 import {
     CharacterBanner,
     WeaponBanner,
@@ -18,7 +18,6 @@ import { isNotNull } from 'drizzle-orm';
 import Title from '@/app/wish-simulator/components/headerComponents/Title';
 import BannerList from '@/app/wish-simulator/components/headerComponents/BannerList';
 import CurrentBalance from '@/app/wish-simulator/components/headerComponents/CurrentBalance';
-import CloseButton from '@/app/wish-simulator/components/headerComponents/CloseButton';
 import MasterlessCurrency from '@/app/wish-simulator/components/footerComponents/MasterlessCurrency';
 import Links from '@/app/wish-simulator/components/footerComponents/Links';
 import WishButton from '@/app/wish-simulator/components/footerComponents/WishButton';
@@ -95,12 +94,6 @@ export default async function WishSimulator() {
             >
                 <BannerList />
                 <CurrentBalance />
-                <CloseButton
-                    handler={undefined}
-                    styles={
-                        'absolute top-12 right-5 size-8 xs:max-lg:top-4 lg:top-11 lg:right-8'
-                    }
-                />
                 <Banner />
                 <MasterlessCurrency />
                 <div

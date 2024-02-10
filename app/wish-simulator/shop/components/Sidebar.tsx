@@ -6,12 +6,12 @@ const Sidebar = () => {
     return (
         <aside
             className={
-                'z-10 w-full bg-gradient-to-b from-[#4b5265] fixed bottom-0 border-x-2 border-x-[#858282] sm:w-36 sm:static sm:h-full lg:w-72'
+                'z-10 w-full bg-gradient-to-b from-[#4b5265] fixed bottom-0 border-x-2 border-x-[#858282] xs:w-60 xs:static xs:h-full'
             }
         >
             <div
                 className={
-                    'hidden relative text-[#d5b98d] bg-[#3b4255] overflow-hidden border-b-2 border-b-[#394053] text-center sm:block sm:py-2 sm:text-xl lg:text-3xl lg:py-6'
+                    'hidden relative text-[#d5b98d] bg-[#3b4255] overflow-hidden border-b-2 border-b-[#394053] text-center xs:block xs:py-4 xs:text-2xl'
                 }
             >
                 <Image
@@ -25,7 +25,7 @@ const Sidebar = () => {
                 />
                 <p className={'relative'}>Магазин</p>
             </div>
-            <div className={'flex gap-2 sm:block'}>
+            <div className={'flex gap-2 xs:block'}>
                 <SidebarButton
                     title={'Магазин Паймон'}
                     section={'paimon-bargain'}

@@ -13,12 +13,12 @@ const TablePagination = ({
     return (
         <div
             className={
-                'absolute flex items-center justify-center w-full bottom-[4%] gap-[5cqw] sm:bottom-[7.5%]'
+                'absolute flex items-center justify-center w-full gap-16 bottom-[7.5%]'
             }
         >
             <button
                 className={
-                    'w-[7cqw] cursor-genshin rounded-full bg-[#ede8e0] border border-[#ded2c1] disabled:opacity-60 sm:w-[3cqw]'
+                    'w-8 cursor-genshin rounded-full bg-[#ede8e0] border border-[#ded2c1] disabled:opacity-60'
                 }
                 disabled={currentPage === 1}
                 onClick={() => setPage(currentPage - 1)}
@@ -30,10 +30,10 @@ const TablePagination = ({
                     draggable={false}
                 />
             </button>
-            <p className={'text-[#595252] text-[4cqw] sm:text-[2.5cqw]'}>{currentPage}</p>
+            <p className={'text-[#595252] text-3xl'}>{currentPage}</p>
             <button
                 className={
-                    'w-[7cqw] cursor-genshin rounded-full bg-[#ede8e0] border border-[#ded2c1] disabled:opacity-60 sm:w-[3cqw]'
+                    'w-8 cursor-genshin rounded-full bg-[#ede8e0] border border-[#ded2c1] disabled:opacity-60'
                 }
                 disabled={currentPage === Math.ceil(wishCount / 5)}
                 onClick={() => setPage(currentPage + 1)}

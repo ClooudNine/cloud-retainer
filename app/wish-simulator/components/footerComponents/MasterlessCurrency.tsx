@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import masterlessStarglitter from '@/public/wish-simulator/assets/masterless-starglitter.webp';
 import masterlessStardust from '@/public/wish-simulator/assets/masterless-stardust.webp';
-import { useBannerContext } from '@/app/wish-simulator/components/BannerProvider';
+import { useBannerContext } from '@/app/wish-simulator/BannerProvider';
 const MasterlessCurrency = () => {
     const { balance } = useBannerContext();
 

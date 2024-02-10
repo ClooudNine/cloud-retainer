@@ -6,7 +6,7 @@ import masterlessStardust from '@/public/wish-simulator/assets/masterless-stardu
 import wishResultBackground from '@/public/wish-simulator/assets/wish-result-bg.webp';
 import multiWishCard from '@/public/wish-simulator/assets/wish-card.webp';
 import skipWishArrow from '@/public/wish-simulator/assets/skip-wish-arrow.webp';
-import { useBannerContext } from '@/app/wish-simulator/components/BannerProvider';
+import { useBannerContext } from '@/app/wish-simulator/BannerProvider';
 import { playSfxEffect } from '@/app/wish-simulator/utils';
 import { Character, Weapon } from '@/lib/db/schema';
 import { BannerItems } from '@/lib/banners';
@@ -207,7 +207,7 @@ const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
     return (
         <section
             className={
-                'z-10 absolute h-full w-full flex justify-center items-center overflow-hidden font-genshin'
+                'z-20 absolute h-full w-full flex justify-center items-center overflow-hidden font-genshin'
             }
             onClick={nextItemCallback}
         >
@@ -287,7 +287,10 @@ const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
                             );
 
                             return (
-                                <div key={index} className={wishContainerClasses}>
+                                <div
+                                    key={item.title + '-' + index}
+                                    className={wishContainerClasses}
+                                >
                                     <div
                                         style={{
                                             animationDelay: `${index * 100}ms`,
@@ -343,9 +346,9 @@ const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
                                         >
                                             {Array.from(
                                                 Array(Number(item.rare)).keys()
-                                            ).map(() => (
+                                            ).map((number) => (
                                                 <Image
-                                                    key={index}
+                                                    key={number + '-' + index}
                                                     src={star}
                                                     alt={'Звезда'}
                                                     quality={100}

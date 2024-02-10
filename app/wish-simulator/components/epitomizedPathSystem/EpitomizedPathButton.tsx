@@ -3,14 +3,13 @@ import epitomizedPathButtonActive from '@/public/wish-simulator/assets/epitomize
 import epitomizedPathButton from '@/public/wish-simulator/assets/epitomized-path-button.webp';
 import { useState } from 'react';
 import EpitomizedPathModal from '@/app/wish-simulator/components/epitomizedPathSystem/EpitomizedPathModal';
-import { WeaponBanner } from '@/lib/db/schema';
+import { useBannerContext } from '@/app/wish-simulator/BannerProvider';
+const EpitomizedPathButton = () => {
+    const { selectedBanner, epitomizedPath } = useBannerContext();
 
-const EpitomizedPathButton = ({ weaponBanner }: { weaponBanner: WeaponBanner }) => {
     const [epitomizedPathIsOpen, setEpitomizedPathIsOpen] = useState<boolean>(false);
     const [epitomizedPathIsHover, setEpitomizedPathIsHover] = useState<boolean>(false);
-    const epitomizedStatus = JSON.parse(localStorage.getItem('EpitomizedPath')!)[
-        weaponBanner.id
-    ];
+
     return (
         <>
             <div
@@ -34,17 +33,16 @@ const EpitomizedPathButton = ({ weaponBanner }: { weaponBanner: WeaponBanner }) 
                 />
                 <div
                     className={
-                        'absolute bottom-1 text-2xl leading-none text-center text-[#525b6c] px-2 w-full xs:text-base/none'
+                        'absolute bottom-0 text-2xl/none flex justify-center items-center text-center text-[#525b6c] px-2 w-full h-[30%] xs:text-base/none'
                     }
                 >
-                    {epitomizedStatus ? `${epitomizedStatus.count}/2` : 'Путь воплощения'}
+                    {epitomizedPath[selectedBanner.id]
+                        ? `${epitomizedPath[selectedBanner.id].count}/2`
+                        : 'Путь воплощения'}
                 </div>
             </div>
             {epitomizedPathIsOpen && (
-                <EpitomizedPathModal
-                    closeModal={() => setEpitomizedPathIsOpen(false)}
-                    weaponBanner={weaponBanner}
-                />
+                <EpitomizedPathModal closeModal={() => setEpitomizedPathIsOpen(false)} />
             )}
         </>
     );

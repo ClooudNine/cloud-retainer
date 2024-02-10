@@ -86,7 +86,7 @@ export default async function Details({
     let mainItems: Character[] | Weapon[] | null = null;
     let featuredItems: Character[] | Weapon[] | null = null;
 
-    if (banner.type !== 'Standard Wish') {
+    if (banner.type !== 'Standard Wish' && banner.type !== 'Novice Wish') {
         if ('firstMainWeaponId' in banner) {
             mainItems = await db
                 .select()
@@ -117,7 +117,6 @@ export default async function Details({
                 .select()
                 .from(characters)
                 .where(eq(characters.id, banner.mainCharacterId));
-
             const featuredCharactersId = await db
                 .select({ id: featuredCharactersInBanners.characterId })
                 .from(featuredCharactersInBanners)
@@ -145,9 +144,8 @@ export default async function Details({
         >
             <Background isBlurred={true} />
             <div
-                style={{ containerType: 'inline-size' }}
                 className={
-                    'flex justify-center items-center h-[85vh] w-[45vh] sm:w-[150vh] sm:h-auto'
+                    'relative flex justify-center items-center h-[85vh] w-[45vh] xs:w-[150vh] xs:h-auto'
                 }
             >
                 <Image
@@ -156,18 +154,18 @@ export default async function Details({
                     quality={100}
                     alt={'Детали баннера'}
                     className={
-                        'max-w-none w-[85vh] -rotate-90 -scale-y-100 sm:rotate-0 sm:scale-y-100 sm:max-w-full sm:w-[150vh]'
+                        'max-w-none w-[85vh] -rotate-90 -scale-y-100 xs:rotate-0 xs:scale-y-100 xs:max-w-full xs:w-[150vh]'
                     }
                 />
                 <Title title={banner.title} palette={bannerColor} />
                 <Link
                     href={'/wish-simulator'}
                     className={
-                        'absolute cursor-genshin top-[2.5%] right-[7%] sm:top-[6.2%] sm:right-[2.4%]'
+                        'absolute cursor-genshin top-[2.5%] right-[7%] xs:top-[6.2%] xs:right-[2.4%]'
                     }
                 >
                     <svg
-                        className={'w-[5cqw] sm:w-[3.5cqw]'}
+                        className={'w-9'}
                         transform="rotate(45)"
                         fill="#000000"
                         stroke="#000000"

@@ -11,16 +11,8 @@ const getItemPortrait = (item: Character | Weapon) => {
 };
 const ItemCard = ({ item }: { item: Character | Weapon }) => {
     return (
-        <div
-            className={
-                'bg-white drop-shadow rounded-md w-[45%] h-[20cqw] sm:w-[8cqw] sm:h-full'
-            }
-        >
-            <div
-                className={
-                    'relative h-4/5 rounded-t-md rounded-br-[3cqw] overflow-hidden'
-                }
-            >
+        <div className={'bg-white drop-shadow rounded-md w-[45%] h-32 xs:w-24 xs:h-full'}>
+            <div className={'relative h-4/5 rounded-t-md rounded-br-3xl overflow-hidden'}>
                 <Image
                     src={`/common/items-backgrounds-by-rarity/background-item-${item.rare}-star.webp`}
                     alt={`Фон предмета ${
@@ -36,12 +28,12 @@ const ItemCard = ({ item }: { item: Character | Weapon }) => {
                         alt={item.element}
                         width={30}
                         height={30}
-                        className={'z-10 absolute w-[30%] top-1 left-1'}
+                        className={'z-10 absolute w-8 top-1 left-1'}
                     />
                 ) : (
                     <div
                         className={
-                            'z-10 absolute size-1/4 text-[2cqw] text-center leading-[1.8] rounded top-0.5 left-0.5 bg-black bg-opacity-40 text-[#cfcfcf] sm:text-[1cqw]'
+                            'z-10 absolute size-1/4 text-base/normal text-center rounded top-0.5 left-0.5 bg-black/40 text-[#cfcfcf]'
                         }
                     >
                         1
@@ -56,10 +48,10 @@ const ItemCard = ({ item }: { item: Character | Weapon }) => {
                     height={130}
                     quality={100}
                     draggable={false}
-                    className={'absolute bottom-0'}
+                    className={'absolute bottom-0 w-full'}
                 />
             </div>
-            <div className={'absolute flex justify-center bottom-[15%]'}>
+            <div className={'w-full absolute flex justify-center bottom-[15%]'}>
                 {Array.from(Array(Number(item.rare)).keys()).map((number) => (
                     <Image
                         key={number}
@@ -67,15 +59,11 @@ const ItemCard = ({ item }: { item: Character | Weapon }) => {
                         alt={'Звезда'}
                         quality={100}
                         draggable={false}
-                        className={'w-[17%] drop-shadow'}
+                        className={'w-4 drop-shadow'}
                     />
                 ))}
             </div>
-            <p
-                className={
-                    'w-full absolute bottom-0 text-center text-[2.5cqw] text-[#495366] sm:text-[1.2cqw]'
-                }
-            >
+            <p className={'w-full absolute bottom-0 text-center text-sm text-[#495366]'}>
                 Ур. 1
             </p>
         </div>

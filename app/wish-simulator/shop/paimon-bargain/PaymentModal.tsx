@@ -2,13 +2,13 @@ import Image from 'next/image';
 import confirmationModal from '@/public/wish-simulator/assets/confirmation-modal.webp';
 import star from '@/public/common/star.webp';
 import { useCallback, useState } from 'react';
-import { BalanceStats, PullCurrency, PurchasesCurrency } from '@/lib/common';
 import clsx from 'clsx';
 import Cancel from '@/app/wish-simulator/components/actionButtons/Cancel';
 import Confirm from '@/app/wish-simulator/components/actionButtons/Confirm';
 import ObtainItemScreen from '@/app/wish-simulator/components/ObtainItemScreen';
 import { purchasesCurrencies, pullCurrencyDescriptions } from '@/lib/shop';
 import { playSfxEffect } from '@/app/wish-simulator/utils';
+import { BalanceStats, PullCurrency, PurchasesCurrency } from '@/lib/banners';
 
 const PaymentModal = ({
     balance,
@@ -32,12 +32,12 @@ const PaymentModal = ({
     const [isSuccessful, setIsSuccessful] = useState<boolean>(false);
 
     const paymentModalClasses = clsx(
-        'flex flex-col items-center text-[#475467] w-[110vh] mx-[2vw] animate-modal-appearance',
+        'relative flex flex-col items-center text-[#475467] mx-4 animate-modal-appearance',
         {
             'opacity-0': isSuccessful,
         }
     );
-    const priceClasses = clsx('text-[2cqw] pr-2', {
+    const priceClasses = clsx('text-base pr-2', {
         'text-white': valetCount >= price,
         'text-[#ed6652]': valetCount < price,
     });
@@ -47,7 +47,7 @@ const PaymentModal = ({
         newBalance[shopItem] += itemCount;
         newBalance[currency] -= itemCount * price;
         setBalance(newBalance);
-        localStorage.setItem('Balance', JSON.stringify(newBalance));
+        localStorage.setItem('balance', JSON.stringify(newBalance));
         setBalanceInModal();
         setIsSuccessful(true);
         playSfxEffect('/sounds/click-7.mp3');
@@ -63,21 +63,18 @@ const PaymentModal = ({
         <>
             <section
                 className={
-                    'absolute z-10 top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center'
+                    'absolute z-10 top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center'
                 }
             >
-                <div
-                    style={{ containerType: 'inline-size' }}
-                    className={paymentModalClasses}
-                >
+                <div className={paymentModalClasses}>
                     <Image
                         src={confirmationModal}
                         alt={'Покупка предмета'}
                         quality={100}
                         draggable={false}
-                        className={'w-full'}
+                        className={'w-[110vh]'}
                     />
-                    <p className={'absolute top-[4%] text-[4cqw]'}>Получить предмет</p>
+                    <p className={'absolute top-[5%] text-3xl'}>Получить предмет</p>
                     <div
                         className={
                             'absolute w-4/5 h-[30%] top-[18%] flex bg-[linear-gradient(170deg,_rgba(135,120,117,1)_0%,_rgba(229,185,114,1)_100%)]'
@@ -93,10 +90,10 @@ const PaymentModal = ({
                         />
                         <div
                             className={
-                                'flex flex-col text-[#ece5d7] gap-[1cqw] pr-2 pt-2 overflow-y-scroll genshin-scrollbar lg:overflow-hidden'
+                                'flex flex-col text-[#ece5d7] gap-2 pr-2 pt-2 overflow-y-scroll genshin-scrollbar lg:overflow-hidden'
                             }
                         >
-                            <p className={'text-[4cqw] sm:text-[2.5cqw]'}>
+                            <p className={'text-xl'}>
                                 {pullCurrencyDescriptions[shopItem].translate}
                             </p>
                             <div className={'flex gap-1'}>
@@ -107,20 +104,20 @@ const PaymentModal = ({
                                         alt={'Звезда'}
                                         quality={100}
                                         draggable={false}
-                                        className={'h-[2.5cqw] w-auto drop-shadow'}
+                                        className={'h-5 w-auto drop-shadow'}
                                     />
                                 ))}
                             </div>
-                            <p className={'text-[3cqw] sm:text-[2cqw]'}>
+                            <p className={'text-base'}>
                                 {pullCurrencyDescriptions[shopItem].description}
                             </p>
                         </div>
                     </div>
-                    <p className={'absolute top-[49%] text-[2cqw]'}>Количество</p>
-                    <p className={'absolute top-[54%] text-[3.5cqw]'}>{itemCount}</p>
+                    <p className={'absolute top-[49%] text-2xl'}>Количество</p>
+                    <p className={'absolute top-[57%] text-2xl'}>{itemCount}</p>
                     <div
                         className={
-                            'absolute w-full flex items-center justify-center gap-[2.5cqw] top-[62%]'
+                            'absolute w-full flex items-center justify-center gap-6 top-[63%]'
                         }
                     >
                         {valetCount >= price && (
@@ -132,12 +129,12 @@ const PaymentModal = ({
                                     }}
                                     disabled={itemCount === 1}
                                     className={
-                                        'cursor-genshin leading-none transition rounded-full size-[4cqw] bg-[#4a5366] text-[#ece5d7] text-[2vw] disabled:opacity-40 disabled:hover:scale-100 hover:scale-110 active:opacity-40 active:scale-100'
+                                        'cursor-genshin transition rounded-full size-8 bg-[#4a5366] text-[#ece5d7] text-3xl/none disabled:opacity-40 disabled:hover:scale-100 hover:scale-110 active:opacity-40 active:scale-100'
                                     }
                                 >
                                     -
                                 </button>
-                                <p className={'text-[3cqw]'}>1</p>
+                                <p className={'text-2xl'}>1</p>
                             </>
                         )}
                         <input
@@ -146,11 +143,13 @@ const PaymentModal = ({
                             min={1}
                             max={Math.trunc(valetCount / price)}
                             onChange={(e) => setItemCount(Number(e.currentTarget.value))}
-                            className={'w-[45%] h-[1cqw] rounded-full cursor-genshin'}
+                            className={
+                                'w-[45%] h-2 rounded-full cursor-genshin payment-track'
+                            }
                         />
                         {valetCount >= price && (
                             <>
-                                <p className={'text-[3cqw]'}>
+                                <p className={'text-2xl'}>
                                     {Math.floor(valetCount / price)}
                                 </p>
                                 <button
@@ -162,7 +161,7 @@ const PaymentModal = ({
                                         itemCount === Math.floor(valetCount / price)
                                     }
                                     className={
-                                        'cursor-genshin transition rounded-full leading-none size-[4cqw] bg-[#4a5366] text-[#eeefea] text-[2vw] disabled:opacity-40 disabled:hover:scale-100 active:opacity-40 active:scale-100 hover:scale-110'
+                                        'cursor-genshin transition rounded-full size-8 bg-[#4a5366] text-[#eeefea] text-3xl/none disabled:opacity-40 disabled:hover:scale-100 active:opacity-40 active:scale-100 hover:scale-110'
                                     }
                                 >
                                     +
@@ -172,13 +171,13 @@ const PaymentModal = ({
                     </div>
                     <div
                         className={
-                            'absolute w-full flex gap-[2cqw] items-center justify-center top-[69%]'
+                            'absolute w-full flex gap-4 items-center justify-center top-[69%]'
                         }
                     >
-                        <p className={'text-[2.3cqw]'}>Стоимость</p>
+                        <p className={'text-xl'}>Стоимость</p>
                         <div
                             className={
-                                'flex items-center gap-[0.8cqw] bg-[#4b526c] rounded-full'
+                                'flex items-center gap-2 bg-[#4b526c] rounded-full'
                             }
                         >
                             <Image
@@ -188,7 +187,7 @@ const PaymentModal = ({
                                 width={50}
                                 height={50}
                                 draggable={false}
-                                className={'h-[3.5cqw] w-auto'}
+                                className={'h-8 w-auto'}
                             />
                             <p className={priceClasses}>{price * itemCount}</p>
                         </div>
@@ -200,6 +199,7 @@ const PaymentModal = ({
                     >
                         <Cancel handler={closePaymentModalHandler} />
                         <Confirm
+                            title={'Получить'}
                             handler={confirmPayment}
                             disabledCondition={valetCount < price}
                         />

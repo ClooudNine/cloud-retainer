@@ -22,20 +22,20 @@ const SidebarButton = ({
     const isActiveSection = currentSection === section;
 
     const shopButtonClasses = clsx(
-        'relative group flex items-center gap-4 w-full h-12 my-2 text-xs transition hover:bg-[rgba(236,229,216,0.2)] lg:text-xl lg:my-10 ',
+        'relative group flex items-center gap-4 w-full h-20 text-2xl transition hover:bg-[rgba(236,229,216,0.2)] xs:h-14 xs:text-xl xs:my-6 lg:text-base',
         {
             'text-[#3b4254]': isActiveSection,
             'text-[#ece5d7] active:text-[#3b4254]': !isActiveSection,
         }
     );
 
-    const buttonBackgroundClasses = clsx('absolute w-[105%] transition sm:max-w-none', {
+    const buttonBackgroundClasses = clsx('absolute w-[105%] transition xs:max-w-none', {
         'opacity-100': isActiveSection,
         'opacity-0 group-active:opacity-100': !isActiveSection,
     });
 
     const starClasses = clsx(
-        'hidden absolute w-4 fill-[#efe6df] right-0 transition duration-300 sm:block lg:w-8',
+        'hidden absolute fill-[#efe6df] right-0 transition duration-300 xs:block xs:w-7',
         {
             'opacity-100 translate-x-[125%]': isActiveSection,
             'opacity-0': !isActiveSection,

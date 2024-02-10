@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import primogem from '@/public/wish-simulator/assets/primogems.webp';
-import { useBannerContext } from '@/app/wish-simulator/components/BannerProvider';
+import { useBannerContext } from '@/app/wish-simulator/BannerProvider';
 import { useState } from 'react';
 import CurrencyExchanger from '@/app/wish-simulator/components/CurrencyExchanger';
 import { playSfxEffect } from '@/app/wish-simulator/utils';

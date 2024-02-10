@@ -12,7 +12,7 @@ export const UserSelect = ({ type }: { type: WishHistoryTypes }) => {
     return (
         <div
             className={
-                'absolute flex items-center text-[#595252] w-[87%] top-[13%] left-[8%] text-[2.5cqw] sm:left-[9%] sm:text-[1.7cqw] sm:w-4/5'
+                'absolute flex items-center text-[#595252] w-[87%] top-[13%] left-[8%] text-base xs:text-xl xs:w-[85%]'
             }
         >
             <Image
@@ -22,15 +22,15 @@ export const UserSelect = ({ type }: { type: WishHistoryTypes }) => {
                 draggable={false}
                 className={'w-full'}
             />
-            <p className={'absolute left-[4%] sm:left-[8%]'}>Тип Молитвы</p>
-            <div className="absolute w-[73%] text-[#595252] right-[1%] sm:w-[70%]">
+            <p className={'absolute left-[4%] xs:left-[8%]'}>Тип Молитвы</p>
+            <div className="absolute w-[70%] text-[#595252] right-[1%]">
                 <div
                     className="flex items-center mx-3"
                     onClick={() => setIsSelectOpen(!isSelectOpen)}
                 >
                     <p className={'truncate'}>{bannerHistoryTypes[type]}</p>
                     <svg
-                        className={`w-[3.5cqw] sm:w-[2.5cqw] ${
+                        className={`w-8 ml-auto ${
                             isSelectOpen ? 'rotate-0' : 'rotate-180'
                         }`}
                         fill="#595252"
@@ -49,13 +49,11 @@ export const UserSelect = ({ type }: { type: WishHistoryTypes }) => {
                     </svg>
                 </div>
                 {isSelectOpen && (
-                    <div className="z-10 absolute w-[135%] top-0 right-0 text-white bg-[rgba(95,101,114,0.9)] rounded-3xl mt-[8%] sm:w-full">
+                    <div className="z-10 absolute w-[140%] top-0 right-0 text-white bg-[rgba(95,101,114,0.9)] rounded-3xl mt-[8%] xs:w-full">
                         {Object.entries(bannerHistoryTypes).map((option) => (
                             <div
                                 key={option[0]}
-                                className={
-                                    'px-[5cqw] py-[3cqw] rounded-full hover:bg-[#717887] sm:px-[3cqw] sm:py-[1.5cqw]'
-                                }
+                                className={'px-8 py-6 rounded-full hover:bg-[#717887]'}
                                 onClick={() => {
                                     setIsSelectOpen(false);
                                     router.replace(

@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import striptags from 'striptags';
 import { Banners } from '@/lib/banners';
-import { elementToColor } from '@/lib/common';
+import { elementToColor } from '@/lib/constants';
 import { Character } from '@/lib/db/schema';
 
 const CharacterEventWish = ({

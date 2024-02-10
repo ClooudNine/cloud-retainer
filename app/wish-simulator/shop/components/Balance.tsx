@@ -3,11 +3,11 @@ import masterlessStarglitter from '@/public/wish-simulator/assets/masterless-sta
 import masterlessStardust from '@/public/wish-simulator/assets/masterless-stardust.webp';
 import primogem from '@/public/wish-simulator/assets/primogems.webp';
 import genesisCrystal from '@/public/wish-simulator/assets/genesis-crystal.webp';
-import { BalanceStats } from '@/lib/common';
 import clsx from 'clsx';
 import { useCallback, useState } from 'react';
 import CurrencyExchanger from '@/app/wish-simulator/components/CurrencyExchanger';
 import { playSfxEffect } from '@/app/wish-simulator/utils';
+import { BalanceStats } from '@/lib/banners';
 
 const Balance = ({
     section,
@@ -31,7 +31,7 @@ const Balance = ({
             inModal || isExchange,
     });
     const openExchangerClasses = clsx(
-        'bg-[#ece5d8] text-[#3b4354] size-5 leading-none font-bold rounded-full transition cursor-genshin active:opacity-50 active:scale-95 hover:scale-110 sm:size-4 lg:size-7',
+        'bg-[#ece5d8] text-[#3b4354] size-10 font-bold rounded-full transition cursor-genshin active:opacity-50 active:scale-95 hover:scale-110 xs:size-7',
         {
             hidden: isExchange,
         }
@@ -56,7 +56,7 @@ const Balance = ({
                     <>
                         <div
                             className={
-                                'flex h-6 items-center gap-2 px-2 bg-black bg-opacity-40 rounded-full ring-2 ring-[#84a4c5] min-w-max sm:h-4 lg:h-8'
+                                'flex h-12 items-center gap-2 px-2 bg-black bg-opacity-40 rounded-full ring-2 ring-[#84a4c5] min-w-max xs:h-8'
                             }
                         >
                             <Image
@@ -70,7 +70,7 @@ const Balance = ({
                         </div>
                         <div
                             className={
-                                'flex h-6 items-center gap-2 px-2 bg-black bg-opacity-40 rounded-full ring-2 ring-[#84a4c5] min-w-max sm:h-4 lg:h-8'
+                                'flex h-12 items-center gap-2 px-2 bg-black bg-opacity-40 rounded-full ring-2 ring-[#84a4c5] min-w-max xs:h-8'
                             }
                         >
                             <Image
@@ -86,7 +86,7 @@ const Balance = ({
                 )}
                 <div
                     className={
-                        'h-6 flex gap-2 pl-2 pr-0.5 items-center bg-black bg-opacity-40 rounded-full ring-2 ring-[#84a4c5] min-w-max sm:h-4 lg:h-8'
+                        'flex h-12 gap-2 pl-2 pr-0.5 items-center bg-black bg-opacity-40 rounded-full ring-2 ring-[#84a4c5] min-w-max xs:h-8'
                     }
                 >
                     <Image
@@ -104,7 +104,7 @@ const Balance = ({
                 {(section === 'genesis-crystals' || isExchange) && (
                     <div
                         className={
-                            'flex h-6 items-center gap-2 px-2 bg-black bg-opacity-40 rounded-full ring-2 ring-[#84a4c5] min-w-max sm:h-4 lg:h-8'
+                            'flex h-12 items-center gap-2 px-2 bg-black bg-opacity-40 rounded-full ring-2 ring-[#84a4c5] min-w-max xs:h-8'
                         }
                     >
                         <Image
