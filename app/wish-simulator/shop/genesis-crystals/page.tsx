@@ -9,6 +9,7 @@ import ObtainModal from '@/app/wish-simulator/shop/genesis-crystals/ObtainModal'
 import { playSfxEffect } from '@/app/wish-simulator/utils';
 import { useAudioContext } from '@/app/wish-simulator/AudioProvider';
 import { BalanceStats } from '@/lib/banners';
+import { initialBalance } from '@/lib/constants';
 
 export default function GenesisCrystals() {
     const { audio } = useAudioContext();
@@ -16,14 +17,7 @@ export default function GenesisCrystals() {
     const crystalsCount = [60, 300, 980, 1980, 3280, 6480];
 
     const [obtainedCrystals, setObtainedCrystals] = useState<number | null>(null);
-    const [balance, setBalance] = useState<BalanceStats>({
-        'intertwined-fate': 0,
-        'acquaint-fate': 20,
-        primogems: 3200,
-        'masterless-stardust': 0,
-        'masterless-starglitter': 0,
-        'genesis-crystal': 0,
-    });
+    const [balance, setBalance] = useState<BalanceStats>(initialBalance);
     const [balanceInModal, setBalanceInModal] = useState<boolean>(false);
 
     const chooseCrystals = useCallback((count: number) => {
@@ -38,15 +32,11 @@ export default function GenesisCrystals() {
             currentAudio.pause();
             currentAudio.currentTime = 0;
         }
-        const balance = localStorage.getItem('Balance');
-        if (balance) {
-            setBalance(JSON.parse(balance));
-        }
+        const balance = localStorage.getItem('balance');
+        if (balance) setBalance(JSON.parse(balance));
 
         return () => {
-            if (currentAudio) {
-                currentAudio.play();
-            }
+            if (currentAudio) currentAudio.play();
         };
     }, [audio]);
 

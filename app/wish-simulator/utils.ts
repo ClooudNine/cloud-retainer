@@ -1,4 +1,4 @@
-import { bannerOrder, Banners, BannerStats, WishHistoryTypes } from '@/lib/banners';
+import { bannerOrder, Banners, WishHistoryTypes } from '@/lib/banners';
 import { basedCharacters, currentGameVersion, elementToColor } from '@/lib/constants';
 import striptags from 'striptags';
 import {
@@ -16,6 +16,7 @@ export const getFeaturedItems = async (id: number, type: BannerTypes) => {
     const featuredItems = await res.json();
     return featuredItems.res as Character[] | Weapon[];
 };
+
 const getCharacterPortrait = (characters: Character[], characterId: number) => {
     const character = characters.find((character) => character.id === characterId);
     if (character) {
@@ -23,6 +24,7 @@ const getCharacterPortrait = (characters: Character[], characterId: number) => {
     }
     return '';
 };
+
 const getWeaponPortrait = (weapons: Weapon[], weaponId: number) => {
     const weapon = weapons.find((weapon) => weapon.id === weaponId);
     if (weapon) {
@@ -30,6 +32,7 @@ const getWeaponPortrait = (weapons: Weapon[], weaponId: number) => {
     }
     return '';
 };
+
 export const getButtonPortraitUrl = (
     banner: Banners,
     characters: Character[],
@@ -42,6 +45,7 @@ export const getButtonPortraitUrl = (
         return [getCharacterPortrait(characters, banner.mainCharacterId)];
     }
 };
+
 export const getPreviewUrl = (banner: Banners): string => {
     const bannerTitle = striptags(banner.title);
     if ('rerunNumber' in banner) {
@@ -52,25 +56,23 @@ export const getPreviewUrl = (banner: Banners): string => {
         return `${bannerTitle} ${banner.previewVersion}`;
     }
 };
+
 export const getBannersSet = (
     banners: Banners[],
     version: number,
     phase: Phases,
-    bannerStats: BannerStats
+    noviceWishCount: number
 ): Banners[] => {
     let standardBanner = null;
     let bannersByVersion = banners.filter((banner) => {
         if ('previewVersion' in banner) {
             if (banner.version <= version) standardBanner = banner;
         } else {
-            return (
-                (banner.version === version && banner.phase === phase) ||
-                banner.type === 'Novice Wish'
-            );
+            return banner.version === version && banner.phase === phase;
         }
     });
     if (standardBanner) bannersByVersion.push(standardBanner);
-    if (bannerStats.NoviceWish.history.length < 20)
+    if (noviceWishCount < 20)
         bannersByVersion.push(
             banners.find((banner) => banner.type === 'Novice Wish') as CharacterBanner
         );
@@ -79,6 +81,7 @@ export const getBannersSet = (
             bannerOrder[firstBanner.type] - bannerOrder[secondBanner.type]
     );
 };
+
 export const getBannerDrop = (
     banner: Banners,
     characters: Character[],
@@ -148,10 +151,12 @@ export const getBannerDrop = (
             return [...noviceBannerCharacters, ...noviceBannerWeapons];
     }
 };
+
 export const playSfxEffect = (path: string) => {
     const sfx = new Audio(path);
     sfx.play();
 };
+
 export const getMainItemsName = (
     banner: Banners,
     characters: Character[],
@@ -171,9 +176,11 @@ export const getMainItemsName = (
         return mainWeapons.map((weapon) => weapon.title);
     }
 };
+
 export const getBannerStatName = (bannerType: BannerTypes) => {
     return bannerType.replace(/[^a-zA-Zа-яА-Я]/g, '') as WishHistoryTypes;
 };
+
 export const getBannerColor = (banner: Banners, characters?: Character[]) => {
     if ('mainCharacterId' in banner) {
         if (banner.type === 'Standard Wish') {

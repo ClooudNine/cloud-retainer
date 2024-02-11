@@ -2,7 +2,12 @@
 import { useBannerContext } from '@/app/wish-simulator/BannerProvider';
 import Image from 'next/image';
 import { CSSProperties } from 'react';
-import { bannerDescriptions, Banners, bannerSecondTitle } from '@/lib/banners';
+import {
+    bannerDescriptions,
+    Banners,
+    bannerSecondTitle,
+    EpitomizedPath,
+} from '@/lib/banners';
 import SwitchBannerArrow from '@/app/wish-simulator/components/bannerOverview/SwitchBannerArrow';
 import { currentGameVersion } from '@/lib/constants';
 import { getBannerColor, getPreviewUrl } from '@/app/wish-simulator/utils';
@@ -42,7 +47,8 @@ const renderWeaponBannerInfo = (
     offset: {
         fiveStar: { r: string; b: string; fontSize: string };
         [key: string]: { r: string; b: string; fontSize: string };
-    }
+    },
+    epitomizedWeapon: Weapon | null
 ) => {
     const fourStarWeaponText = Object.values(offset)[1];
     return (
@@ -69,6 +75,17 @@ const renderWeaponBannerInfo = (
                         {weapon.title}
                     </p>
                 ))}
+                {epitomizedWeapon && (
+                    <div
+                        className={
+                            'absolute text-sm px-2 mt-[9%] -ml-[6%] bg-[#687c9c] bg-opacity-90 text-[#e4f4ff]'
+                        }
+                    >
+                        Текущий курс установлен на:
+                        <br />
+                        {epitomizedWeapon.title}
+                    </div>
+                )}
             </div>
             <div
                 style={
@@ -138,7 +155,8 @@ const renderStandardBannerInfo = (
 const renderBannerInfo = (
     characters: Character[],
     weapons: Weapon[],
-    selectedBanner: Banners
+    selectedBanner: Banners,
+    epitomizedPath: EpitomizedPath
 ) => {
     if ('mainCharacterId' in selectedBanner) {
         if (selectedBanner.type === 'Standard Wish') {
@@ -159,20 +177,28 @@ const renderBannerInfo = (
         );
     } else {
         const mainWeaponsId = [
-            (selectedBanner as WeaponBanner).firstMainWeaponId,
-            (selectedBanner as WeaponBanner).secondMainWeaponId,
+            selectedBanner.firstMainWeaponId,
+            selectedBanner.secondMainWeaponId,
         ];
         const mainFiveStarWeapons = mainWeaponsId.map(
             (weaponId) => weapons.find((weapon) => weapon.id === weaponId) as Weapon
         );
+        let epitomizedWeapon = null;
+        if (epitomizedPath[selectedBanner.id]) {
+            epitomizedWeapon = weapons.find(
+                (weapon) => weapon.id === epitomizedPath[selectedBanner.id].weaponId
+            ) as Weapon;
+        }
         return renderWeaponBannerInfo(
             mainFiveStarWeapons,
-            (selectedBanner as WeaponBanner).textParameters
+            (selectedBanner as WeaponBanner).textParameters,
+            epitomizedWeapon
         );
     }
 };
 const Banner = () => {
-    const { characters, weapons, selectedBanner, bannerStats } = useBannerContext();
+    const { characters, weapons, selectedBanner, bannerStats, epitomizedPath } =
+        useBannerContext();
 
     const infoContainerClasses = clsx('absolute flex flex-col gap-6', {
         'top-0': selectedBanner.type !== 'Standard Wish',
@@ -253,7 +279,12 @@ const Banner = () => {
                             </p>
                         </div>
                     </div>
-                    {renderBannerInfo(characters, weapons, selectedBanner)}
+                    {renderBannerInfo(
+                        characters,
+                        weapons,
+                        selectedBanner,
+                        epitomizedPath
+                    )}
                     {selectedBanner.type === 'Novice Wish' && (
                         <p className={'absolute text-[#d8d4d3] right-[5%] bottom-[7%]'}>
                             Попыток: {20 - bannerStats.NoviceWish.history.length}

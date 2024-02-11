@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useCallback, useState } from 'react';
 import star from '@/public/common/star.webp';
 import masterlessStardust from '@/public/wish-simulator/assets/masterless-stardust.webp';
+import masterlessStarglitter from '@/public/wish-simulator/assets/masterless-starglitter.webp';
 import wishResultBackground from '@/public/wish-simulator/assets/wish-result-bg.webp';
 import multiWishCard from '@/public/wish-simulator/assets/wish-card.webp';
 import skipWishArrow from '@/public/wish-simulator/assets/skip-wish-arrow.webp';
@@ -15,11 +16,30 @@ import clsx from 'clsx';
 import CloseButton from '@/app/wish-simulator/components/headerComponents/CloseButton';
 
 const renderWeaponResult = (weapon: Weapon) => {
+    const masterlessCurrencyClasses = clsx(
+        'absolute flex items-end gap-8 w-[90%] h-[7%] bottom-[5%] right-[2%] animate-masterless-currency-appearance xs:right-0.5 xs:bottom-[35%] xs:w-[22%]',
+        {
+            'animate-masterless-stardust-appearance text-[#f1aafc]': weapon.rare === '3',
+            'animate-masterless-starglitter-appearance text-[#ffeb64]':
+                Number(weapon.rare) > 3,
+        }
+    );
+
+    const starClasses = clsx('absolute animate-star-effect size-36 rounded-full', {
+        'bg-[#fff4ff]': weapon.rare === '3',
+        'bg-[#fff574]': Number(weapon.rare) > 3,
+    });
+
+    const masterlessImageClasses = clsx('h-[120%] w-auto object-contain', {
+        'drop-shadow-[0_0_30px_rgba(209,134,246,1)]': weapon.rare === '3',
+        'drop-shadow-[0_0_30px_rgba(192,169,64,1)]': Number(weapon.rare) > 3,
+    });
+
     return (
         <>
             <div
                 className={
-                    'absolute top-[5%] flex items-center justify-center animate-item-description-appearance sm:w-1/4 sm:top-[55%] sm:left-[10%]'
+                    'absolute top-[5%] flex items-center justify-center animate-item-description-appearance xs:w-[30%] xs:top-[55%] xs:left-[5%]'
                 }
             >
                 <Image
@@ -29,12 +49,12 @@ const renderWeaponResult = (weapon: Weapon) => {
                     height={100}
                     quality={100}
                     draggable={false}
-                    className={'w-[10vh] -mt-[20%] animate-item-icon-appearance'}
+                    className={'w-24 -mt-[12%] animate-item-icon-appearance'}
                 />
                 <div>
                     <p
                         className={
-                            'text-white leading-tight text-[4vh] animate-item-title-appearance sm:text-[5vh]'
+                            'text-white text-5xl/tight animate-item-title-appearance xs:text-4xl/tight'
                         }
                     >
                         {weapon.title}
@@ -50,7 +70,9 @@ const renderWeaponResult = (weapon: Weapon) => {
                                 style={{
                                     animationDelay: `${number * 100}ms`,
                                 }}
-                                className={'w-[3vh] animate-item-stars-appearance'}
+                                className={
+                                    'w-8 opacity-0 animate-item-stars-appearance xs:w-5'
+                                }
                             />
                         ))}
                     </div>
@@ -59,11 +81,13 @@ const renderWeaponResult = (weapon: Weapon) => {
             <Image
                 src={`/weapons/backgrounds/${weapon.type}-background.webp`}
                 alt={'Фон оружия'}
-                width={950}
-                height={950}
+                width={850}
+                height={850}
                 quality={100}
                 draggable={false}
-                className={'-z-10 absolute animate-item-background-appearance'}
+                className={
+                    '-z-10 absolute w-auto h-auto animate-item-background-appearance'
+                }
             />
             <Image
                 src={`/weapons/splash-arts/${weapon.title}.webp`}
@@ -72,37 +96,37 @@ const renderWeaponResult = (weapon: Weapon) => {
                 height={1024}
                 quality={100}
                 draggable={false}
-                className={`absolute h-4/5 w-auto animate-wish-item-appearance sm:h-full`}
+                className={`absolute h-4/5 w-auto animate-wish-item-appearance xs:h-full`}
             />
-            <div
-                className={
-                    'absolute flex items-center gap-4 w-[90%] h-[9%] right-[5%] bottom-[7%] animate-masterless-currency-appearance md:w-[30%] md:right-0.5 md:bottom-[35%] lg:w-[22%]'
-                }
-            >
-                <div className={'h-[110%] flex items-center justify-center'}>
+            <div className={masterlessCurrencyClasses}>
+                <div className={'h-[110%] flex items-center justify-center -ml-[10%]'}>
                     <div
                         style={{
                             clipPath:
                                 'polygon(50% 0, 70% 30%, 99% 48%, 70% 70%, 50% 100%, 30% 70%, 0 50%, 30% 30%)',
                         }}
-                        className={
-                            'absolute animate-star-effect bg-[#fff4ff] w-[8rem] h-[8rem] rounded-full md:w-[11rem] md:h-[11rem]'
-                        }
+                        className={starClasses}
                     ></div>
                     <Image
-                        src={masterlessStardust}
-                        alt={'Stardust/glitter'}
-                        className={
-                            'h-full w-auto object-contain drop-shadow-[0_0_30px_rgba(209,134,246,1)]'
+                        src={
+                            weapon.rare === '3'
+                                ? masterlessStardust
+                                : masterlessStarglitter
                         }
+                        alt={'Stardust/glitter'}
+                        quality={100}
+                        draggable={false}
+                        className={masterlessImageClasses}
                     />
                 </div>
-                <div className={'flex flex-col gap-3 mb-10 ml-6'}>
-                    <p className={'text-white text-lg md:text-xl'}>Extra</p>
-                    <p className={'text-[#f1aafc] text-xl md:text-2xl'}>
-                        Masterless Stardust
+                <div className={'flex flex-col gap-1 text-3xl/tight xs:text-base/tight'}>
+                    <p className={'text-white'}>Бонус</p>
+                    <p>
+                        {weapon.rare === '3'
+                            ? 'Блуждающая звёздная пыль'
+                            : 'Блуждающий звёздный блеск'}
                     </p>
-                    <p className={'text-[#f1aafc] text-xl md:text-2xl'}>x15</p>
+                    <p>{weapon.rare === '4' ? 'x2' : 'x15'}</p>
                 </div>
             </div>
         </>
@@ -191,13 +215,13 @@ const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
             playSfxEffect(
                 `/sounds/${droppedItems[currentItemIndex + 1].rare}-star-item-obtain.mp3`
             );
-            setTimeout(() => setIsAnimationPlaying(false), 1500);
+            setTimeout(() => setIsAnimationPlaying(false), 900);
         }
         setCurrentItemIndex(currentItemIndex + 1);
     }, [currentItemIndex, droppedItems, isAnimationPlaying, isVideoPlaying, pullCounts]);
 
     const skipButtonClasses = clsx(
-        'z-10 absolute flex items-center transition top-[1%] right-[3%] text-white text-[2vh] sm:top-[4%]',
+        'z-10 absolute flex items-center transition top-[1%] right-[3%] text-white text-xl sm:top-[3%]',
         {
             'opacity-0': !isSkipButtonVisible,
             'opacity-100': isSkipButtonVisible,
@@ -219,16 +243,12 @@ const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
                 draggable={false}
                 className={'-z-10 object-cover'}
             />
-            {currentItemIndex < pullCounts - 1 ? (
+            {currentItemIndex < pullCounts ? (
                 <div
                     onClick={() => {
                         setIsVideoPlaying(false);
                         setIsAnimationPlaying(false);
-                        if (pullCounts === 10) {
-                            setCurrentItemIndex(10);
-                        } else {
-                            setCurrentItemIndex(0);
-                        }
+                        setCurrentItemIndex(pullCounts === 10 ? pullCounts : 0);
                     }}
                     className={skipButtonClasses}
                 >
@@ -238,6 +258,7 @@ const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
                         alt={'Пропустить'}
                         quality={100}
                         draggable={false}
+                        className={'w-8'}
                     />
                 </div>
             ) : (

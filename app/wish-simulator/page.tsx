@@ -2,15 +2,15 @@ import Background from '@/app/wish-simulator/components/Background';
 import Banner from '@/app/wish-simulator/components/bannerOverview/Banner';
 import BannerProvider from '@/app/wish-simulator/BannerProvider';
 import {
+    Character,
     CharacterBanner,
-    WeaponBanner,
     characterBanners,
-    weaponBanners,
+    characters,
     StandardBanner,
     standardBanners,
-    Character,
-    characters,
     Weapon,
+    WeaponBanner,
+    weaponBanners,
     weapons,
 } from '@/lib/db/schema';
 import { db } from '@/lib/db';
@@ -28,6 +28,7 @@ export const metadata = {
         'Симулятор молитв из игры Genshin Impact, который позволяет путешественникам совершать молитвы в неограниченном количестве для развлечения и сбора статистики.',
 };
 export const dynamic = 'force-dynamic';
+
 export default async function WishSimulator() {
     const allCharactersBanners: CharacterBanner[] = await db
         .select()

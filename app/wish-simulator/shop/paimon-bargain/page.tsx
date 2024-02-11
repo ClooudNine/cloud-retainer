@@ -9,23 +9,17 @@ import PaymentModal from '@/app/wish-simulator/shop/paimon-bargain/PaymentModal'
 import { useRouter } from 'next/navigation';
 import Balance from '@/app/wish-simulator/shop/components/Balance';
 import CloseButton from '@/app/wish-simulator/components/headerComponents/CloseButton';
-import { purchasesCurrencies, priceOfFate } from '@/lib/shop';
+import { priceOfFate, purchasesCurrencies } from '@/lib/shop';
 import { playSfxEffect } from '@/app/wish-simulator/utils';
 import { useAudioContext } from '@/app/wish-simulator/AudioProvider';
 import { BalanceStats, PullCurrency, PurchasesCurrency } from '@/lib/banners';
+import { initialBalance } from '@/lib/constants';
 
 export default function PaimonBargain() {
     const { audio } = useAudioContext();
     const router = useRouter();
 
-    const [balance, setBalance] = useState<BalanceStats>({
-        'intertwined-fate': 0,
-        'acquaint-fate': 20,
-        primogems: 3200,
-        'masterless-stardust': 0,
-        'masterless-starglitter': 0,
-        'genesis-crystal': 0,
-    });
+    const [balance, setBalance] = useState<BalanceStats>(initialBalance);
     const [currentCurrency, setCurrentCurrency] = useState<PurchasesCurrency>(
         'masterless-starglitter'
     );
@@ -45,14 +39,10 @@ export default function PaimonBargain() {
             currentAudio.currentTime = 0;
         }
         const balance = localStorage.getItem('balance');
-        if (balance) {
-            setBalance(JSON.parse(balance));
-        }
+        if (balance) setBalance(JSON.parse(balance));
 
         return () => {
-            if (currentAudio) {
-                currentAudio.play();
-            }
+            if (currentAudio) currentAudio.play();
         };
     }, [audio]);
 

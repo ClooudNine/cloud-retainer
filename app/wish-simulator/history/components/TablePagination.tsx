@@ -30,7 +30,7 @@ const TablePagination = ({
                     draggable={false}
                 />
             </button>
-            <p className={'text-[#595252] text-3xl'}>{currentPage}</p>
+            <p className={'text-[#595252] text-2xl'}>{currentPage}</p>
             <button
                 className={
                     'w-8 cursor-genshin rounded-full bg-[#ede8e0] border border-[#ded2c1] disabled:opacity-60'

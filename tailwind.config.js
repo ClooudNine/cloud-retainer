@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 import defaultTheme from 'tailwindcss/defaultTheme';
+
 module.exports = {
     content: [
         './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -85,7 +86,7 @@ module.exports = {
                         filter: 'brightness(100%) drop-shadow(0px 0px 25px rgba(255, 249, 72, 0))',
                     },
                 },
-                'masterless-currency-appearance': {
+                'masterless-stardust-appearance': {
                     '0%, 60%': {
                         opacity: 0,
                     },
@@ -103,23 +104,36 @@ module.exports = {
                         opacity: 1,
                     },
                 },
+                'masterless-starglitter-appearance': {
+                    '0%, 60%': {
+                        opacity: 0,
+                    },
+                    '60%': {
+                        boxShadow:
+                            '100px 0 70px -50px rgba(255,251,68,1) inset, 300px 0 70px -50px rgba(244,209,52,1) inset, 500px 0 70px -50px rgba(110,89,54,1) inset',
+                    },
+                    '75%': {
+                        boxShadow:
+                            '100px 0 70px -50px rgba(223,177,48,1) inset, 300px 0 70px -50px rgba(169,126,34,1) inset, 500px 0 70px -50px rgba(91,73,51,1) inset',
+                    },
+                    '100%': {
+                        boxShadow:
+                            '200px 0 70px -50px rgba(202,159,54,1) inset, 500px 0 70px -50px rgba(175,136,53,0.7) inset',
+                        opacity: 1,
+                    },
+                },
                 'star-effect': {
                     '0%, 60%': {
                         opacity: 0,
                     },
                     '60%': {
-                        zIndex: 10,
                         transform: 'scale(1.5)',
                         clipPath:
                             'polygon(50% 0, 70% 30%, 99% 48%, 70% 70%, 50% 100%, 30% 70%, 0 50%, 30% 30%)',
                     },
-                    '70%': {
-                        zIndex: 10,
-                    },
                     '100%': {
                         clipPath:
                             'polygon(50% 0, 55% 45%, 99% 48%, 55% 55%, 50% 100%, 45% 55%, 0 50%, 45% 45%)',
-                        zIndex: -10,
                         transform: 'scale(1)',
                         opacity: 1,
                     },
@@ -168,8 +182,10 @@ module.exports = {
                 'item-title-appearance': 'item-title-appearance 1.3s forwards',
                 'item-icon-appearance': 'item-icon-appearance 2s forwards',
                 'item-stars-appearance': 'item-stars-appearance 2.5s forwards',
-                'masterless-currency-appearance':
-                    'masterless-currency-appearance 2s forwards',
+                'masterless-stardust-appearance':
+                    'masterless-stardust-appearance 2s forwards',
+                'masterless-starglitter-appearance':
+                    'masterless-starglitter-appearance 2s forwards',
                 'star-effect': 'star-effect 2s forwards',
                 'banner-preview-appearance': 'banner-preview-appearance 0.8s forwards',
                 'modal-appearance': 'modal-appearance 0.3s ',

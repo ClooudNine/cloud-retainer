@@ -1,44 +1,56 @@
 'use client';
 import { useCallback, useEffect, useState } from 'react';
-import { WishHistory } from '@/lib/banners';
+import { BaseBannerStatsWithGuaranteed, WishHistoryTypes } from '@/lib/banners';
 import TablePagination from '@/app/wish-simulator/history/components/TablePagination';
-import { WishHistoryTypes } from '@/lib/banners';
 import GuaranteeStatus from '@/app/wish-simulator/history/components/GuaranteeStatus';
+import { initialBannerStats } from '@/lib/constants';
 
 const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
-    const [history, setHistory] = useState<WishHistory>([]);
+    const [stats, setStats] = useState<BaseBannerStatsWithGuaranteed | null>(null);
     const [page, setPage] = useState<number>(1);
 
     useEffect(() => {
-        const wishState = localStorage.getItem(type);
-        if (wishState) {
-            setHistory(JSON.parse(wishState).history);
+        const maybeBannerStats = localStorage.getItem('bannerStats');
+        if (maybeBannerStats) {
+            setStats(JSON.parse(maybeBannerStats)[type]);
             setPage(1);
         }
     }, [type]);
 
     const getWishesFromLastItem = (rare: number) => {
-        const wishesCount = history.findIndex((wish) => Number(wish.item.rare) === rare);
-        if (wishesCount === -1) {
-            return history.length;
-        }
+        const wishesCount = stats?.history.findIndex(
+            (wish) => Number(wish.item.rare) === rare
+        );
+        if (wishesCount === -1) return stats?.history.length;
         return wishesCount;
     };
 
     const removeHistory = useCallback(() => {
-        let bannerStats = JSON.parse(localStorage.getItem(type)!);
-        bannerStats.fourStarCounter = 0;
-        bannerStats.fiveStarCounter = 0;
-        bannerStats.history = [];
-        if (type === 'CharacterEventWish' || type === 'WeaponEventWish') {
-            bannerStats.fourStarGuaranteed = false;
-            bannerStats.fiveStarGuaranteed = false;
-        }
-        localStorage.setItem(type, JSON.stringify(bannerStats));
-        setHistory([]);
-    }, [type]);
+        if (!stats) return;
 
-    if (history.length === 0) {
+        const clearStats = {
+            ...stats,
+            fourStarCounter: 0,
+            fiveStarCounter: 0,
+            history: [],
+            ...(type === 'CharacterEventWish' || type === 'WeaponEventWish'
+                ? { fourStarGuaranteed: false, fiveStarGuaranteed: false }
+                : {}),
+        };
+
+        const maybeBannerStats = localStorage.getItem('bannerStats');
+        const bannerStats = maybeBannerStats
+            ? JSON.parse(maybeBannerStats)
+            : initialBannerStats;
+
+        bannerStats[type] = clearStats;
+
+        localStorage.setItem('bannerStats', JSON.stringify(bannerStats));
+        setStats(clearStats);
+        setPage(1);
+    }, [stats, type]);
+
+    if (!stats || stats.history.length === 0) {
         return (
             <p
                 className={
@@ -57,24 +69,36 @@ const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
                     'absolute w-[86%] h-[70%] top-[17%] left-[9%] overflow-y-scroll genshin-scrollbar xs:top-[22%] xs:w-[84%] xs:h-[63%]'
                 }
             >
-                <p className={'text-2xl text-[#9a8e8e] xs:text-lg'}>
-                    Всего молитв сделано: {history.length}
+                <p className={'text-2xl text-[#9a8e8e] xs:text-base'}>
+                    Всего молитв сделано: {stats.history.length}
                 </p>
-                <div className={'flex flex-col text-2xl gap-4 xs:text-lg xs:flex-row'}>
+                <div className={'flex flex-col text-2xl gap-4 xs:text-base xs:flex-row'}>
                     <div>
                         <p className={'text-[#9659c7]'}>
                             Всего предметов 4★ получено:&nbsp;
-                            {history.filter((wish) => wish.item.rare === '4').length}
+                            {
+                                stats.history.filter((wish) => wish.item.rare === '4')
+                                    .length
+                            }
                         </p>
                         <p className={'text-[#bd6932]'}>
                             Всего предметов 5★ получено:&nbsp;
-                            {history.filter((wish) => wish.item.rare === '5').length}
+                            {
+                                stats.history.filter((wish) => wish.item.rare === '5')
+                                    .length
+                            }
                         </p>
                     </div>
                     {(type === 'CharacterEventWish' || type === 'WeaponEventWish') && (
                         <div>
-                            <GuaranteeStatus bannerType={type} rare={'4'} />
-                            <GuaranteeStatus bannerType={type} rare={'5'} />
+                            <GuaranteeStatus
+                                status={stats.fourStarGuaranteed}
+                                rare={'4'}
+                            />
+                            <GuaranteeStatus
+                                status={stats.fourStarGuaranteed}
+                                rare={'5'}
+                            />
                         </div>
                     )}
                     <div>
@@ -112,7 +136,7 @@ const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
                 </div>
                 <table
                     className={
-                        'absolute w-full h-4/5 border border-[#dac69f] mt-2 text-xl/tight mr-2 xs:text-lg/tight'
+                        'absolute w-full h-4/5 border border-[#dac69f] mt-2 text-xl/tight mr-2 xs:h-auto xs:text-base/tight'
                     }
                 >
                     <thead>
@@ -148,15 +172,15 @@ const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
                         </tr>
                     </thead>
                     <tbody className={'text-[#9a8e8e] bg-[#f6f1e7] text-center'}>
-                        {history
+                        {stats.history
                             .slice((page - 1) * 5, (page - 1) * 5 + 5)
                             .map((wish, index) => (
                                 <tr key={index}>
-                                    <td className={'border border-[#dac69f] p-2'}>
+                                    <td className={'border border-[#dac69f] p-4'}>
                                         {wish.type}
                                     </td>
                                     <td
-                                        className={`border border-[#dac69f] p-2 ${
+                                        className={`border border-[#dac69f] p-4 ${
                                             wish.item.rare === '5'
                                                 ? 'text-[#bd6932]'
                                                 : wish.item.rare === '4' &&
@@ -167,10 +191,10 @@ const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
                                         {Number(wish.item.rare) > 3 &&
                                             ` (${wish.item.rare}★)`}
                                     </td>
-                                    <td className={'border border-[#dac69f] p-2'}>
+                                    <td className={'border border-[#dac69f] p-4'}>
                                         {wish.wishType}
                                     </td>
-                                    <td className={'border border-[#dac69f] p-2'}>
+                                    <td className={'border border-[#dac69f] p-4'}>
                                         {wish.date}
                                     </td>
                                 </tr>
@@ -179,7 +203,7 @@ const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
                 </table>
             </div>
             <TablePagination
-                wishCount={history.length}
+                wishCount={stats.history.length}
                 currentPage={page}
                 setPage={(pageNumber) => setPage(pageNumber)}
             />

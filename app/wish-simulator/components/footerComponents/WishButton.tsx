@@ -5,11 +5,11 @@ import intertwinedFate from '@/public/wish-simulator/assets/intertwined-fate.web
 import acquaintFate from '@/public/wish-simulator/assets/acquaint-fate.webp';
 import { useBannerContext } from '@/app/wish-simulator/BannerProvider';
 import { useCallback } from 'react';
-import { wish } from '@/app/wish-simulator/wishLogic';
 import { BannerItems } from '@/lib/banners';
-import { Character, Weapon } from '@/lib/db/schema';
 import clsx from 'clsx';
 import { useAudioContext } from '@/app/wish-simulator/AudioProvider';
+import { Character, Weapon } from '@/lib/db/schema';
+import { wish } from '@/app/wish-simulator/wishLogic';
 
 const WishButton = ({ count }: { count: number }) => {
     const { audio } = useAudioContext();
@@ -50,8 +50,8 @@ const WishButton = ({ count }: { count: number }) => {
             balance[pullCurrency] -= count;
         }
         let droppedItems: BannerItems = [];
+
         for (let i = 0; i < count; i++) {
-            console.log(drop);
             droppedItems.push(
                 wish(
                     selectedBanner,

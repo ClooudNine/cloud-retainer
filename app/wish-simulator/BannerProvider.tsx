@@ -6,7 +6,12 @@ import React, {
     useEffect,
     useState,
 } from 'react';
-import { initialBalance, initialBannerStats } from '@/lib/constants';
+import {
+    currentGamePhase,
+    currentGameVersion,
+    initialBalance,
+    initialBannerStats,
+} from '@/lib/constants';
 import {
     getBannerDrop,
     getBannersSet,
@@ -57,7 +62,7 @@ export default function BannerProvider({
     weapons,
 }: BannerContextProviderProps) {
     const [currentBanners, setCurrentBanners] = useState<Banners[]>([]);
-    const [selectedBanner, setSelectedBanner] = useState<Banners>(currentBanners[0]);
+    const [selectedBanner, setSelectedBanner] = useState<Banners | null>(null);
     const [featuredItems, setFeaturedItems] = useState<Character[] | Weapon[]>([]);
     const [drop, setDrop] = useState<(Character | Weapon)[]>([]);
 
@@ -71,21 +76,30 @@ export default function BannerProvider({
     const [isChooseVersion, setIsChooseVersion] = useState<boolean>(false);
 
     useEffect(() => {
+        const version = localStorage.getItem('version') ?? currentGameVersion;
+        const phase = localStorage.getItem('phase') ?? currentGamePhase;
+
         const maybeStats = localStorage.getItem('bannerStats');
-        if (maybeStats) {
-            setBannerStats(JSON.parse(maybeStats));
-        }
+        if (maybeStats) setBannerStats(JSON.parse(maybeStats));
 
         const maybeEpitomizedPath = localStorage.getItem('epitomizedPath');
-        if (maybeEpitomizedPath) {
-            setEpitomizedPath(JSON.parse(maybeEpitomizedPath));
-        }
+        if (maybeEpitomizedPath) setEpitomizedPath(JSON.parse(maybeEpitomizedPath));
 
         const maybeBalance = localStorage.getItem('balance');
-        if (maybeBalance) {
-            setBalance(JSON.parse(maybeBalance));
-        }
-    }, []);
+        if (maybeBalance) setBalance(JSON.parse(maybeBalance));
+
+        const baseBannerSet = getBannersSet(
+            banners,
+            Number(version),
+            phase as Phases,
+            maybeStats
+                ? (JSON.parse(maybeStats) as BannerStats).NoviceWish.history.length
+                : 0
+        );
+
+        setCurrentBanners(baseBannerSet);
+        setSelectedBanner(baseBannerSet[0]);
+    }, [banners, characters, weapons]);
 
     useEffect(() => {
         if (bannerStats.NoviceWish.history.length === 20) {
@@ -97,37 +111,44 @@ export default function BannerProvider({
                 return bannersWithoutNoviceWish;
             });
         }
-    }, [bannerStats.NoviceWish.history.length]);
+    }, [bannerStats.NoviceWish.history.length, characters, weapons]);
 
     useEffect(() => {
-        if (
-            selectedBanner.type === 'Standard Wish' ||
-            selectedBanner.type === 'Novice Wish'
-        ) {
-            setPullCurrency('acquaint-fate');
-            setFeaturedItems([]);
-            setDrop(getBannerDrop(selectedBanner, characters, weapons));
-        } else {
-            setPullCurrency('intertwined-fate');
-            getFeaturedItems(selectedBanner.id, selectedBanner.type).then((result) => {
-                setFeaturedItems(result);
-                setDrop(getBannerDrop(selectedBanner, characters, weapons, result));
-            });
+        if (selectedBanner !== null) {
+            if (
+                selectedBanner.type === 'Standard Wish' ||
+                selectedBanner.type === 'Novice Wish'
+            ) {
+                setPullCurrency('acquaint-fate');
+                setFeaturedItems([]);
+                setDrop(getBannerDrop(selectedBanner, characters, weapons));
+            } else {
+                getFeaturedItems(selectedBanner.id, selectedBanner.type).then(
+                    (result) => {
+                        setPullCurrency('intertwined-fate');
+                        setFeaturedItems(result);
+                        setDrop(
+                            getBannerDrop(selectedBanner, characters, weapons, result)
+                        );
+                    }
+                );
+            }
         }
     }, [characters, selectedBanner, weapons]);
 
     const switchBanner = useCallback(
-        (banner: Banners) => {
-            if (banner !== selectedBanner) {
-                setSelectedBanner(banner);
-            }
-        },
+        (banner: Banners) => banner !== selectedBanner && setSelectedBanner(banner),
         [selectedBanner]
     );
 
     const switchVersion = useCallback(
         (version: number, phase: Phases) => {
-            const newBannerSet = getBannersSet(banners, version, phase, bannerStats);
+            const newBannerSet = getBannersSet(
+                banners,
+                version,
+                phase,
+                bannerStats.NoviceWish.history.length
+            );
             setCurrentBanners(newBannerSet);
             setSelectedBanner(newBannerSet[0]);
         },
@@ -135,42 +156,46 @@ export default function BannerProvider({
     );
 
     return (
-        <BannerContext.Provider
-            value={{
-                characters,
-                weapons,
-                currentBanners,
-                selectedBanner,
-                drop,
-                epitomizedPath,
-                bannerStats,
-                featuredItems,
-                pullCurrency,
-                balance,
-                switchBanner,
-                setCurrentBanners,
-                setDroppedItems,
-                setBalance,
-                setEpitomizedPath,
-                setBannerStats,
-            }}
-        >
-            {children}
-            <CloseButton
-                handler={() => setIsChooseVersion(true)}
-                styles={
-                    'absolute top-12 right-5 size-8 xs:max-lg:top-4 lg:top-11 lg:right-8'
-                }
-            />
-            {isChooseVersion && (
-                <ChooseVersion
-                    allBanners={banners}
-                    switchVersion={switchVersion}
-                    closeChooseVersion={() => setIsChooseVersion(false)}
-                />
+        <>
+            {selectedBanner !== null && (
+                <BannerContext.Provider
+                    value={{
+                        characters,
+                        weapons,
+                        currentBanners,
+                        selectedBanner,
+                        drop,
+                        epitomizedPath,
+                        bannerStats,
+                        featuredItems,
+                        pullCurrency,
+                        balance,
+                        switchBanner,
+                        setCurrentBanners,
+                        setDroppedItems,
+                        setBalance,
+                        setEpitomizedPath,
+                        setBannerStats,
+                    }}
+                >
+                    <CloseButton
+                        handler={() => setIsChooseVersion(true)}
+                        styles={
+                            'absolute top-12 right-5 size-8 xs:max-lg:top-4 lg:top-11 lg:right-8'
+                        }
+                    />
+                    {isChooseVersion && (
+                        <ChooseVersion
+                            allBanners={banners}
+                            switchVersion={switchVersion}
+                            closeChooseVersion={() => setIsChooseVersion(false)}
+                        />
+                    )}
+                    {droppedItems.length > 0 && <WishDrop droppedItems={droppedItems} />}
+                    {children}
+                </BannerContext.Provider>
             )}
-            {droppedItems.length > 0 && <WishDrop droppedItems={droppedItems} />}
-        </BannerContext.Provider>
+        </>
     );
 }
 

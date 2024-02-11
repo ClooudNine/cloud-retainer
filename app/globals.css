@@ -85,8 +85,8 @@
     }
 }
 
-:root{
-    font-size: max(5px, 1.1vmax);
+:root {
+    font-size: 1.1vmax;
 }
 
 * {
