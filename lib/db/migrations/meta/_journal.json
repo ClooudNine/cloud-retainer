@@ -1,0 +1,41 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1707826515917,
+      "tag": "0000_lying_vision",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1708364375639,
+      "tag": "0001_flashy_luckman",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1708365862604,
+      "tag": "0002_slippery_proteus",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1708377942793,
+      "tag": "0003_melodic_medusa",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1708380961591,
+      "tag": "0004_abandoned_jocasta",
+      "breakpoints": true
+    }
+  ]
+}

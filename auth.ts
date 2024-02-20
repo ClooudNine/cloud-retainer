@@ -1,4 +1,4 @@
-import NextAuth from 'next-auth';
+import NextAuth, { DefaultSession } from 'next-auth';
 import { DrizzleAdapter } from '@auth/drizzle-adapter';
 import { db } from '@/lib/db';
 import Credentials from '@auth/core/providers/credentials';
@@ -9,9 +9,13 @@ import bcrypt from 'bcrypt';
 import { authConfig } from '@/auth.config';
 import { getUserById } from '@/data/user';
 
+export type ExtendedUser = DefaultSession['user'] & {
+    role: UserRoles;
+};
+
 declare module 'next-auth' {
-    interface User {
-        role: UserRoles;
+    interface Session {
+        user: ExtendedUser;
     }
 }
 export const {
