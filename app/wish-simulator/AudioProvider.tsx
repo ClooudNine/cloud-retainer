@@ -15,10 +15,17 @@ export default function AudioProvider({ children }: { children: React.ReactNode 
     );
 
     useEffect(() => {
-        if (audio.current) {
-            audio.current.autoplay = true;
-            audio.current.loop = true;
+        const music = audio.current;
+        if (music) {
+            music.autoplay = true;
+            music.loop = true;
         }
+
+        return () => {
+            if (music) {
+                music.remove();
+            }
+        };
     }, []);
 
     return <AudioContext.Provider value={{ audio }}>{children}</AudioContext.Provider>;

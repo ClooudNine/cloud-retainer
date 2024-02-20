@@ -243,7 +243,7 @@ const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
                 draggable={false}
                 className={'-z-10 object-cover'}
             />
-            {currentItemIndex < pullCounts ? (
+            {currentItemIndex < (pullCounts === 10 ? pullCounts : 0) ? (
                 <div
                     onClick={() => {
                         setIsVideoPlaying(false);
