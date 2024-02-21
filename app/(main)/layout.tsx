@@ -1,21 +1,23 @@
-import Link from 'next/link';
-import { auth, signOut } from '@/auth';
 import Logo from '@/components/main-page/logo';
-import Image from 'next/image';
-import xianyun from '@/public/common/Xianyun_Profile.webp';
+import Link from 'next/link';
 import WishStarsIcon from '@/components/icons/wish-stars';
 import CharacterIcon from '@/components/icons/character';
-import RegisterIcon from '@/components/icons/register';
+import ToolsIcon from '@/components/icons/tools';
 import UserIcon from '@/components/icons/user';
+import { signOut } from '@/auth';
 import LogoutIcon from '@/components/icons/logout';
+import RegisterIcon from '@/components/icons/register';
+import { currentUser } from '@/lib/auth';
+import LoginIcon from '@/components/icons/login';
 
-export default async function Main() {
-    const session = await auth();
+export default async function MainLayout({ children }: { children: React.ReactNode }) {
+    const user = await currentUser();
+
     return (
-        <main className={'w-full h-full font-genshin flex'}>
+        <main className={'h-full flex overflow-hidden'}>
             <aside
                 className={
-                    'h-full flex justify-between items-center flex-col py-8 w-64 bg-gray-200 rounded-r-2xl drop-shadow-2xl'
+                    'flex justify-between items-center flex-col py-8 w-64 bg-gray-200 rounded-r-2xl drop-shadow-2xl'
                 }
             >
                 <Logo />
@@ -23,7 +25,7 @@ export default async function Main() {
                     <Link
                         href={'/wish-simulator'}
                         className={
-                            'flex items-center gap-2 rounded-lg p-2 bg-gray-300 transition duration-500 hover:-translate-y-1 hover:drop-shadow-[0_15px_15px_rgba(0,0,0,1)]'
+                            'flex h-12 items-center gap-2 rounded-lg p-2 bg-gray-300 transition duration-500 hover:-translate-y-1 hover:drop-shadow-[0_15px_15px_rgba(0,0,0,1)]'
                         }
                     >
                         <WishStarsIcon />
@@ -32,14 +34,25 @@ export default async function Main() {
                     <Link
                         href={'/characters'}
                         className={
-                            'flex items-center gap-2 rounded-lg p-1 bg-gray-300 transition duration-500 hover:-translate-y-1 hover:drop-shadow-[0_15px_15px_rgba(0,0,0,1)]'
+                            'flex h-12 items-center gap-2 rounded-lg p-2 bg-gray-300 transition duration-500 hover:-translate-y-1 hover:drop-shadow-[0_15px_15px_rgba(0,0,0,1)]'
                         }
                     >
                         <CharacterIcon />
                         Персонажи
                     </Link>
+                    {user?.role === 'Admin' && (
+                        <Link
+                            href={'/admin'}
+                            className={
+                                'flex h-12 items-center gap-2 rounded-lg p-2 bg-gray-300 transition duration-500 hover:-translate-y-1 hover:drop-shadow-[0_15px_15px_rgba(0,0,0,1)]'
+                            }
+                        >
+                            <ToolsIcon />
+                            Админ-панель
+                        </Link>
+                    )}
                 </div>
-                {session ? (
+                {user ? (
                     <div className={'flex gap-2'}>
                         <div
                             className={
@@ -47,7 +60,7 @@ export default async function Main() {
                             }
                         >
                             <UserIcon />
-                            {session.user?.name}
+                            {user.name}
                         </div>
                         <form
                             action={async () => {
@@ -55,16 +68,16 @@ export default async function Main() {
                                 await signOut();
                             }}
                             className={
-                                'bg-red-300 flex items-center justify-center rounded-lg px-2 transition hover:bg-red-400'
+                                'bg-red-300 flex items-center rounded-lg px-2 transition hover:bg-red-400 hover:scale-105'
                             }
                         >
-                            <button>
+                            <button type={'submit'}>
                                 <LogoutIcon />
                             </button>
                         </form>
                     </div>
                 ) : (
-                    <div className={'flex flex-col gap-4'}>
+                    <div className={'flex flex-col gap-3'}>
                         <Link
                             className={
                                 'flex items-center px-6 py-1 gap-4 bg-teal-300 rounded-lg transition ease-in hover:scale-105 hover:bg-teal-200'
@@ -80,31 +93,13 @@ export default async function Main() {
                             }
                             href={'/login'}
                         >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                height="40"
-                                viewBox="0 -960 960 960"
-                                width="40"
-                            >
-                                <path d="M472-86v-126h276v-536H472v-126h276q53 0 89.5 36.5T874-748v536q0 53-36.5 89.5T748-86H472ZM361-232l-88-89 96-96H86v-126h283l-96-96 88-89 247 248-247 248Z" />
-                            </svg>
+                            <LoginIcon />
                             Войти
                         </Link>
                     </div>
                 )}
             </aside>
-            <section className={'flex-1 rounded-lg'}>
-                <Image
-                    src={xianyun}
-                    alt={'Xianyun'}
-                    fill
-                    quality={100}
-                    className={'-z-10 object-contain object-right-bottom'}
-                />
-                <h1 className={'text-5xl/loose'}>
-                    ТВОЙ ЛУЧШИЙ ПОМОЩНИК В МИРЕ GENSHIN IMPACT
-                </h1>
-            </section>
+            {children}
         </main>
     );
 }

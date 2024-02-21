@@ -5,9 +5,11 @@ import CharactersList from '@/components/characters/characters-list';
 export default async function Characters() {
     const allCharacters = await db.select().from(characters);
     return (
-        <main className={'w-full h-full flex-1 font-genshin'}>
+        <section
+            className={'w-full h-full flex-1 overflow-y-scroll genshin-scrollbar px-4'}
+        >
             <h1>Here characters!</h1>
             <CharactersList characters={allCharacters} />
-        </main>
+        </section>
     );
 }

@@ -1,18 +1,9 @@
 'use client';
-const CloseButton = ({
-    handler,
-    styles,
-}: {
-    handler: (() => void) | undefined;
-    styles: string;
-}) => {
+const CloseButton = ({ handler, styles }: { handler: () => void; styles: string }) => {
     return (
         <button
-            aria-label={'Закрыть'}
-            className={
-                styles +
-                ' rounded-full transition bg-[#ede6d6] ring-4 ring-[rgba(237,230,214,0.5)] cursor-genshin hover:ring-[#fcfdff] hover:ring-4 hover:drop-shadow-[0_0_5px_rgba(255,255,255,1)] active:ring-[#7a8ca4] active:ring-4 active:bg-[#c8c4bb] lg:ring-8'
-            }
+            aria-label={'Назад'}
+            className={`${styles} rounded-full transition bg-[#ede6d6] ring-4 ring-[rgba(237,230,214,0.5)] cursor-genshin hover:ring-[#fcfdff] hover:ring-4 hover:drop-shadow-[0_0_5px_rgba(255,255,255,1)] active:ring-[#7a8ca4] active:ring-4 active:bg-[#c8c4bb] lg:ring-8`}
             onClick={handler}
         >
             <svg

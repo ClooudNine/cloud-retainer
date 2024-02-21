@@ -12,7 +12,7 @@ import { BalanceStats } from '@/lib/banners';
 import { initialBalance } from '@/lib/constants';
 
 export default function GenesisCrystals() {
-    const { audio } = useAudioContext();
+    const { audioRef } = useAudioContext();
     const router = useRouter();
     const crystalsCount = [60, 300, 980, 1980, 3280, 6480];
 
@@ -27,18 +27,19 @@ export default function GenesisCrystals() {
     }, []);
 
     useEffect(() => {
-        const currentAudio = audio.current;
+        const currentAudio = audioRef.current;
         if (currentAudio) {
             currentAudio.pause();
             currentAudio.currentTime = 0;
         }
+
         const balance = localStorage.getItem('balance');
         if (balance) setBalance(JSON.parse(balance));
 
         return () => {
-            if (currentAudio) currentAudio.play();
+            currentAudio?.play();
         };
-    }, [audio]);
+    }, [audioRef]);
 
     return (
         <>

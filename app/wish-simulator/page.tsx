@@ -9,6 +9,7 @@ import Footer from '@/app/wish-simulator/components/footerComponents/Footer';
 import { getCharactersFromWishes } from '@/data/character';
 import { getWeaponsFromWishes } from '@/data/weapon';
 import { getAllBanners } from '@/data/banner';
+import React from 'react';
 
 export const metadata = {
     title: 'Cloud Retainer | Симулятор молитв',

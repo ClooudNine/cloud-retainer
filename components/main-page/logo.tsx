@@ -3,7 +3,7 @@ import logo from '@/public/common/logo.webp';
 
 const Logo = () => {
     return (
-        <div className={'flex items-center drop-shadow-2xl text-3xl/tight'}>
+        <div className={'flex items-center text-3xl/tight'}>
             <p className={'drop-shadow-[0_1px_10px_rgba(0,0,0,1)]'}>
                 Cloud
                 <br /> Retainer

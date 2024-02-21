@@ -27,8 +27,9 @@ import {
     PullCurrency,
 } from '@/lib/banners';
 import { Character, Phases, Weapon } from '@/lib/db/schema';
-import CloseButton from '@/app/wish-simulator/components/headerComponents/CloseButton';
 import ChooseVersion from '@/app/wish-simulator/components/ChooseVersion';
+import { useRouter } from 'next/navigation';
+import CloseButton from '@/app/wish-simulator/components/headerComponents/CloseButton';
 
 type BannerContextProviderProps = {
     children: React.ReactNode;
@@ -61,6 +62,8 @@ export default function BannerProvider({
     characters,
     weapons,
 }: BannerContextProviderProps) {
+    const router = useRouter();
+
     const [currentBanners, setCurrentBanners] = useState<Banners[]>([]);
     const [selectedBanner, setSelectedBanner] = useState<Banners | null>(null);
     const [featuredItems, setFeaturedItems] = useState<Character[] | Weapon[]>([]);
@@ -73,6 +76,7 @@ export default function BannerProvider({
     const [balance, setBalance] = useState<BalanceStats>(initialBalance);
 
     const [droppedItems, setDroppedItems] = useState<BannerItems>([]);
+
     const [isChooseVersion, setIsChooseVersion] = useState<boolean>(false);
 
     useEffect(() => {
@@ -179,7 +183,7 @@ export default function BannerProvider({
                     }}
                 >
                     <CloseButton
-                        handler={() => setIsChooseVersion(true)}
+                        handler={() => router.push('/')}
                         styles={
                             'absolute top-12 right-5 size-8 xs:max-lg:top-4 lg:top-11 lg:right-8'
                         }

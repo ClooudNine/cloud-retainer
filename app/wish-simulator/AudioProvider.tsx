@@ -2,33 +2,27 @@
 import React, { createContext, useContext, useEffect, useRef } from 'react';
 
 type AudioProvider = {
-    audio: React.MutableRefObject<HTMLAudioElement | undefined>;
+    audioRef: React.MutableRefObject<HTMLAudioElement | null>;
 };
 
 export const AudioContext = createContext<AudioProvider | null>(null);
 
 export default function AudioProvider({ children }: { children: React.ReactNode }) {
-    const audio = useRef<HTMLAudioElement | undefined>(
-        typeof Audio !== 'undefined'
-            ? new Audio('/sounds/statue-of-the-seven.mp3')
-            : undefined
-    );
+    const audioRef = useRef<HTMLAudioElement | null>(null);
 
     useEffect(() => {
-        const music = audio.current;
-        if (music) {
-            music.autoplay = true;
-            music.loop = true;
-        }
+        const audio = new Audio('/sounds/statue-of-the-seven.mp3');
+        audio.autoplay = true;
+        audio.loop = true;
+
+        audioRef.current = audio;
 
         return () => {
-            if (music) {
-                music.remove();
-            }
+            audio.pause();
         };
     }, []);
 
-    return <AudioContext.Provider value={{ audio }}>{children}</AudioContext.Provider>;
+    return <AudioContext.Provider value={{ audioRef }}>{children}</AudioContext.Provider>;
 }
 
 export const useAudioContext = () => {

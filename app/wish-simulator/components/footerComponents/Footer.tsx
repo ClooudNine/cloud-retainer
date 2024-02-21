@@ -1,11 +1,7 @@
 import Links from '@/app/wish-simulator/components/footerComponents/Links';
 import WishButton from '@/app/wish-simulator/components/footerComponents/WishButton';
-import SettingsIcon from '@/components/icons/settings';
-import { currentRole } from '@/lib/auth';
-import EditBannersButton from '@/app/wish-simulator/components/footerComponents/EditBannersButton';
 
 const Footer = async () => {
-    const userRole = await currentRole();
     return (
         <div
             className={
@@ -13,7 +9,6 @@ const Footer = async () => {
             }
         >
             <Links />
-            {userRole === 'Admin' && <EditBannersButton />}
             <div
                 className={
                     'flex justify-end flex-col gap-3 xs:max-lg:flex-wrap xs:flex-row'

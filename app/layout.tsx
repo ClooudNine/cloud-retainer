@@ -1,6 +1,7 @@
 import './globals.css';
 import localFont from 'next/font/local';
 import Script from 'next/script';
+import { cn } from '@/lib/utils';
 
 export const metadata = {
     title: 'Cloud Retainer | Best Genshin Impact Companion',
@@ -17,8 +18,15 @@ const genshinFont = localFont({
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="ru" className={`${genshinFont.variable}`}>
-            <body>{children}</body>
+        <html lang="ru" className={'h-full text-[1.1vmax]'}>
+            <body
+                className={cn(
+                    'h-full bg-background font-genshin antialiased',
+                    genshinFont.variable
+                )}
+            >
+                {children}
+            </body>
             <Script
                 data-domain={'retainer.cloud'}
                 data-api={'/informant/icy-leaf-47fa/event'}

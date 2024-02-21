@@ -4,7 +4,7 @@ const UserIcon = () => {
             fill="none"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
-            className={'w-8'}
+            className={'w-6'}
         >
             <g stroke="#000">
                 <path
