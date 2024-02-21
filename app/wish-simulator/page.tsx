@@ -1,26 +1,14 @@
 import Background from '@/app/wish-simulator/components/Background';
 import Banner from '@/app/wish-simulator/components/bannerOverview/Banner';
 import BannerProvider from '@/app/wish-simulator/BannerProvider';
-import {
-    Character,
-    CharacterBanner,
-    characterBanners,
-    characters,
-    StandardBanner,
-    standardBanners,
-    Weapon,
-    WeaponBanner,
-    weaponBanners,
-    weapons,
-} from '@/lib/db/schema';
-import { db } from '@/lib/db';
-import { isNotNull } from 'drizzle-orm';
 import Title from '@/app/wish-simulator/components/headerComponents/Title';
 import BannerList from '@/app/wish-simulator/components/headerComponents/BannerList';
 import CurrentBalance from '@/app/wish-simulator/components/headerComponents/CurrentBalance';
 import MasterlessCurrency from '@/app/wish-simulator/components/footerComponents/MasterlessCurrency';
-import Links from '@/app/wish-simulator/components/footerComponents/Links';
-import WishButton from '@/app/wish-simulator/components/footerComponents/WishButton';
+import Footer from '@/app/wish-simulator/components/footerComponents/Footer';
+import { getCharactersFromWishes } from '@/data/character';
+import { getWeaponsFromWishes } from '@/data/weapon';
+import { getAllBanners } from '@/data/banner';
 
 export const metadata = {
     title: 'Cloud Retainer | Симулятор молитв',
@@ -30,33 +18,17 @@ export const metadata = {
 export const dynamic = 'force-dynamic';
 
 export default async function WishSimulator() {
-    const allCharactersBanners: CharacterBanner[] = await db
-        .select()
-        .from(characterBanners);
+    const allBanners = await getAllBanners();
 
-    const allWeaponBanners: WeaponBanner[] = await db.select().from(weaponBanners);
+    const charactersFromWishes = await getCharactersFromWishes();
 
-    const allStandardBanners: StandardBanner[] = await db.select().from(standardBanners);
+    const weaponsFromWishes = await getWeaponsFromWishes();
 
-    const charactersFromWishes: Character[] = await db
-        .select()
-        .from(characters)
-        .where(isNotNull(characters.inStandardWish));
-
-    const weaponsFromWishes: Weapon[] = await db
-        .select()
-        .from(weapons)
-        .where(isNotNull(weapons.inStandardWish));
-
-    if (
-        allCharactersBanners === null ||
-        allWeaponBanners === null ||
-        allStandardBanners === null
-    ) {
+    if (allBanners === null) {
         return (
             <div
                 className={
-                    'w-full h-full flex justify-center items-center text-9xl font-genshin'
+                    'w-full h-full flex justify-center items-center text-5xl font-genshin'
                 }
             >
                 Banners fetch error!
@@ -68,7 +40,7 @@ export default async function WishSimulator() {
         return (
             <div
                 className={
-                    'w-full h-full flex justify-center items-center text-9xl font-genshin'
+                    'w-full h-full flex justify-center items-center text-5xl font-genshin'
                 }
             >
                 Characters or weapons fetch error!
@@ -85,11 +57,7 @@ export default async function WishSimulator() {
             <Background isBlurred={false} />
             <Title />
             <BannerProvider
-                banners={[
-                    ...allCharactersBanners,
-                    ...allWeaponBanners,
-                    ...allStandardBanners,
-                ]}
+                banners={allBanners}
                 characters={charactersFromWishes}
                 weapons={weaponsFromWishes}
             >
@@ -97,21 +65,7 @@ export default async function WishSimulator() {
                 <CurrentBalance />
                 <Banner />
                 <MasterlessCurrency />
-                <div
-                    className={
-                        'z-10 absolute w-full bottom-4 px-2 flex justify-between items-end gap-3 xs:max-lg:pl-32 xs:px-16'
-                    }
-                >
-                    <Links />
-                    <div
-                        className={
-                            'flex justify-end flex-col gap-3 xs:max-lg:flex-wrap xs:flex-row'
-                        }
-                    >
-                        <WishButton count={1} />
-                        <WishButton count={10} />
-                    </div>
-                </div>
+                <Footer />
             </BannerProvider>
         </main>
     );

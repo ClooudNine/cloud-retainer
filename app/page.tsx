@@ -41,7 +41,6 @@ export default async function Main() {
                 </div>
                 {session ? (
                     <div className={'flex gap-2'}>
-                        {JSON.stringify(session)}
                         <div
                             className={
                                 'flex items-center gap-2 bg-teal-300 px-4 py-2 rounded-lg'
