@@ -3,6 +3,7 @@
 import {
     BannerTypes,
     characterBanners,
+    insertCharacterBannerSchema,
     standardBanners,
     weaponBanners,
 } from '@/lib/db/schema';
@@ -23,5 +24,17 @@ export const deleteBanner = async (id: number, type: BannerTypes) => {
         return { success: 'Баннер успешно удалён!' };
     } catch {
         return { error: 'Ошибка при удалении баннера!' };
+    }
+};
+
+export const editCharacterBanner = async (id: number, formData: FormData) => {
+    try {
+        const validatedFields = insertCharacterBannerSchema.safeParse({
+            email: formData.get('title'),
+            username: formData.get('username'),
+            password: formData.get('password'),
+        });
+    } catch {
+        return null;
     }
 };

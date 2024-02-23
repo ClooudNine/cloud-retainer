@@ -15,6 +15,7 @@ import {
 import { relations } from 'drizzle-orm';
 import { AdapterAccount } from '@auth/core/adapters';
 import * as z from 'zod';
+import { createInsertSchema } from 'drizzle-zod';
 export const raresEnum = pgEnum('rares', ['1', '2', '3', '4', '5']);
 export const phasesEnum = pgEnum('phases', ['1', '2']);
 export const elementsEnum = pgEnum('elements', [
@@ -81,7 +82,7 @@ export const characterBanners = pgTable('character_banners', {
         .references(() => characters.id, { onDelete: 'cascade' }),
     version: real('version').notNull(),
     phase: phasesEnum('phase').notNull(),
-    rerunNumber: integer('rerun_number'),
+    rerunNumber: integer('rerun_number').notNull(),
     type: bannerTypesEnum('banner_type').notNull(),
     textParameters: json('text_parameters').$type<{ r: string; b: string }>().notNull(),
 });
@@ -258,6 +259,23 @@ export const LoginSchema = z.object({
     password: z.string().min(1, { message: 'Поле "Пароль" является обязательным' }),
 });
 
+export const CharacterBannersSchema = z.object({
+    id: z.number().int().optional(),
+    title: z.string().max(30),
+    mainCharacterId: z.number().int().positive(),
+    featuredCharactersId: z.array(z.number()),
+    version: z.number().positive(),
+    phase: z.enum(phasesEnum.enumValues),
+    rerunNumber: z.number().int().nonnegative(),
+    type: z.enum(bannerTypesEnum.enumValues),
+    textParameters: z.object({
+        r: z.string(),
+        b: z.string(),
+    }),
+});
+
+export const insertCharacterBannerSchema = createInsertSchema(characterBanners);
+
 export type CharacterBanner = typeof characterBanners.$inferSelect;
 export type WeaponBanner = typeof weaponBanners.$inferSelect;
 export type StandardBanner = typeof standardBanners.$inferSelect;
@@ -270,5 +288,4 @@ export type WeaponType = (typeof weaponTypesEnum.enumValues)[number];
 export type Phases = (typeof phasesEnum.enumValues)[number];
 export type Rares = (typeof raresEnum.enumValues)[number];
 export type Elements = (typeof elementsEnum.enumValues)[number];
-
 export type UserRoles = (typeof userRolesEnum.enumValues)[number];

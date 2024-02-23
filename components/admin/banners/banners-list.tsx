@@ -1,11 +1,24 @@
+'use client';
 import { Banners } from '@/lib/banners';
 import Image from 'next/image';
 import { getPreviewUrl } from '@/app/wish-simulator/utils';
 import striptags from 'striptags';
-import EditBannerButton from '@/components/admin/banners/edit-banner-button';
 import DeleteBannerButton from '@/components/admin/banners/delete-banner-button';
+import CharacterBannerForm from '@/components/admin/banners/character-banner-form';
+import { Character, Weapon } from '@/lib/db/schema';
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import PencilIcon from '@/components/icons/pencil';
 
-const BannersList = ({ banners }: { banners: Banners[] }) => {
+const BannersList = ({
+    banners,
+    characters,
+}: {
+    banners: Banners[];
+    characters: Character[];
+}) => {
+    const [editedBanner, setEditedBanner] = useState<Banners | null>(null);
+
     return (
         <div
             className={
@@ -27,7 +40,9 @@ const BannersList = ({ banners }: { banners: Banners[] }) => {
                                 'absolute flex opacity-0 flex-col gap-1 top-1 right-1 transition group-hover:opacity-100'
                             }
                         >
-                            <EditBannerButton />
+                            <Button onClick={() => setEditedBanner(banner)}>
+                                <PencilIcon />
+                            </Button>
                             <DeleteBannerButton id={banner.id} type={banner.type} />
                         </div>
                         <Image
@@ -43,6 +58,9 @@ const BannersList = ({ banners }: { banners: Banners[] }) => {
                         }`}</p>
                     </div>
                 ))}
+            {editedBanner && 'rerunNumber' in editedBanner && (
+                <CharacterBannerForm banner={editedBanner} characters={characters} />
+            )}
         </div>
     );
 };
