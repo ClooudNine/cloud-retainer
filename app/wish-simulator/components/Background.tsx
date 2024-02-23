@@ -3,13 +3,13 @@ import wishSimulatorBackground from '@/public/wish-simulator/assets/wish-simulat
 import clsx from 'clsx';
 
 const Background = ({ isBlurred }: { isBlurred: boolean }) => {
-    const backgroundClasses = clsx('object-cover object-left', { blur: isBlurred });
+    const backgroundClasses = clsx('-z-10 object-cover object-left', { blur: isBlurred });
 
     return (
         <div className={'-z-10 fixed w-full h-full'}>
             <div
                 className={
-                    'z-10 absolute w-full h-full shadow-[0_-50px_100px_50px_rgba(0,0,0,0.25)_inset]'
+                    'w-full h-full shadow-[0_-50px_100px_50px_rgba(0,0,0,0.25)_inset]'
                 }
             ></div>
             <Image

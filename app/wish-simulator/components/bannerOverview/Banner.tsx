@@ -20,7 +20,7 @@ import {
     Weapon,
     WeaponBanner,
 } from '@/lib/db/schema';
-import StarIcon from '@/app/wish-simulator/components/icons/StarIcon';
+import Star from '@/components/icons/star';
 
 const renderCharacterName = (character: Character, offsets: { r: string; b: string }) => {
     return (
@@ -263,7 +263,7 @@ const Banner = () => {
                                 {bannerSecondTitle[selectedBanner.type]}
                             </p>
                             <div dir={'ltr'} className={rulesClasses}>
-                                <StarIcon styles={'fill-white w-8 pl-1'} />
+                                <Star styles={'fill-white w-8 pl-1'} />
                                 <p className={'text-white text-sm'}>
                                     Every 10 wishes is guaranteed to include at least one
                                     4-star or higher item.

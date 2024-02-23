@@ -16,7 +16,7 @@ import { BalanceStats, PullCurrency, PurchasesCurrency } from '@/lib/banners';
 import { initialBalance } from '@/lib/constants';
 
 export default function PaimonBargain() {
-    const { audioRef } = useAudioContext();
+    const { audio } = useAudioContext();
     const router = useRouter();
 
     const [balance, setBalance] = useState<BalanceStats>(initialBalance);
@@ -33,19 +33,18 @@ export default function PaimonBargain() {
     }, []);
 
     useEffect(() => {
-        const currentAudio = audioRef.current;
-        if (currentAudio) {
-            currentAudio.pause();
-            currentAudio.currentTime = 0;
+        if (audio) {
+            audio.pause();
+            audio.currentTime = 0;
         }
 
         const balance = localStorage.getItem('balance');
         if (balance) setBalance(JSON.parse(balance));
 
         return () => {
-            currentAudio?.play();
+            audio?.play();
         };
-    }, [audioRef]);
+    }, [audio]);
 
     return (
         <>

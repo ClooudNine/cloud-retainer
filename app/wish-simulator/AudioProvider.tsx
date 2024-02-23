@@ -1,28 +1,28 @@
 'use client';
-import React, { createContext, useContext, useEffect, useRef } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 type AudioProvider = {
-    audioRef: React.MutableRefObject<HTMLAudioElement | null>;
+    audio: HTMLAudioElement | null;
 };
 
 export const AudioContext = createContext<AudioProvider | null>(null);
 
 export default function AudioProvider({ children }: { children: React.ReactNode }) {
-    const audioRef = useRef<HTMLAudioElement | null>(null);
+    const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
 
     useEffect(() => {
-        const audio = new Audio('/sounds/statue-of-the-seven.mp3');
-        audio.autoplay = true;
-        audio.loop = true;
+        const backgroundMusic = new Audio('/sounds/statue-of-the-seven.mp3');
+        backgroundMusic.autoplay = true;
+        backgroundMusic.loop = true;
 
-        audioRef.current = audio;
+        setAudio(backgroundMusic);
 
         return () => {
-            audio.pause();
+            backgroundMusic.pause();
         };
     }, []);
 
-    return <AudioContext.Provider value={{ audioRef }}>{children}</AudioContext.Provider>;
+    return <AudioContext.Provider value={{ audio }}>{children}</AudioContext.Provider>;
 }
 
 export const useAudioContext = () => {

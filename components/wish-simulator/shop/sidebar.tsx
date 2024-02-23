@@ -1,12 +1,12 @@
 import Image from 'next/image';
 import shopIcon from '@/public/wish-simulator/assets/shop/icon-shop.webp';
-import SidebarButton from '@/app/wish-simulator/shop/components/SidebarButton';
+import SidebarButton from '@/components/wish-simulator/shop/sidebar-button';
 
 const Sidebar = () => {
     return (
         <aside
             className={
-                'z-10 w-full bg-gradient-to-b from-[#4b5265] fixed bottom-0 border-x-2 border-x-[#858282] xs:w-60 xs:static xs:h-full'
+                'w-full bg-gradient-to-b from-[#4b5265] fixed bottom-0 border-x-2 border-x-[#858282] xs:w-60 xs:static xs:h-full'
             }
         >
             <div
@@ -18,7 +18,6 @@ const Sidebar = () => {
                     src={shopIcon}
                     alt={'Иконка магазина'}
                     quality={100}
-                    draggable={false}
                     className={
                         'absolute top-0 left-2 h-[120%] w-auto opacity-30 brightness-50'
                     }

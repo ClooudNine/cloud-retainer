@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import rareStar from '@/public/common/star.webp';
 import fiveStarItemBackground from '@/public/common/items-backgrounds-by-rarity/background-item-5-star.webp';
-import StarIcon from '@/app/wish-simulator/components/icons/StarIcon';
+import Star from '@/components/icons/star';
 import stars from '@/public/wish-simulator/assets/stars-animation.webp';
 import { playSfxEffect } from '@/app/wish-simulator/utils';
 import { useCallback } from 'react';
@@ -45,9 +45,9 @@ const ObtainItemScreen = ({
             />
             <div className={'flex flex-col items-center gap-6 animate-modal-appearance'}>
                 <div className={'flex gap-4 items-center'}>
-                    <StarIcon styles={'size-[2vh] fill-[#d6bb8e] -mb-[15%]'} />
+                    <Star styles={'size-[2vh] fill-[#d6bb8e] -mb-[15%]'} />
                     <p className={'text-[#d6bb8e] text-[4vh]'}>Получено:</p>
-                    <StarIcon styles={'size-[4vh] fill-[#d6bb8e] -mt-[15%]'} />
+                    <Star styles={'size-[4vh] fill-[#d6bb8e] -mt-[15%]'} />
                 </div>
                 <div
                     className={
