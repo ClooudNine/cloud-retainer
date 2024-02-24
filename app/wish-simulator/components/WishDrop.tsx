@@ -13,7 +13,7 @@ import { Character, Weapon } from '@/lib/db/schema';
 import { BannerItems } from '@/lib/banners';
 import { useAudioContext } from '@/app/wish-simulator/AudioProvider';
 import clsx from 'clsx';
-import CloseButton from '@/app/wish-simulator/components/headerComponents/CloseButton';
+import CloseButton from '@/components/wish-simulator/close-button';
 
 const renderWeaponResult = (weapon: Weapon) => {
     const masterlessCurrencyClasses = clsx(

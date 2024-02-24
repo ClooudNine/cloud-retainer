@@ -1,12 +1,10 @@
 import { getAllBanners } from '@/data/banner';
 import BannersList from '@/components/admin/banners/banners-list';
 import { getAllCharacters } from '@/data/character';
-import { getAllWeapons } from '@/data/weapon';
 
 export default async function AdminBanners() {
     const allBanners = await getAllBanners();
     const characters = await getAllCharacters();
-    const weapons = await getAllWeapons();
 
     return (
         <section className={'flex-1 h-full'}>
@@ -17,7 +15,7 @@ export default async function AdminBanners() {
             >
                 Редактор баннеров
             </h1>
-            <BannersList banners={allBanners} characters={characters} weapons={weapons} />
+            <BannersList banners={allBanners} characters={characters} />
         </section>
     );
 }

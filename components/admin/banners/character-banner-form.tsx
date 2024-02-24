@@ -14,7 +14,7 @@ import { editCharacterBanner } from '@/actions/banner';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import Image from 'next/image';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { getFeaturedItems, getPreviewUrl } from '@/app/wish-simulator/utils';
 import { Character, CharacterBanner, CharacterBannersSchema } from '@/lib/db/schema';
 import { getCharacterById } from '@/lib/character';
@@ -47,8 +47,6 @@ const CharacterBannerForm = ({
     banner: CharacterBanner;
     characters: Character[];
 }) => {
-    const editCharacterBannerWithId = editCharacterBanner.bind(null, banner.id);
-
     const form = useForm<z.infer<typeof CharacterBannersSchema>>({
         resolver: zodResolver(CharacterBannersSchema),
         defaultValues: {
@@ -58,12 +56,13 @@ const CharacterBannerForm = ({
             version: banner.version,
             phase: banner.phase,
             rerunNumber: banner.rerunNumber,
+            image: undefined,
             type: banner.type,
             textParameters: banner.textParameters,
         },
     });
 
-    const [newBannerImageUrl, setNewBannerImageUrl] = useState<string | null>(null);
+    const editCharacterBannerWithId = editCharacterBanner.bind(null, banner.id);
 
     useEffect(() => {
         getFeaturedItems(banner.id, banner.type).then((featuredItems) =>
@@ -74,11 +73,6 @@ const CharacterBannerForm = ({
         );
     }, [banner.id, banner.type, form]);
 
-    const handleImageChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
-        const file = target.files && target.files[0];
-        if (file) setNewBannerImageUrl(URL.createObjectURL(file));
-    };
-
     return (
         <Dialog open>
             <DialogContent className={'sm:max-w-[75vw]'}>
@@ -88,7 +82,7 @@ const CharacterBannerForm = ({
                             <DialogTitle>Редактировать баннер персонажа</DialogTitle>
                         </DialogHeader>
                         <div className="flex gap-4 h-fit">
-                            <div className={'w-2/5 space-y-12'}>
+                            <div className={'w-2/5'}>
                                 <FormField
                                     control={form.control}
                                     name="title"
@@ -449,8 +443,8 @@ const CharacterBannerForm = ({
                             <div className={'relative w-3/5 rounded-lg overflow-hidden'}>
                                 <Image
                                     src={
-                                        newBannerImageUrl
-                                            ? newBannerImageUrl
+                                        form.watch('image')
+                                            ? URL.createObjectURL(form.watch('image'))
                                             : `/wish-simulator/banners/${getPreviewUrl(
                                                   banner
                                               )}.webp`
@@ -460,15 +454,30 @@ const CharacterBannerForm = ({
                                     quality={100}
                                     className={'object-cover'}
                                 />
-                                <Input
-                                    id={'pickImage'}
-                                    type={'file'}
-                                    onChange={handleImageChange}
-                                    accept={'image/*'}
-                                    className={'relative z-10'}
-                                />
                             </div>
                         </div>
+                        <FormField
+                            control={form.control}
+                            name="image"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Изображение</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            onChange={(e) => {
+                                                // Convert the FileList to an array and update the form state
+                                                const filesArray = Array.from(
+                                                    e.target.files || []
+                                                );
+                                                field.onChange(filesArray[0]);
+                                            }}
+                                            type={'file'}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
                         <DialogFooter className={'mt-4'}>
                             <DialogClose>
                                 <Button type="button" variant="secondary">

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import primogem from '@/public/wish-simulator/assets/primogems.webp';
 import { useBannerContext } from '@/app/wish-simulator/BannerProvider';
 import { useState } from 'react';
-import CurrencyExchanger from '@/app/wish-simulator/components/CurrencyExchanger';
+import CurrencyExchanger from '@/components/wish-simulator/currency-exchanger';
 import { playSfxEffect } from '@/app/wish-simulator/utils';
 
 const CurrentBalance = () => {

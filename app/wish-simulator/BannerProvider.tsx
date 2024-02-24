@@ -29,7 +29,7 @@ import {
 import { Character, Phases, Weapon } from '@/lib/db/schema';
 import ChooseVersion from '@/app/wish-simulator/components/ChooseVersion';
 import { useRouter } from 'next/navigation';
-import CloseButton from '@/app/wish-simulator/components/headerComponents/CloseButton';
+import CloseButton from '@/components/wish-simulator/close-button';
 
 type BannerContextProviderProps = {
     children: React.ReactNode;

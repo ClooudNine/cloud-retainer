@@ -1,4 +1,4 @@
-import { PullCurrency, PurchasesCurrency } from '@/lib/banners';
+import { Currencies, PullCurrency, PurchasesCurrency } from '@/lib/banners';
 
 export const purchasesCurrencies: { [key in PurchasesCurrency]: string } = {
     'masterless-starglitter': 'Звёздный блеск',
@@ -25,4 +25,13 @@ export const pullCurrencyDescriptions: {
         description:
             'Семена надежды, освещающие ночное небо. Несмотря на расстояние, те кому суждено встретится, обязательно найдут друг друга под звёздами',
     },
+};
+
+export const currenciesTranslate: { [key in Currencies]: string } = {
+    'intertwined-fate': 'Переплетающиеся судьбы',
+    'acquaint-fate': 'Судьбоносные встречи',
+    primogems: 'Примогемы',
+    'masterless-stardust': 'Звёздная пыль',
+    'masterless-starglitter': 'Звёздный блеск',
+    'genesis-crystal': 'Кристалл Сотворения',
 };

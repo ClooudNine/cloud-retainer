@@ -22,8 +22,8 @@ const CurrencyExchanger = ({
 }) => {
     const router = useRouter();
     const [count, setCount] = useState<number>(1);
-    const [receiptOffer, setReceiptOffer] = useState<boolean>(false);
-    const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const [redirectModal, setRedirectModal] = useState<boolean>(false);
+    const handleCountInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value.replace(/[^0-9]/g, '');
         const newCount = Math.min(parseInt(inputValue) || 0, 320000);
         setCount(newCount);
@@ -37,7 +37,7 @@ const CurrencyExchanger = ({
     const confirmExchange = useCallback(() => {
         if (count > balance['genesis-crystal']) {
             playSfxEffect('/sounds/click-7.mp3');
-            setReceiptOffer(true);
+            setRedirectModal(true);
         } else {
             let newBalance = { ...balance };
             newBalance.primogems += count;
@@ -55,7 +55,7 @@ const CurrencyExchanger = ({
     return (
         <section
             className={
-                'absolute z-20 top-0 left-0 w-full h-full bg-black/50 flex justify-center items-center'
+                'absolute z-10 top-0 left-0 w-full h-full bg-black/50 flex justify-center items-center'
             }
         >
             <div className={'relative text-[#525a68] animate-modal-appearance mx-4'}>
@@ -66,7 +66,7 @@ const CurrencyExchanger = ({
                     draggable={false}
                     className={'w-[120vh]'}
                 />
-                <p className={'absolute w-full text-center text-2xl top-[6%]'}>
+                <p className={'absolute w-full text-center text-3xl top-[6%]'}>
                     Получить Камни Истока
                 </p>
                 <div
@@ -76,7 +76,7 @@ const CurrencyExchanger = ({
                 >
                     <div
                         className={
-                            'flex flex-col h-full items-center w-2/5 bg-[#d3cbbe] bg-opacity-80'
+                            'flex flex-col h-full items-center w-2/5 bg-[#d3cbbe]/80'
                         }
                     >
                         <Image
@@ -97,7 +97,7 @@ const CurrencyExchanger = ({
                     />
                     <div
                         className={
-                            'flex flex-col h-full items-center w-2/5 bg-[#ecd6a4] bg-opacity-80'
+                            'flex flex-col h-full items-center w-2/5 bg-[#ecd6a4]/80'
                         }
                     >
                         <Image
@@ -124,7 +124,7 @@ const CurrencyExchanger = ({
                             }}
                             disabled={count === 0}
                             className={
-                                'absolute left-0 size-7 rounded-full bg-[#5b5f71] text-[#f0e3da] transition disabled:opacity-50 active:opacity-50'
+                                'absolute left-0 size-7 rounded-full bg-[#5b5f71] text-[#f0e3da] transition-opacity disabled:opacity-50 active:opacity-50'
                             }
                         >
                             -
@@ -132,7 +132,7 @@ const CurrencyExchanger = ({
                         <input
                             type={'text'}
                             value={count}
-                            onInput={handleInput}
+                            onInput={handleCountInput}
                             className={
                                 'h-8 w-full rounded-full text-center outline-2 outline-double outline-[#ebe8e5] selection:bg-[#fdf4d7] lg:outline-4'
                             }
@@ -144,13 +144,13 @@ const CurrencyExchanger = ({
                             }}
                             disabled={count === 320000}
                             className={
-                                'absolute right-0 size-7 rounded-full bg-[#5b5f71] text-[#f0e3da] transition disabled:opacity-50 active:opacity-50'
+                                'absolute right-0 size-7 rounded-full bg-[#5b5f71] text-[#f0e3da] transition-opacity disabled:opacity-50 active:opacity-50'
                             }
                         >
                             +
                         </button>
                     </div>
-                    <div className={'w-1/2 flex gap-4 h-8 text-[#eae3db]'}>
+                    <div className={'w-1/2 flex gap-4 h-6 text-[#eae3db]'}>
                         <button
                             onClick={() => {
                                 playSfxEffect('/sounds/click-4.mp3');
@@ -207,7 +207,7 @@ const CurrencyExchanger = ({
                         disabledCondition={count === 0}
                     />
                 </div>
-                {receiptOffer && (
+                {redirectModal && (
                     <div
                         className={
                             'absolute w-full h-full flex flex-col items-center top-0 text-[#525a68] animate-modal-appearance'
@@ -220,7 +220,7 @@ const CurrencyExchanger = ({
                             }
                             quality={100}
                             draggable={false}
-                            className={'h-full w-auto'}
+                            fill
                         />
                         <p className={'absolute top-[5.5%] text-3xl'}>
                             Пополнение кристаллов

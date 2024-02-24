@@ -2,44 +2,43 @@
 import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import Balance from '@/app/wish-simulator/shop/components/Balance';
-import CloseButton from '@/app/wish-simulator/components/headerComponents/CloseButton';
+import Balance from '@/components/wish-simulator/shop/balance';
+import CloseButton from '@/components/wish-simulator/close-button';
 import genesisCrystalsCard from '@/public/wish-simulator/assets/shop/genesis-crystals-card.webp';
-import ObtainModal from '@/app/wish-simulator/shop/genesis-crystals/ObtainModal';
+import ObtainModal from '@/components/wish-simulator/shop/genesis-crystals/obtain-modal';
 import { playSfxEffect } from '@/app/wish-simulator/utils';
 import { useAudioContext } from '@/app/wish-simulator/AudioProvider';
 import { BalanceStats } from '@/lib/banners';
 import { initialBalance } from '@/lib/constants';
 
 export default function GenesisCrystals() {
-    const { audioRef } = useAudioContext();
+    const { audio } = useAudioContext();
     const router = useRouter();
+
     const crystalsCount = [60, 300, 980, 1980, 3280, 6480];
 
     const [obtainedCrystals, setObtainedCrystals] = useState<number | null>(null);
     const [balance, setBalance] = useState<BalanceStats>(initialBalance);
-    const [balanceInModal, setBalanceInModal] = useState<boolean>(false);
 
-    const chooseCrystals = useCallback((count: number) => {
+    const closeObtainModal = useCallback(() => setObtainedCrystals(null), []);
+    const chooseCrystals = (count: number) => {
         playSfxEffect('/sounds/click-6.mp3');
-        setBalanceInModal(true);
         setObtainedCrystals(count);
-    }, []);
+    };
 
     useEffect(() => {
-        const currentAudio = audioRef.current;
-        if (currentAudio) {
-            currentAudio.pause();
-            currentAudio.currentTime = 0;
+        if (audio) {
+            audio.pause();
+            audio.currentTime = 0;
         }
 
         const balance = localStorage.getItem('balance');
         if (balance) setBalance(JSON.parse(balance));
 
         return () => {
-            currentAudio?.play();
+            audio?.play();
         };
-    }, [audioRef]);
+    }, [audio]);
 
     return (
         <>
@@ -50,11 +49,10 @@ export default function GenesisCrystals() {
             >
                 <Balance
                     section={'genesis-crystals'}
-                    inModal={balanceInModal}
+                    inModal={Boolean(obtainedCrystals)}
                     balance={balance}
-                    setInModal={() => setBalanceInModal(false)}
-                    setBalance={(newBalance) => setBalance(newBalance)}
-                    closePaymentModal={() => setObtainedCrystals(null)}
+                    setBalance={setBalance}
+                    closePaymentModal={closeObtainModal}
                 />
                 <CloseButton
                     handler={() => {
@@ -66,7 +64,7 @@ export default function GenesisCrystals() {
             </header>
             <div
                 className={
-                    'flex flex-wrap justify-center gap-x-2 gap-y-0 text-[#f7f5f6] text-2xl/none xs:justify-start xs:text-lg xs:ml-28 lg:mt-12 lg:gap-x-4'
+                    'flex flex-wrap justify-center gap-x-2 text-[#f7f5f6] text-2xl/none xs:justify-start xs:text-lg xs:ml-28 lg:mt-12 lg:gap-x-4'
                 }
             >
                 {crystalsCount.map((count) => (
@@ -82,6 +80,7 @@ export default function GenesisCrystals() {
                             alt={'Фон карточки товара магазина кристаллов'}
                             quality={100}
                             draggable={false}
+                            priority
                             className={'w-full'}
                         />
                         <Image
@@ -90,6 +89,7 @@ export default function GenesisCrystals() {
                             width={300}
                             height={300}
                             quality={100}
+                            priority
                             draggable={false}
                             className={'absolute top-0 w-3/5'}
                         />
@@ -104,11 +104,7 @@ export default function GenesisCrystals() {
                         balance={balance}
                         setBalance={setBalance}
                         count={obtainedCrystals}
-                        setBalanceInModal={() => setBalanceInModal(false)}
-                        closeObtainModal={() => {
-                            setBalanceInModal(false);
-                            setObtainedCrystals(null);
-                        }}
+                        closeObtainModal={closeObtainModal}
                     />
                 )}
             </div>

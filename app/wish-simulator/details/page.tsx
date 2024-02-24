@@ -12,25 +12,23 @@ import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import {
     BannerTypes,
+    bannerTypesEnum,
     Character,
-    characterBanners,
     characters,
     featuredCharactersInBanners,
     featuredWeaponsInBanners,
-    standardBanners,
     Weapon,
     weaponBanners,
     weapons,
 } from '@/lib/db/schema';
-import { Banners } from '@/lib/banners';
 import { inArray } from 'drizzle-orm/sql/expressions/conditions';
+import { getBannerByIdAndType } from '@/data/banner';
+import WishCrossIcon from '@/components/icons/wish-cross';
 
 export const metadata = {
     title: 'Cloud Retainer | Симулятор молитв - Детали',
     description: 'Здесь вы можете ознакомиться с подробными деталями баннера',
 };
-
-export type DetailsSections = 'increased-chance' | 'more-info' | 'items-list';
 
 export default async function Details({
     searchParams,
@@ -38,40 +36,23 @@ export default async function Details({
     searchParams: {
         id: number;
         type: BannerTypes;
-        section: DetailsSections;
+        section: 'increased-chance' | 'more-info' | 'items-list';
     };
 }) {
-    const bannerTableName = {
-        'Character Event Wish': characterBanners,
-        'Character Event Wish-2': characterBanners,
-        'Novice Wish': characterBanners,
-        'Weapon Event Wish': weaponBanners,
-        'Standard Wish': standardBanners,
-    };
-
     if (
-        bannerTableName[searchParams.type] === undefined ||
+        !bannerTypesEnum.enumValues.includes(searchParams.type) ||
         isNaN(Number(searchParams.id))
     ) {
         return (
-            <p
-                className={
-                    'w-full h-full flex items-center justify-center font-genshin text-6xl'
-                }
-            >
+            <p className={'w-full h-full flex items-center justify-center text-6xl'}>
                 Некорректные параметры запроса!
             </p>
         );
     }
 
-    const maybeBanner = await db
-        .select()
-        .from(bannerTableName[searchParams.type])
-        .where(eq(bannerTableName[searchParams.type].id, searchParams.id));
+    const banner = await getBannerByIdAndType(searchParams.id, searchParams.type);
 
-    const banner = maybeBanner[0] as Banners;
-
-    if (banner === undefined) {
+    if (!banner) {
         return (
             <p
                 className={
@@ -98,50 +79,38 @@ export default async function Details({
                     ])
                 );
 
-            const featuredWeaponsId = await db
-                .select({ id: featuredWeaponsInBanners.weaponId })
-                .from(featuredWeaponsInBanners)
-                .where(eq(featuredWeaponsInBanners.bannerId, banner.id));
-
             featuredItems = await db
                 .select()
-                .from(weapons)
-                .where(
-                    inArray(
-                        weapons.id,
-                        featuredWeaponsId.map((weaponId) => weaponId.id)
-                    )
-                );
+                .from(featuredWeaponsInBanners)
+                .leftJoin(weapons, eq(featuredWeaponsInBanners.weaponId, weapons.id))
+                .leftJoin(
+                    weaponBanners,
+                    eq(featuredWeaponsInBanners.bannerId, weaponBanners.id)
+                )
+                .where(eq(weaponBanners.id, banner.id));
         } else {
             mainItems = await db
                 .select()
                 .from(characters)
                 .where(eq(characters.id, banner.mainCharacterId));
-            const featuredCharactersId = await db
-                .select({ id: featuredCharactersInBanners.characterId })
-                .from(featuredCharactersInBanners)
-                .where(eq(featuredCharactersInBanners.bannerId, banner.id));
 
             featuredItems = await db
                 .select()
-                .from(characters)
-                .where(
-                    inArray(
-                        characters.id,
-                        featuredCharactersId.map((characterId) => characterId.id)
-                    )
-                );
+                .from(char)
+                .join(
+                    featuredCharactersInBanners,
+                    eq(featuredCharactersInBanners.id, characters.characterId)
+                )
+                .where(eq(featuredCharactersInBanners.bannerId, banner.id));
         }
     }
+
+    console.log(featuredItems);
 
     const bannerColor = getBannerColor(banner, mainItems as Character[]);
 
     return (
-        <main
-            className={
-                'w-full h-full flex items-center justify-center font-genshin cursor-genshin'
-            }
-        >
+        <main className={'w-full h-full flex items-center justify-center'}>
             <Background isBlurred={true} />
             <div
                 className={
@@ -164,21 +133,7 @@ export default async function Details({
                         'absolute cursor-genshin top-[2.5%] right-[7%] xs:top-[6.2%] xs:right-[2.4%]'
                     }
                 >
-                    <svg
-                        className={'w-9'}
-                        transform="rotate(45)"
-                        fill="#000000"
-                        stroke="#000000"
-                        strokeWidth=".00016"
-                        version="1.1"
-                        viewBox="0 0 16 16"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            d="m16 8-3-3v2h-4v-4h2l-3-3-3 3h2v4h-4v-2l-3 3 3 3v-2h4v4h-2l3 3 3-3h-2v-4h4v2z"
-                            fill="#e9d5af"
-                        />
-                    </svg>
+                    <WishCrossIcon />
                 </Link>
                 <Navigation bannerType={searchParams.type} />
                 {searchParams.section === 'increased-chance' ? (

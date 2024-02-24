@@ -5,7 +5,7 @@ import { useCallback, useState } from 'react';
 import clsx from 'clsx';
 import Cancel from '@/app/wish-simulator/components/actionButtons/Cancel';
 import Confirm from '@/app/wish-simulator/components/actionButtons/Confirm';
-import ObtainItemScreen from '@/app/wish-simulator/components/ObtainItemScreen';
+import ObtainItemScreen from '@/components/wish-simulator/obtain-item-screen';
 import { purchasesCurrencies, pullCurrencyDescriptions } from '@/lib/shop';
 import { playSfxEffect } from '@/app/wish-simulator/utils';
 import { BalanceStats, PullCurrency, PurchasesCurrency } from '@/lib/banners';
@@ -16,7 +16,6 @@ const PaymentModal = ({
     currency,
     price,
     setBalance,
-    setBalanceInModal,
     closePaymentModal,
 }: {
     balance: BalanceStats;
@@ -24,7 +23,6 @@ const PaymentModal = ({
     currency: PurchasesCurrency;
     price: number;
     setBalance: (balance: BalanceStats) => void;
-    setBalanceInModal: () => void;
     closePaymentModal: () => void;
 }) => {
     const valetCount = balance[currency];
@@ -48,11 +46,10 @@ const PaymentModal = ({
         newBalance[currency] -= itemCount * price;
         setBalance(newBalance);
         localStorage.setItem('balance', JSON.stringify(newBalance));
-        setBalanceInModal();
         setIsSuccessful(true);
         playSfxEffect('/sounds/click-7.mp3');
         playSfxEffect('/sounds/obtain-item.mp3');
-    }, [balance, currency, itemCount, price, setBalance, setBalanceInModal, shopItem]);
+    }, [balance, currency, itemCount, price, setBalance, shopItem]);
 
     const closePaymentModalHandler = useCallback(() => {
         playSfxEffect('/sounds/click-7.mp3');

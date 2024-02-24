@@ -15,7 +15,6 @@ import {
 import { relations } from 'drizzle-orm';
 import { AdapterAccount } from '@auth/core/adapters';
 import * as z from 'zod';
-import { createInsertSchema } from 'drizzle-zod';
 export const raresEnum = pgEnum('rares', ['1', '2', '3', '4', '5']);
 export const phasesEnum = pgEnum('phases', ['1', '2']);
 export const elementsEnum = pgEnum('elements', [
@@ -268,13 +267,12 @@ export const CharacterBannersSchema = z.object({
     phase: z.enum(phasesEnum.enumValues),
     rerunNumber: z.number().int().nonnegative(),
     type: z.enum(bannerTypesEnum.enumValues),
+    image: z.instanceof(File),
     textParameters: z.object({
         r: z.string(),
         b: z.string(),
     }),
 });
-
-export const insertCharacterBannerSchema = createInsertSchema(characterBanners);
 
 export type CharacterBanner = typeof characterBanners.$inferSelect;
 export type WeaponBanner = typeof weaponBanners.$inferSelect;

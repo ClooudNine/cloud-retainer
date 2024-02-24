@@ -1,4 +1,5 @@
 import {
+    BannerTypes,
     CharacterBanner,
     characterBanners,
     StandardBanner,
@@ -7,6 +8,7 @@ import {
     weaponBanners,
 } from '@/lib/db/schema';
 import { db } from '@/lib/db';
+import { eq } from 'drizzle-orm';
 
 export const getAllBanners = async () => {
     const allCharactersBanners: CharacterBanner[] = await db
@@ -19,3 +21,26 @@ export const getAllBanners = async () => {
 
     return [...allCharactersBanners, ...allWeaponBanners, ...allStandardBanners];
 };
+
+export const getBannerByIdAndType = async (id: number, type: BannerTypes) => {
+    if (type === 'Weapon Event Wish') {
+        const weaponBanner = await db.query.weaponBanners.findFirst({
+            where: eq(weaponBanners.id, id),
+        });
+        return weaponBanner;
+    }
+
+    if (type === 'Standard Wish') {
+        const standardBanner = await db.query.standardBanners.findFirst({
+            where: eq(standardBanners.id, id),
+        });
+        return standardBanner;
+    }
+
+    const characterBanner = await db.query.characterBanners.findFirst({
+        where: eq(characterBanners.id, id),
+    });
+    return characterBanner;
+};
+
+export const getFeaturedItemsForCharacterBanner = async (id: number) => {};

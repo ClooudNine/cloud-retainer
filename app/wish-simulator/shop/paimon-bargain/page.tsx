@@ -1,14 +1,14 @@
 'use client';
-import Navbar from '@/app/wish-simulator/shop/paimon-bargain/Navbar';
+import Navbar from '@/components/wish-simulator/shop/paimon-bargain/navbar';
 import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import intertwinedFate from '@/public/wish-simulator/assets/intertwined-fate.webp';
 import acquaintFate from '@/public/wish-simulator/assets/acquaint-fate.webp';
 import fiveStarItemCard from '@/public/wish-simulator/assets/shop/5-star-shop-card.webp';
-import PaymentModal from '@/app/wish-simulator/shop/paimon-bargain/PaymentModal';
+import PaymentModal from '@/components/wish-simulator/shop/paimon-bargain/payment-modal';
 import { useRouter } from 'next/navigation';
-import Balance from '@/app/wish-simulator/shop/components/Balance';
-import CloseButton from '@/app/wish-simulator/components/headerComponents/CloseButton';
+import Balance from '@/components/wish-simulator/shop/balance';
+import CloseButton from '@/components/wish-simulator/close-button';
 import { priceOfFate, purchasesCurrencies } from '@/lib/shop';
 import { playSfxEffect } from '@/app/wish-simulator/utils';
 import { useAudioContext } from '@/app/wish-simulator/AudioProvider';
@@ -24,13 +24,16 @@ export default function PaimonBargain() {
         'masterless-starglitter'
     );
     const [purchasedItem, setPurchasedItem] = useState<PullCurrency | null>(null);
-    const [balanceInModal, setBalanceInModal] = useState<boolean>(false);
 
-    const buyItem = useCallback((item: PullCurrency) => {
+    const closePaymentModal = useCallback(() => setPurchasedItem(null), []);
+    const setCurrencyHandler = useCallback((currency: PurchasesCurrency) => {
+        playSfxEffect('/sounds/click-3.mp3');
+        setCurrentCurrency(currency);
+    }, []);
+    const buyItem = (item: PullCurrency) => {
         playSfxEffect('/sounds/click-6.mp3');
         setPurchasedItem(item);
-        setBalanceInModal(true);
-    }, []);
+    };
 
     useEffect(() => {
         if (audio) {
@@ -50,16 +53,15 @@ export default function PaimonBargain() {
         <>
             <header
                 className={
-                    'flex items-center justify-end gap-8 px-6 py-6 text-2xl xs:py-4 lg:text-base'
+                    'flex items-center justify-end gap-8 pr-6 py-6 text-2xl xs:py-4 lg:text-base'
                 }
             >
                 <Balance
                     section={'paimon-bargain'}
-                    inModal={balanceInModal}
+                    inModal={Boolean(purchasedItem)}
                     balance={balance}
-                    setInModal={() => setBalanceInModal(false)}
-                    setBalance={(newBalance) => setBalance(newBalance)}
-                    closePaymentModal={() => setPurchasedItem(null)}
+                    setBalance={setBalance}
+                    closePaymentModal={closePaymentModal}
                 />
                 <CloseButton
                     handler={() => {
@@ -69,18 +71,15 @@ export default function PaimonBargain() {
                     styles={'size-12 xs:size-10'}
                 />
             </header>
-            <Navbar
-                currentCurrency={currentCurrency}
-                setCurrency={(currency) => setCurrentCurrency(currency)}
-            />
+            <Navbar currentCurrency={currentCurrency} setCurrency={setCurrencyHandler} />
             <div
                 className={
                     'flex flex-wrap justify-center gap-4 mt-10 text-[#f7f5f6] text-3xl xs:justify-start xs:text-xl xs:ml-7 lg:ml-28'
                 }
             >
-                <div
+                <button
                     className={
-                        'relative size-96 flex flex-col items-center transition hover:scale-105 hover:drop-shadow-shop-item xs:size-64'
+                        'relative size-96 flex flex-col items-center transition cursor-genshin hover:scale-105 hover:drop-shadow-shop-item xs:size-64'
                     }
                     onClick={() => buyItem('intertwined-fate')}
                 >
@@ -89,6 +88,7 @@ export default function PaimonBargain() {
                         alt={'Фон пятизвёздочного предмета в магазине'}
                         quality={100}
                         draggable={false}
+                        priority
                         className={'w-full'}
                     />
                     <Image
@@ -96,6 +96,7 @@ export default function PaimonBargain() {
                         alt={'Переплетающиеся судьбы'}
                         quality={100}
                         draggable={false}
+                        priority
                         className={'absolute top-0 w-[65%]'}
                     />
                     <p
@@ -117,12 +118,13 @@ export default function PaimonBargain() {
                             width={40}
                             height={40}
                             draggable={false}
+                            priority
                             className={'size-12 xs:size-7'}
                         />
                         <p>{priceOfFate[currentCurrency]}</p>
                     </div>
-                </div>
-                <div
+                </button>
+                <button
                     className={
                         'relative size-96 flex flex-col items-center transition hover:scale-105 hover:drop-shadow-shop-item xs:size-64'
                     }
@@ -165,7 +167,7 @@ export default function PaimonBargain() {
                         />
                         <p>{priceOfFate[currentCurrency]}</p>
                     </div>
-                </div>
+                </button>
             </div>
             {purchasedItem && (
                 <PaymentModal
@@ -174,11 +176,7 @@ export default function PaimonBargain() {
                     currency={currentCurrency}
                     price={priceOfFate[currentCurrency]}
                     setBalance={setBalance}
-                    setBalanceInModal={() => setBalanceInModal(false)}
-                    closePaymentModal={() => {
-                        setBalanceInModal(false);
-                        setPurchasedItem(null);
-                    }}
+                    closePaymentModal={closePaymentModal}
                 />
             )}
         </>

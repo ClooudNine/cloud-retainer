@@ -5,7 +5,7 @@ import primogem from '@/public/wish-simulator/assets/primogems.webp';
 import genesisCrystal from '@/public/wish-simulator/assets/genesis-crystal.webp';
 import clsx from 'clsx';
 import { useCallback, useState } from 'react';
-import CurrencyExchanger from '@/app/wish-simulator/components/CurrencyExchanger';
+import CurrencyExchanger from '@/components/wish-simulator/currency-exchanger';
 import { playSfxEffect } from '@/app/wish-simulator/utils';
 import { BalanceStats } from '@/lib/banners';
 
@@ -13,25 +13,24 @@ const Balance = ({
     section,
     inModal,
     balance,
-    setInModal,
     setBalance,
     closePaymentModal,
 }: {
     section: 'paimon-bargain' | 'genesis-crystals';
     inModal: boolean;
     balance: BalanceStats;
-    setInModal: () => void;
     setBalance: (newBalance: BalanceStats) => void;
     closePaymentModal: () => void;
 }) => {
     const [isExchange, setIsExchange] = useState<boolean>(false);
 
     const balanceClasses = clsx('flex gap-4 text-white', {
-        'z-20 absolute w-full justify-end top-0 right-0 bg-black bg-opacity-60 px-4 py-3 lg:pr-10 lg:py-5':
+        'z-20 absolute w-full justify-end top-0 right-0 bg-black/60 px-4 py-3 lg:pr-10 lg:py-5':
             inModal || isExchange,
     });
+
     const openExchangerClasses = clsx(
-        'bg-[#ece5d8] text-[#3b4354] size-10 font-bold rounded-full transition cursor-genshin active:opacity-50 active:scale-95 hover:scale-110 xs:size-7',
+        'bg-[#ece5d8] text-[#3b4354] size-10 font-bold rounded-full leading-none transition cursor-genshin active:opacity-50 active:scale-95 hover:scale-110 xs:size-7',
         {
             hidden: isExchange,
         }
@@ -45,9 +44,8 @@ const Balance = ({
 
     const closeExchanger = useCallback(() => {
         playSfxEffect('/sounds/click-7.mp3');
-        setInModal();
         setIsExchange(false);
-    }, [setInModal]);
+    }, []);
 
     return (
         <>
@@ -56,7 +54,7 @@ const Balance = ({
                     <>
                         <div
                             className={
-                                'flex h-12 items-center gap-2 px-2 bg-black bg-opacity-40 rounded-full ring-2 ring-[#84a4c5] min-w-max xs:h-8'
+                                'flex h-12 items-center gap-2 px-2 bg-black/40 rounded-full ring-2 ring-[#84a4c5] min-w-max xs:h-8'
                             }
                         >
                             <Image
@@ -70,7 +68,7 @@ const Balance = ({
                         </div>
                         <div
                             className={
-                                'flex h-12 items-center gap-2 px-2 bg-black bg-opacity-40 rounded-full ring-2 ring-[#84a4c5] min-w-max xs:h-8'
+                                'flex h-12 items-center gap-2 px-2 bg-black/40 rounded-full ring-2 ring-[#84a4c5] min-w-max xs:h-8'
                             }
                         >
                             <Image
@@ -86,17 +84,17 @@ const Balance = ({
                 )}
                 <div
                     className={
-                        'flex h-12 gap-2 pl-2 pr-0.5 items-center bg-black bg-opacity-40 rounded-full ring-2 ring-[#84a4c5] min-w-max xs:h-8'
+                        'flex h-12 gap-2 pl-2 pr-0.5 items-center bg-black/40 rounded-full ring-2 ring-[#84a4c5] min-w-max xs:h-8'
                     }
                 >
                     <Image
                         src={primogem}
-                        alt={'Примогемы'}
+                        alt={'Примогем'}
                         quality={100}
                         draggable={false}
                         className={'h-[95%] w-auto'}
                     />
-                    <p>{balance.primogems}</p>
+                    <p className={'pr-1'}>{balance.primogems}</p>
                     <button onClick={openExchanger} className={openExchangerClasses}>
                         +
                     </button>
@@ -104,7 +102,7 @@ const Balance = ({
                 {(section === 'genesis-crystals' || isExchange) && (
                     <div
                         className={
-                            'flex h-12 items-center gap-2 px-2 bg-black bg-opacity-40 rounded-full ring-2 ring-[#84a4c5] min-w-max xs:h-8'
+                            'flex h-12 items-center gap-2 px-2 bg-black/40 rounded-full ring-2 ring-[#84a4c5] min-w-max xs:h-8'
                         }
                     >
                         <Image

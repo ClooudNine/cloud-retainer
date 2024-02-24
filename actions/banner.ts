@@ -1,9 +1,7 @@
 'use server';
-
 import {
     BannerTypes,
     characterBanners,
-    insertCharacterBannerSchema,
     standardBanners,
     weaponBanners,
 } from '@/lib/db/schema';
@@ -27,13 +25,9 @@ export const deleteBanner = async (id: number, type: BannerTypes) => {
     }
 };
 
-export const editCharacterBanner = async (id: number, formData: FormData) => {
+export const editCharacterBanner = async (id: number, values: any) => {
     try {
-        const validatedFields = insertCharacterBannerSchema.safeParse({
-            email: formData.get('title'),
-            username: formData.get('username'),
-            password: formData.get('password'),
-        });
+        console.log(values['mainCharacterId']);
     } catch {
         return null;
     }

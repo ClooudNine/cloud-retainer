@@ -4,17 +4,9 @@ import fiveStarItemBackground from '@/public/common/items-backgrounds-by-rarity/
 import Star from '@/components/icons/star';
 import stars from '@/public/wish-simulator/assets/stars-animation.webp';
 import { playSfxEffect } from '@/app/wish-simulator/utils';
-import { useCallback } from 'react';
 import { Currencies } from '@/lib/banners';
+import { currenciesTranslate } from '@/lib/shop';
 
-const currenciesTranslate: { [key in Currencies]: string } = {
-    'intertwined-fate': 'Переплетающиеся судьбы',
-    'acquaint-fate': 'Судьбоносные встречи',
-    primogems: 'Примогемы',
-    'masterless-stardust': 'Звёздная пыль',
-    'masterless-starglitter': 'Звёздный блеск',
-    'genesis-crystal': 'Кристалл Сотворения',
-};
 const ObtainItemScreen = ({
     item,
     count,
@@ -24,16 +16,14 @@ const ObtainItemScreen = ({
     count: number;
     closeSuccessfulPurchase: () => void;
 }) => {
-    const closeObtainItemScreen = useCallback(() => {
-        playSfxEffect('/sounds/click-9.mp3');
-        closeSuccessfulPurchase();
-    }, [closeSuccessfulPurchase]);
-
     return (
         <section
-            onClick={closeObtainItemScreen}
+            onClick={() => {
+                playSfxEffect('/sounds/click-9.mp3');
+                closeSuccessfulPurchase();
+            }}
             className={
-                'z-30 absolute w-full h-full top-0 left-0 flex flex-col justify-center items-center gap-6 overflow-hidden'
+                'z-20 bg-black/40 absolute w-full h-full top-0 left-0 flex flex-col justify-center items-center gap-6 overflow-hidden'
             }
         >
             <Image
