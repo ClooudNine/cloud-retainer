@@ -1,4 +1,4 @@
-import Background from '@/app/wish-simulator/components/Background';
+import Background from '@/components/wish-simulator/background';
 import Sidebar from '@/components/wish-simulator/shop/sidebar';
 
 export const metadata = {

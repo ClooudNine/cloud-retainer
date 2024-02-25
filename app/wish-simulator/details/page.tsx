@@ -1,27 +1,14 @@
-import Background from '@/app/wish-simulator/components/Background';
+import Background from '@/components/wish-simulator/background';
 import bookBackground from '@/public/wish-simulator/assets/book-background.webp';
 import Image from 'next/image';
-import Title from '@/app/wish-simulator/details/components/Title';
-import Navigation from '@/app/wish-simulator/details/components/Navigation';
-import IncreasedChance from '@/app/wish-simulator/details/components/increasedChanceSection/IncreasedChance';
-import { getBannerColor } from '@/app/wish-simulator/utils';
-import MoreInfo from '@/app/wish-simulator/details/components/MoreInfo';
-import ItemsList from '@/app/wish-simulator/details/components/itemsListSection/ItemsList';
+import Title from '@/components/wish-simulator/details/title';
+import Navigation from '@/components/wish-simulator/details/navigation';
+import IncreasedChance from '@/components/wish-simulator/details/increased-chance/Increased-chance';
+import { getBannerColor } from '@/lib/wish-simulator';
+import MoreInfo from '@/components/wish-simulator/details/more-info/more-info';
+import ItemsList from '@/components/wish-simulator/details/items-list/items-list';
 import Link from 'next/link';
-import { eq } from 'drizzle-orm';
-import { db } from '@/lib/db';
-import {
-    BannerTypes,
-    bannerTypesEnum,
-    Character,
-    characters,
-    featuredCharactersInBanners,
-    featuredWeaponsInBanners,
-    Weapon,
-    weaponBanners,
-    weapons,
-} from '@/lib/db/schema';
-import { inArray } from 'drizzle-orm/sql/expressions/conditions';
+import { BannerTypes, bannerTypesEnum, Character, Weapon } from '@/lib/db/schema';
 import { getBannerByIdAndType } from '@/data/banner';
 import WishCrossIcon from '@/components/icons/wish-cross';
 
@@ -64,50 +51,20 @@ export default async function Details({
         );
     }
 
-    let mainItems: Character[] | Weapon[] | null = null;
-    let featuredItems: Character[] | Weapon[] | null = null;
+    let mainItems: Character[] | Weapon[] = [];
+    let featuredItems: Character[] | Weapon[] = [];
 
-    if (banner.type !== 'Standard Wish' && banner.type !== 'Novice Wish') {
-        if ('firstMainWeaponId' in banner) {
-            mainItems = await db
-                .select()
-                .from(weapons)
-                .where(
-                    inArray(weapons.id, [
-                        banner.firstMainWeaponId,
-                        banner.secondMainWeaponId,
-                    ])
-                );
-
-            featuredItems = await db
-                .select()
-                .from(featuredWeaponsInBanners)
-                .leftJoin(weapons, eq(featuredWeaponsInBanners.weaponId, weapons.id))
-                .leftJoin(
-                    weaponBanners,
-                    eq(featuredWeaponsInBanners.bannerId, weaponBanners.id)
-                )
-                .where(eq(weaponBanners.id, banner.id));
-        } else {
-            mainItems = await db
-                .select()
-                .from(characters)
-                .where(eq(characters.id, banner.mainCharacterId));
-
-            featuredItems = await db
-                .select()
-                .from(char)
-                .join(
-                    featuredCharactersInBanners,
-                    eq(featuredCharactersInBanners.id, characters.characterId)
-                )
-                .where(eq(featuredCharactersInBanners.bannerId, banner.id));
-        }
+    if ('firstMainWeaponId' in banner) {
+        mainItems = [banner.firstMainWeapon, banner.secondMainWeapon];
+        featuredItems = banner.featuredWeaponsInBanners.map(({ weapon }) => weapon);
+    } else if ('rerunNumber' in banner) {
+        mainItems = [banner.character];
+        featuredItems = banner.featuredCharactersInBanners.map(
+            ({ character }) => character
+        );
     }
 
-    console.log(featuredItems);
-
-    const bannerColor = getBannerColor(banner, mainItems as Character[]);
+    const bannerColor = getBannerColor(banner);
 
     return (
         <main className={'w-full h-full flex items-center justify-center'}>
@@ -133,7 +90,7 @@ export default async function Details({
                         'absolute cursor-genshin top-[2.5%] right-[7%] xs:top-[6.2%] xs:right-[2.4%]'
                     }
                 >
-                    <WishCrossIcon />
+                    <WishCrossIcon fillColor={'#e9d5af'} />
                 </Link>
                 <Navigation bannerType={searchParams.type} />
                 {searchParams.section === 'increased-chance' ? (

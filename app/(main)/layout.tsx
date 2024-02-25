@@ -20,7 +20,7 @@ export default async function MainLayout({ children }: { children: React.ReactNo
                     'flex justify-between items-center flex-col py-8 w-64 bg-gray-200 rounded-r-2xl drop-shadow-2xl'
                 }
             >
-                <Logo />
+                <Logo styles={''} />
                 <div className={'flex flex-col gap-4'}>
                     <Link
                         href={'/wish-simulator'}
@@ -80,7 +80,7 @@ export default async function MainLayout({ children }: { children: React.ReactNo
                     <div className={'flex flex-col gap-3'}>
                         <Link
                             className={
-                                'flex items-center px-6 py-1 gap-4 bg-teal-300 rounded-lg transition ease-in hover:scale-105 hover:bg-teal-200'
+                                'flex items-center px-6 py-1 gap-4 bg-teal-300 rounded-lg transition hover:scale-105 hover:bg-teal-200'
                             }
                             href={'/register'}
                         >
@@ -89,7 +89,7 @@ export default async function MainLayout({ children }: { children: React.ReactNo
                         </Link>
                         <Link
                             className={
-                                'flex items-center px-6 py-1 gap-4 bg-teal-300 rounded-lg transition ease-in hover:scale-105 hover:bg-teal-200'
+                                'flex items-center px-6 py-1 gap-4 bg-teal-300 rounded-lg transition hover:scale-105 hover:bg-teal-200'
                             }
                             href={'/login'}
                         >

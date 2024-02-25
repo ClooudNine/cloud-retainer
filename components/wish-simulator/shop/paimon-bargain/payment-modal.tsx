@@ -3,11 +3,11 @@ import confirmationModal from '@/public/wish-simulator/assets/confirmation-modal
 import star from '@/public/common/star.webp';
 import { useCallback, useState } from 'react';
 import clsx from 'clsx';
-import Cancel from '@/app/wish-simulator/components/actionButtons/Cancel';
-import Confirm from '@/app/wish-simulator/components/actionButtons/Confirm';
+import Cancel from '@/components/ui/cancel';
+import Confirm from '@/components/ui/confirm';
 import ObtainItemScreen from '@/components/wish-simulator/obtain-item-screen';
-import { purchasesCurrencies, pullCurrencyDescriptions } from '@/lib/shop';
-import { playSfxEffect } from '@/app/wish-simulator/utils';
+import { pullCurrencyDescriptions, purchasesCurrencies } from '@/lib/shop';
+import { playSfxEffect } from '@/lib/wish-simulator';
 import { BalanceStats, PullCurrency, PurchasesCurrency } from '@/lib/banners';
 
 const PaymentModal = ({

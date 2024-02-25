@@ -16,7 +16,7 @@ export default function Register() {
     const [showPassword, setShowPassword] = useState(false);
 
     return (
-        <main className={'w-full h-full font-genshin flex justify-center items-center'}>
+        <main className={'w-full h-full flex justify-center items-center'}>
             <Image
                 src={xianyun}
                 alt={'Xianyun'}

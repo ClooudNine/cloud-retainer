@@ -1,5 +1,11 @@
 'use client';
-const CloseButton = ({ handler, styles }: { handler: () => void; styles: string }) => {
+const CloseButton = ({
+    handler,
+    styles,
+}: {
+    handler: (() => void) | undefined;
+    styles: string;
+}) => {
     return (
         <button
             aria-label={'Назад'}

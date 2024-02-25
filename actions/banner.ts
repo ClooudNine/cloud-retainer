@@ -2,6 +2,7 @@
 import {
     BannerTypes,
     characterBanners,
+    CharacterBannersSchema,
     standardBanners,
     weaponBanners,
 } from '@/lib/db/schema';
@@ -27,7 +28,39 @@ export const deleteBanner = async (id: number, type: BannerTypes) => {
 
 export const editCharacterBanner = async (id: number, values: any) => {
     try {
-        console.log(values['mainCharacterId']);
+        const validatedFields = CharacterBannersSchema.safeParse(values);
+
+        if (!validatedFields.success) {
+            return { message: 'Поля некорректные!' };
+        }
+
+        const {
+            title,
+            mainCharacterId,
+            version,
+            phase,
+            rerunNumber,
+            type,
+            textParameters,
+        } = validatedFields.data;
+
+        const mainBannerData = {
+            title,
+            mainCharacterId,
+            version,
+            phase,
+            rerunNumber,
+            type,
+            textParameters,
+        };
+
+        await db
+            .update(characterBanners)
+            .set(mainBannerData)
+            .where(eq(characterBanners.id, id));
+
+        revalidatePath('/admin/banners');
+        return { success: 'Баннер отредактирован успешно!' };
     } catch {
         return null;
     }

@@ -3,7 +3,7 @@ import rareStar from '@/public/common/star.webp';
 import fiveStarItemBackground from '@/public/common/items-backgrounds-by-rarity/background-item-5-star.webp';
 import Star from '@/components/icons/star';
 import stars from '@/public/wish-simulator/assets/stars-animation.webp';
-import { playSfxEffect } from '@/app/wish-simulator/utils';
+import { playSfxEffect } from '@/lib/wish-simulator';
 import { Currencies } from '@/lib/banners';
 import { currenciesTranslate } from '@/lib/shop';
 

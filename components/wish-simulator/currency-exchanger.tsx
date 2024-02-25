@@ -5,10 +5,10 @@ import primogem from '@/public/wish-simulator/assets/primogems.webp';
 import exchangerArrow from '@/public/wish-simulator/assets/exchanger-arrow.webp';
 import { useCallback, useState } from 'react';
 import clsx from 'clsx';
-import Cancel from '@/app/wish-simulator/components/actionButtons/Cancel';
-import Confirm from '@/app/wish-simulator/components/actionButtons/Confirm';
+import Cancel from '@/components/ui/cancel';
+import Confirm from '@/components/ui/confirm';
 import { useRouter } from 'next/navigation';
-import { playSfxEffect } from '@/app/wish-simulator/utils';
+import { playSfxEffect } from '@/lib/wish-simulator';
 import { BalanceStats } from '@/lib/banners';
 
 const CurrencyExchanger = ({
@@ -21,8 +21,10 @@ const CurrencyExchanger = ({
     closeCurrencyExchanger: () => void;
 }) => {
     const router = useRouter();
+
     const [count, setCount] = useState<number>(1);
     const [redirectModal, setRedirectModal] = useState<boolean>(false);
+
     const handleCountInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value.replace(/[^0-9]/g, '');
         const newCount = Math.min(parseInt(inputValue) || 0, 320000);

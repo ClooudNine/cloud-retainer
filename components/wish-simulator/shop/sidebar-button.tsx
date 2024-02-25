@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import PaimonBargainIcon from '@/components/icons/paimon-bargain';
 import GenesisIcon from '@/components/icons/genesis';
 import StarIcon from '@/components/icons/star';
-import { playSfxEffect } from '@/app/wish-simulator/utils';
+import { playSfxEffect } from '@/lib/wish-simulator';
 
 const SidebarButton = ({
     title,

@@ -1,0 +1,86 @@
+'use client';
+import Image from 'next/image';
+import bannerButtonBackground from '@/public/wish-simulator/assets/banner-button-background.webp';
+import bannerButtonBackgroundActive from '@/public/wish-simulator/assets/banner-button-background-active.webp';
+import { Banners } from '@/lib/banners';
+import { useBannerContext } from '@/app/wish-simulator/banner-provider';
+import {
+    getButtonPortraitUrl,
+    getMainItemsName,
+    playSfxEffect,
+} from '@/lib/wish-simulator';
+import { useMemo } from 'react';
+import clsx from 'clsx';
+
+const BannerButton = ({ banner }: { banner: Banners }) => {
+    const { selectedBanner, switchBanner } = useBannerContext();
+
+    const portrait = useMemo(() => getButtonPortraitUrl(banner), [banner]);
+    const itemNames = useMemo(() => getMainItemsName(banner), [banner]);
+
+    const bannerButtonClasses = clsx(
+        'relative transition cursor-genshin flex-1 h-full hover:scale-110 xs:flex-none xs:w-36 xs:h-16 lg:w-28 lg:h-10',
+        {
+            'scale-110': banner === selectedBanner,
+        }
+    );
+
+    const portraitClasses = clsx(
+        'h-4/5 w-auto mt-7 object-contain object-bottom transition',
+        {
+            '-translate-y-1': banner === selectedBanner,
+            '-mx-4 -rotate-12': banner.type === 'Weapon Event Wish',
+        }
+    );
+
+    const handleSwitchBanner = () => {
+        playSfxEffect('/sounds/click-2.mp3');
+        switchBanner(banner);
+    };
+
+    return (
+        <button className={bannerButtonClasses}>
+            <Image
+                src={
+                    banner === selectedBanner
+                        ? bannerButtonBackgroundActive
+                        : bannerButtonBackground
+                }
+                alt={'Фон кнопки выбора баннера'}
+                quality={100}
+                draggable={false}
+                fill
+                onClick={handleSwitchBanner}
+            />
+            <div
+                className={
+                    'absolute bottom-0.5 flex justify-center overflow-hidden w-full h-32 pointer-events-none xs:h-24'
+                }
+            >
+                {portrait.map((url, index) => (
+                    <Image
+                        key={url}
+                        src={url}
+                        alt={itemNames[index]}
+                        quality={100}
+                        draggable={false}
+                        width={200}
+                        height={200}
+                        className={portraitClasses}
+                    />
+                ))}
+            </div>
+            {banner.type === 'Novice Wish' && (
+                <div
+                    className={
+                        'text-white text-xs left-1/2 -translate-x-1/2 rounded-full absolute bg-[#90ab63] w-10 -bottom-0.5 pointer-events-none'
+                    }
+                >
+                    -20%
+                </div>
+            )}
+        </button>
+    );
+};
+
+export default BannerButton;

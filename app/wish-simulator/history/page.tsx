@@ -1,16 +1,18 @@
-import Background from '@/app/wish-simulator/components/Background';
+import Background from '@/components/wish-simulator/background';
 import Image from 'next/image';
 import bookBackground from '@/public/wish-simulator/assets/book-background.webp';
 import Link from 'next/link';
-import Title from '@/app/wish-simulator/history/components/Title';
-import UserSelect from '@/app/wish-simulator/history/components/UserSelect';
-import HistoryTable from '@/app/wish-simulator/history/components/HistoryTable';
+import UserSelect from '@/components/wish-simulator/history/user-select';
+import HistoryTable from '@/components/wish-simulator/history/history-table';
 import { WishHistoryTypes } from '@/lib/banners';
+import WishCrossIcon from '@/components/icons/wish-cross';
+import Logo from '@/components/main-page/logo';
 
 export const metadata = {
     title: 'Cloud Retainer | Симулятор молитв - История',
     description: 'Здесь отображены все сделанные молитвы в симуляторе',
 };
+
 export default function WishHistory({
     searchParams,
 }: {
@@ -19,49 +21,40 @@ export default function WishHistory({
     };
 }) {
     return (
-        <main
-            className={
-                'w-full h-full flex items-center justify-center font-genshin cursor-genshin'
-            }
-        >
+        <main className={'w-full h-full flex items-center justify-center'}>
             <Background isBlurred={true} />
             <div
                 className={
-                    'relative flex justify-center items-center h-[85vh] w-[45vh] xs:w-[150vh] xs:h-auto'
+                    'print:static relative flex justify-center items-center h-[85vh] w-[45vh] xs:w-[150vh] xs:h-auto'
                 }
             >
+                <Logo
+                    styles={'absolute top-0 right-0 hidden print:text-6xl print:flex'}
+                />
                 <Image
                     src={bookBackground}
                     quality={100}
                     alt={'История молитв'}
                     draggable={false}
                     className={
-                        'max-w-none w-[85vh] -rotate-90 -scale-y-100 xs:rotate-0 xs:scale-y-100 xs:max-w-full xs:w-[150vh] xs:h-auto'
+                        'max-w-none w-[85vh] -rotate-90 -scale-y-100 xs:rotate-0 xs:scale-y-100 xs:max-w-full xs:w-[150vh] xs:h-auto print:opacity-0 '
                     }
                 />
-                <Title />
+                <p
+                    className={
+                        'absolute text-[#595252] top-[8%] left-[12.5%] text-3xl xs:top-[5%] xs:left-[14%] print:top-0 print:left-0 print:text-5xl'
+                    }
+                >
+                    Журнал Молитв
+                </p>
                 <UserSelect type={searchParams['type']} />
                 <Link
                     href={'/wish-simulator'}
                     className={
-                        'absolute cursor-genshin top-[2.5%] right-[7%] xs:top-[6.2%] xs:right-[2.4%]'
+                        'absolute cursor-genshin top-[2.5%] right-[7%] xs:top-[6.2%] xs:right-[2.4%] print:hidden '
                     }
                 >
-                    <svg
-                        className={'w-9'}
-                        transform="rotate(45)"
-                        fill="#000000"
-                        stroke="#000000"
-                        strokeWidth=".00016"
-                        version="1.1"
-                        viewBox="0 0 16 16"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            d="m16 8-3-3v2h-4v-4h2l-3-3-3 3h2v4h-4v-2l-3 3 3 3v-2h4v4h-2l3 3 3-3h-2v-4h4v2z"
-                            fill="#e9d5af"
-                        />
-                    </svg>
+                    <WishCrossIcon fillColor={'#e9d5af'} />
                 </Link>
                 <HistoryTable type={searchParams['type']} />
             </div>

@@ -1,23 +1,42 @@
 import {
     BannerTypes,
-    CharacterBanner,
     characterBanners,
-    StandardBanner,
     standardBanners,
-    WeaponBanner,
     weaponBanners,
 } from '@/lib/db/schema';
 import { db } from '@/lib/db';
 import { eq } from 'drizzle-orm';
 
 export const getAllBanners = async () => {
-    const allCharactersBanners: CharacterBanner[] = await db
-        .select()
-        .from(characterBanners);
+    const [allCharactersBanners, allWeaponBanners, allStandardBanners] =
+        await Promise.all([
+            db.query.characterBanners.findMany({
+                with: {
+                    character: true,
+                    featuredCharactersInBanners: {
+                        columns: { bannerId: false, characterId: false },
+                        with: { character: true },
+                    },
+                },
+            }),
 
-    const allWeaponBanners: WeaponBanner[] = await db.select().from(weaponBanners);
+            db.query.weaponBanners.findMany({
+                with: {
+                    firstMainWeapon: true,
+                    secondMainWeapon: true,
+                    featuredWeaponsInBanners: {
+                        columns: { bannerId: false, weaponId: false },
+                        with: { weapon: true },
+                    },
+                },
+            }),
 
-    const allStandardBanners: StandardBanner[] = await db.select().from(standardBanners);
+            db.query.standardBanners.findMany({
+                with: {
+                    character: true,
+                },
+            }),
+        ]);
 
     return [...allCharactersBanners, ...allWeaponBanners, ...allStandardBanners];
 };
@@ -26,21 +45,40 @@ export const getBannerByIdAndType = async (id: number, type: BannerTypes) => {
     if (type === 'Weapon Event Wish') {
         const weaponBanner = await db.query.weaponBanners.findFirst({
             where: eq(weaponBanners.id, id),
+            with: {
+                firstMainWeapon: true,
+                secondMainWeapon: true,
+                featuredWeaponsInBanners: {
+                    columns: { bannerId: false, weaponId: false },
+                    with: { weapon: true },
+                },
+            },
         });
+
         return weaponBanner;
     }
 
     if (type === 'Standard Wish') {
         const standardBanner = await db.query.standardBanners.findFirst({
             where: eq(standardBanners.id, id),
+            with: {
+                character: true,
+            },
         });
+
         return standardBanner;
     }
 
     const characterBanner = await db.query.characterBanners.findFirst({
         where: eq(characterBanners.id, id),
+        with: {
+            character: true,
+            featuredCharactersInBanners: {
+                columns: { bannerId: false, characterId: false },
+                with: { character: true },
+            },
+        },
     });
+
     return characterBanner;
 };
-
-export const getFeaturedItemsForCharacterBanner = async (id: number) => {};

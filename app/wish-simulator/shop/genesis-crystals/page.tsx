@@ -6,8 +6,8 @@ import Balance from '@/components/wish-simulator/shop/balance';
 import CloseButton from '@/components/wish-simulator/close-button';
 import genesisCrystalsCard from '@/public/wish-simulator/assets/shop/genesis-crystals-card.webp';
 import ObtainModal from '@/components/wish-simulator/shop/genesis-crystals/obtain-modal';
-import { playSfxEffect } from '@/app/wish-simulator/utils';
-import { useAudioContext } from '@/app/wish-simulator/AudioProvider';
+import { playSfxEffect } from '@/lib/wish-simulator';
+import { useAudioContext } from '@/app/wish-simulator/audio-provider';
 import { BalanceStats } from '@/lib/banners';
 import { initialBalance } from '@/lib/constants';
 

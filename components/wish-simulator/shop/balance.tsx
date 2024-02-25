@@ -6,7 +6,7 @@ import genesisCrystal from '@/public/wish-simulator/assets/genesis-crystal.webp'
 import clsx from 'clsx';
 import { useCallback, useState } from 'react';
 import CurrencyExchanger from '@/components/wish-simulator/currency-exchanger';
-import { playSfxEffect } from '@/app/wish-simulator/utils';
+import { playSfxEffect } from '@/lib/wish-simulator';
 import { BalanceStats } from '@/lib/banners';
 
 const Balance = ({

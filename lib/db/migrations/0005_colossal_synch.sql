@@ -1,0 +1,1 @@
+ALTER TABLE "character_banners" ALTER COLUMN "rerun_number" SET NOT NULL;

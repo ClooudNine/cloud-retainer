@@ -10,8 +10,8 @@ import { useRouter } from 'next/navigation';
 import Balance from '@/components/wish-simulator/shop/balance';
 import CloseButton from '@/components/wish-simulator/close-button';
 import { priceOfFate, purchasesCurrencies } from '@/lib/shop';
-import { playSfxEffect } from '@/app/wish-simulator/utils';
-import { useAudioContext } from '@/app/wish-simulator/AudioProvider';
+import { playSfxEffect } from '@/lib/wish-simulator';
+import { useAudioContext } from '@/app/wish-simulator/audio-provider';
 import { BalanceStats, PullCurrency, PurchasesCurrency } from '@/lib/banners';
 import { initialBalance } from '@/lib/constants';
 

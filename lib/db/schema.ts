@@ -15,6 +15,7 @@ import {
 import { relations } from 'drizzle-orm';
 import { AdapterAccount } from '@auth/core/adapters';
 import * as z from 'zod';
+
 export const raresEnum = pgEnum('rares', ['1', '2', '3', '4', '5']);
 export const phasesEnum = pgEnum('phases', ['1', '2']);
 export const elementsEnum = pgEnum('elements', [
@@ -26,6 +27,7 @@ export const elementsEnum = pgEnum('elements', [
     'Hydro',
     'Pyro',
 ]);
+
 export const weaponTypesEnum = pgEnum('weapon_types', [
     'Bow',
     'Catalyst',
@@ -33,6 +35,7 @@ export const weaponTypesEnum = pgEnum('weapon_types', [
     'Polearm',
     'Sword',
 ]);
+
 export const bannerTypesEnum = pgEnum('banner_types', [
     'Character Event Wish',
     'Character Event Wish-2',
@@ -40,7 +43,9 @@ export const bannerTypesEnum = pgEnum('banner_types', [
     'Novice Wish',
     'Standard Wish',
 ]);
+
 export const userRolesEnum = pgEnum('user_roles', ['User', 'Admin']);
+
 export const characters = pgTable('characters', {
     id: serial('id').primaryKey(),
     name: text('name').notNull(),
@@ -51,11 +56,13 @@ export const characters = pgTable('characters', {
     appearanceVersion: real('appearance_version').notNull(),
     inStandardWish: boolean('in_standard_wish'),
 });
+
 export const charactersRelations = relations(characters, ({ many }) => ({
     charactersBanners: many(characterBanners),
     standardBanners: many(standardBanners),
     featuredCharactersInBanners: many(featuredCharactersInBanners),
 }));
+
 export const weapons = pgTable('weapons', {
     id: serial('id').primaryKey(),
     title: text('title').notNull(),
@@ -64,6 +71,7 @@ export const weapons = pgTable('weapons', {
     appearanceVersion: real('appearance_version').notNull(),
     inStandardWish: boolean('in_standard_wish'),
 });
+
 export const weaponsRelations = relations(weapons, ({ many }) => ({
     firstMainWeaponInBanners: many(weaponBanners, {
         relationName: 'first_main_weapon',
@@ -73,6 +81,7 @@ export const weaponsRelations = relations(weapons, ({ many }) => ({
     }),
     featuredWeaponsInBanners: many(featuredWeaponsInBanners),
 }));
+
 export const characterBanners = pgTable('character_banners', {
     id: serial('id').primaryKey(),
     title: text('title').notNull(),
@@ -85,12 +94,15 @@ export const characterBanners = pgTable('character_banners', {
     type: bannerTypesEnum('banner_type').notNull(),
     textParameters: json('text_parameters').$type<{ r: string; b: string }>().notNull(),
 });
-export const characterBannersRelations = relations(characterBanners, ({ one }) => ({
+
+export const characterBannersRelations = relations(characterBanners, ({ one, many }) => ({
     character: one(characters, {
         fields: [characterBanners.mainCharacterId],
         references: [characters.id],
     }),
+    featuredCharactersInBanners: many(featuredCharactersInBanners),
 }));
+
 export const featuredCharactersInBanners = pgTable(
     'featured_characters_in_banners',
     {
@@ -107,6 +119,7 @@ export const featuredCharactersInBanners = pgTable(
         };
     }
 );
+
 export const featuredCharactersInBannersRelations = relations(
     featuredCharactersInBanners,
     ({ one }) => ({
@@ -120,6 +133,7 @@ export const featuredCharactersInBannersRelations = relations(
         }),
     })
 );
+
 export const weaponBanners = pgTable('weapon_banners', {
     id: serial('id').primaryKey(),
     title: text('title').notNull(),
@@ -139,7 +153,8 @@ export const weaponBanners = pgTable('weapon_banners', {
         }>()
         .notNull(),
 });
-export const weaponBannersRelations = relations(weaponBanners, ({ one }) => ({
+
+export const weaponBannersRelations = relations(weaponBanners, ({ one, many }) => ({
     firstMainWeapon: one(weapons, {
         fields: [weaponBanners.firstMainWeaponId],
         references: [weapons.id],
@@ -150,7 +165,9 @@ export const weaponBannersRelations = relations(weaponBanners, ({ one }) => ({
         references: [weapons.id],
         relationName: 'second_main_weapon',
     }),
+    featuredWeaponsInBanners: many(featuredWeaponsInBanners),
 }));
+
 export const featuredWeaponsInBanners = pgTable(
     'featured_weapons_in_banners',
     {
@@ -167,6 +184,7 @@ export const featuredWeaponsInBanners = pgTable(
         };
     }
 );
+
 export const featuredWeaponsInBannersRelations = relations(
     featuredWeaponsInBanners,
     ({ one }) => ({
@@ -180,6 +198,7 @@ export const featuredWeaponsInBannersRelations = relations(
         }),
     })
 );
+
 export const standardBanners = pgTable('standard_banners', {
     id: serial('id').primaryKey(),
     title: text('title').notNull(),
@@ -193,6 +212,7 @@ export const standardBanners = pgTable('standard_banners', {
         .$type<{ [key: string]: { r: string; b: string; fontSize: string } }>()
         .notNull(),
 });
+
 export const standardBannersRelations = relations(standardBanners, ({ one }) => ({
     character: one(characters, {
         fields: [standardBanners.mainCharacterId],
@@ -259,24 +279,32 @@ export const LoginSchema = z.object({
 });
 
 export const CharacterBannersSchema = z.object({
-    id: z.number().int().optional(),
-    title: z.string().max(30),
+    title: z.string().max(50),
     mainCharacterId: z.number().int().positive(),
-    featuredCharactersId: z.array(z.number()),
+    featuredCharactersId: z.array(z.number().positive()),
     version: z.number().positive(),
     phase: z.enum(phasesEnum.enumValues),
     rerunNumber: z.number().int().nonnegative(),
     type: z.enum(bannerTypesEnum.enumValues),
-    image: z.instanceof(File),
+    image: z.instanceof(File).nullish(),
     textParameters: z.object({
         r: z.string(),
         b: z.string(),
     }),
 });
 
-export type CharacterBanner = typeof characterBanners.$inferSelect;
-export type WeaponBanner = typeof weaponBanners.$inferSelect;
-export type StandardBanner = typeof standardBanners.$inferSelect;
+export type CharacterBanner = typeof characterBanners.$inferSelect & {
+    character: Character;
+    featuredCharactersInBanners: { character: Character }[];
+};
+export type WeaponBanner = typeof weaponBanners.$inferSelect & {
+    firstMainWeapon: Weapon;
+    secondMainWeapon: Weapon;
+    featuredWeaponsInBanners: { weapon: Weapon }[];
+};
+export type StandardBanner = typeof standardBanners.$inferSelect & {
+    character: Character;
+};
 
 export type Character = typeof characters.$inferSelect;
 export type Weapon = typeof weapons.$inferSelect;

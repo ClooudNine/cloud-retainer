@@ -1,14 +1,15 @@
 'use client';
 import { Banners } from '@/lib/banners';
 import Image from 'next/image';
-import { getPreviewUrl } from '@/app/wish-simulator/utils';
+import { getPreviewUrl } from '@/lib/wish-simulator';
 import striptags from 'striptags';
 import DeleteBannerButton from '@/components/admin/banners/delete-banner-button';
 import CharacterBannerForm from '@/components/admin/banners/character-banner-form';
-import { Character, Weapon } from '@/lib/db/schema';
+import { Character, CharacterBanner } from '@/lib/db/schema';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import PencilIcon from '@/components/icons/pencil';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 
 const BannersList = ({
     banners,
@@ -58,9 +59,17 @@ const BannersList = ({
                         }`}</p>
                     </div>
                 ))}
-            {editedBanner && 'rerunNumber' in editedBanner && (
-                <CharacterBannerForm banner={editedBanner} characters={characters} />
-            )}
+            <Dialog open={Boolean(editedBanner)}>
+                <DialogContent className={'max-w-none w-[70vw]'}>
+                    {editedBanner && (
+                        <CharacterBannerForm
+                            banner={editedBanner as CharacterBanner}
+                            characters={characters}
+                            closeEdit={() => setEditedBanner(null)}
+                        />
+                    )}
+                </DialogContent>
+            </Dialog>
         </div>
     );
 };
