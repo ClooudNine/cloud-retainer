@@ -39,7 +39,7 @@ import { cn } from '@/lib/utils';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { getPreviewUrl } from '@/lib/wish-simulator';
-
+import { useTransition } from 'react';
 const CharacterBannerForm = ({
     banner,
     characters,
@@ -49,6 +49,8 @@ const CharacterBannerForm = ({
     characters: Character[];
     closeEdit: () => void;
 }) => {
+    const [isPending, startTransition] = useTransition();
+
     const form = useForm<z.infer<typeof CharacterBannersSchema>>({
         resolver: zodResolver(CharacterBannersSchema),
         defaultValues: {
@@ -66,13 +68,15 @@ const CharacterBannerForm = ({
         },
     });
 
-    async function onSubmit(values: z.infer<typeof CharacterBannersSchema>) {
-        await editCharacterBanner(banner.id, values);
-    }
+    const onSubmit = form.handleSubmit((data) => {
+        () => {
+            editCharacterBanner(banner.id, form.getValues());
+        };
+    });
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
+            <form onSubmit={onSubmit}>
                 <DialogHeader>
                     <DialogTitle>Редактировать баннер персонажа</DialogTitle>
                 </DialogHeader>
@@ -353,6 +357,7 @@ const CharacterBannerForm = ({
                                 <FormItem>
                                     <FormControl>
                                         <Input
+                                            name={'imageee'}
                                             onChange={(e) => {
                                                 const filesArray = Array.from(
                                                     e.target.files || []

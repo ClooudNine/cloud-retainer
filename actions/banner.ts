@@ -9,6 +9,10 @@ import {
 import { db } from '@/lib/db';
 import { eq } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
+import path from 'node:path';
+import * as fs from 'fs';
+import striptags from 'striptags';
+import { z } from 'zod';
 
 export const deleteBanner = async (id: number, type: BannerTypes) => {
     try {
@@ -26,8 +30,9 @@ export const deleteBanner = async (id: number, type: BannerTypes) => {
     }
 };
 
-export const editCharacterBanner = async (id: number, values: any) => {
+export const editCharacterBanner = async (id: number, values: FormData) => {
     try {
+        console.log(values);
         const validatedFields = CharacterBannersSchema.safeParse(values);
 
         if (!validatedFields.success) {
@@ -43,6 +48,24 @@ export const editCharacterBanner = async (id: number, values: any) => {
             type,
             textParameters,
         } = validatedFields.data;
+
+        const publicDir = path.resolve(
+            process.cwd(),
+            'public',
+            'wish-simulator',
+            'banners'
+        );
+
+        const fileName = `${striptags(title)} ${rerunNumber}.webp`;
+        const imagePath = path.join(publicDir, fileName);
+
+        fs.writeFile(imagePath, base64Data, 'base64', (err) => {
+            if (err) {
+                console.error('Ошибка при записи файла:', err);
+            } else {
+                console.log('Файл успешно записан');
+            }
+        });
 
         const mainBannerData = {
             title,

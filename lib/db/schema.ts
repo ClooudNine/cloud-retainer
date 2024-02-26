@@ -286,7 +286,7 @@ export const CharacterBannersSchema = z.object({
     phase: z.enum(phasesEnum.enumValues),
     rerunNumber: z.number().int().nonnegative(),
     type: z.enum(bannerTypesEnum.enumValues),
-    image: z.instanceof(File).nullish(),
+    image: z.instanceof(File),
     textParameters: z.object({
         r: z.string(),
         b: z.string(),
