@@ -283,10 +283,12 @@ export const CharacterBannersSchema = z.object({
     mainCharacterId: z.number().int().positive(),
     featuredCharactersId: z.array(z.number().positive()),
     version: z.number().positive(),
-    phase: z.enum(phasesEnum.enumValues),
+    phase: z.enum(phasesEnum.enumValues, {
+        errorMap: () => ({ message: 'Ожидается значение 1 или 2!' }),
+    }),
     rerunNumber: z.number().int().nonnegative(),
     type: z.enum(bannerTypesEnum.enumValues),
-    image: z.instanceof(File),
+    image: z.instanceof(File).nullish(),
     textParameters: z.object({
         r: z.string(),
         b: z.string(),

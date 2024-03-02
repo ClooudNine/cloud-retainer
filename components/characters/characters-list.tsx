@@ -3,7 +3,9 @@ import { Character, Elements, WeaponType } from '@/lib/db/schema';
 import Image from 'next/image';
 import fiveStarBackground from '@/public/common/items-backgrounds-by-rarity/background-item-5-star.webp';
 import fourStarBackground from '@/public/common/items-backgrounds-by-rarity/background-item-4-star.webp';
-import { useState } from 'react';
+import { CSSProperties, useState } from 'react';
+import { elementToColor } from '@/lib/constants';
+import Link from 'next/link';
 
 const CharactersList = ({ characters }: { characters: Character[] }) => {
     const elements: Elements[] = [
@@ -30,15 +32,12 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(event.target.value);
     };
-
     const handleElementClick = (element: Elements) => {
         setSelectedElement(selectedElement === element ? null : element);
     };
-
     const handleWeaponTypeClick = (weaponType: WeaponType) => {
         setSelectedWeaponType(selectedWeaponType === weaponType ? null : weaponType);
     };
-
     const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedSortOption(event.target.value);
     };
@@ -68,15 +67,15 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
     });
 
     return (
-        <>
-            <div>
+        <div className={'w-full'}>
+            <div className={'flex flex-col gap-2 my-2 justify-center items-center'}>
                 <input
                     placeholder={'Введите имя персонажа'}
                     value={searchQuery}
                     onChange={handleInputChange}
-                    className={'border-2 border-gray-300 rounded-lg'}
+                    className={'border-2 border-gray-300 rounded-lg py-2 w-full'}
                 />
-                <div className={'flex'}>
+                <div className={'flex gap-2'}>
                     {elements.map((element) => (
                         <Image
                             key={element}
@@ -87,15 +86,19 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
                             height={100}
                             draggable={false}
                             quality={100}
-                            className={`cursor-pointer ${
-                                selectedElement === element
-                                    ? 'border border-blue-500'
-                                    : ''
+                            style={
+                                {
+                                    '--ring-color': `${elementToColor[element]}`,
+                                } as CSSProperties
+                            }
+                            className={`cursor-pointer rounded-xl ${
+                                selectedElement === element &&
+                                `ring-2 ring-[rgb(var(--ring-color))]`
                             }`}
                         />
                     ))}
                 </div>
-                <div className={'flex'}>
+                <div className={'flex gap-2'}>
                     {weaponTypes.map((weaponType) => (
                         <Image
                             key={weaponType}
@@ -106,15 +109,15 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
                             height={100}
                             draggable={false}
                             quality={100}
-                            className={`cursor-pointer ${
-                                selectedWeaponType === weaponType
-                                    ? 'border border-blue-500'
-                                    : ''
+                            className={`cursor-pointer rounded-xl ${
+                                selectedWeaponType === weaponType &&
+                                'ring-2 ring-blue-500'
                             }`}
                         />
                     ))}
                 </div>
                 <div>
+                    <label>Сортировать </label>
                     <select value={selectedSortOption} onChange={handleSortChange}>
                         {sortOptions.map((option) => (
                             <option key={option.value} value={option.value}>
@@ -124,9 +127,10 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
                     </select>
                 </div>
             </div>
-            <div className={'flex flex-wrap gap-2'}>
+            <div className={'flex flex-wrap justify-center gap-2'}>
                 {sortedCharacters.map((character) => (
-                    <div
+                    <Link
+                        href={`/characters/${character.name.toLowerCase()}`}
                         key={character.name}
                         className={
                             'flex flex-col items-center drop-shadow-2xl w-28 rounded-2xl bg-gray-300 overflow-hidden duration-500 transition hover:-translate-y-2'
@@ -154,10 +158,10 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
                         <p className={'py-2 max-w-full text-center text-sm'}>
                             {character.name}
                         </p>
-                    </div>
+                    </Link>
                 ))}
             </div>
-        </>
+        </div>
     );
 };
 

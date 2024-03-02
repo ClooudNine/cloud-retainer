@@ -9,10 +9,18 @@ export default async function Main() {
                 alt={'Xianyun'}
                 fill
                 quality={100}
-                className={'-z-10 object-contain object-right-bottom'}
+                className={'pointer-events-none object-contain object-right-bottom'}
             />
-            <h1 className={'text-5xl/loose'}>
-                ТВОЙ ЛУЧШИЙ ПОМОЩНИК В МИРЕ GENSHIN IMPACT
+            <h1 className={'ml-12 text-5xl/loose'}>
+                ТВОЙ{' '}
+                <em className={'px-4 text-white rotate-12 bg-red-300 not-italic'}>
+                    ЛУЧШИЙ
+                </em>{' '}
+                ПОМОЩНИК
+                <br /> В МИРЕ{' '}
+                <em className={'px-8 text-white not-italic bg-emerald-300'}>
+                    GENSHIN IMPACT
+                </em>
             </h1>
         </section>
     );

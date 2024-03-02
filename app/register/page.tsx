@@ -9,6 +9,7 @@ import EyeClose from '@/components/icons/eye-close';
 import { AuthState, register } from '@/actions/register';
 import Success from '@/components/icons/success';
 import Warning from '@/components/icons/warning';
+import Logo from '@/components/main-page/logo';
 
 export default function Register() {
     const initialState: AuthState = { error: null, success: null };
@@ -17,6 +18,7 @@ export default function Register() {
 
     return (
         <main className={'w-full h-full flex justify-center items-center'}>
+            <Logo styles={'absolute top-12 left-12'} />
             <Image
                 src={xianyun}
                 alt={'Xianyun'}

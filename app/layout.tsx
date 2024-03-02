@@ -21,7 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <html lang="ru" className={'h-full text-[max(4px,1.1vmax)]'}>
             <body
                 className={cn(
-                    'h-full bg-background cursor-genshin font-genshin antialiased',
+                    'h-full bg-background cursor-genshin font-genshin antialiased bg-gray-100',
                     genshinFont.variable
                 )}
             >

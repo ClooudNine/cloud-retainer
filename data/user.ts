@@ -8,8 +8,7 @@ export const getUserByEmail = async (email: string) => {
             where: eq(users.email, email),
         });
         return user;
-    } catch (e) {
-        console.log(e);
+    } catch {
         return null;
     }
 };

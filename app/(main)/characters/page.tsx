@@ -1,14 +1,15 @@
-import { db } from '@/lib/db';
-import { characters } from '@/lib/db/schema';
 import CharactersList from '@/components/characters/characters-list';
+import { getAllCharacters } from '@/data/character';
 
 export default async function Characters() {
-    const allCharacters = await db.select().from(characters);
+    const allCharacters = await getAllCharacters();
     return (
         <section
             className={'w-full h-full flex-1 overflow-y-scroll genshin-scrollbar px-4'}
         >
-            <h1>Here characters!</h1>
+            <h1 className={'w-full text-white mt-2 py-2 text-center bg-black rounded-xl'}>
+                Список персонажей
+            </h1>
             <CharactersList characters={allCharacters} />
         </section>
     );

@@ -13,6 +13,7 @@ import googleIcon from '@/public/common/google.png';
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
 import { AuthState } from '@/actions/register';
 import Success from '@/components/icons/success';
+import Logo from '@/components/main-page/logo';
 
 export default function Login() {
     const initialState: AuthState | undefined = { error: null, success: null };
@@ -21,6 +22,7 @@ export default function Login() {
 
     return (
         <main className={'w-full h-full flex justify-center items-center'}>
+            <Logo styles={'absolute top-12 left-12'} />
             <Image
                 src={xianyun}
                 alt={'Xianyun'}

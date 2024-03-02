@@ -14,7 +14,7 @@ export default async function MainLayout({ children }: { children: React.ReactNo
     const user = await currentUser();
 
     return (
-        <main className={'h-full flex overflow-hidden'}>
+        <main className={'h-full flex overflow-hidden bg-gray-100'}>
             <aside
                 className={
                     'flex justify-between items-center flex-col py-8 w-64 bg-gray-200 rounded-r-2xl drop-shadow-2xl'

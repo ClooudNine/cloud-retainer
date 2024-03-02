@@ -39,7 +39,6 @@ import { cn } from '@/lib/utils';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { getPreviewUrl } from '@/lib/wish-simulator';
-import { useTransition } from 'react';
 const CharacterBannerForm = ({
     banner,
     characters,
@@ -49,8 +48,6 @@ const CharacterBannerForm = ({
     characters: Character[];
     closeEdit: () => void;
 }) => {
-    const [isPending, startTransition] = useTransition();
-
     const form = useForm<z.infer<typeof CharacterBannersSchema>>({
         resolver: zodResolver(CharacterBannersSchema),
         defaultValues: {
@@ -62,21 +59,23 @@ const CharacterBannerForm = ({
             version: banner.version,
             phase: banner.phase,
             rerunNumber: banner.rerunNumber,
-            image: undefined,
-            type: banner?.type,
+            type: banner.type,
             textParameters: banner.textParameters,
         },
     });
 
-    const onSubmit = form.handleSubmit((data) => {
-        () => {
-            editCharacterBanner(banner.id, form.getValues());
-        };
-    });
+    const onSubmit = async (values: z.infer<typeof CharacterBannersSchema>) => {
+        const formData = new FormData();
+        if (values.image) {
+            formData.append('image', values.image as File);
+            values.image = null;
+        }
+        await editCharacterBanner(banner.id, values, formData);
+    };
 
     return (
         <Form {...form}>
-            <form onSubmit={onSubmit}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
                 <DialogHeader>
                     <DialogTitle>Редактировать баннер персонажа</DialogTitle>
                 </DialogHeader>
@@ -311,7 +310,7 @@ const CharacterBannerForm = ({
                                 control={form.control}
                                 name="phase"
                                 render={({ field }) => (
-                                    <FormItem>
+                                    <FormItem className={'w-52'}>
                                         <FormLabel>Фаза</FormLabel>
                                         <FormControl>
                                             <Input {...field} />
