@@ -1,4 +1,4 @@
-import { getAllCharacters, getCharacterByName } from '@/data/character';
+import { getCharacterByName } from '@/data/character';
 import {
     Card,
     CardContent,
@@ -12,15 +12,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import star from '@/public/common/star.webp';
 
-export async function generateStaticParams() {
-    const characters = await getAllCharacters();
-
-    return characters.map((character) => ({
-        name: character.name,
-    }));
-}
-
-export const dynamic = 'force-static';
+export const dynamic = 'force-dynamic';
 export default async function CharacterPage({ params }: { params: { name: string } }) {
     const { name } = params;
     const character = await getCharacterByName(
