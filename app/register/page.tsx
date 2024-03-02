@@ -10,7 +10,7 @@ import { AuthState, register } from '@/actions/register';
 import Success from '@/components/icons/success';
 import Warning from '@/components/icons/warning';
 import Logo from '@/components/main-page/logo';
-export const dynamic = 'force-dynamic';
+
 export default function Register() {
     const initialState: AuthState = { error: null, success: null };
     const [state, dispatch] = useFormState(register, initialState);

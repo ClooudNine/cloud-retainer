@@ -14,7 +14,7 @@ import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
 import { AuthState } from '@/actions/register';
 import Success from '@/components/icons/success';
 import Logo from '@/components/main-page/logo';
-export const dynamic = 'force-dynamic';
+
 export default function Login() {
     const initialState: AuthState | undefined = { error: null, success: null };
     const [state, dispatch] = useFormState(login, initialState);

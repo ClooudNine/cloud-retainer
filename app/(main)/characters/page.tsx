@@ -1,6 +1,7 @@
 import CharactersList from '@/components/characters/characters-list';
 import { getAllCharacters } from '@/data/character';
 
+export const dynamic = 'force-dynamic';
 export default async function Characters() {
     const allCharacters = await getAllCharacters();
     return (

@@ -11,7 +11,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import star from '@/public/common/star.webp';
-export const dynamic = 'force-dynamic';
+
 export async function generateStaticParams() {
     const characters = await getAllCharacters();
 
@@ -19,20 +19,13 @@ export async function generateStaticParams() {
         name: character.name,
     }));
 }
-function capitalizeWords(sentence: string) {
-    sentence = decodeURIComponent(sentence);
-    let words = sentence.split(' ');
 
-    for (let i = 0; i < words.length; i++) {
-        words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
-    }
-
-    return words.join(' ');
-}
-
+export const dynamic = 'force-dynamic';
 export default async function CharacterPage({ params }: { params: { name: string } }) {
     const { name } = params;
-    const character = await getCharacterByName(capitalizeWords(name));
+    const character = await getCharacterByName(
+        name.charAt(0).toUpperCase() + name.slice(1)
+    );
 
     if (!character) {
         return <p>Not found character!</p>;
