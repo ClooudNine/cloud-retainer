@@ -11,7 +11,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import star from '@/public/common/star.webp';
-
+export const dynamic = 'force-dynamic';
 export async function generateStaticParams() {
     const characters = await getAllCharacters();
 
