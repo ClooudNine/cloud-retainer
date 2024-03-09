@@ -2,7 +2,8 @@ import type { NextAuthConfig } from 'next-auth';
 import { apiAuthPrefix, authRoutes, DEFAULT_LOGIN_REDIRECT } from '@/routes';
 
 export const authConfig = {
-    pages: { signIn: '/login' },
+    basePath: '/api/auth',
+    pages: { signIn: '/login', error: '/login' },
     callbacks: {
         authorized({ auth, request: { nextUrl } }) {
             const isLoggedIn = !!auth?.user;
