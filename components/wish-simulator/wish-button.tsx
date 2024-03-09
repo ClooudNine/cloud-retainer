@@ -20,6 +20,7 @@ const WishButton = ({ count }: { count: number }) => {
         pullCurrency,
         balance,
         bannerStats,
+        droppedItems,
         setDroppedItems,
         setBannerStats,
         setEpitomizedPath,
@@ -77,7 +78,11 @@ const WishButton = ({ count }: { count: number }) => {
     ]);
 
     return (
-        <button className={wishButtonClasses} onClick={makeWish}>
+        <button
+            className={wishButtonClasses}
+            onClick={makeWish}
+            disabled={droppedItems.length > 0}
+        >
             <Image
                 src={wishButton}
                 alt={`Помолиться ${count} раз`}

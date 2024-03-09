@@ -12,7 +12,7 @@ const TablePagination = ({
     return (
         <div
             className={
-                'absolute flex items-center justify-center w-full gap-16 bottom-[8%] print:hidden'
+                'absolute flex items-center justify-center w-full gap-16 bottom-[8%]'
             }
         >
             <button

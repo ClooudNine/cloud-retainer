@@ -272,7 +272,7 @@ const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
                         audio?.play();
                         setDroppedItems([]);
                     }}
-                    styles={'absolute size-6 top-[3%] right-[3%] sm:size-[5vh]'}
+                    styles={'z-10 absolute size-6 top-[3%] right-[3%] sm:size-[5vh]'}
                 />
             )}
             {isVideoPlaying ? (

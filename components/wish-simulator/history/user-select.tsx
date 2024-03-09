@@ -13,7 +13,7 @@ export const UserSelect = ({ type }: { type: WishHistoryTypes }) => {
     return (
         <div
             className={
-                'absolute flex items-center text-[#595252] w-[87%] top-[13%] left-[8%] text-base xs:text-xl xs:w-[85%] print:left-0 print:text-3xl print:top-[5%]'
+                'absolute flex items-center text-[#595252] w-[87%] top-[13%] left-[8%] text-base xs:text-xl xs:w-[85%]'
             }
         >
             <Image
@@ -21,9 +21,9 @@ export const UserSelect = ({ type }: { type: WishHistoryTypes }) => {
                 alt={'Фон выбора типа молитвы'}
                 quality={100}
                 draggable={false}
-                className={'w-full print:opacity-0 '}
+                className={'w-full'}
             />
-            <p className={'absolute left-[4%] xs:left-[8%] print:left-0'}>Тип Молитвы</p>
+            <p className={'absolute left-[4%] xs:left-[8%]'}>Тип Молитвы</p>
             <div className="absolute w-[70%] text-[#595252] right-[1%]">
                 <div
                     className="flex items-center mx-3"

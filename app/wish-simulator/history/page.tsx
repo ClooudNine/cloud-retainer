@@ -25,24 +25,22 @@ export default function WishHistory({
             <Background isBlurred={true} />
             <div
                 className={
-                    'print:static relative flex justify-center items-center h-[85vh] w-[45vh] xs:w-[150vh] xs:h-auto'
+                    'relative flex justify-center items-center h-[85vh] w-[45vh] xs:w-[150vh] xs:h-auto'
                 }
             >
-                <Logo
-                    styles={'absolute top-0 right-0 hidden print:text-6xl print:flex'}
-                />
+                <Logo styles={'absolute top-0 right-0 hidden'} />
                 <Image
                     src={bookBackground}
                     quality={100}
                     alt={'История молитв'}
                     draggable={false}
                     className={
-                        'max-w-none w-[85vh] -rotate-90 -scale-y-100 xs:rotate-0 xs:scale-y-100 xs:max-w-full xs:w-[150vh] xs:h-auto print:opacity-0 '
+                        'max-w-none w-[85vh] -rotate-90 -scale-y-100 xs:rotate-0 xs:scale-y-100 xs:max-w-full xs:w-[150vh] xs:h-auto'
                     }
                 />
                 <p
                     className={
-                        'absolute text-[#595252] top-[8%] left-[12.5%] text-3xl xs:top-[5%] xs:left-[14%] print:top-0 print:left-0 print:text-5xl'
+                        'absolute text-[#595252] top-[8%] left-[12.5%] text-3xl xs:top-[5%] xs:left-[14%]'
                     }
                 >
                     Журнал Молитв
@@ -51,7 +49,7 @@ export default function WishHistory({
                 <Link
                     href={'/wish-simulator'}
                     className={
-                        'absolute cursor-genshin top-[2.5%] right-[7%] xs:top-[6.2%] xs:right-[2.4%] print:hidden '
+                        'absolute cursor-genshin top-[2.5%] right-[7%] xs:top-[6.2%] xs:right-[2.4%]'
                     }
                 >
                     <WishCrossIcon fillColor={'#e9d5af'} />

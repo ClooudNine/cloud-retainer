@@ -7,68 +7,16 @@ import { initialBannerStats } from '@/lib/constants';
 import TrashIcon from '@/components/icons/trash';
 
 const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
-    const [isPrint, setIsPrint] = useState<boolean>(false);
     const [stats, setStats] = useState<BaseBannerStatsWithGuaranteed | null>(null);
     const [page, setPage] = useState<number>(1);
 
     useEffect(() => {
-        window.onafterprint = () => {
-            const maybeBannerStats = localStorage.getItem('bannerStats');
-            if (maybeBannerStats) {
-                setStats(JSON.parse(maybeBannerStats)[type]);
-                setPage(1);
-            }
-            setIsPrint(false);
-        };
-
         const maybeBannerStats = localStorage.getItem('bannerStats');
         if (maybeBannerStats) {
             setStats(JSON.parse(maybeBannerStats)[type]);
             setPage(1);
         }
     }, [type]);
-
-    useEffect(() => {
-        if (isPrint) {
-            window.print();
-        }
-    }, [isPrint]);
-
-    const handlePrint = () => {
-        const isDateEnter = confirm('Желаете ввести диапазон даты?');
-        if (isDateEnter) {
-            let firstDate = prompt('Введите начало диапазона (в формате ГГГГ-ММ-ДД):');
-            let secondDate = prompt('Введите конец диапазона (в формате ГГГГ-ММ-ДД):');
-
-            if (
-                firstDate !== null &&
-                secondDate !== null &&
-                /^\d{4}-\d{2}-\d{2}$/.test(firstDate) &&
-                /^\d{4}-\d{2}-\d{2}$/.test(secondDate)
-            ) {
-                const filteredHistory = stats?.history.filter((item) => {
-                    return item.date >= firstDate! && item.date <= secondDate!;
-                });
-
-                if (filteredHistory) {
-                    setStats((prevStats) => {
-                        if (prevStats) {
-                            return {
-                                ...prevStats,
-                                history: filteredHistory,
-                            };
-                        }
-                        return null;
-                    });
-                }
-            } else {
-                alert(
-                    'Некорректный формат даты. Пожалуйста, введите дату в формате ГГГГ-ММ-ДД.'
-                );
-            }
-        }
-        setIsPrint(true);
-    };
 
     const getWishesFromLastItem = (rare: number) => {
         const wishesCount = stats?.history.findIndex(
@@ -119,17 +67,13 @@ const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
         <>
             <div
                 className={
-                    'absolute w-[86%] h-[70%] top-[17%] left-[9%] overflow-y-scroll genshin-scrollbar xs:top-[22%] xs:w-[84%] xs:h-[63%] print:w-full print:left-0 print:top-[12%] print:overflow-visible print:h-auto'
+                    'absolute w-[86%] h-[70%] top-[17%] left-[9%] overflow-y-scroll genshin-scrollbar xs:top-[22%] xs:w-[84%] xs:h-[63%]'
                 }
             >
-                <p className={'text-2xl text-[#9a8e8e] xs:text-base print:text-3xl '}>
+                <p className={'text-2xl text-[#9a8e8e] xs:text-base'}>
                     Всего молитв сделано: {stats.history.length}
                 </p>
-                <div
-                    className={
-                        'flex flex-col text-2xl gap-2 xs:text-base xs:flex-row print:text-3xl'
-                    }
-                >
+                <div className={'flex flex-col text-2xl gap-2 xs:text-base xs:flex-row'}>
                     <div>
                         <p className={'text-[#9659c7]'}>
                             Всего предметов 4★ получено:&nbsp;
@@ -153,7 +97,7 @@ const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
                                 rare={'4'}
                             />
                             <GuaranteeStatus
-                                status={stats.fourStarGuaranteed}
+                                status={stats.fiveStarGuaranteed}
                                 rare={'5'}
                             />
                         </div>
@@ -168,7 +112,7 @@ const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
                             {getWishesFromLastItem(5)}
                         </p>
                     </div>
-                    <div className={'space-y-1.5 w-full xs:w-1/4 print:hidden'}>
+                    <div className={'space-y-1.5 w-full xs:w-1/4'}>
                         <button
                             className={
                                 'h-12 w-full flex items-center justify-evenly bg-red-300 transition rounded-full gap-2 cursor-genshin p-2 hover:bg-red-500'
@@ -178,19 +122,11 @@ const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
                             <TrashIcon />
                             <p>Удалить историю</p>
                         </button>
-                        <button
-                            className={
-                                'h-12 w-full flex items-center justify-evenly bg-white transition rounded-full gap-2 cursor-genshin p-2 hover:bg-black hover:text-white'
-                            }
-                            onClick={handlePrint}
-                        >
-                            <p>Отчёт</p>
-                        </button>
                     </div>
                 </div>
                 <table
                     className={
-                        'absolute w-[99%] h-4/5 border-2 border-[#dac69f] mt-2 text-xl/tight xs:h-auto xs:text-base/tight print:w-full print:text-3xl'
+                        'absolute w-[99%] h-4/5 border-2 border-[#dac69f] mt-2 text-xl/tight xs:h-auto xs:text-base/tight'
                     }
                 >
                     <thead>
@@ -201,28 +137,28 @@ const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
                         >
                             <th
                                 className={
-                                    'w-1/5 border-2 border-[#dac69f] font-normal p-3 print:p-1'
+                                    'w-1/5 border-2 border-[#dac69f] font-normal p-3'
                                 }
                             >
                                 Тип
                             </th>
                             <th
                                 className={
-                                    'w-[30%] border-2 border-[#dac69f] font-normal p-3 print:p-1'
+                                    'w-[30%] border-2 border-[#dac69f] font-normal p-3'
                                 }
                             >
                                 Имя
                             </th>
                             <th
                                 className={
-                                    'w-1/4 border-2 border-[#dac69f] font-normal p-3 print:p-1'
+                                    'w-1/4 border-2 border-[#dac69f] font-normal p-3'
                                 }
                             >
                                 Тип Молитвы
                             </th>
                             <th
                                 className={
-                                    'w-1/4 border-2 border-[#dac69f] font-normal p-3 print:p-1'
+                                    'w-1/4 border-2 border-[#dac69f] font-normal p-3'
                                 }
                             >
                                 Время молитвы
@@ -235,21 +171,16 @@ const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
                         }
                     >
                         {stats.history
-                            .slice(
-                                !isPrint ? (page - 1) * 5 : undefined,
-                                !isPrint ? (page - 1) * 5 + 5 : undefined
-                            )
+                            .slice((page - 1) * 5, (page - 1) * 5 + 5)
                             .map((wish, index) => (
                                 <tr key={index}>
                                     <td
-                                        className={
-                                            'border-2 border-[#dac69f] p-1 xs:p-4 print:p-1'
-                                        }
+                                        className={'border-2 border-[#dac69f] p-1 xs:p-4'}
                                     >
                                         {wish.type}
                                     </td>
                                     <td
-                                        className={`border-2 border-[#dac69f] p-1 xs:p-4 print:p-1 ${
+                                        className={`border-2 border-[#dac69f] p-1 xs:p-4 ${
                                             wish.item.rare === '5'
                                                 ? 'text-[#bd6932]'
                                                 : wish.item.rare === '4' &&
@@ -261,16 +192,12 @@ const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
                                             ` (${wish.item.rare}★)`}
                                     </td>
                                     <td
-                                        className={
-                                            'border-2 border-[#dac69f] p-1 xs:p-4 print:p-1'
-                                        }
+                                        className={'border-2 border-[#dac69f] p-1 xs:p-4'}
                                     >
                                         {wish.wishType}
                                     </td>
                                     <td
-                                        className={
-                                            'border-2 border-[#dac69f] p-1 xs:p-4 print:p-1'
-                                        }
+                                        className={'border-2 border-[#dac69f] p-1 xs:p-4'}
                                     >
                                         {wish.date}
                                     </td>

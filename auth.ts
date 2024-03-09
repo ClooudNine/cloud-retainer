@@ -95,4 +95,8 @@ export const {
                 .where(eq(users.id, user.id as string));
         },
     },
+    pages: {
+        signIn: '/login',
+        error: '/login',
+    },
 });

@@ -42,6 +42,7 @@ type BannerContext = {
     bannerStats: BannerStats;
     pullCurrency: PullCurrency;
     balance: BalanceStats;
+    droppedItems: (Character | Weapon)[];
     switchBanner: (banner: Banners) => void;
     setCurrentBanners: (banners: Banners[]) => void;
     setDroppedItems: (droppedItems: (Character | Weapon)[]) => void;
@@ -157,6 +158,7 @@ export default function BannerProvider({
                         bannerStats,
                         pullCurrency,
                         balance,
+                        droppedItems,
                         switchBanner,
                         setCurrentBanners,
                         setDroppedItems,
