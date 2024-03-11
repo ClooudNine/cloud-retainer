@@ -39,6 +39,8 @@ import { cn } from '@/lib/utils';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { getPreviewUrl } from '@/lib/wish-simulator';
+import { currentGamePhase, currentGameVersion } from '@/lib/constants';
+
 const CharacterBannerForm = ({
     banner,
     characters,
@@ -51,16 +53,16 @@ const CharacterBannerForm = ({
     const form = useForm<z.infer<typeof CharacterBannersSchema>>({
         resolver: zodResolver(CharacterBannersSchema),
         defaultValues: {
-            title: banner.title,
-            mainCharacterId: banner.mainCharacterId,
-            featuredCharactersId: banner.featuredCharactersInBanners.map(
-                ({ character }) => character.id
-            ),
-            version: banner.version,
-            phase: banner.phase,
-            rerunNumber: banner.rerunNumber,
-            type: banner.type,
-            textParameters: banner.textParameters,
+            title: banner.title || '',
+            mainCharacterId: banner.mainCharacterId || 1,
+            featuredCharactersId:
+                banner.featuredCharactersInBanners.map(({ character }) => character.id) ||
+                [],
+            version: banner.version || currentGameVersion,
+            phase: banner.phase || currentGamePhase,
+            rerunNumber: banner.rerunNumber || 1,
+            type: banner.type || 'Character Event Wish',
+            textParameters: banner.textParameters || { r: '0%', b: '0%' },
         },
     });
 
@@ -91,8 +93,8 @@ const CharacterBannerForm = ({
                                         <Input {...field} />
                                     </FormControl>
                                     <FormDescription>
-                                        &lt;br&gt;-перенос на новую строку <br />
-                                        &lt;em&gt;-выделенное слово для подсветки
+                                        &lt;br&gt; - перенос на новую строку <br />
+                                        &lt;em&gt; - выделенное слово для подсветки
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -105,9 +107,11 @@ const CharacterBannerForm = ({
                                 <FormItem>
                                     <FormLabel>Тип</FormLabel>
                                     <FormControl>
-                                        <Input disabled {...field} />
+                                        <Input
+                                            disabled={Boolean(banner.type)}
+                                            {...field}
+                                        />
                                     </FormControl>
-                                    <FormMessage />
                                 </FormItem>
                             )}
                         />
@@ -144,7 +148,7 @@ const CharacterBannerForm = ({
                                                 <CommandInput placeholder="Найти персонажа..." />
                                                 <ScrollArea className={'h-72'}>
                                                     <CommandEmpty>
-                                                        Персонажи не найдены
+                                                        Персонаж не найден
                                                     </CommandEmpty>
                                                     <CommandGroup>
                                                         {characters
@@ -473,12 +477,10 @@ const CharacterBannerForm = ({
                         </Dialog>
                     </div>
                 </div>
-                <DialogFooter className={'mt-4'}>
-                    <DialogClose>
-                        <Button type={'button'} onClick={closeEdit} variant={'secondary'}>
-                            Отмена
-                        </Button>
-                    </DialogClose>
+                <DialogFooter>
+                    <Button type={'button'} onClick={closeEdit} variant={'secondary'}>
+                        Отмена
+                    </Button>
                     <Button type="submit">Сохранить изменения</Button>
                 </DialogFooter>
             </form>

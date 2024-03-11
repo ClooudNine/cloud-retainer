@@ -7,10 +7,10 @@ export default async function AdminBanners() {
     const characters = await getAllCharacters();
 
     return (
-        <section className={'flex-1 h-full'}>
+        <section className={'flex-1 h-screen'}>
             <h1
                 className={
-                    'text-2xl text-center mt-2 h-[5%] bg-emerald-200 rounded-3xl mx-4'
+                    'text-2xl text-center mt-2 py-1 bg-emerald-200 rounded-2xl mx-4'
                 }
             >
                 Редактор баннеров

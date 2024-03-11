@@ -27,7 +27,7 @@ const DeleteBannerButton = ({ id, type }: { id: number; type: BannerTypes }) => 
                     <AlertDialogTitle>
                         Вы уверены, что хотите удалить данный баннер?
                     </AlertDialogTitle>
-                    <AlertDialogDescription>
+                    <AlertDialogDescription className={'text-destructive'}>
                         Данное действие необратимо
                     </AlertDialogDescription>
                 </AlertDialogHeader>

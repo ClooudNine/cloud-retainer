@@ -279,7 +279,7 @@ export const LoginSchema = z.object({
 });
 
 export const CharacterBannersSchema = z.object({
-    title: z.string().max(50),
+    title: z.string().min(1, { message: 'Название не может быть пустым!' }),
     mainCharacterId: z.number().int().positive(),
     featuredCharactersId: z.array(z.number().positive()),
     version: z.number().positive(),

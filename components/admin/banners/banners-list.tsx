@@ -20,65 +20,61 @@ const BannersList = ({
     const [editedBanner, setEditedBanner] = useState<Banners | null>(null);
 
     return (
-        <>
-            <div
-                className={
-                    'mt-2 flex h-[92%] flex-wrap gap-4 items-center justify-center genshin-scrollbar overflow-y-scroll'
-                }
-            >
-                {banners
-                    .sort(
-                        (firstBanner, secondBanner) =>
-                            secondBanner.version - firstBanner.version
-                    )
-                    .map((banner) => (
+        <div
+            className={
+                'mt-2 flex flex-wrap gap-4 items-center justify-center genshin-scrollbar overflow-y-scroll'
+            }
+        >
+            {banners
+                .sort(
+                    (firstBanner, secondBanner) =>
+                        secondBanner.version - firstBanner.version
+                )
+                .map((banner) => (
+                    <div
+                        key={`${banner.title}-${banner.id}`}
+                        className={'group relative w-[30%] bg-gray-200 rounded-lg'}
+                    >
                         <div
-                            key={`${banner.title}-${banner.id}`}
-                            className={'group relative w-[30%] bg-gray-200 rounded-xl'}
+                            className={
+                                'absolute flex opacity-0 flex-col gap-1 top-1 right-1 transition group-hover:opacity-100'
+                            }
                         >
-                            <div
+                            <button
                                 className={
-                                    'absolute flex opacity-0 flex-col gap-1 top-1 right-1 transition group-hover:opacity-100'
+                                    'bg-gray-200 p-2 rounded-xl transition hover:bg-gray-400'
                                 }
+                                onClick={() => setEditedBanner(banner)}
                             >
-                                <button
-                                    className={
-                                        'bg-gray-200 p-2 rounded-xl transition hover:bg-gray-400'
-                                    }
-                                    onClick={() => setEditedBanner(banner)}
-                                >
-                                    <PencilIcon />
-                                </button>
-                                <DeleteBannerButton id={banner.id} type={banner.type} />
-                            </div>
-                            <Image
-                                src={`/wish-simulator/banners/${getPreviewUrl(
-                                    banner
-                                )}.webp`}
-                                alt={banner.title}
-                                width={800}
-                                height={450}
-                                quality={100}
-                                className={'w-full rounded-xl'}
-                            />
-                            <p className={'text-center'}>{`${striptags(banner.title)}-${
-                                banner.version
-                            }`}</p>
+                                <PencilIcon />
+                            </button>
+                            <DeleteBannerButton id={banner.id} type={banner.type} />
                         </div>
-                    ))}
-                <Dialog open={Boolean(editedBanner)}>
-                    <DialogContent className={'max-w-none w-[70vw]'}>
-                        {editedBanner && (
-                            <CharacterBannerForm
-                                banner={editedBanner as CharacterBanner}
-                                characters={characters}
-                                closeEdit={() => setEditedBanner(null)}
-                            />
-                        )}
-                    </DialogContent>
-                </Dialog>
-            </div>
-        </>
+                        <Image
+                            src={`/wish-simulator/banners/${getPreviewUrl(banner)}.webp`}
+                            alt={banner.title}
+                            width={600}
+                            height={300}
+                            quality={100}
+                            className={'w-full rounded-lg'}
+                        />
+                        <p className={'text-center'}>{`${striptags(banner.title)}-${
+                            banner.version
+                        }`}</p>
+                    </div>
+                ))}
+            <Dialog open={Boolean(editedBanner)}>
+                <DialogContent className={'max-w-none w-[70vw]'}>
+                    {editedBanner && (
+                        <CharacterBannerForm
+                            banner={editedBanner as CharacterBanner}
+                            characters={characters}
+                            closeEdit={() => setEditedBanner(null)}
+                        />
+                    )}
+                </DialogContent>
+            </Dialog>
+        </div>
     );
 };
 
