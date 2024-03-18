@@ -1,12 +1,10 @@
 import Background from '@/components/wish-simulator/background';
 import Image from 'next/image';
-import bookBackground from '@/public/wish-simulator/assets/book-background.webp';
 import Link from 'next/link';
 import UserSelect from '@/components/wish-simulator/history/user-select';
 import HistoryTable from '@/components/wish-simulator/history/history-table';
 import { WishHistoryTypes } from '@/lib/banners';
 import WishCrossIcon from '@/components/icons/wish-cross';
-import Logo from '@/components/main-page/logo';
 
 export const metadata = {
     title: 'Cloud Retainer | Симулятор молитв - История',
@@ -28,10 +26,10 @@ export default function WishHistory({
                     'relative flex justify-center items-center h-[85vh] w-[45vh] xs:w-[150vh] xs:h-auto'
                 }
             >
-                <Logo styles={'absolute top-0 right-0 hidden'} />
                 <Image
-                    src={bookBackground}
-                    quality={100}
+                    src={'wish-simulator/assets/book-background.webp'}
+                    width={1400}
+                    height={761}
                     alt={'История молитв'}
                     draggable={false}
                     className={

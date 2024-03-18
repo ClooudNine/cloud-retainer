@@ -1,5 +1,4 @@
 import Background from '@/components/wish-simulator/background';
-import bookBackground from '@/public/wish-simulator/assets/book-background.webp';
 import Image from 'next/image';
 import Title from '@/components/wish-simulator/details/title';
 import Navigation from '@/components/wish-simulator/details/navigation';
@@ -41,11 +40,7 @@ export default async function Details({
 
     if (!banner) {
         return (
-            <p
-                className={
-                    'w-full h-full flex items-center justify-center font-genshin text-9xl'
-                }
-            >
+            <p className={'w-full h-full flex items-center justify-center text-9xl'}>
                 Баннер не найден :(
             </p>
         );
@@ -75,9 +70,10 @@ export default async function Details({
                 }
             >
                 <Image
-                    src={bookBackground}
+                    src={'wish-simulator/assets/book-background.webp'}
+                    width={1440}
+                    height={761}
                     draggable={false}
-                    quality={100}
                     alt={'Детали баннера'}
                     className={
                         'max-w-none w-[85vh] -rotate-90 -scale-y-100 xs:rotate-0 xs:scale-y-100 xs:max-w-full xs:w-[150vh]'

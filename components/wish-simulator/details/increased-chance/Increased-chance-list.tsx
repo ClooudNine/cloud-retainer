@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import star from '@/public/common/star.webp';
 import { elementToColor } from '@/lib/constants';
 import ItemCard from '@/components/wish-simulator/details/increased-chance/Item-card';
 import { BannerTypes, Character, Rares, Weapon } from '@/lib/db/schema';
@@ -39,10 +38,11 @@ const IncreasedChanceList = ({
                     {Array.from(Array(Number(rare)).keys()).map((number) => (
                         <Image
                             key={number}
-                            src={star}
+                            src={'common/star.webp'}
+                            width={40}
+                            height={40}
                             alt={'Звезда'}
                             draggable={false}
-                            quality={100}
                             className={'h-4/5 w-auto drop-shadow'}
                         />
                     ))}
@@ -71,8 +71,8 @@ const IncreasedChanceList = ({
                                         'name' in item
                                             ? elementToColor[item.element]
                                             : item.rare === '5'
-                                            ? '193,96,40'
-                                            : '161,88,225'
+                                              ? '193,96,40'
+                                              : '161,88,225'
                                     })`,
                                 }}
                                 className={'whitespace-nowrap'}
@@ -83,7 +83,7 @@ const IncreasedChanceList = ({
                     </div>
                     <div
                         className={
-                            'w-1/2 h-fit flex flex-wrap gap-3 xs:flex-nowrap xs:h-full xs:w-[70%]'
+                            'w-1/2 h-fit flex max-xs:flex-wrap gap-3 xs:h-full xs:w-[70%]'
                         }
                     >
                         {items.map((item) => (

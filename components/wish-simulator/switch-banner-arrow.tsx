@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import arrow from '@/public/wish-simulator/assets/switch-banner-arrow.webp';
 import { useCallback } from 'react';
 import { useBannerContext } from '@/app/wish-simulator/banner-provider';
 import { playSfxEffect } from '@/lib/wish-simulator';
@@ -17,13 +16,16 @@ const SwitchBannerArrow = ({ isForward }: { isForward: boolean }) => {
         const newIndex =
             (currentIndex + (isForward ? 1 : -1) + currentBanners.length) %
             currentBanners.length;
-        playSfxEffect('/sounds/click-1.mp3');
+        playSfxEffect('sounds/click-1.mp3');
         switchBanner(currentBanners[newIndex]);
     }, [currentBanners, isForward, selectedBanner, switchBanner]);
 
     return (
         <Image
-            src={arrow}
+            src={'wish-simulator/assets/switch-banner-arrow.webp'}
+            width={34}
+            height={45}
+            draggable={false}
             alt={`Переключить баннер ${isForward ? 'вперёд' : 'назад'}`}
             onClick={handleSwitchBanner}
             className={switchBannerArrowClasses}

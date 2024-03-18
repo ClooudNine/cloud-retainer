@@ -51,11 +51,10 @@ const BannersList = ({
                             <DeleteBannerButton id={banner.id} type={banner.type} />
                         </div>
                         <Image
-                            src={`/wish-simulator/banners/${getPreviewUrl(banner)}.webp`}
+                            src={`wish-simulator/banners/${getPreviewUrl(banner)}.webp`}
                             alt={banner.title}
                             width={600}
                             height={300}
-                            quality={100}
                             className={'w-full rounded-lg'}
                         />
                         <p className={'text-center'}>{`${striptags(banner.title)}-${

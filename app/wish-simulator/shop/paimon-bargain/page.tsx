@@ -2,9 +2,6 @@
 import Navbar from '@/components/wish-simulator/shop/paimon-bargain/navbar';
 import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
-import intertwinedFate from '@/public/wish-simulator/assets/intertwined-fate.webp';
-import acquaintFate from '@/public/wish-simulator/assets/acquaint-fate.webp';
-import fiveStarItemCard from '@/public/wish-simulator/assets/shop/5-star-shop-card.webp';
 import PaymentModal from '@/components/wish-simulator/shop/paimon-bargain/payment-modal';
 import { useRouter } from 'next/navigation';
 import Balance from '@/components/wish-simulator/shop/balance';
@@ -26,12 +23,14 @@ export default function PaimonBargain() {
     const [purchasedItem, setPurchasedItem] = useState<PullCurrency | null>(null);
 
     const closePaymentModal = useCallback(() => setPurchasedItem(null), []);
+
     const setCurrencyHandler = useCallback((currency: PurchasesCurrency) => {
-        playSfxEffect('/sounds/click-3.mp3');
+        playSfxEffect('sounds/click-3.mp3');
         setCurrentCurrency(currency);
     }, []);
+
     const buyItem = (item: PullCurrency) => {
-        playSfxEffect('/sounds/click-6.mp3');
+        playSfxEffect('sounds/click-6.mp3');
         setPurchasedItem(item);
     };
 
@@ -65,7 +64,7 @@ export default function PaimonBargain() {
                 />
                 <CloseButton
                     handler={() => {
-                        playSfxEffect('/sounds/return.mp3');
+                        playSfxEffect('sounds/return.mp3');
                         router.replace('/wish-simulator');
                     }}
                     styles={'size-12 xs:size-10'}
@@ -84,17 +83,17 @@ export default function PaimonBargain() {
                     onClick={() => buyItem('intertwined-fate')}
                 >
                     <Image
-                        src={fiveStarItemCard}
+                        src={'wish-simulator/assets/shop/5-star-shop-card.webp'}
+                        fill
                         alt={'Фон пятизвёздочного предмета в магазине'}
-                        quality={100}
                         draggable={false}
                         priority
-                        className={'w-full'}
                     />
                     <Image
-                        src={intertwinedFate}
+                        src={'wish-simulator/assets/intertwined-fate.webp'}
+                        width={256}
+                        height={256}
                         alt={'Переплетающиеся судьбы'}
-                        quality={100}
                         draggable={false}
                         priority
                         className={'absolute top-0 w-[65%]'}
@@ -108,13 +107,12 @@ export default function PaimonBargain() {
                     </p>
                     <div
                         className={
-                            'absolute bottom-[8%] flex items-center justify-center gap-1'
+                            'absolute bottom-[4.5%] flex items-center justify-center gap-1'
                         }
                     >
                         <Image
-                            src={`/wish-simulator/assets/${currentCurrency}.webp`}
+                            src={`wish-simulator/assets/${currentCurrency}.webp`}
                             alt={purchasesCurrencies[currentCurrency]}
-                            quality={100}
                             width={40}
                             height={40}
                             draggable={false}
@@ -131,18 +129,20 @@ export default function PaimonBargain() {
                     onClick={() => buyItem('acquaint-fate')}
                 >
                     <Image
-                        src={fiveStarItemCard}
+                        src={'wish-simulator/assets/shop/5-star-shop-card.webp'}
+                        fill
                         alt={'Фон пятизвёздочного предмета в магазине'}
-                        quality={100}
                         draggable={false}
-                        className={'w-full'}
+                        priority
                     />
                     <Image
-                        src={acquaintFate}
+                        src={'wish-simulator/assets/acquaint-fate.webp'}
+                        width={256}
+                        height={256}
                         alt={'Судьбоносные встречи'}
-                        quality={100}
                         draggable={false}
                         className={'absolute top-0 w-[65%]'}
+                        priority
                     />
                     <p
                         className={
@@ -153,13 +153,12 @@ export default function PaimonBargain() {
                     </p>
                     <div
                         className={
-                            'absolute bottom-[8%] flex items-center justify-center gap-1'
+                            'absolute bottom-[4.5%] flex items-center justify-center gap-1'
                         }
                     >
                         <Image
-                            src={`/wish-simulator/assets/${currentCurrency}.webp`}
+                            src={`wish-simulator/assets/${currentCurrency}.webp`}
                             alt={purchasesCurrencies[currentCurrency]}
-                            quality={100}
                             width={40}
                             height={40}
                             draggable={false}

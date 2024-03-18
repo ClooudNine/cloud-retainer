@@ -1,6 +1,5 @@
 'use client';
 import Image from 'next/image';
-import primogem from '@/public/wish-simulator/assets/primogems.webp';
 import { useBannerContext } from '@/app/wish-simulator/banner-provider';
 import { useState } from 'react';
 import CurrencyExchanger from '@/components/wish-simulator/currency-exchanger';
@@ -23,20 +22,21 @@ const CurrentBalance = () => {
                     }
                 >
                     <Image
-                        src={primogem}
+                        src={'wish-simulator/assets/primogems.webp'}
+                        width={40}
+                        height={40}
                         alt={'Примогем'}
-                        quality={100}
                         draggable={false}
                         className={'size-8 xs:size-6'}
                     />
                     <p>{balance['primogems']}</p>
                     <button
                         onClick={() => {
-                            playSfxEffect('/sounds/click-8.mp3');
+                            playSfxEffect('sounds/click-8.mp3');
                             setIsExchange(true);
                         }}
                         className={
-                            'bg-[#ece5d8] text-[#3b4354] size-7 text-xl font-bold leading-none rounded-full transition cursor-genshin active:opacity-50 active:scale-95 hover:scale-110 xs:size-5'
+                            'bg-[#ece5d8] text-[#3b4354] size-7 text-xl/none font-bold rounded-full transition cursor-genshin active:opacity-50 active:scale-95 hover:scale-110 xs:size-5'
                         }
                     >
                         +
@@ -48,12 +48,11 @@ const CurrentBalance = () => {
                     }
                 >
                     <Image
-                        src={`/wish-simulator/assets/${pullCurrency}.webp`}
+                        src={`wish-simulator/assets/${pullCurrency}.webp`}
+                        width={40}
+                        height={40}
                         alt={'Переплетающиеся судьбы'}
-                        quality={100}
                         draggable={false}
-                        width={140}
-                        height={140}
                         className={'size-8 xs:size-6'}
                     />
                     <p>{balance[pullCurrency]}</p>
@@ -64,7 +63,7 @@ const CurrentBalance = () => {
                     balance={balance}
                     setBalance={setBalance}
                     closeCurrencyExchanger={() => {
-                        playSfxEffect('/sounds/click-7.mp3');
+                        playSfxEffect('sounds/click-7.mp3');
                         setIsExchange(false);
                     }}
                 />

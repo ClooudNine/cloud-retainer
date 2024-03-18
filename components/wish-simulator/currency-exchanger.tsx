@@ -1,8 +1,4 @@
 import Image from 'next/image';
-import confirmationModal from '@/public/wish-simulator/assets/confirmation-modal.webp';
-import genesisCrystal from '@/public/wish-simulator/assets/genesis-crystal.webp';
-import primogem from '@/public/wish-simulator/assets/primogems.webp';
-import exchangerArrow from '@/public/wish-simulator/assets/exchanger-arrow.webp';
 import { useCallback, useState } from 'react';
 import clsx from 'clsx';
 import Cancel from '@/components/ui/cancel';
@@ -38,7 +34,7 @@ const CurrencyExchanger = ({
 
     const confirmExchange = useCallback(() => {
         if (count > balance['genesis-crystal']) {
-            playSfxEffect('/sounds/click-7.mp3');
+            playSfxEffect('sounds/click-7.mp3');
             setRedirectModal(true);
         } else {
             let newBalance = { ...balance };
@@ -62,9 +58,10 @@ const CurrencyExchanger = ({
         >
             <div className={'relative text-[#525a68] animate-modal-appearance mx-4'}>
                 <Image
-                    src={confirmationModal}
+                    src={'wish-simulator/assets/confirmation-modal.webp'}
+                    width={930}
+                    height={594}
                     alt={'Покупка предмета'}
-                    quality={100}
                     draggable={false}
                     className={'w-[120vh]'}
                 />
@@ -82,18 +79,20 @@ const CurrencyExchanger = ({
                         }
                     >
                         <Image
-                            src={genesisCrystal}
+                            src={'wish-simulator/assets/genesis-crystal.webp'}
+                            width={256}
+                            height={256}
                             alt={'Кристалл Сотворения'}
-                            quality={100}
                             draggable={false}
                             className={'h-4/5 w-auto'}
                         />
                         <p className={'-mt-2'}>Кристалл Сотворения ×1</p>
                     </div>
                     <Image
-                        src={exchangerArrow}
+                        src={'wish-simulator/assets/exchanger-arrow.webp'}
+                        width={50}
+                        height={57}
                         alt={'Стрелка'}
-                        quality={100}
                         draggable={false}
                         className={'absolute h-2/5 w-auto'}
                     />
@@ -103,9 +102,10 @@ const CurrencyExchanger = ({
                         }
                     >
                         <Image
-                            src={primogem}
+                            src={'wish-simulator/assets/primogems.webp'}
+                            width={256}
+                            height={256}
                             alt={'Примогем'}
-                            quality={100}
                             draggable={false}
                             className={'h-4/5 w-auto'}
                         />
@@ -121,7 +121,7 @@ const CurrencyExchanger = ({
                     <div className={'relative flex items-center justify-center w-2/5'}>
                         <button
                             onClick={() => {
-                                playSfxEffect('/sounds/click-9.mp3');
+                                playSfxEffect('sounds/click-9.mp3');
                                 setCount(count - 1);
                             }}
                             disabled={count === 0}
@@ -141,7 +141,7 @@ const CurrencyExchanger = ({
                         />
                         <button
                             onClick={() => {
-                                playSfxEffect('/sounds/click-9.mp3');
+                                playSfxEffect('sounds/click-9.mp3');
                                 setCount(count + 1);
                             }}
                             disabled={count === 320000}
@@ -155,7 +155,7 @@ const CurrencyExchanger = ({
                     <div className={'w-1/2 flex gap-4 h-6 text-[#eae3db]'}>
                         <button
                             onClick={() => {
-                                playSfxEffect('/sounds/click-4.mp3');
+                                playSfxEffect('sounds/click-4.mp3');
                                 handleButtonClick(-100);
                             }}
                             disabled={count === 0}
@@ -167,7 +167,7 @@ const CurrencyExchanger = ({
                         </button>
                         <button
                             onClick={() => {
-                                playSfxEffect('/sounds/click-4.mp3');
+                                playSfxEffect('sounds/click-4.mp3');
                                 handleButtonClick(100);
                             }}
                             disabled={count === 320000}
@@ -179,7 +179,7 @@ const CurrencyExchanger = ({
                         </button>
                         <button
                             onClick={() => {
-                                playSfxEffect('/sounds/click-4.mp3');
+                                playSfxEffect('sounds/click-4.mp3');
                                 setCount(balance['genesis-crystal']);
                             }}
                             className={
@@ -192,9 +192,10 @@ const CurrencyExchanger = ({
                     <div className={'flex gap-3 items-center text-xl'}>
                         <p>Стоимость:</p>
                         <Image
-                            src={genesisCrystal}
+                            src={'wish-simulator/assets/genesis-crystal.webp'}
+                            width={60}
+                            height={60}
                             alt={'Кристалл Сотворения'}
-                            quality={100}
                             draggable={false}
                             className={'h-10 w-auto'}
                         />
@@ -216,13 +217,10 @@ const CurrencyExchanger = ({
                         }
                     >
                         <Image
-                            src={confirmationModal}
-                            alt={
-                                'Подтверждение перехода на экран получения Кристаллов Сотворения'
-                            }
-                            quality={100}
-                            draggable={false}
+                            src={'wish-simulator/assets/confirmation-modal.webp'}
                             fill
+                            alt={'Переход к получению Кристаллов Сотворения'}
+                            draggable={false}
                         />
                         <p className={'absolute top-[5.5%] text-3xl'}>
                             Пополнение кристаллов

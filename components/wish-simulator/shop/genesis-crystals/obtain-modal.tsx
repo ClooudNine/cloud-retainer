@@ -22,8 +22,8 @@ const ObtainModal = ({
     const confirmObtain = useCallback(() => {
         let newBalance = { ...balance };
 
-        playSfxEffect('/sounds/click-7.mp3');
-        playSfxEffect('/sounds/obtain-item.mp3');
+        playSfxEffect('sounds/click-7.mp3');
+        playSfxEffect('sounds/obtain-item.mp3');
 
         if (convertToPrimogems.current?.checked) {
             newBalance['primogems'] += count;
@@ -38,7 +38,7 @@ const ObtainModal = ({
     }, [balance, closeObtainModal, convertToPrimogems, count, setBalance]);
 
     const closeObtainModalHandler = useCallback(() => {
-        playSfxEffect('/sounds/click-7.mp3');
+        playSfxEffect('sounds/click-7.mp3');
         closeObtainModal();
     }, [closeObtainModal]);
 
@@ -58,27 +58,23 @@ const ObtainModal = ({
             >
                 <div className={obtainModalClasses}>
                     <Image
-                        src={`/wish-simulator/assets/shop/genesis-crystals/${count}-crystals.webp`}
+                        src={`wish-simulator/assets/shop/genesis-crystals/${count}-crystals.webp`}
                         alt={count + ' Кристаллов Сотворения'}
                         width={300}
                         height={300}
-                        quality={100}
                         draggable={false}
                         className={'h-1/2 w-auto'}
                     />
                     <p className={'text-2xl'}>{count} Кристаллов Сотворения</p>
-                    <div className={'flex items-center gap-2 text-lg'}>
+                    <label className={'flex items-center gap-2 text-lg cursor-genshin'}>
                         <input
                             type={'checkbox'}
                             ref={convertToPrimogems}
-                            name={'convertToPrimogems'}
-                            onClick={() => playSfxEffect('/sounds/click-1.mp3')}
+                            onClick={() => playSfxEffect('sounds/click-1.mp3')}
                             className={'size-4 cursor-genshin'}
                         />
-                        <label htmlFor={'convertToPrimogems'}>
-                            Автоматически конвертировать в примогемы
-                        </label>
-                    </div>
+                        Автоматически конвертировать в примогемы
+                    </label>
                     <div
                         className={'w-full flex justify-center text-white gap-4 text-xl'}
                     >

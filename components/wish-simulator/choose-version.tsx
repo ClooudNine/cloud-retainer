@@ -23,12 +23,12 @@ const ChooseVersion = ({
         >
             <div
                 className={
-                    'relative w-[100vh] max-h-[70vh] mx-8 h-1/2 bg-amber-50 rounded-xl flex flex-col items-center gap-4 animate-modal-appearance xs:h-[90%]'
+                    'relative w-[100vh] h-[70vh] mx-8 bg-amber-50 rounded-lg flex flex-col items-center gap-4 animate-modal-appearance'
                 }
             >
                 <button
                     className={
-                        'absolute transition cursor-genshin right-2 top-2 rounded-full ring-2 p-1 ring-black hover:rotate-180'
+                        'absolute transition duration-500 cursor-genshin right-2 top-2 rounded-full ring-2 p-1 ring-black hover:rotate-180'
                     }
                     onClick={closeChooseVersion}
                 >
@@ -69,9 +69,8 @@ const ChooseVersion = ({
                                                                 key={
                                                                     banner.character.name
                                                                 }
-                                                                src={`/characters/profiles/${banner.character.name}.webp`}
+                                                                src={`characters/profiles/${banner.character.name}.webp`}
                                                                 alt={`Портрет персонажа ${banner.character.name}`}
-                                                                quality={100}
                                                                 draggable={false}
                                                                 width={100}
                                                                 height={100}
@@ -98,9 +97,8 @@ const ChooseVersion = ({
                                                             (mainWeapon) => (
                                                                 <Image
                                                                     key={mainWeapon.title}
-                                                                    src={`/weapons/portraits/${mainWeapon.title}.webp`}
+                                                                    src={`weapons/portraits/${mainWeapon.title}.webp`}
                                                                     alt={`Портрет оружия ${mainWeapon.title}`}
-                                                                    quality={100}
                                                                     draggable={false}
                                                                     width={100}
                                                                     height={100}

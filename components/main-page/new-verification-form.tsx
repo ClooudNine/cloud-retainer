@@ -1,7 +1,6 @@
 'use client';
 import { BeatLoader } from 'react-spinners';
 import Image from 'next/image';
-import xianyunConfirmation from '@/public/common/xianyun-confirmation.webp';
 import { useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import { newVerification } from '@/actions/new-verification';
@@ -37,29 +36,25 @@ const NewVerificationForm = () => {
     }, [onSubmit]);
 
     return (
-        <main
-            className={
-                'w-full h-full flex items-center justify-center font-genshin text-3xl'
-            }
-        >
+        <main className={'w-full h-full flex items-center justify-center'}>
             <section
                 className={
                     'flex flex-col gap-4 items-center bg-gray-200 rounded-2xl px-8 py-2'
                 }
             >
                 <Image
-                    src={xianyunConfirmation}
-                    alt={'Xianyun Emoji'}
-                    quality={100}
-                    draggable={false}
-                    width={250}
+                    src={'common/xianyun-confirmation.webp'}
+                    alt={'Xianyun эмоджи'}
+                    width={340}
+                    height={340}
+                    className={'w-48'}
                 />
-                <p>Подтверждение почты</p>
+                <p className={'text-3xl'}>Подтверждение почты</p>
                 {!error && !success && <BeatLoader />}
                 {error && (
                     <div
                         className={
-                            'flex items-center gap-4 bg-red-200 px-8 py-2 rounded-lg text-center w-[90%] h-fit'
+                            'text-xl flex items-center gap-4 bg-red-200 px-8 py-2 rounded-lg text-center whitespace-nowrap'
                         }
                     >
                         <Warning />
@@ -69,11 +64,11 @@ const NewVerificationForm = () => {
                 {success && (
                     <div
                         className={
-                            'flex items-center gap-4 bg-emerald-200 px-8 py-2 rounded-lg text-center w-[90%]'
+                            'text-xl flex items-center gap-4 bg-emerald-200 px-8 py-2 rounded-lg text-center whitespace-nowrap'
                         }
                     >
                         <Success />
-                        <p className={'flex-1'}>{success}</p>
+                        <p>{success}</p>
                     </div>
                 )}
             </section>

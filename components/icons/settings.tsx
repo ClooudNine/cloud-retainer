@@ -4,7 +4,7 @@ const SettingsIcon = () => {
             fill="none"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
-            className={'w-8 h-8'}
+            className={'size-12 xs:size-8'}
         >
             <g stroke="#1C274C" strokeWidth="1.5">
                 <circle cx="12" cy="12" r="3" />

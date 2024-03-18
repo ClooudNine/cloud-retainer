@@ -123,7 +123,7 @@
     .payment-track::-webkit-slider-thumb {
         height: 2vmax;
         width: 2vmax;
-        background: url("/wish-simulator/assets/input-track.webp");
+        background: url("https://content.retainer.cloud/wish-simulator/assets/input-track.webp");
         background-size: 100% 100%;
         border: none;
         margin-top: -0.8vmax;
@@ -139,7 +139,7 @@
     .payment-track::-moz-range-thumb {
         height: 2vmax;
         width: 2vmax;
-        background: transparent url("/wish-simulator/assets/input-track.webp");
+        background: transparent url("https://content.retainer.cloud/wish-simulator/assets/input-track.webp");
         background-size: 100% 100%;
         border: none;
     }

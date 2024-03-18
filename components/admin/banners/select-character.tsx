@@ -64,7 +64,6 @@ const SelectCharacter = ({
                                         alt={character.name}
                                         width={100}
                                         height={100}
-                                        quality={100}
                                         className={'h-12 w-auto ml-auto'}
                                     />
                                 </CommandItem>

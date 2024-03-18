@@ -1,8 +1,5 @@
 'use client';
 import Image from 'next/image';
-import wishButton from '@/public/wish-simulator/assets/wish-button.webp';
-import intertwinedFate from '@/public/wish-simulator/assets/intertwined-fate.webp';
-import acquaintFate from '@/public/wish-simulator/assets/acquaint-fate.webp';
 import { useBannerContext } from '@/app/wish-simulator/banner-provider';
 import { useCallback } from 'react';
 import { BannerItems } from '@/lib/banners';
@@ -26,6 +23,8 @@ const WishButton = ({ count }: { count: number }) => {
         setEpitomizedPath,
     } = useBannerContext();
 
+    const pullCost = selectedBanner.type === 'Novice Wish' ? 8 : count;
+
     const wishButtonClasses = clsx(
         'relative transition text-2xl flex flex-col justify-center items-center cursor-genshin duration-300 active:brightness-90 xs:text-base',
         {
@@ -34,18 +33,18 @@ const WishButton = ({ count }: { count: number }) => {
     );
 
     const countClasses = clsx({
-        'text-[#ff5f40]': count > balance[pullCurrency],
-        'text-[#b4a08c]': count <= balance[pullCurrency],
+        'text-[#ff5f40]': pullCost > balance[pullCurrency],
+        'text-[#b4a08c]': pullCost <= balance[pullCurrency],
     });
 
     const makeWish = useCallback(() => {
-        if (balance[pullCurrency] < count) {
+        if (balance[pullCurrency] < pullCost) {
             alert('Недостаточно средств для совершения молитв!');
             return;
         }
 
         audio?.pause();
-        balance[pullCurrency] -= selectedBanner.type === 'Novice Wish' ? 8 : count;
+        balance[pullCurrency] -= pullCost;
         let droppedItems: BannerItems = [];
 
         for (let i = 0; i < count; i++) {
@@ -70,6 +69,7 @@ const WishButton = ({ count }: { count: number }) => {
         count,
         drop,
         epitomizedPath,
+        pullCost,
         pullCurrency,
         selectedBanner,
         setBannerStats,
@@ -84,9 +84,10 @@ const WishButton = ({ count }: { count: number }) => {
             disabled={droppedItems.length > 0}
         >
             <Image
-                src={wishButton}
+                src={'wish-simulator/assets/wish-button.webp'}
+                width={317}
+                height={72}
                 alt={`Помолиться ${count} раз`}
-                quality={100}
                 draggable={false}
                 className={'w-[22rem] xs:w-64'}
             />
@@ -106,11 +107,12 @@ const WishButton = ({ count }: { count: number }) => {
                 <Image
                     src={
                         pullCurrency === 'intertwined-fate'
-                            ? intertwinedFate
-                            : acquaintFate
+                            ? 'wish-simulator/assets/intertwined-fate.webp'
+                            : 'wish-simulator/assets/acquaint-fate.webp'
                     }
+                    width={40}
+                    height={40}
                     alt={pullCurrency}
-                    quality={100}
                     draggable={false}
                     className={'w-12 xs:w-6'}
                 />

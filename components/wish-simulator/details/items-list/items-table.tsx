@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import star from '@/public/common/star.webp';
 import ItemCell from '@/components/wish-simulator/details/items-list/item-cell';
 import { BannerTypes, Character, Rares, Weapon } from '@/lib/db/schema';
 import clsx from 'clsx';
@@ -40,9 +39,10 @@ const ItemsTable = ({
                     {Array.from(Array(Number(rare)).keys()).map((number) => (
                         <Image
                             key={number}
-                            src={star}
+                            src={'common/star.webp'}
+                            width={40}
+                            height={40}
                             alt={'Звезда'}
-                            quality={100}
                             draggable={false}
                             className={'w-5 drop-shadow'}
                         />

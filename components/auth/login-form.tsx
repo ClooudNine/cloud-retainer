@@ -12,7 +12,6 @@ import Warning from '@/components/icons/warning';
 import Success from '@/components/icons/success';
 import { signIn } from 'next-auth/react';
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
-import googleIcon from '@/public/common/google.png';
 
 const LoginForm = () => {
     const searchParams = useSearchParams();
@@ -127,7 +126,12 @@ function GoogleButton() {
                 'rounded-lg bg-white flex items-center gap-4 px-12 py-2 transition duration-500 hover:bg-black hover:-translate-y-1 hover:text-white disabled:opacity-20'
             }
         >
-            <Image src={googleIcon} alt={'Google'} quality={100} />
+            <Image
+                src={'common/google.webp'}
+                alt={'Вход с помощью Google'}
+                width={30}
+                height={30}
+            />
             Войти с помощью Google
         </button>
     );

@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import wishSimulatorBackground from '@/public/wish-simulator/assets/wish-simulator-bg.webp';
 import clsx from 'clsx';
 
 const Background = ({ isBlurred }: { isBlurred: boolean }) => {
@@ -15,9 +14,8 @@ const Background = ({ isBlurred }: { isBlurred: boolean }) => {
                 }
             ></div>
             <Image
-                src={wishSimulatorBackground}
+                src={'wish-simulator/assets/wish-simulator-bg.webp'}
                 alt={'Фоновое изображение раздела молитв'}
-                quality={100}
                 fill
                 className={backgroundClasses}
             />

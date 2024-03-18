@@ -1,9 +1,8 @@
 import Image from 'next/image';
-import epitomizedPathButtonActive from '@/public/wish-simulator/assets/epitomized-path-button-active.webp';
-import epitomizedPathButton from '@/public/wish-simulator/assets/epitomized-path-button.webp';
 import { useState } from 'react';
 import EpitomizedPathModal from '@/components/wish-simulator/epitomized-path-modal';
 import { useBannerContext } from '@/app/wish-simulator/banner-provider';
+import { playSfxEffect } from '@/lib/wish-simulator';
 
 const EpitomizedPathButton = () => {
     const { selectedBanner, epitomizedPath } = useBannerContext();
@@ -14,27 +13,29 @@ const EpitomizedPathButton = () => {
         <>
             <div
                 className={
-                    'group absolute bottom-72 left-4 animate-banner-preview-appearance hover:scale-105 xs:bottom-36 xs:left-40'
+                    'group w-52 h-40 absolute bottom-72 left-4 animate-banner-preview-appearance transition hover:scale-105 hover:brightness-105 xs:bottom-36 xs:left-40 xs:w-36 xs:h-28'
                 }
-                onClick={() => setEpitomizedPathIsOpen(true)}
+                onClick={() => {
+                    playSfxEffect('sounds/click-6.mp3');
+                    setEpitomizedPathIsOpen(true);
+                }}
             >
                 <Image
-                    src={epitomizedPathButton}
+                    src={'wish-simulator/assets/epitomized-path-button.webp'}
+                    fill
                     alt={'Путь воплощения'}
-                    quality={100}
                     draggable={false}
-                    className={'w-52 xs:w-36 group-hover:hidden'}
                 />
                 <Image
-                    src={epitomizedPathButtonActive}
+                    src={'wish-simulator/assets/epitomized-path-button-active.webp'}
+                    fill
                     alt={'Путь воплощения при наведении'}
-                    quality={100}
                     draggable={false}
-                    className={'hidden w-52 xs:w-36 group-hover:block'}
+                    className={'hidden group-active:block'}
                 />
                 <div
                     className={
-                        'absolute bottom-0 text-2xl/none flex justify-center items-center text-center text-[#525b6c] px-2 w-full h-[30%] xs:text-base/none'
+                        'absolute flex justify-center items-center w-full bottom-0 text-2xl/none text-center text-[#525b6c] h-[30%] xs:text-base/none'
                     }
                 >
                     {epitomizedPath[selectedBanner.id]
@@ -43,7 +44,12 @@ const EpitomizedPathButton = () => {
                 </div>
             </div>
             {epitomizedPathIsOpen && (
-                <EpitomizedPathModal closeModal={() => setEpitomizedPathIsOpen(false)} />
+                <EpitomizedPathModal
+                    closeModal={() => {
+                        playSfxEffect('sounds/click-10.mp3');
+                        setEpitomizedPathIsOpen(false);
+                    }}
+                />
             )}
         </>
     );

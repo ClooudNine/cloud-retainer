@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import wishIcon from '@/public/wish-simulator/assets/wish-icon.webp';
 
 const Title = () => {
     return (
@@ -9,17 +8,14 @@ const Title = () => {
             }
         >
             <Image
-                src={wishIcon}
+                src={'wish-simulator/assets/wish-icon.webp'}
+                width={53}
+                height={53}
                 alt={'Иконка раздела молитв'}
                 draggable={false}
-                quality={100}
                 className={'w-14 xs:w-10'}
             />
-            <p
-                className={
-                    'text-3xl drop-shadow-[0_0.5px_1.5px_rgba(0,0,0,1)] lg:text-xl'
-                }
-            >
+            <p className={'text-3xl drop-shadow-[0_0.5px_1.5px_#000000] lg:text-xl'}>
                 Молитва
             </p>
         </div>

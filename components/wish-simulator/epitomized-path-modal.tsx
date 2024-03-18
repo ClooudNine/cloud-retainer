@@ -1,6 +1,4 @@
 import Image from 'next/image';
-import epitomizedPathModal from '@/public/wish-simulator/assets/epitomized-path-modal.webp';
-import epitomizedPathExistsImage from '@/public/wish-simulator/assets/epitomized-path-exists.webp';
 import WeaponPreview from '@/components/wish-simulator/weapon-preview';
 import { useCallback, useState } from 'react';
 import { useBannerContext } from '@/app/wish-simulator/banner-provider';
@@ -31,14 +29,15 @@ export const EpitomizedPathModal = ({ closeModal }: { closeModal: () => void }) 
     return (
         <section
             className={
-                'absolute z-10 w-full h-full bg-black/70 flex justify-center items-center'
+                'z-10 absolute w-full h-full bg-black/70 flex justify-center items-center'
             }
         >
             <div className={'relative mx-4 animate-modal-appearance'}>
                 <Image
-                    src={epitomizedPathModal}
+                    src={'wish-simulator/assets/epitomized-path-modal.webp'}
+                    width={1200}
+                    height={675}
                     alt={"Модальное окно системы 'Путь воплощения'"}
-                    quality={100}
                     draggable={false}
                     className={'w-[130vh]'}
                 />
@@ -131,9 +130,9 @@ export const EpitomizedPathModal = ({ closeModal }: { closeModal: () => void }) 
                     {epitomizedStats ? (
                         <>
                             <Image
-                                src={epitomizedPathExistsImage}
+                                src={'wish-simulator/assets/epitomized-path-exists.webp'}
+                                fill
                                 alt={'Выбранное оружие пути воплощения'}
-                                quality={100}
                                 draggable={false}
                                 className={'absolute h-full w-auto'}
                             />

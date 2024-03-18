@@ -1,6 +1,5 @@
 'use client';
 import Image from 'next/image';
-import xianyun from '@/public/common/Xianyun_Profile.webp';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
@@ -20,10 +19,9 @@ export default function Register() {
         <main className={'w-full h-full flex justify-center items-center'}>
             <Logo styles={'absolute top-12 left-12'} />
             <Image
-                src={xianyun}
+                src={'common/xianyun-main.webp'}
                 alt={'Xianyun'}
                 fill
-                quality={100}
                 className={'-z-10 object-contain object-right-bottom'}
             />
             <form

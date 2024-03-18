@@ -1,6 +1,5 @@
 'use client';
 import Image from 'next/image';
-import detailsButton from '@/public/wish-simulator/assets/details-button.webp';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
 import clsx from 'clsx';
@@ -37,9 +36,10 @@ const NavigationButton = ({
     return (
         <button className={buttonClasses} onClick={selectSection}>
             <Image
-                src={detailsButton}
+                src={'wish-simulator/assets/details-button.webp'}
+                width={384}
+                height={59}
                 alt={title}
-                quality={100}
                 draggable={false}
                 className={backgroundButtonClasses}
             />

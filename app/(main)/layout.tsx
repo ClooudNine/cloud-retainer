@@ -20,7 +20,7 @@ export default async function MainLayout({ children }: { children: React.ReactNo
                     'flex justify-between items-center flex-col py-8 w-64 bg-gray-200 rounded-r-2xl drop-shadow-2xl'
                 }
             >
-                <Logo styles={''} />
+                <Logo />
                 <div className={'flex flex-col gap-4'}>
                     <Link
                         href={'/wish-simulator'}
@@ -53,10 +53,10 @@ export default async function MainLayout({ children }: { children: React.ReactNo
                     )}
                 </div>
                 {user ? (
-                    <div className={'flex gap-2'}>
+                    <div className={'flex gap-2 mx-2'}>
                         <div
                             className={
-                                'flex items-center gap-2 bg-teal-300 px-4 py-2 rounded-lg'
+                                'flex items-center gap-2 bg-teal-300 px-4 py-2 rounded-lg break-all'
                             }
                         >
                             <UserIcon />
@@ -71,7 +71,7 @@ export default async function MainLayout({ children }: { children: React.ReactNo
                                 'bg-red-300 flex items-center rounded-lg px-2 transition hover:bg-red-400 hover:scale-105'
                             }
                         >
-                            <button type={'submit'}>
+                            <button className={'w-full h-full'} type={'submit'}>
                                 <LogoutIcon />
                             </button>
                         </form>

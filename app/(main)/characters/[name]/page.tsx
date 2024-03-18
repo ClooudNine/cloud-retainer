@@ -10,14 +10,13 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import star from '@/public/common/star.webp';
 
 export const dynamic = 'force-dynamic';
 export default async function CharacterPage({ params }: { params: { name: string } }) {
     const { name } = params;
-    const character = await getCharacterByName(
-        name.charAt(0).toUpperCase() + name.slice(1)
-    );
+    const correctName = name.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+
+    const character = await getCharacterByName(correctName);
 
     if (!character) {
         return <p>Not found character!</p>;
@@ -32,12 +31,10 @@ export default async function CharacterPage({ params }: { params: { name: string
                 </CardHeader>
                 <CardContent>
                     <Image
-                        src={`/characters/splash-arts/${character.name}.webp`}
+                        src={`characters/splash-arts/${character.name}.webp`}
                         alt={character.name}
                         width={800}
                         height={600}
-                        quality={100}
-                        className={'w-full object-contain'}
                     />
                     <div className={'flex items-center gap-2'}>
                         Редкость:
@@ -45,10 +42,10 @@ export default async function CharacterPage({ params }: { params: { name: string
                             (number) => (
                                 <Image
                                     key={number}
-                                    src={star}
+                                    src={'common/star.webp'}
+                                    width={40}
+                                    height={40}
                                     alt={'Звезда'}
-                                    draggable={false}
-                                    quality={100}
                                     className={'h-4/5 w-auto drop-shadow'}
                                 />
                             )
@@ -57,21 +54,19 @@ export default async function CharacterPage({ params }: { params: { name: string
                     <div className={'flex items-center gap-2'}>
                         Стихия: {character.element}
                         <Image
-                            src={`/common/elements/${character.element}.svg`}
+                            src={`common/elements/${character.element}.svg`}
                             alt={character.element}
                             width={40}
                             height={40}
-                            quality={100}
                         />
                     </div>
                     <div className={'flex items-center gap-2'}>
                         Тип оружия: {character.weaponType}
                         <Image
-                            src={`/weapons/icons/${character.weaponType}.webp`}
+                            src={`weapons/icons/${character.weaponType}.webp`}
                             alt={character.weaponType}
                             width={40}
                             height={40}
-                            quality={100}
                         />
                     </div>
                     <p>Версия появления: {character.appearanceVersion}</p>

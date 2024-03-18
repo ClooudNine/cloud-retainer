@@ -1,7 +1,5 @@
 'use client';
 import Image from 'next/image';
-import bannerButtonBackground from '@/public/wish-simulator/assets/banner-button-background.webp';
-import bannerButtonBackgroundActive from '@/public/wish-simulator/assets/banner-button-background-active.webp';
 import { Banners } from '@/lib/banners';
 import { useBannerContext } from '@/app/wish-simulator/banner-provider';
 import {
@@ -34,7 +32,7 @@ const BannerButton = ({ banner }: { banner: Banners }) => {
     );
 
     const handleSwitchBanner = () => {
-        playSfxEffect('/sounds/click-2.mp3');
+        playSfxEffect('sounds/click-2.mp3');
         switchBanner(banner);
     };
 
@@ -43,11 +41,10 @@ const BannerButton = ({ banner }: { banner: Banners }) => {
             <Image
                 src={
                     banner === selectedBanner
-                        ? bannerButtonBackgroundActive
-                        : bannerButtonBackground
+                        ? 'wish-simulator/assets/banner-button-background-active.webp'
+                        : 'wish-simulator/assets/banner-button-background.webp'
                 }
                 alt={'Фон кнопки выбора баннера'}
-                quality={100}
                 draggable={false}
                 fill
                 onClick={handleSwitchBanner}
@@ -62,10 +59,9 @@ const BannerButton = ({ banner }: { banner: Banners }) => {
                         key={url}
                         src={url}
                         alt={itemNames[index]}
-                        quality={100}
                         draggable={false}
-                        width={200}
-                        height={200}
+                        width={150}
+                        height={70}
                         className={portraitClasses}
                     />
                 ))}

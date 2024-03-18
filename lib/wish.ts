@@ -164,9 +164,9 @@ const getFiveStarItemsByBannerState = (
         if (isFiveStarGuaranteed) {
             returnedWeapon = [getRandomItem(mainWeapons)] as Weapon[];
             if (updatedEpitomizedPath[banner.id]) {
-                if (returnedWeapon[0].id !== updatedEpitomizedPath[banner.id].weaponId)
+                if (returnedWeapon[0].id !== updatedEpitomizedPath[banner.id].weaponId) {
                     updatedEpitomizedPath[banner.id].count++;
-                updatedEpitomizedPath[banner.id].count = 0;
+                } else updatedEpitomizedPath[banner.id].count = 0;
             }
         } else {
             returnedWeapon = items.filter(

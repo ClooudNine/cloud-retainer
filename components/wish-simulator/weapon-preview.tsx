@@ -1,6 +1,4 @@
 import Image from 'next/image';
-import fiveStarItemBackground from '@/public/common/items-backgrounds-by-rarity/background-item-5-star.webp';
-import star from '@/public/common/star.webp';
 import { useBannerContext } from '@/app/wish-simulator/banner-provider';
 import clsx from 'clsx';
 import { Weapon } from '@/lib/db/schema';
@@ -32,9 +30,10 @@ const WeaponPreview = ({
     return (
         <div className={weaponPreviewClasses} onClick={setEpitomizedWeapon}>
             <Image
-                src={fiveStarItemBackground}
+                src={'common/items-backgrounds-by-rarity/background-item-5-star.webp'}
+                width={200}
+                height={100}
                 alt={'Фон предмета пятизвёздочной редкости'}
-                quality={100}
                 draggable={false}
                 className={'w-full rounded-t rounded-br-3xl'}
             />
@@ -49,11 +48,10 @@ const WeaponPreview = ({
                     </p>
                 )}
             <Image
-                src={`/weapons/portraits/${weapon.title}.webp`}
+                src={`weapons/portraits/${weapon.title}.webp`}
                 alt={'Иконка оружия ' + weapon.title}
                 width={130}
                 height={130}
-                quality={100}
                 draggable={false}
                 className={'w-full absolute top-0'}
             />
@@ -61,9 +59,10 @@ const WeaponPreview = ({
                 {Array.from(Array(Number(weapon.rare)).keys()).map((number) => (
                     <Image
                         key={number}
-                        src={star}
+                        src={'common/star.webp'}
+                        width={40}
+                        height={40}
                         alt={'Звезда'}
-                        quality={100}
                         draggable={false}
                         className={'w-4'}
                     />

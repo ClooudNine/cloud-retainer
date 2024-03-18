@@ -1,14 +1,12 @@
 import Image from 'next/image';
-import xianyun from '@/public/common/Xianyun_Profile.webp';
 
 export default async function Main() {
     return (
         <section className={'flex-1'}>
             <Image
-                src={xianyun}
+                src={'common/xianyun-main.webp'}
                 alt={'Xianyun'}
                 fill
-                quality={100}
                 className={'pointer-events-none object-contain object-right-bottom'}
             />
             <h1 className={'ml-12 text-5xl/loose'}>

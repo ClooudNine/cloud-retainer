@@ -12,11 +12,11 @@ import {
 } from '@/lib/db/schema';
 
 const getCharacterPortrait = (character: Character) => {
-    return `/characters/portraits/${character.name}.webp`;
+    return `characters/portraits/${character.name}.webp`;
 };
 
 const getWeaponPortrait = (weapon: Weapon) => {
-    return `/weapons/portraits/${weapon.title}.webp`;
+    return `weapons/portraits/${weapon.title}.webp`;
 };
 
 export const getButtonPortraitUrl = (banner: Banners): string[] => {
@@ -154,7 +154,7 @@ export const getBannerDrop = (
 };
 
 export const playSfxEffect = (path: string) => {
-    const sfx = new Audio(path);
+    const sfx = new Audio(`https://content.retainer.cloud/${path}`);
     sfx.play();
 };
 
@@ -174,7 +174,6 @@ export const getBannerColor = (banner: Banners) => {
     if ('mainCharacterId' in banner) {
         if (banner.type === 'Standard Wish') {
             if (currentGameVersion === 1) return '230,98,106';
-
             return '120,126,201';
         }
 
@@ -188,9 +187,9 @@ export const getBannerColor = (banner: Banners) => {
 
 export const getItemPortrait = (item: Character | Weapon) => {
     if ('name' in item) {
-        return `/characters/profiles/${item.name}.webp`;
+        return `characters/profiles/${item.name}.webp`;
     }
-    return `/weapons/portraits/${item.title}.webp`;
+    return `weapons/portraits/${item.title}.webp`;
 };
 
 export const sortItemsForDetails = (

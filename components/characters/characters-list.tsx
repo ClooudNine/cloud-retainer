@@ -1,8 +1,6 @@
 'use client';
 import { Character, Elements, WeaponType } from '@/lib/db/schema';
 import Image from 'next/image';
-import fiveStarBackground from '@/public/common/items-backgrounds-by-rarity/background-item-5-star.webp';
-import fourStarBackground from '@/public/common/items-backgrounds-by-rarity/background-item-4-star.webp';
 import { CSSProperties, useState } from 'react';
 import { elementToColor } from '@/lib/constants';
 import Link from 'next/link';
@@ -17,7 +15,9 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
         'Electro',
         'Dendro',
     ];
+
     const weaponTypes: WeaponType[] = ['Sword', 'Bow', 'Catalyst', 'Polearm', 'Claymore'];
+
     const sortOptions = [
         { label: 'По алфавиту', value: 'alphabetical' },
         { label: 'По редкости', value: 'rarity' },
@@ -46,12 +46,15 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
         const matchesSearch = character.name
             .toLowerCase()
             .includes(searchQuery.toLowerCase());
+
         const matchesElement = selectedElement
             ? character.element === selectedElement
             : true;
+
         const matchesWeaponType = selectedWeaponType
             ? character.weaponType === selectedWeaponType
             : true;
+
         return matchesSearch && matchesElement && matchesWeaponType;
     });
 
@@ -80,18 +83,16 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
                         <Image
                             key={element}
                             onClick={() => handleElementClick(element)}
-                            src={`/common/elements/${element}.svg`}
+                            src={`common/elements/${element}.svg`}
                             alt={element}
                             width={100}
                             height={100}
-                            draggable={false}
-                            quality={100}
                             style={
                                 {
                                     '--ring-color': `${elementToColor[element]}`,
                                 } as CSSProperties
                             }
-                            className={`cursor-pointer rounded-xl ${
+                            className={`rounded-xl ${
                                 selectedElement === element &&
                                 `ring-2 ring-[rgb(var(--ring-color))]`
                             }`}
@@ -103,13 +104,11 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
                         <Image
                             key={weaponType}
                             onClick={() => handleWeaponTypeClick(weaponType)}
-                            src={`/weapons/icons/${weaponType}.webp`}
+                            src={`weapons/icons/${weaponType}.webp`}
                             alt={weaponType}
                             width={100}
                             height={100}
-                            draggable={false}
-                            quality={100}
-                            className={`cursor-pointer rounded-xl ${
+                            className={`rounded-xl ${
                                 selectedWeaponType === weaponType &&
                                 'ring-2 ring-blue-500'
                             }`}
@@ -130,32 +129,31 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
             <div className={'flex flex-wrap justify-center gap-2'}>
                 {sortedCharacters.map((character) => (
                     <Link
-                        href={`/characters/${character.name.toLowerCase()}`}
+                        href={`characters/${character.name.toLowerCase().replace(/\s+/g, '-')}`}
                         key={character.name}
                         className={
-                            'flex flex-col items-center drop-shadow-2xl w-28 rounded-2xl bg-gray-300 overflow-hidden duration-500 transition hover:-translate-y-2'
+                            'flex flex-col items-center drop-shadow-2xl w-32 rounded-2xl bg-gray-300 overflow-hidden duration-500 transition hover:-translate-y-2'
                         }
                     >
                         <Image
                             src={
                                 character.rare === '5'
-                                    ? fiveStarBackground
-                                    : fourStarBackground
+                                    ? 'common/items-backgrounds-by-rarity/background-item-5-star.webp'
+                                    : 'common/items-backgrounds-by-rarity/background-item-4-star.webp'
                             }
+                            width={200}
+                            height={200}
                             alt={character.name}
-                            quality={100}
                             className={'-z-10 absolute w-full'}
                         />
                         <Image
-                            src={`/characters/profiles/${character.name}.webp`}
+                            src={`characters/profiles/${character.name}.webp`}
                             alt={character.name}
                             width={200}
                             height={200}
-                            quality={100}
-                            draggable={false}
                             className={'w-full'}
                         />
-                        <p className={'py-2 max-w-full text-center text-sm'}>
+                        <p className={'py-2 w-full text-center text-sm'}>
                             {character.name}
                         </p>
                     </Link>

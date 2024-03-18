@@ -11,7 +11,7 @@ const Title = ({ title, palette }: { title: string; palette: string }) => {
             dangerouslySetInnerHTML={{
                 __html: `Молитва события: ${striptags(title, '<em>')}`,
             }}
-        ></p>
+        />
     );
 };
 

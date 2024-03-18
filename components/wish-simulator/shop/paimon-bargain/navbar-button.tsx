@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import currencyButtonBackground from '@/public/wish-simulator/assets/shop/select-currency-background.webp';
 import clsx from 'clsx';
 
 import { PurchasesCurrency } from '@/lib/banners';
@@ -34,9 +33,10 @@ const NavbarButton = ({
     return (
         <button onClick={setCurrency} className={currencyButtonClasses}>
             <Image
-                src={currencyButtonBackground}
+                src={'wish-simulator/assets/shop/select-currency-background.webp'}
+                width={377}
+                height={60}
                 alt={'Фон кнопки выбора валюты'}
-                quality={100}
                 draggable={false}
                 className={currencyButtonBackgroundClasses}
             />

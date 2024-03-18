@@ -35,7 +35,7 @@ const renderCharacterName = (banner: CharacterBanner) => {
                 'absolute bottom-[var(--bottom-offset)] right-[var(--right-offset)]'
             }
         >
-            <p className={'text-3xl text-white drop-shadow-[0_0_2px_rgba(0,0,0,1)]'}>
+            <p className={'text-3xl text-white drop-shadow-[0_0_2px_#000000]'}>
                 {banner.character.name}
             </p>
             <p className={'text-sm mt-7 text-[#c2bd96]'}>{banner.character.title}</p>
@@ -67,7 +67,7 @@ const renderWeaponBannerInfo = (
                     <p
                         key={weapon.title}
                         className={
-                            'text-[length:var(--title-size)] leading-tight text-white drop-shadow-[0_0_2px_rgba(0,0,0,1)]'
+                            'text-white text-[length:var(--title-size)] leading-tight drop-shadow-[0_0_2px_#000000]'
                         }
                     >
                         {weapon.title}
@@ -99,10 +99,10 @@ const renderWeaponBannerInfo = (
             >
                 <p
                     className={
-                        'text-white text-[length:var(--title-size)] leading-tight drop-shadow-[0_0_2px_rgba(0,0,0,1)]'
+                        'text-white text-[length:var(--title-size)] leading-tight drop-shadow-[0_0_2px_#000000]'
                     }
                     dangerouslySetInnerHTML={{ __html: bannerTextParameters[1][0] }}
-                ></p>
+                />
             </div>
         </>
     );
@@ -127,7 +127,7 @@ const renderStandardBannerInfo = (banner: StandardBanner, characters: Character[
                             } as CSSProperties
                         }
                         className={
-                            'absolute text-white bottom-[var(--bottom-offset)] right-[var(--right-offset)] text-[length:var(--name-size)] drop-shadow-[0_0_2px_rgba(0,0,0,1)]'
+                            'absolute text-white bottom-[var(--bottom-offset)] right-[var(--right-offset)] text-[length:var(--name-size)] drop-shadow-[0_0_2px_#000000]'
                         }
                     >
                         {maybeCharacter ? (
@@ -189,13 +189,13 @@ const Banner = () => {
         <>
             <section
                 className={
-                    'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-1 overflow-hidden flex items-center justify-around xs:max-lg:pl-20'
+                    '-z-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-1 overflow-hidden flex items-center justify-around xs:max-lg:pl-20'
                 }
             >
                 <SwitchBannerArrow isForward={false} />
                 <div
                     key={selectedBanner.type + '-' + selectedBanner.id}
-                    className={'animate-banner-preview-appearance'}
+                    className={'relative animate-banner-preview-appearance'}
                     style={
                         {
                             '--palette': `${getBannerColor(selectedBanner)}`,
@@ -203,21 +203,20 @@ const Banner = () => {
                     }
                 >
                     <Image
-                        src={`/wish-simulator/banners/${getPreviewUrl(
+                        src={`wish-simulator/banners/${getPreviewUrl(
                             selectedBanner
                         )}.webp`}
                         alt={`Картинка баннера ${selectedBanner.title}`}
                         draggable={false}
                         priority={true}
                         width={1200}
-                        height={600}
-                        quality={100}
+                        height={675}
                         className={'rounded-xl w-[50rem]'}
                     />
                     <div className={infoContainerClasses}>
                         <div
                             className={
-                                'w-max text-sm text-white bg-[rgb(var(--palette))] -ml-1 rounded-l-3xl rounded-br-[3rem] px-6 py-0.5 lg:text-base'
+                                'w-fit text-sm text-white bg-[rgb(var(--palette))] -ml-1 rounded-l-3xl rounded-br-[3rem] px-6 py-0.5 lg:text-base'
                             }
                         >
                             {selectedBanner.type}
@@ -225,7 +224,7 @@ const Banner = () => {
                         <p
                             className={`pl-10 text-[#595957] text-4xl/tight [&_em]:text-[rgb(var(--palette))] [&_em]:not-italic`}
                             dangerouslySetInnerHTML={{ __html: selectedBanner.title }}
-                        ></p>
+                        />
                         <div
                             dir={'rtl'}
                             className={
@@ -245,7 +244,7 @@ const Banner = () => {
                             <p
                                 dir={'ltr'}
                                 className={
-                                    'mt-2 text-[#595957] text-sm drop-shadow-[0_0_2px_rgba(255,255,255,1)]'
+                                    'mt-2 text-[#595957] text-sm drop-shadow-[0_0_2px_#ffffff]'
                                 }
                             >
                                 {bannerDescriptions[selectedBanner.type]}

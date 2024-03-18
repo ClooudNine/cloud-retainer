@@ -1,6 +1,5 @@
 'use client';
 import Image from 'next/image';
-import shopButtonActive from '@/public/wish-simulator/assets/shop/shop-button-active.webp';
 import { usePathname, useRouter } from 'next/navigation';
 import clsx from 'clsx';
 import PaimonBargainIcon from '@/components/icons/paimon-bargain';
@@ -22,20 +21,17 @@ const SidebarButton = ({
     const isActiveSection = currentSection === section;
 
     const shopButtonClasses = clsx(
-        'relative group flex items-center gap-4 w-full h-20 text-2xl transition hover:bg-[rgba(236,229,216,0.2)] xs:h-14 xs:text-xl xs:mt-6 lg:text-base',
+        'relative cursor-genshin group flex items-center gap-4 w-full h-20 text-2xl transition hover:bg-[rgba(236,229,216,0.2)] xs:h-14 xs:text-xl xs:mt-6 lg:text-base',
         {
             'text-[#3b4254]': isActiveSection,
             'text-[#ece5d7] active:text-[#3b4254]': !isActiveSection,
         }
     );
 
-    const buttonBackgroundClasses = clsx(
-        'absolute w-[105%] transition-opacity xs:max-w-none',
-        {
-            'opacity-100': isActiveSection,
-            'opacity-0 group-active:opacity-100': !isActiveSection,
-        }
-    );
+    const buttonBackgroundClasses = clsx('absolute transition-opacity xs:max-w-[105%]', {
+        'opacity-100': isActiveSection,
+        'opacity-0 group-active:opacity-100': !isActiveSection,
+    });
 
     const starClasses = clsx(
         'hidden absolute w-7 fill-[#efe6df] right-0 transition-transform duration-300 xs:block',
@@ -49,15 +45,16 @@ const SidebarButton = ({
         <button
             className={shopButtonClasses}
             onClick={() => {
-                playSfxEffect('/sounds/click-1.mp3');
+                playSfxEffect('sounds/click-1.mp3');
                 router.replace(`/wish-simulator/shop/${section}`);
             }}
         >
             <Image
-                src={shopButtonActive}
+                src={'wish-simulator/assets/shop/shop-button-active.webp'}
+                width={322}
+                height={77}
                 alt={'Фон активной кнопки магазина'}
                 draggable={false}
-                quality={100}
                 className={buttonBackgroundClasses}
             />
             {section === 'paimon-bargain' ? (

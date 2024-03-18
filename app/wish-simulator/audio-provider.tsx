@@ -11,7 +11,9 @@ export default function AudioProvider({ children }: { children: React.ReactNode 
     const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
 
     useEffect(() => {
-        const backgroundMusic = new Audio('/sounds/statue-of-the-seven.mp3');
+        const backgroundMusic = new Audio(
+            'https://content.retainer.cloud/sounds/statue-of-the-seven.mp3'
+        );
         backgroundMusic.autoplay = true;
         backgroundMusic.loop = true;
 

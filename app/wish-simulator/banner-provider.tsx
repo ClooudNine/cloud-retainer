@@ -12,7 +12,7 @@ import {
     initialBalance,
     initialBannerStats,
 } from '@/lib/constants';
-import { getBannerDrop, getBannersSet } from '@/lib/wish-simulator';
+import { getBannerDrop, getBannersSet, playSfxEffect } from '@/lib/wish-simulator';
 import WishDrop from '@/components/wish-simulator/wish-drop';
 import {
     BalanceStats,
@@ -25,6 +25,8 @@ import {
 import { Character, Phases, Weapon } from '@/lib/db/schema';
 import ChooseVersion from '@/components/wish-simulator/choose-version';
 import SettingsIcon from '@/components/icons/settings';
+import CloseButton from '@/components/wish-simulator/close-button';
+import Link from 'next/link';
 
 type BannerContextProviderProps = {
     children: React.ReactNode;
@@ -176,13 +178,22 @@ export default function BannerProvider({
                     )}
                     {droppedItems.length > 0 && <WishDrop droppedItems={droppedItems} />}
                     <button
+                        aria-label={'Список баннеров'}
                         onClick={() => setIsChooseVersion(true)}
                         className={
-                            'z-10 absolute bottom-[94%] left-1/2 -translate-x-1/2 p-1 rounded-full transition bg-[#ede6d6] ring-4 ring-[rgba(237,230,214,0.5)] cursor-genshin duration-500 hover:ring-[#fcfdff] hover:rotate-180 hover:ring-4 hover:drop-shadow-[0_0_5px_rgba(255,255,255,1)] active:ring-[#7a8ca4] active:ring-4 active:bg-[#c8c4bb] lg:ring-8 lg:bottom-24 xl:bottom-4'
+                            'z-10 absolute bottom-1/4 left-1/2 -translate-x-1/2 p-1 rounded-full transition bg-[#ede6d6] ring-4 ring-[rgba(237,230,214,0.5)] cursor-genshin duration-500 hover:ring-[#fcfdff] hover:rotate-180 hover:ring-4 hover:drop-shadow-[0_0_5px_#ffffff] active:ring-[#7a8ca4] active:ring-4 active:bg-[#c8c4bb] lg:ring-8 xs:bottom-16 lg:bottom-4'
                         }
                     >
                         <SettingsIcon />
                     </button>
+                    <Link href={'/'}>
+                        <CloseButton
+                            handler={() => playSfxEffect('sounds/return.mp3')}
+                            styles={
+                                'absolute top-12 right-5 size-8 xs:max-lg:top-4 lg:top-11 lg:right-8'
+                            }
+                        />
+                    </Link>
                     {children}
                 </BannerContext.Provider>
             )}

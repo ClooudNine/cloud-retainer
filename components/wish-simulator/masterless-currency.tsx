@@ -1,7 +1,5 @@
 'use client';
 import Image from 'next/image';
-import masterlessStarglitter from '@/public/wish-simulator/assets/masterless-starglitter.webp';
-import masterlessStardust from '@/public/wish-simulator/assets/masterless-stardust.webp';
 import { useBannerContext } from '@/app/wish-simulator/banner-provider';
 
 const MasterlessCurrency = () => {
@@ -10,7 +8,7 @@ const MasterlessCurrency = () => {
     return (
         <div
             className={
-                'absolute flex gap-4 bottom-52 left-4 text-3xl text-white xs:text-base xs:max-lg:left-auto xs:max-lg:bottom-auto xs:max-lg:gap-8 xs:max-lg:top-4 xs:max-lg:right-80 lg:left-16 lg:bottom-20'
+                'absolute flex gap-4 max-xs:bottom-52 max-xs:left-4 text-3xl text-white xs:text-base xs:max-lg:gap-8 xs:max-lg:top-4 xs:max-lg:right-72 lg:left-16 lg:bottom-20'
             }
         >
             <div
@@ -19,12 +17,13 @@ const MasterlessCurrency = () => {
                 }
             >
                 <Image
-                    src={masterlessStarglitter}
+                    src={'wish-simulator/assets/masterless-starglitter.webp'}
+                    width={40}
+                    height={40}
                     alt={'Блуждающий звёздный блеск'}
-                    quality={100}
                     draggable={false}
                     className={'size-12 xs:size-6'}
-                ></Image>
+                />
                 <p className={'drop-shadow-[0_0_2px_rgba(0,0,0,0.5)]'}>
                     {balance['masterless-starglitter']}
                 </p>
@@ -35,12 +34,13 @@ const MasterlessCurrency = () => {
                 }
             >
                 <Image
-                    src={masterlessStardust}
+                    src={'wish-simulator/assets/masterless-stardust.webp'}
+                    width={40}
+                    height={40}
                     alt={'Блуждающая звёздная пыль'}
-                    quality={100}
                     draggable={false}
                     className={'size-12 xs:size-6'}
-                ></Image>
+                />
                 <p className={'drop-shadow-[0_0_2px_rgba(0,0,0,0.5)]'}>
                     {balance['masterless-stardust']}
                 </p>

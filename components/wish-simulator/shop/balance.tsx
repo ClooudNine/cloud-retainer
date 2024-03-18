@@ -1,8 +1,4 @@
 import Image from 'next/image';
-import masterlessStarglitter from '@/public/wish-simulator/assets/masterless-starglitter.webp';
-import masterlessStardust from '@/public/wish-simulator/assets/masterless-stardust.webp';
-import primogem from '@/public/wish-simulator/assets/primogems.webp';
-import genesisCrystal from '@/public/wish-simulator/assets/genesis-crystal.webp';
 import clsx from 'clsx';
 import { useCallback, useState } from 'react';
 import CurrencyExchanger from '@/components/wish-simulator/currency-exchanger';
@@ -37,13 +33,13 @@ const Balance = ({
     );
 
     const openExchanger = useCallback(() => {
-        playSfxEffect('/sounds/click-8.mp3');
+        playSfxEffect('sounds/click-8.mp3');
         setIsExchange(true);
         closePaymentModal();
     }, [closePaymentModal]);
 
     const closeExchanger = useCallback(() => {
-        playSfxEffect('/sounds/click-7.mp3');
+        playSfxEffect('sounds/click-7.mp3');
         setIsExchange(false);
     }, []);
 
@@ -58,9 +54,10 @@ const Balance = ({
                             }
                         >
                             <Image
-                                src={masterlessStarglitter}
+                                src={'wish-simulator/assets/masterless-starglitter.webp'}
+                                width={40}
+                                height={40}
                                 alt={'Блуждающий звёздный блеск'}
-                                quality={100}
                                 draggable={false}
                                 className={'h-[95%] w-auto'}
                             />
@@ -72,9 +69,10 @@ const Balance = ({
                             }
                         >
                             <Image
-                                src={masterlessStardust}
+                                src={'wish-simulator/assets/masterless-stardust.webp'}
+                                width={40}
+                                height={40}
                                 alt={'Блуждающая звёздная пыль'}
-                                quality={100}
                                 draggable={false}
                                 className={'h-[95%] w-auto'}
                             />
@@ -88,9 +86,10 @@ const Balance = ({
                     }
                 >
                     <Image
-                        src={primogem}
+                        src={'wish-simulator/assets/primogems.webp'}
+                        width={40}
+                        height={40}
                         alt={'Примогем'}
-                        quality={100}
                         draggable={false}
                         className={'h-[95%] w-auto'}
                     />
@@ -106,9 +105,10 @@ const Balance = ({
                         }
                     >
                         <Image
-                            src={genesisCrystal}
+                            src={'wish-simulator/assets/genesis-crystal.webp'}
+                            width={40}
+                            height={40}
                             alt={'Кристалл сотворения'}
-                            quality={100}
                             draggable={false}
                             className={'h-full w-auto'}
                         />

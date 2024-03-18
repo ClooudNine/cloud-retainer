@@ -1,7 +1,7 @@
 const ArrowExpanderIcon = ({ isOpen }: { isOpen: boolean }) => {
     return (
         <svg
-            className={`print:hidden w-8 ml-auto ${isOpen ? 'rotate-0' : 'rotate-180'}`}
+            className={`w-8 ml-auto ${isOpen ? 'rotate-0' : 'rotate-180'}`}
             fill="#595252"
             version="1.1"
             viewBox="0 -4.5 20 20"

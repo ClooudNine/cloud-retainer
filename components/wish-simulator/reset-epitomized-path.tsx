@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import confirmationModal from '@/public/wish-simulator/assets/confirmation-modal.webp';
 import Cancel from '@/components/ui/cancel';
 import Confirm from '@/components/ui/confirm';
 
@@ -22,11 +21,12 @@ const ResetEpitomizedPath = ({
                 }
             >
                 <Image
-                    src={confirmationModal}
+                    src={'wish-simulator/assets/confirmation-modal.webp'}
+                    width={930}
+                    height={594}
                     alt={'Подтверждение отмены текущего курса'}
-                    quality={100}
                     draggable={false}
-                    className={'w-full'}
+                    className={'w-[100vh]'}
                 />
                 <p className={'absolute text-[#495366] text-3xl top-[5%]'}>Сообщение</p>
                 <p className={'absolute text-[#495366] text-center text-2xl top-[40%]'}>

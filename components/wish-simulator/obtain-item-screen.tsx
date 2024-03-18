@@ -1,8 +1,5 @@
 import Image from 'next/image';
-import rareStar from '@/public/common/star.webp';
-import fiveStarItemBackground from '@/public/common/items-backgrounds-by-rarity/background-item-5-star.webp';
 import Star from '@/components/icons/star';
-import stars from '@/public/wish-simulator/assets/stars-animation.webp';
 import { playSfxEffect } from '@/lib/wish-simulator';
 import { Currencies } from '@/lib/banners';
 import { currenciesTranslate } from '@/lib/shop';
@@ -19,7 +16,7 @@ const ObtainItemScreen = ({
     return (
         <section
             onClick={() => {
-                playSfxEffect('/sounds/click-9.mp3');
+                playSfxEffect('sounds/click-9.mp3');
                 closeSuccessfulPurchase();
             }}
             className={
@@ -27,9 +24,10 @@ const ObtainItemScreen = ({
             }
         >
             <Image
-                src={stars}
+                src={'wish-simulator/assets/stars-animation.webp'}
+                width={1}
+                height={1}
                 alt={'Звёзды'}
-                quality={100}
                 draggable={false}
                 className={'max-h-full max-w-none w-auto absolute animate-obtain-item'}
             />
@@ -41,7 +39,7 @@ const ObtainItemScreen = ({
                 </div>
                 <div
                     className={
-                        'min-w-80 w-[45vw] h-[40vh] flex flex-col justify-center items-center gap-2 border-y-2 border-[#d3bd8c] border-opacity-40'
+                        'min-w-80 w-[45vw] h-[40vh] flex flex-col justify-center items-center gap-2 border-y-2 border-[#d3bd8c]/40'
                     }
                 >
                     <div className={'bg-[#e9e5dc] rounded-[1.5vh] h-[22vh] w-[17vh]'}>
@@ -51,19 +49,19 @@ const ObtainItemScreen = ({
                             }
                         >
                             <Image
-                                src={fiveStarItemBackground}
+                                src={
+                                    'common/items-backgrounds-by-rarity/background-item-5-star.webp'
+                                }
                                 alt={'Фон пятизвёздочного предмета'}
-                                quality={100}
                                 draggable={false}
                                 fill
                                 className={'rounded-t-[1.5vh] rounded-br-[4vh]'}
                             />
                             <Image
-                                src={`/wish-simulator/assets/${item}.webp`}
+                                src={`wish-simulator/assets/${item}.webp`}
                                 alt={currenciesTranslate[item]}
                                 width={200}
                                 height={200}
-                                quality={100}
                                 draggable={false}
                                 className={'relative h-[85%] w-auto'}
                             />
@@ -75,9 +73,10 @@ const ObtainItemScreen = ({
                                 {Array.from(Array(Number(5)).keys()).map((number) => (
                                     <Image
                                         key={number}
-                                        src={rareStar}
+                                        src={'common/star.webp'}
+                                        width={40}
+                                        height={40}
                                         alt={'Звезда'}
-                                        quality={100}
                                         draggable={false}
                                         className={'w-[15%] drop-shadow'}
                                     />

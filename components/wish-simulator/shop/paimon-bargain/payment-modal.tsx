@@ -1,6 +1,4 @@
 import Image from 'next/image';
-import confirmationModal from '@/public/wish-simulator/assets/confirmation-modal.webp';
-import star from '@/public/common/star.webp';
 import { useCallback, useState } from 'react';
 import clsx from 'clsx';
 import Cancel from '@/components/ui/cancel';
@@ -47,12 +45,12 @@ const PaymentModal = ({
         setBalance(newBalance);
         localStorage.setItem('balance', JSON.stringify(newBalance));
         setIsSuccessful(true);
-        playSfxEffect('/sounds/click-7.mp3');
-        playSfxEffect('/sounds/obtain-item.mp3');
+        playSfxEffect('sounds/click-7.mp3');
+        playSfxEffect('sounds/obtain-item.mp3');
     }, [balance, currency, itemCount, price, setBalance, shopItem]);
 
     const closePaymentModalHandler = useCallback(() => {
-        playSfxEffect('/sounds/click-7.mp3');
+        playSfxEffect('sounds/click-7.mp3');
         closePaymentModal();
     }, [closePaymentModal]);
 
@@ -65,9 +63,10 @@ const PaymentModal = ({
             >
                 <div className={paymentModalClasses}>
                     <Image
-                        src={confirmationModal}
+                        src={'wish-simulator/assets/confirmation-modal.webp'}
+                        width={1200}
+                        height={675}
                         alt={'Покупка предмета'}
-                        quality={100}
                         draggable={false}
                         className={'w-[110vh]'}
                     />
@@ -78,7 +77,7 @@ const PaymentModal = ({
                         }
                     >
                         <Image
-                            src={`/wish-simulator/assets/${shopItem}.webp`}
+                            src={`wish-simulator/assets/${shopItem}.webp`}
                             alt={shopItem}
                             width={150}
                             height={150}
@@ -97,9 +96,10 @@ const PaymentModal = ({
                                 {Array.from(Array(5).keys()).map((number) => (
                                     <Image
                                         key={number}
-                                        src={star}
+                                        src={'common/star.webp'}
+                                        width={40}
+                                        height={40}
                                         alt={'Звезда'}
-                                        quality={100}
                                         draggable={false}
                                         className={'h-5 w-auto drop-shadow'}
                                     />
@@ -121,7 +121,7 @@ const PaymentModal = ({
                             <>
                                 <button
                                     onClick={() => {
-                                        playSfxEffect('/sounds/click-8.mp3');
+                                        playSfxEffect('sounds/click-8.mp3');
                                         setItemCount(itemCount - 1);
                                     }}
                                     disabled={itemCount === 1}
@@ -151,7 +151,7 @@ const PaymentModal = ({
                                 </p>
                                 <button
                                     onClick={() => {
-                                        playSfxEffect('/sounds/click-8.mp3');
+                                        playSfxEffect('sounds/click-8.mp3');
                                         setItemCount(itemCount + 1);
                                     }}
                                     disabled={
@@ -178,9 +178,8 @@ const PaymentModal = ({
                             }
                         >
                             <Image
-                                src={`/wish-simulator/assets/${currency}.webp`}
+                                src={`wish-simulator/assets/${currency}.webp`}
                                 alt={purchasesCurrencies[currency]}
-                                quality={100}
                                 width={50}
                                 height={50}
                                 draggable={false}

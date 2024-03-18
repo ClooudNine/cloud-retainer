@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Balance from '@/components/wish-simulator/shop/balance';
 import CloseButton from '@/components/wish-simulator/close-button';
-import genesisCrystalsCard from '@/public/wish-simulator/assets/shop/genesis-crystals-card.webp';
 import ObtainModal from '@/components/wish-simulator/shop/genesis-crystals/obtain-modal';
 import { playSfxEffect } from '@/lib/wish-simulator';
 import { useAudioContext } from '@/app/wish-simulator/audio-provider';
@@ -22,7 +21,7 @@ export default function GenesisCrystals() {
 
     const closeObtainModal = useCallback(() => setObtainedCrystals(null), []);
     const chooseCrystals = (count: number) => {
-        playSfxEffect('/sounds/click-6.mp3');
+        playSfxEffect('sounds/click-6.mp3');
         setObtainedCrystals(count);
     };
 
@@ -56,7 +55,7 @@ export default function GenesisCrystals() {
                 />
                 <CloseButton
                     handler={() => {
-                        playSfxEffect('/sounds/return.mp3');
+                        playSfxEffect('sounds/return.mp3');
                         router.replace('/wish-simulator');
                     }}
                     styles={'size-12 xs:size-10'}
@@ -64,7 +63,7 @@ export default function GenesisCrystals() {
             </header>
             <div
                 className={
-                    'flex flex-wrap justify-center gap-x-2 text-[#f7f5f6] text-2xl/none xs:justify-start xs:text-lg xs:ml-28 lg:mt-12 lg:gap-x-4'
+                    'flex flex-wrap justify-center gap-2 text-[#f7f5f6] text-2xl/none xs:justify-start xs:text-lg xs:ml-28 lg:mt-12 lg:gap-x-4'
                 }
             >
                 {crystalsCount.map((count) => (
@@ -72,31 +71,29 @@ export default function GenesisCrystals() {
                         key={count}
                         onClick={() => chooseCrystals(count)}
                         className={
-                            'relative size-72 flex flex-col items-center transition hover:scale-105 hover:drop-shadow-shop-item xs:size-56'
+                            'relative size-72 flex flex-col items-center transition hover:scale-105 hover:drop-shadow-shop-item xs:size-52'
                         }
                     >
                         <Image
-                            src={genesisCrystalsCard}
+                            src={'wish-simulator/assets/shop/genesis-crystals-card.webp'}
                             alt={'Фон карточки товара магазина кристаллов'}
-                            quality={100}
-                            draggable={false}
+                            fill
                             priority
-                            className={'w-full'}
+                            draggable={false}
                         />
                         <Image
-                            src={`/wish-simulator/assets/shop/genesis-crystals/${count}-crystals.webp`}
+                            src={`wish-simulator/assets/shop/genesis-crystals/${count}-crystals.webp`}
                             alt={count + ' кристаллов'}
                             width={300}
                             height={300}
-                            quality={100}
                             priority
                             draggable={false}
                             className={'absolute top-0 w-3/5'}
                         />
-                        <p className={'absolute top-[52%] text-[#585f6b] text-center'}>
+                        <p className={'absolute top-[55%] text-[#585f6b] text-center'}>
                             {count} Кристаллов Сотворения
                         </p>
-                        <p className={'absolute top-[80%] text-[#585f6b]'}>Бесплатно!</p>
+                        <p className={'absolute top-[84%] text-[#585f6b]'}>Бесплатно!</p>
                     </div>
                 ))}
                 {obtainedCrystals && (

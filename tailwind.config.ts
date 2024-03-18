@@ -197,21 +197,21 @@ const config = {
                     },
                 },
                 'banner-preview-appearance': {
-                    '0%': {
+                    from: {
                         opacity: '0',
                         transform: 'translateX(60px)',
                     },
-                    '100%': {
+                    to: {
                         opacity: '1',
                         transform: 'translateX(0)',
                     },
                 },
                 'modal-appearance': {
-                    '0%': {
+                    from: {
                         opacity: '0',
                         transform: 'scale(0.95)',
                     },
-                    '100%': {
+                    to: {
                         opacity: '1',
                         transform: 'scale(1)',
                     },
@@ -247,8 +247,8 @@ const config = {
                 'masterless-starglitter-appearance':
                     'masterless-starglitter-appearance 2s forwards',
                 'star-effect': 'star-effect 2s forwards',
-                'banner-preview-appearance': 'banner-preview-appearance 0.8s forwards',
-                'modal-appearance': 'modal-appearance 0.3s ',
+                'banner-preview-appearance': 'banner-preview-appearance 0.8s',
+                'modal-appearance': 'modal-appearance 0.3s',
                 'obtain-item': 'obtain-item 0.6s forwards',
                 'multi-wish-appearance': 'multi-wish-appearance 1s forwards',
             },
@@ -267,7 +267,8 @@ const config = {
                 genshin: ['var(--font-genshin)'],
             },
             cursor: {
-                genshin: 'url("/common/genshin-cursor.cur"), default',
+                genshin:
+                    'url("https://content.retainer.cloud/common/genshin-cursor.cur"), default',
             },
         },
     },

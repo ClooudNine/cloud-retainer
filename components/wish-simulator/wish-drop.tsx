@@ -1,12 +1,6 @@
 'use client';
 import Image from 'next/image';
 import { useCallback, useState } from 'react';
-import star from '@/public/common/star.webp';
-import masterlessStardust from '@/public/wish-simulator/assets/masterless-stardust.webp';
-import masterlessStarglitter from '@/public/wish-simulator/assets/masterless-starglitter.webp';
-import wishResultBackground from '@/public/wish-simulator/assets/wish-result-bg.webp';
-import multiWishCard from '@/public/wish-simulator/assets/wish-card.webp';
-import skipWishArrow from '@/public/wish-simulator/assets/skip-wish-arrow.webp';
 import { useBannerContext } from '@/app/wish-simulator/banner-provider';
 import { playSfxEffect } from '@/lib/wish-simulator';
 import { Character, Weapon } from '@/lib/db/schema';
@@ -21,35 +15,34 @@ const renderWeaponResult = (weapon: Weapon) => {
         {
             'animate-masterless-stardust-appearance text-[#f1aafc]': weapon.rare === '3',
             'animate-masterless-starglitter-appearance text-[#ffeb64]':
-                Number(weapon.rare) > 3,
+                weapon.rare !== '3',
         }
     );
 
     const starClasses = clsx('absolute animate-star-effect size-32', {
         'bg-[#fff4ff]': weapon.rare === '3',
-        'bg-[#fff574]': Number(weapon.rare) > 3,
+        'bg-[#fff574]': weapon.rare !== '3',
     });
 
     const masterlessImageClasses = clsx('h-[120%] w-auto object-contain', {
         'drop-shadow-[0_0_30px_rgba(209,134,246,1)]': weapon.rare === '3',
-        'drop-shadow-[0_0_30px_rgba(192,169,64,1)]': Number(weapon.rare) > 3,
+        'drop-shadow-[0_0_30px_rgba(192,169,64,1)]': weapon.rare !== '3',
     });
 
     return (
         <>
             <div
                 className={
-                    'absolute top-[5%] flex items-center justify-center animate-item-description-appearance xs:w-[30%] xs:top-[55%] xs:left-[5%]'
+                    'absolute top-[5%] flex animate-item-description-appearance xs:w-[30%] xs:top-[55%] xs:left-[5%]'
                 }
             >
                 <Image
-                    src={`/weapons/icons/${weapon.type}.webp`}
+                    src={`weapons/icons/${weapon.type}.webp`}
                     alt={'Иконка ' + weapon.type}
                     width={100}
                     height={100}
-                    quality={100}
                     draggable={false}
-                    className={'w-24 -mt-[12%] animate-item-icon-appearance'}
+                    className={'size-24 -mt-[10%] animate-item-icon-appearance'}
                 />
                 <div>
                     <p
@@ -63,9 +56,10 @@ const renderWeaponResult = (weapon: Weapon) => {
                         {Array.from(Array(Number(weapon.rare)).keys()).map((number) => (
                             <Image
                                 key={number}
-                                src={star}
+                                src={'common/star.webp'}
+                                width={40}
+                                height={40}
                                 alt={'Звезда'}
-                                quality={100}
                                 draggable={false}
                                 style={{
                                     animationDelay: `${number * 100}ms`,
@@ -79,22 +73,18 @@ const renderWeaponResult = (weapon: Weapon) => {
                 </div>
             </div>
             <Image
-                src={`/weapons/backgrounds/${weapon.type}-background.webp`}
+                src={`weapons/backgrounds/${weapon.type}-background.webp`}
                 alt={'Фон оружия'}
-                quality={100}
                 draggable={false}
                 fill
-                className={
-                    '-z-10 absolute max-h-screen object-contain animate-item-background-appearance'
-                }
+                className={'-z-10 object-contain animate-item-background-appearance'}
             />
             <Image
-                src={`/weapons/splash-arts/${weapon.title}.webp`}
+                src={`weapons/splash-arts/${weapon.title}.webp`}
                 alt={weapon.title}
-                quality={100}
                 draggable={false}
                 fill
-                className={`absolute max-h-screen object-contain animate-wish-item-appearance`}
+                className={`object-contain animate-wish-item-appearance`}
             />
             <div className={masterlessCurrencyClasses}>
                 <div className={'h-[110%] flex items-center justify-center -ml-[10%]'}>
@@ -108,11 +98,12 @@ const renderWeaponResult = (weapon: Weapon) => {
                     <Image
                         src={
                             weapon.rare === '3'
-                                ? masterlessStardust
-                                : masterlessStarglitter
+                                ? 'wish-simulator/assets/masterless-stardust.webp'
+                                : 'wish-simulator/assets/masterless-starglitter.webp'
                         }
+                        width={256}
+                        height={256}
                         alt={'Masterless currency'}
-                        quality={100}
                         draggable={false}
                         className={masterlessImageClasses}
                     />
@@ -136,15 +127,14 @@ const renderCharacterResult = (character: Character) => {
         <>
             <div
                 className={
-                    'absolute w-full top-[4%] flex items-center justify-center animate-item-description-appearance xs:top-[55%] xs:w-[30%] xs:left-[5%]'
+                    'absolute top-[4%] flex animate-item-description-appearance xs:top-[55%] xs:left-[10%]'
                 }
             >
                 <Image
-                    src={`/common/elements/${character.element}.svg`}
+                    src={`common/elements/${character.element}.svg`}
                     alt={character.element}
-                    width={50}
-                    height={50}
-                    quality={100}
+                    width={100}
+                    height={100}
                     draggable={false}
                     className={'w-20 -mt-[12%] animate-item-icon-appearance'}
                 />
@@ -161,9 +151,10 @@ const renderCharacterResult = (character: Character) => {
                             (number) => (
                                 <Image
                                     key={number}
-                                    src={star}
+                                    src={'common/star.webp'}
+                                    width={40}
+                                    height={40}
                                     alt={'Звезда'}
-                                    quality={100}
                                     draggable={false}
                                     style={{
                                         animationDelay: `${number * 100}ms`,
@@ -178,14 +169,13 @@ const renderCharacterResult = (character: Character) => {
                 </div>
             </div>
             <Image
-                src={`/characters/splash-arts/${character.name}.webp`}
+                src={`characters/splash-arts/${character.name}.webp`}
                 alt={character.name}
-                quality={100}
-                draggable={false}
                 width={2048}
                 height={1024}
+                draggable={false}
                 className={
-                    '-z-10 absolute animate-wish-item-appearance object-contain max-w-none w-[250%] xs:w-full'
+                    '-z-10 animate-wish-item-appearance object-contain max-w-[300%] h-full'
                 }
             />
         </>
@@ -218,7 +208,7 @@ const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
         if (currentItemIndex + 1 < pullCounts) {
             setIsAnimationPlaying(true);
             playSfxEffect(
-                `/sounds/${droppedItems[currentItemIndex + 1].rare}-star-item-obtain.mp3`
+                `sounds/${droppedItems[currentItemIndex + 1].rare}-star-item-obtain.mp3`
             );
             setTimeout(() => setIsAnimationPlaying(false), 900);
         }
@@ -241,10 +231,9 @@ const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
             onClick={nextItemCallback}
         >
             <Image
-                src={wishResultBackground}
+                src={'wish-simulator/assets/wish-result-bg.webp'}
                 alt={'Фон результата сделанных молитв'}
                 fill
-                quality={100}
                 draggable={false}
                 className={'-z-10 object-cover'}
             />
@@ -254,14 +243,19 @@ const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
                         setIsVideoPlaying(false);
                         setIsAnimationPlaying(false);
                         setCurrentItemIndex(pullCounts === 10 ? pullCounts : 0);
+                        if (pullCounts === 1)
+                            playSfxEffect(
+                                `sounds/${droppedItems[0].rare}-star-item-obtain.mp3`
+                            );
                     }}
                     className={skipButtonClasses}
                 >
                     Пропустить
                     <Image
-                        src={skipWishArrow}
+                        src={'wish-simulator/assets/skip-wish-arrow.webp'}
+                        width={30}
+                        height={30}
                         alt={'Пропустить'}
-                        quality={100}
                         draggable={false}
                         className={'w-8'}
                     />
@@ -272,19 +266,19 @@ const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
                         audio?.play();
                         setDroppedItems([]);
                     }}
-                    styles={'z-10 absolute size-6 top-[3%] right-[3%] sm:size-[5vh]'}
+                    styles={'z-10 absolute top-[3%] right-[3%] size-8'}
                 />
             )}
             {isVideoPlaying ? (
                 <video
-                    className={'absolute top-0 left-0 object-cover w-full h-full'}
-                    src={`/wish-simulator/animations/${pullCounts}-pull-${maxRare}-star.mp4`}
+                    className={'object-cover w-full h-full'}
+                    src={`https://content.retainer.cloud/wish-simulator/animations/${pullCounts}-pull-${maxRare}-star.mp4`}
                     autoPlay
                     onEnded={() => {
                         setIsVideoPlaying(false);
                         setCurrentItemIndex(currentItemIndex + 1);
                         playSfxEffect(
-                            `/sounds/${
+                            `sounds/${
                                 droppedItems[currentItemIndex + 1].rare
                             }-star-item-obtain.mp3`
                         );
@@ -300,7 +294,7 @@ const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
                         .sort((a, b) => {
                             const rareCompare = Number(b.rare) - Number(a.rare);
                             const nameTypeCompare =
-                                Number('name' in a) - Number('name' in b);
+                                Number('type' in a) - Number('type' in b);
 
                             return rareCompare || nameTypeCompare;
                         })
@@ -313,6 +307,18 @@ const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
                                     'drop-shadow-five-star-item': item.rare === '5',
                                 }
                             );
+
+                            const splashArtClasses = clsx(
+                                'absolute max-w-none drop-shadow-[8px_10px_1px_#000000]',
+                                {
+                                    'w-[140%]': 'name' in item,
+                                    'w-[190%]': 'type' in item,
+                                }
+                            );
+
+                            const itemIconClasses = clsx('absolute w-3/5 bottom-[12%]', {
+                                'brightness-200': 'type' in item,
+                            });
 
                             return (
                                 <div
@@ -330,43 +336,38 @@ const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
                                         }
                                     >
                                         <Image
-                                            src={multiWishCard}
+                                            src={'wish-simulator/assets/wish-card.webp'}
+                                            width={128}
+                                            height={541}
                                             alt={'Фон предмета итога молитв'}
                                             draggable={false}
-                                            quality={100}
-                                            className={'max-xs:max-w-none max-xs:w-36'}
+                                            className={'max-xs:max-w-none w-36 xs:w-24'}
                                         />
                                         <Image
                                             src={
                                                 'name' in item
-                                                    ? `/characters/wish-cards/${item.name}.webp`
-                                                    : `/weapons/splash-arts/${item.title}.webp`
+                                                    ? `characters/wish-cards/${item.name}.webp`
+                                                    : `weapons/splash-arts/${item.title}.webp`
                                             }
                                             alt={'name' in item ? item.name : item.title}
                                             draggable={false}
-                                            quality={100}
                                             width={512}
                                             height={1024}
-                                            className={`absolute max-w-none ${
-                                                'name' in item ? 'w-[140%]' : 'w-[190%]'
-                                            } drop-shadow-[8px_10px_1px_rgba(0,0,0,1)]`}
+                                            className={splashArtClasses}
                                         />
                                         <Image
                                             src={
                                                 'name' in item
-                                                    ? `/common/elements/${item.element}.svg`
-                                                    : `/weapons/icons/${item.type}.webp`
+                                                    ? `common/elements/${item.element}.svg`
+                                                    : `weapons/icons/${item.type}.webp`
                                             }
                                             alt={
                                                 'name' in item ? item.element : item.type
                                             }
                                             draggable={false}
-                                            quality={100}
                                             width={100}
                                             height={100}
-                                            className={`absolute w-3/5 bottom-[12%] ${
-                                                'type' in item && 'brightness-200'
-                                            }`}
+                                            className={itemIconClasses}
                                         />
                                         <div
                                             className={
@@ -378,9 +379,10 @@ const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
                                             ).map((number) => (
                                                 <Image
                                                     key={number + '-' + index}
-                                                    src={star}
+                                                    src={'common/star.webp'}
+                                                    width={40}
+                                                    height={40}
                                                     alt={'Звезда'}
-                                                    quality={100}
                                                     draggable={false}
                                                     className={'w-[14%]'}
                                                 />
@@ -397,12 +399,10 @@ const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
                     className={'relative h-full w-full flex justify-center items-center'}
                 >
                     <video
-                        className={
-                            '-z-10 absolute top-0 left-0 object-cover w-full h-full'
-                        }
-                        src={`/wish-simulator/animations/${droppedItems[currentItemIndex].rare}stareffect.mp4`}
+                        className={'absolute -z-10 w-full h-full object-cover'}
+                        src={`https://content.retainer.cloud/wish-simulator/animations/${droppedItems[currentItemIndex].rare}stareffect.mp4`}
                         autoPlay
-                    ></video>
+                    />
                     {'type' in droppedItems[currentItemIndex]
                         ? renderWeaponResult(droppedItems[currentItemIndex] as Weapon)
                         : renderCharacterResult(

@@ -3,7 +3,6 @@ import { bannerHistoryTypes, WishHistoryTypes } from '@/lib/banners';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import selectBackground from '@/public/wish-simulator/assets/select-wish-type.webp';
 import ArrowExpanderIcon from '@/components/icons/arrow-expander';
 
 export const UserSelect = ({ type }: { type: WishHistoryTypes }) => {
@@ -17,9 +16,10 @@ export const UserSelect = ({ type }: { type: WishHistoryTypes }) => {
             }
         >
             <Image
-                src={selectBackground}
+                src={'wish-simulator/assets/select-wish-type.webp'}
+                width={1176}
+                height={71}
                 alt={'Фон выбора типа молитвы'}
-                quality={100}
                 draggable={false}
                 className={'w-full'}
             />

@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import star from '@/public/common/star.webp';
 import { Character, Weapon } from '@/lib/db/schema';
 import { getItemPortrait } from '@/lib/wish-simulator';
 
@@ -8,17 +7,14 @@ const ItemCard = ({ item }: { item: Character | Weapon }) => {
         <div className={'bg-white drop-shadow rounded-md w-[45%] h-32 xs:w-24 xs:h-full'}>
             <div className={'relative h-4/5 rounded-t-md rounded-br-3xl overflow-hidden'}>
                 <Image
-                    src={`/common/items-backgrounds-by-rarity/background-item-${item.rare}-star.webp`}
-                    alt={`Фон предмета ${
-                        item.rare === '5' ? 'пятизвёздочной' : 'четырёхзвёздочной'
-                    } редкости`}
+                    src={`common/items-backgrounds-by-rarity/background-item-${item.rare}-star.webp`}
+                    alt={`Фон предмета редкости ${item.rare}`}
                     fill
-                    quality={100}
                     draggable={false}
                 />
                 {'name' in item ? (
                     <Image
-                        src={`/common/elements/${item.element}.svg`}
+                        src={`common/elements/${item.element}.svg`}
                         alt={item.element}
                         width={30}
                         height={30}
@@ -38,7 +34,6 @@ const ItemCard = ({ item }: { item: Character | Weapon }) => {
                     alt={'name' in item ? item.name : item.title}
                     width={130}
                     height={130}
-                    quality={100}
                     draggable={false}
                     className={'absolute bottom-0 w-full'}
                 />
@@ -47,9 +42,10 @@ const ItemCard = ({ item }: { item: Character | Weapon }) => {
                 {Array.from(Array(Number(item.rare)).keys()).map((number) => (
                     <Image
                         key={number}
-                        src={star}
+                        src={'common/star.webp'}
+                        width={40}
+                        height={40}
                         alt={'Звезда'}
-                        quality={100}
                         draggable={false}
                         className={'w-4 drop-shadow'}
                     />

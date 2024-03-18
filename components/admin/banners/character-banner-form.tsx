@@ -184,7 +184,6 @@ const CharacterBannerForm = ({
                                                                         }
                                                                         width={100}
                                                                         height={100}
-                                                                        quality={100}
                                                                         className={
                                                                             'h-12 w-auto ml-auto'
                                                                         }
@@ -293,7 +292,6 @@ const CharacterBannerForm = ({
                                                                         }
                                                                         width={100}
                                                                         height={100}
-                                                                        quality={100}
                                                                         className={
                                                                             'h-12 w-auto ml-auto'
                                                                         }
@@ -350,7 +348,6 @@ const CharacterBannerForm = ({
                             alt={banner?.title}
                             width={800}
                             height={600}
-                            quality={100}
                             className={'object-cover'}
                         />
                         <FormField
@@ -396,7 +393,6 @@ const CharacterBannerForm = ({
                                         alt={banner.title}
                                         width={1200}
                                         height={600}
-                                        quality={100}
                                         className={'w-[50rem] rounded-xl'}
                                     />
                                     <div

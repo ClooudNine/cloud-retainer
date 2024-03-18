@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import up from '@/public/wish-simulator/assets/up-icon.webp';
 import { BannerTypes, Character, Weapon } from '@/lib/db/schema';
 
 const ItemCell = ({
@@ -26,9 +25,10 @@ const ItemCell = ({
                     return item.id === mainItem.id && isTypeCheck;
                 }) && (
                     <Image
-                        src={up}
+                        src={'wish-simulator/assets/up-icon.webp'}
+                        width={20}
+                        height={20}
                         alt={'Up!'}
-                        quality={100}
                         draggable={false}
                         className={'absolute w-6 top-0.5 right-0.5 xs:top-2 xs:right-2'}
                     />
