@@ -77,7 +77,7 @@ const CharacterBannerForm = ({
             data.image = null;
         }
 
-        const status = await editCharacterBanner(banner.id, data, image);
+        const status = await editCharacterBanner(banner.id, data, imageData);
 
         toast({
             title: 'Редактирование баннера персонажа',

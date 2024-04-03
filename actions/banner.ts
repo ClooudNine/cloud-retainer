@@ -1,7 +1,6 @@
 'use server';
 import {
     BannerTypes,
-    CharacterBanner,
     characterBanners,
     CharacterBannersSchema,
     standardBanners,
@@ -10,9 +9,6 @@ import {
 import { db } from '@/lib/db';
 import { eq } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
-import { getBannerByIdAndType } from '@/data/banner';
-import { minioClient } from '@/lib/minio';
-import { AuthState } from '@/actions/register';
 import { z } from 'zod';
 
 export const deleteBanner = async (
@@ -70,10 +66,6 @@ export const editCharacterBanner = async (
             type,
             textParameters,
         };
-
-        if (image) {
-            await minioClient.putObject('wish-simulator', 'test1.jpg', image);
-        }
 
         await db
             .update(characterBanners)
