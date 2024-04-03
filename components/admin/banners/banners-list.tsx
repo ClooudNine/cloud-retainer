@@ -4,11 +4,11 @@ import Image from 'next/image';
 import { getPreviewUrl } from '@/lib/wish-simulator';
 import striptags from 'striptags';
 import DeleteBannerButton from '@/components/admin/banners/delete-banner-button';
-import CharacterBannerForm from '@/components/admin/banners/character-banner-form';
-import { Character, CharacterBanner } from '@/lib/db/schema';
+import { Character } from '@/lib/db/schema';
 import { useState } from 'react';
-import PencilIcon from '@/components/icons/pencil';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import ConfirmBannerDelete from "@/components/admin/banners/confirm-banner-delete";
+import EditBannerButton from "@/components/admin/banners/edit-banner-button";
+import EditBannerModal from "@/components/admin/banners/edit-banner-modal";
 
 const BannersList = ({
     banners,
@@ -17,6 +17,7 @@ const BannersList = ({
     banners: Banners[];
     characters: Character[];
 }) => {
+    const [deletedBanner, setDeletedBanner] = useState<Banners | null>(null);
     const [editedBanner, setEditedBanner] = useState<Banners | null>(null);
 
     return (
@@ -40,15 +41,8 @@ const BannersList = ({
                                 'absolute flex opacity-0 flex-col gap-1 top-1 right-1 transition group-hover:opacity-100'
                             }
                         >
-                            <button
-                                className={
-                                    'bg-gray-200 p-2 rounded-xl transition hover:bg-gray-400'
-                                }
-                                onClick={() => setEditedBanner(banner)}
-                            >
-                                <PencilIcon />
-                            </button>
-                            <DeleteBannerButton id={banner.id} type={banner.type} />
+                           <EditBannerButton setBanner={() => setEditedBanner(banner)} />
+                           <DeleteBannerButton setBanner={() => setDeletedBanner(banner)} />
                         </div>
                         <Image
                             src={`wish-simulator/banners/${getPreviewUrl(banner)}.webp`}
@@ -62,17 +56,8 @@ const BannersList = ({
                         }`}</p>
                     </div>
                 ))}
-            <Dialog open={Boolean(editedBanner)}>
-                <DialogContent className={'max-w-none w-[70vw]'}>
-                    {editedBanner && (
-                        <CharacterBannerForm
-                            banner={editedBanner as CharacterBanner}
-                            characters={characters}
-                            closeEdit={() => setEditedBanner(null)}
-                        />
-                    )}
-                </DialogContent>
-            </Dialog>
+            <ConfirmBannerDelete banner={deletedBanner} closeModal={() => setDeletedBanner(null)}/>
+            <EditBannerModal banner={editedBanner} characters={characters} closeModal={() => setEditedBanner(null)}/>
         </div>
     );
 };

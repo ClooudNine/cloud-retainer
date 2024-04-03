@@ -2,6 +2,7 @@ import './globals.css';
 import localFont from 'next/font/local';
 import Script from 'next/script';
 import { cn } from '@/lib/utils';
+import {Toaster} from "@/components/ui/toaster";
 
 export const metadata = {
     title: 'Cloud Retainer | Best Genshin Impact Companion',
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 )}
             >
                 {children}
+                <Toaster />
             </body>
             <Script
                 data-domain={'retainer.cloud'}

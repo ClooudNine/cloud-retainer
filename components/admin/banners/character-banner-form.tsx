@@ -40,6 +40,7 @@ import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { getPreviewUrl } from '@/lib/wish-simulator';
 import { currentGamePhase, currentGameVersion } from '@/lib/constants';
+import { useToast } from '@/components/ui/use-toast';
 
 const CharacterBannerForm = ({
     banner,
@@ -50,6 +51,8 @@ const CharacterBannerForm = ({
     characters: Character[];
     closeEdit: () => void;
 }) => {
+    const { toast } = useToast();
+
     const form = useForm<z.infer<typeof CharacterBannersSchema>>({
         resolver: zodResolver(CharacterBannersSchema),
         defaultValues: {
@@ -66,14 +69,21 @@ const CharacterBannerForm = ({
         },
     });
 
-    const onSubmit = async (values: z.infer<typeof CharacterBannersSchema>) => {
-        const formData = new FormData();
-        if (values.image) {
-            formData.append('image', values.image as File);
-            values.image = null;
+    async function onSubmit(data: z.infer<typeof CharacterBannersSchema>) {
+        const imageData = new FormData();
+        const maybeImage = data.image;
+        if (maybeImage) {
+            imageData.append('image', maybeImage);
+            data.image = null;
         }
-        await editCharacterBanner(banner.id, values, formData);
-    };
+
+        const status = await editCharacterBanner(banner.id, data, image);
+
+        toast({
+            title: 'Редактирование баннера персонажа',
+            description: status.toString(),
+        });
+    }
 
     return (
         <Form {...form}>
@@ -108,10 +118,11 @@ const CharacterBannerForm = ({
                                     <FormLabel>Тип</FormLabel>
                                     <FormControl>
                                         <Input
-                                            disabled={Boolean(banner.type)}
+                                            readOnly={Boolean(banner.type)}
                                             {...field}
                                         />
                                     </FormControl>
+                                    <FormMessage />
                                 </FormItem>
                             )}
                         />
@@ -341,7 +352,7 @@ const CharacterBannerForm = ({
                             src={
                                 form.watch('image')
                                     ? URL.createObjectURL(form.watch('image') as File)
-                                    : `/wish-simulator/banners/${getPreviewUrl(
+                                    : `wish-simulator/banners/${getPreviewUrl(
                                           banner
                                       )}.webp`
                             }
@@ -356,17 +367,7 @@ const CharacterBannerForm = ({
                             render={() => (
                                 <FormItem>
                                     <FormControl>
-                                        <Input
-                                            name={'imageee'}
-                                            onChange={(e) => {
-                                                const filesArray = Array.from(
-                                                    e.target.files || []
-                                                );
-                                                form.setValue('image', filesArray[0]);
-                                            }}
-                                            type={'file'}
-                                            accept={'image/webp'}
-                                        />
+                                        <Input type="file" accept={'image/webp'} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>

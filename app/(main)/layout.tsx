@@ -9,6 +9,10 @@ import LogoutIcon from '@/components/icons/logout';
 import RegisterIcon from '@/components/icons/register';
 import { currentUser } from '@/lib/auth';
 import LoginIcon from '@/components/icons/login';
+import WeaponIcon from '@/components/icons/weapon';
+import { Button } from '@/components/ui/button';
+import HelpIcon from '@/components/icons/help';
+import HelpDialog from '@/components/main-page/help-dialog';
 
 export default async function MainLayout({ children }: { children: React.ReactNode }) {
     const user = await currentUser();
@@ -40,6 +44,15 @@ export default async function MainLayout({ children }: { children: React.ReactNo
                         <CharacterIcon />
                         Персонажи
                     </Link>
+                    <Link
+                        href={'/weapons'}
+                        className={
+                            'flex h-12 items-center gap-2 rounded-lg p-2 bg-gray-300 transition duration-500 hover:-translate-y-1 hover:drop-shadow-[0_15px_15px_rgba(0,0,0,1)]'
+                        }
+                    >
+                        <WeaponIcon />
+                        Оружие
+                    </Link>
                     {user?.role === 'Admin' && (
                         <Link
                             href={'/admin'}
@@ -52,52 +65,55 @@ export default async function MainLayout({ children }: { children: React.ReactNo
                         </Link>
                     )}
                 </div>
-                {user ? (
-                    <div className={'flex gap-2 mx-2'}>
-                        <div
-                            className={
-                                'flex items-center gap-2 bg-teal-300 px-4 py-2 rounded-lg break-all'
-                            }
-                        >
-                            <UserIcon />
-                            {user.name}
+                <div className={'flex flex-col gap-2'}>
+                    {user ? (
+                        <div className={'flex gap-2'}>
+                            <div
+                                className={
+                                    'flex items-center gap-2 bg-teal-300 px-4 py-2 rounded-lg break-all'
+                                }
+                            >
+                                <UserIcon />
+                                {user.name}
+                            </div>
+                            <form
+                                action={async () => {
+                                    'use server';
+                                    await signOut();
+                                }}
+                                className={
+                                    'bg-red-300 flex items-center rounded-lg px-2 transition hover:bg-red-400 hover:scale-105'
+                                }
+                            >
+                                <button className={'w-full h-full'} type={'submit'}>
+                                    <LogoutIcon />
+                                </button>
+                            </form>
                         </div>
-                        <form
-                            action={async () => {
-                                'use server';
-                                await signOut();
-                            }}
-                            className={
-                                'bg-red-300 flex items-center rounded-lg px-2 transition hover:bg-red-400 hover:scale-105'
-                            }
-                        >
-                            <button className={'w-full h-full'} type={'submit'}>
-                                <LogoutIcon />
-                            </button>
-                        </form>
-                    </div>
-                ) : (
-                    <div className={'flex flex-col gap-3'}>
-                        <Link
-                            className={
-                                'flex items-center px-6 py-1 gap-4 bg-teal-300 rounded-lg transition hover:scale-105 hover:bg-teal-200'
-                            }
-                            href={'/register'}
-                        >
-                            <RegisterIcon />
-                            Регистрация
-                        </Link>
-                        <Link
-                            className={
-                                'flex items-center px-6 py-1 gap-4 bg-teal-300 rounded-lg transition hover:scale-105 hover:bg-teal-200'
-                            }
-                            href={'/login'}
-                        >
-                            <LoginIcon />
-                            Войти
-                        </Link>
-                    </div>
-                )}
+                    ) : (
+                        <div className={'flex flex-col gap-3'}>
+                            <Link
+                                className={
+                                    'flex items-center px-6 py-1 gap-4 bg-teal-300 rounded-lg transition hover:scale-105 hover:bg-teal-200'
+                                }
+                                href={'/register'}
+                            >
+                                <RegisterIcon />
+                                Регистрация
+                            </Link>
+                            <Link
+                                className={
+                                    'flex items-center px-6 py-1 gap-4 bg-teal-300 rounded-lg transition hover:scale-105 hover:bg-teal-200'
+                                }
+                                href={'/login'}
+                            >
+                                <LoginIcon />
+                                Войти
+                            </Link>
+                        </div>
+                    )}
+                    <HelpDialog />
+                </div>
             </aside>
             {children}
         </main>

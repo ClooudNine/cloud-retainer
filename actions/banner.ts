@@ -10,14 +10,19 @@ import {
 import { db } from '@/lib/db';
 import { eq } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
-import path from 'node:path';
-import striptags from 'striptags';
-import * as z from 'zod';
-import { writeFile } from 'node:fs/promises';
 import { getBannerByIdAndType } from '@/data/banner';
-import * as fs from 'fs';
+import { minioClient } from '@/lib/minio';
+import { AuthState } from '@/actions/register';
+import { z } from 'zod';
 
-export const deleteBanner = async (id: number, type: BannerTypes) => {
+export const deleteBanner = async (
+    id: number | undefined,
+    type: BannerTypes | undefined
+) => {
+    if (!id || !type) {
+        return { error: 'Что-то пошло не так!' };
+    }
+
     try {
         if (type === 'Weapon Event Wish') {
             await db.delete(weaponBanners).where(eq(weaponBanners.id, id));
@@ -26,6 +31,7 @@ export const deleteBanner = async (id: number, type: BannerTypes) => {
         } else {
             await db.delete(characterBanners).where(eq(characterBanners.id, id));
         }
+
         revalidatePath('/admin/banners');
         return { success: 'Баннер успешно удалён!' };
     } catch {
@@ -35,20 +41,15 @@ export const deleteBanner = async (id: number, type: BannerTypes) => {
 
 export const editCharacterBanner = async (
     id: number,
-    values: z.infer<typeof CharacterBannersSchema>,
+    data: z.infer<typeof CharacterBannersSchema>,
     image: FormData
 ) => {
     try {
-        const validatedFields = CharacterBannersSchema.safeParse(values);
+        const validatedFields = CharacterBannersSchema.safeParse(data);
 
         if (!validatedFields.success) {
-            return { message: 'Поля некорректные!' };
+            return { error: ['Поля некорректные!'] };
         }
-
-        const prevBanner = (await getBannerByIdAndType(
-            id,
-            'Character Event Wish'
-        )) as CharacterBanner;
 
         const {
             title,
@@ -60,33 +61,6 @@ export const editCharacterBanner = async (
             textParameters,
         } = validatedFields.data;
 
-        if (image.get('image')) {
-            const uploadDir = path.join(process.cwd(), 'public/wish-simulator/banners/');
-            const fileName = `${striptags(title)} ${rerunNumber}.webp`;
-            const filePath = path.join(uploadDir, fileName);
-
-            const bytes = await (image.get('image') as File).arrayBuffer();
-            const buffer = Buffer.from(bytes);
-
-            await writeFile(filePath, buffer);
-        } else {
-            const uploadDir = path.join(process.cwd(), 'public/wish-simulator/banners/');
-            const oldFileName = `${striptags(prevBanner.title)} ${
-                prevBanner.rerunNumber
-            }.webp`;
-            const newFileName = `${striptags(title)} ${rerunNumber}.webp`;
-            const oldFilePath = path.join(uploadDir, oldFileName);
-            const newFilePath = path.join(uploadDir, newFileName);
-
-            fs.rename(oldFilePath, newFilePath, (err) => {
-                if (err) {
-                    console.error('Ошибка при переименовании файла:', err);
-                } else {
-                    console.log('Файл успешно переименован.');
-                }
-            });
-        }
-
         const mainBannerData = {
             title,
             mainCharacterId,
@@ -97,6 +71,10 @@ export const editCharacterBanner = async (
             textParameters,
         };
 
+        if (image) {
+            await minioClient.putObject('wish-simulator', 'test1.jpg', image);
+        }
+
         await db
             .update(characterBanners)
             .set(mainBannerData)
@@ -105,6 +83,6 @@ export const editCharacterBanner = async (
         revalidatePath('/admin/banners');
         return { success: 'Баннер отредактирован успешно!' };
     } catch {
-        return null;
+        return { error: ['Что-то пошло не так!'] };
     }
 };

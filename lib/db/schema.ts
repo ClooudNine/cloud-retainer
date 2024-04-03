@@ -280,14 +280,14 @@ export const LoginSchema = z.object({
 
 export const CharacterBannersSchema = z.object({
     title: z.string().min(1, { message: 'Название не может быть пустым!' }),
-    mainCharacterId: z.number().int().positive(),
+    type: z.enum(bannerTypesEnum.enumValues),
+    mainCharacterId: z.number().positive(),
     featuredCharactersId: z.array(z.number().positive()),
     version: z.number().positive(),
     phase: z.enum(phasesEnum.enumValues, {
         errorMap: () => ({ message: 'Ожидается значение 1 или 2!' }),
     }),
-    rerunNumber: z.number().int().nonnegative(),
-    type: z.enum(bannerTypesEnum.enumValues),
+    rerunNumber: z.number().int().positive(),
     image: z.instanceof(File).nullish(),
     textParameters: z.object({
         r: z.string(),

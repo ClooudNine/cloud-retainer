@@ -14,35 +14,12 @@ import {
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 
-const DeleteBannerButton = ({ id, type }: { id: number; type: BannerTypes }) => {
+const DeleteBannerButton = ({ setBanner }: { setBanner: () => void }) => {
     return (
-        <AlertDialog>
-            <AlertDialogTrigger asChild>
-                <button className={'p-2 rounded bg-red-400 transition hover:bg-red-600'}>
-                    <CrossIcon />
-                </button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-                <AlertDialogHeader>
-                    <AlertDialogTitle>
-                        Вы уверены, что хотите удалить данный баннер?
-                    </AlertDialogTitle>
-                    <AlertDialogDescription className={'text-destructive'}>
-                        Данное действие необратимо
-                    </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                    <AlertDialogCancel>Назад</AlertDialogCancel>
-                    <AlertDialogAction
-                        onClick={async () => {
-                            await deleteBanner(id, type);
-                        }}
-                    >
-                        Продолжить
-                    </AlertDialogAction>
-                </AlertDialogFooter>
-            </AlertDialogContent>
-        </AlertDialog>
+        <button className={'p-2 rounded bg-red-400 transition hover:bg-red-600'}
+                onClick={setBanner}>
+            <CrossIcon/>
+        </button>
     );
 };
 

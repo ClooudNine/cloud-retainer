@@ -151,3 +151,7 @@
         border: 2px solid #d1cbbf;
     }
 }
+
+button {
+    cursor: url("https://content.retainer.cloud/common/genshin-cursor.cur"), default
+}
