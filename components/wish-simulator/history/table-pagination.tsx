@@ -1,4 +1,4 @@
-import HistoryArrowIcon from '@/components/icons/history-arrow';
+import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons';
 
 const TablePagination = ({
     wishCount,
@@ -22,7 +22,7 @@ const TablePagination = ({
                 disabled={currentPage === 1}
                 onClick={() => setPage(currentPage - 1)}
             >
-                <HistoryArrowIcon isRotated={false} />
+                <ChevronLeftIcon className={'size-8 stroke-[#595252] stroke-1'} />
             </button>
             <p className={'text-[#595252] text-2xl'}>{currentPage}</p>
             <button
@@ -32,7 +32,7 @@ const TablePagination = ({
                 disabled={currentPage === Math.ceil(wishCount / 5)}
                 onClick={() => setPage(currentPage + 1)}
             >
-                <HistoryArrowIcon isRotated={true} />
+                <ChevronRightIcon className={'size-8 stroke-[#595252] stroke-1'} />
             </button>
         </div>
     );

@@ -1,6 +1,14 @@
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
+import { currentRole } from '@/lib/auth';
 
-export default function AdminPage() {
+export default async function AdminPage() {
+    const userRole = await currentRole();
+
+    if (userRole === 'User') {
+        redirect('/');
+    }
+
     return (
         <section className={'flex-1'}>
             <h1 className={'w-full text-white mt-2 py-2 text-center bg-black rounded-xl'}>

@@ -3,12 +3,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
-import EyeOpen from '@/components/icons/eye-open';
-import EyeClose from '@/components/icons/eye-close';
 import { AuthState, register } from '@/actions/register';
-import Success from '@/components/icons/success';
-import Warning from '@/components/icons/warning';
 import Logo from '@/components/main-page/logo';
+import {
+    CheckCircledIcon,
+    ExclamationTriangleIcon,
+    EyeClosedIcon,
+    EyeOpenIcon,
+} from '@radix-ui/react-icons';
 
 export default function Register() {
     const initialState: AuthState = { error: null, success: null };
@@ -66,7 +68,11 @@ export default function Register() {
                         className={'absolute top-[36%] right-2'}
                         onClick={() => setShowPassword(!showPassword)}
                     >
-                        {showPassword ? <EyeOpen /> : <EyeClose />}
+                        {showPassword ? (
+                            <EyeOpenIcon className={'size-8'} />
+                        ) : (
+                            <EyeClosedIcon className={'size-8'} />
+                        )}
                     </button>
                 </label>
                 <label className={'w-[90%] space-y-2'}>
@@ -93,7 +99,7 @@ export default function Register() {
                             'flex items-center gap-4 bg-red-200 px-8 py-2 rounded-lg text-center w-[90%] h-fit'
                         }
                     >
-                        <Warning />
+                        <ExclamationTriangleIcon className={'size-8'} />
                         <div className={'flex-1'}>
                             {state.error.map((message) => (
                                 <p key={message}>{message}</p>
@@ -107,7 +113,7 @@ export default function Register() {
                             'flex items-center gap-4 bg-emerald-200 px-8 py-2 rounded-lg text-center w-[90%]'
                         }
                     >
-                        <Success />
+                        <CheckCircledIcon className={'size-8'} />
                         <p className={'flex-1'}>{state.success}</p>
                     </div>
                 )}

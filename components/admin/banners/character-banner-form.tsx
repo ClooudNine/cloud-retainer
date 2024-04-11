@@ -41,6 +41,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { getPreviewUrl } from '@/lib/wish-simulator';
 import { currentGamePhase, currentGameVersion } from '@/lib/constants';
 import { useToast } from '@/components/ui/use-toast';
+import CharacterPicker from '@/components/admin/banners/character-picker';
 
 const CharacterBannerForm = ({
     banner,
@@ -132,80 +133,7 @@ const CharacterBannerForm = ({
                             render={({ field }) => (
                                 <FormItem className="flex flex-col">
                                     <FormLabel>Главный персонаж</FormLabel>
-                                    <Popover modal>
-                                        <PopoverTrigger asChild>
-                                            <FormControl>
-                                                <Button
-                                                    variant="outline"
-                                                    role="combobox"
-                                                    className={cn(
-                                                        'w-full justify-between',
-                                                        !field.value &&
-                                                            'text-muted-foreground'
-                                                    )}
-                                                >
-                                                    {field.value
-                                                        ? getCharacterById(
-                                                              field.value,
-                                                              characters
-                                                          )?.name
-                                                        : 'Выбрать персонажа'}
-                                                    <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                                                </Button>
-                                            </FormControl>
-                                        </PopoverTrigger>
-                                        <PopoverContent className="p-0">
-                                            <Command>
-                                                <CommandInput placeholder="Найти персонажа..." />
-                                                <ScrollArea className={'h-72'}>
-                                                    <CommandEmpty>
-                                                        Персонаж не найден
-                                                    </CommandEmpty>
-                                                    <CommandGroup>
-                                                        {characters
-                                                            .filter(
-                                                                (character) =>
-                                                                    character.rare === '5'
-                                                            )
-                                                            .map((character) => (
-                                                                <CommandItem
-                                                                    value={character.name}
-                                                                    key={character.name}
-                                                                    onSelect={() => {
-                                                                        form.setValue(
-                                                                            'mainCharacterId',
-                                                                            character.id
-                                                                        );
-                                                                    }}
-                                                                >
-                                                                    <CheckIcon
-                                                                        className={cn(
-                                                                            'mr-2 h-4 w-4',
-                                                                            character.id ===
-                                                                                field.value
-                                                                                ? 'opacity-100'
-                                                                                : 'opacity-0'
-                                                                        )}
-                                                                    />
-                                                                    {character.name}
-                                                                    <Image
-                                                                        src={`/characters/profiles/${character.name}.webp`}
-                                                                        alt={
-                                                                            character.name
-                                                                        }
-                                                                        width={100}
-                                                                        height={100}
-                                                                        className={
-                                                                            'h-12 w-auto ml-auto'
-                                                                        }
-                                                                    />
-                                                                </CommandItem>
-                                                            ))}
-                                                    </CommandGroup>
-                                                </ScrollArea>
-                                            </Command>
-                                        </PopoverContent>
-                                    </Popover>
+                                    <CharacterPicker {...field} />
                                     <FormMessage />
                                 </FormItem>
                             )}

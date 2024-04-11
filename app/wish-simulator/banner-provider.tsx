@@ -24,9 +24,9 @@ import {
 } from '@/lib/banners';
 import { Character, Phases, Weapon } from '@/lib/db/schema';
 import ChooseVersion from '@/components/wish-simulator/choose-version';
-import SettingsIcon from '@/components/icons/settings';
 import CloseButton from '@/components/wish-simulator/close-button';
 import Link from 'next/link';
+import { GearIcon } from '@radix-ui/react-icons';
 
 type BannerContextProviderProps = {
     children: React.ReactNode;
@@ -184,7 +184,7 @@ export default function BannerProvider({
                             'z-10 absolute bottom-1/4 left-1/2 -translate-x-1/2 p-1 rounded-full transition bg-[#ede6d6] ring-4 ring-[rgba(237,230,214,0.5)] cursor-genshin duration-500 hover:ring-[#fcfdff] hover:rotate-180 hover:ring-4 hover:drop-shadow-[0_0_5px_#ffffff] active:ring-[#7a8ca4] active:ring-4 active:bg-[#c8c4bb] lg:ring-8 xs:bottom-16 lg:bottom-4'
                         }
                     >
-                        <SettingsIcon />
+                        <GearIcon className={'size-12 xs:size-8'} />
                     </button>
                     <Link href={'/'}>
                         <CloseButton

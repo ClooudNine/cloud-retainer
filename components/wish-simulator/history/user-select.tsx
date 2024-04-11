@@ -3,7 +3,7 @@ import { bannerHistoryTypes, WishHistoryTypes } from '@/lib/banners';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import ArrowExpanderIcon from '@/components/icons/arrow-expander';
+import { ChevronUpIcon } from '@radix-ui/react-icons';
 
 export const UserSelect = ({ type }: { type: WishHistoryTypes }) => {
     const router = useRouter();
@@ -30,7 +30,9 @@ export const UserSelect = ({ type }: { type: WishHistoryTypes }) => {
                     onClick={() => setIsSelectOpen(!isSelectOpen)}
                 >
                     <p className={'truncate'}>{bannerHistoryTypes[type]}</p>
-                    <ArrowExpanderIcon isOpen={isSelectOpen} />
+                    <ChevronUpIcon
+                        className={`size-10 ml-auto ${isSelectOpen ? 'rotate-0' : 'rotate-180'}`}
+                    />
                 </div>
                 {isSelectOpen && (
                     <div className="z-10 absolute w-[140%] top-0 right-0 text-white bg-[rgba(95,101,114,0.9)] rounded-3xl mt-[8%] xs:w-full">

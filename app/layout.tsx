@@ -2,7 +2,7 @@ import './globals.css';
 import localFont from 'next/font/local';
 import Script from 'next/script';
 import { cn } from '@/lib/utils';
-import {Toaster} from "@/components/ui/toaster";
+import { Toaster } from '@/components/ui/toaster';
 
 export const metadata = {
     title: 'Cloud Retainer | Best Genshin Impact Companion',
@@ -22,7 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <html lang="ru" className={'h-full text-[max(4px,1.1vmax)]'}>
             <body
                 className={cn(
-                    'h-full bg-background cursor-genshin font-genshin antialiased bg-gray-100',
+                    'h-full bg-background cursor-genshin font-genshin antialiased overflow-x-hidden bg-gray-100',
                     genshinFont.variable
                 )}
             >

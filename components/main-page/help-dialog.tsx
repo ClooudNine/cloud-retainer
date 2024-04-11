@@ -8,15 +8,15 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/components/ui/dialog';
-import HelpIcon from '@/components/icons/help';
 import { Button } from '@/components/ui/button';
+import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 
 const HelpDialog = () => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button>
-                    Помощь <HelpIcon />
+                <Button className={'gap-2'}>
+                    Помощь <QuestionMarkCircledIcon className={'size-6'} />
                 </Button>
             </DialogTrigger>
             <DialogContent className={'max-w-xl'}>

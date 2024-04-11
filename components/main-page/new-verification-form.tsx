@@ -4,8 +4,7 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import { newVerification } from '@/actions/new-verification';
-import Warning from '@/components/icons/warning';
-import Success from '@/components/icons/success';
+import { CheckCircledIcon, ExclamationTriangleIcon } from '@radix-ui/react-icons';
 
 const NewVerificationForm = () => {
     const [success, setSuccess] = useState<string | undefined>();
@@ -57,7 +56,7 @@ const NewVerificationForm = () => {
                             'text-xl flex items-center gap-4 bg-red-200 px-8 py-2 rounded-lg text-center whitespace-nowrap'
                         }
                     >
-                        <Warning />
+                        <ExclamationTriangleIcon className={'size-8'} />
                         <p>{error}</p>
                     </div>
                 )}
@@ -67,7 +66,7 @@ const NewVerificationForm = () => {
                             'text-xl flex items-center gap-4 bg-emerald-200 px-8 py-2 rounded-lg text-center whitespace-nowrap'
                         }
                     >
-                        <Success />
+                        <CheckCircledIcon className={'size-8'} />
                         <p>{success}</p>
                     </div>
                 )}

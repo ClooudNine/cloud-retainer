@@ -4,7 +4,7 @@ import { BaseBannerStatsWithGuaranteed, WishHistoryTypes } from '@/lib/banners';
 import TablePagination from '@/components/wish-simulator/history/table-pagination';
 import GuaranteeStatus from '@/components/wish-simulator/history/guarantee-status';
 import { initialBannerStats } from '@/lib/constants';
-import TrashIcon from '@/components/icons/trash';
+import { TrashIcon } from '@radix-ui/react-icons';
 
 const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
     const [stats, setStats] = useState<BaseBannerStatsWithGuaranteed | null>(null);
@@ -119,7 +119,7 @@ const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
                             }
                             onClick={removeHistory}
                         >
-                            <TrashIcon />
+                            <TrashIcon className={'size-10'} />
                             <p>Удалить историю</p>
                         </button>
                     </div>

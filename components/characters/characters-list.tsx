@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { CSSProperties, useState } from 'react';
 import { elementToColor } from '@/lib/constants';
 import Link from 'next/link';
+import { Input } from '@/components/ui/input';
 
 const CharactersList = ({ characters }: { characters: Character[] }) => {
     const elements: Elements[] = [
@@ -70,50 +71,55 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
     });
 
     return (
-        <div className={'w-full'}>
-            <div className={'flex flex-col gap-2 my-2 justify-center items-center'}>
-                <input
-                    placeholder={'Введите имя персонажа'}
-                    value={searchQuery}
-                    onChange={handleInputChange}
-                    className={'border-2 border-gray-300 rounded-lg py-2 w-full'}
-                />
-                <div className={'flex gap-2'}>
-                    {elements.map((element) => (
-                        <Image
-                            key={element}
-                            onClick={() => handleElementClick(element)}
-                            src={`common/elements/${element}.svg`}
-                            alt={element}
-                            width={100}
-                            height={100}
-                            style={
-                                {
-                                    '--ring-color': `${elementToColor[element]}`,
-                                } as CSSProperties
-                            }
-                            className={`rounded-xl ${
-                                selectedElement === element &&
-                                `ring-2 ring-[rgb(var(--ring-color))]`
-                            }`}
-                        />
-                    ))}
+        <>
+            <Input
+                placeholder={'Введите имя персонажа'}
+                value={searchQuery}
+                onChange={handleInputChange}
+            />
+            <div className={'flex'}>
+                <div>
+                    <p>Элемент:</p>
+                    <div className={'flex border-2 border-black rounded-2xl'}>
+                        {elements.map((element) => (
+                            <Image
+                                key={element}
+                                onClick={() => handleElementClick(element)}
+                                src={`common/elements/${element}.svg`}
+                                alt={element}
+                                width={80}
+                                height={80}
+                                style={
+                                    {
+                                        '--ring-color': `${elementToColor[element]}`,
+                                    } as CSSProperties
+                                }
+                                className={`rounded-xl ${
+                                    selectedElement === element &&
+                                    `ring-2 ring-[rgb(var(--ring-color))]`
+                                }`}
+                            />
+                        ))}
+                    </div>
                 </div>
-                <div className={'flex gap-2'}>
-                    {weaponTypes.map((weaponType) => (
-                        <Image
-                            key={weaponType}
-                            onClick={() => handleWeaponTypeClick(weaponType)}
-                            src={`weapons/icons/${weaponType}.webp`}
-                            alt={weaponType}
-                            width={100}
-                            height={100}
-                            className={`rounded-xl ${
-                                selectedWeaponType === weaponType &&
-                                'ring-2 ring-blue-500'
-                            }`}
-                        />
-                    ))}
+                <div>
+                    <p>Тип оружия:</p>
+                    <div className={'flex gap-2'}>
+                        {weaponTypes.map((weaponType) => (
+                            <Image
+                                key={weaponType}
+                                onClick={() => handleWeaponTypeClick(weaponType)}
+                                src={`weapons/icons/${weaponType}.webp`}
+                                alt={weaponType}
+                                width={80}
+                                height={80}
+                                className={`rounded-xl ${
+                                    selectedWeaponType === weaponType &&
+                                    'ring-2 ring-blue-500'
+                                }`}
+                            />
+                        ))}
+                    </div>
                 </div>
                 <div>
                     <label>Сортировать </label>
@@ -159,7 +165,7 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
                     </Link>
                 ))}
             </div>
-        </div>
+        </>
     );
 };
 

@@ -8,7 +8,6 @@ export const authConfig = {
             const isLoggedIn = !!auth?.user;
 
             const isApiPathRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
-            const isAdminRoute = nextUrl.pathname.startsWith('/admin');
             const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
             if (isApiPathRoute) {
@@ -20,11 +19,6 @@ export const authConfig = {
                     return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
                 }
                 return true;
-            }
-
-            if (isAdminRoute) {
-                if (!isLoggedIn || auth?.user.role !== 'Admin')
-                    return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
             }
 
             return true;

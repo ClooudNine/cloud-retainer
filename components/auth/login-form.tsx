@@ -5,13 +5,15 @@ import { useFormState, useFormStatus } from 'react-dom';
 import { login } from '@/actions/login';
 import { useState } from 'react';
 import Image from 'next/image';
-import EyeOpen from '@/components/icons/eye-open';
-import EyeClose from '@/components/icons/eye-close';
 import Link from 'next/link';
-import Warning from '@/components/icons/warning';
-import Success from '@/components/icons/success';
 import { signIn } from 'next-auth/react';
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
+import {
+    CheckCircledIcon,
+    ExclamationTriangleIcon,
+    EyeClosedIcon,
+    EyeOpenIcon,
+} from '@radix-ui/react-icons';
 
 const LoginForm = () => {
     const searchParams = useSearchParams();
@@ -57,7 +59,11 @@ const LoginForm = () => {
                     className={'absolute top-[36%] right-2'}
                     onClick={() => setShowPassword(!showPassword)}
                 >
-                    {showPassword ? <EyeOpen /> : <EyeClose />}
+                    {showPassword ? (
+                        <EyeOpenIcon className={'size-8'} />
+                    ) : (
+                        <EyeClosedIcon className={'size-8'} />
+                    )}
                 </button>
             </label>
             <Link
@@ -74,7 +80,7 @@ const LoginForm = () => {
                         'flex items-center gap-4 bg-red-200 px-8 py-2 rounded-lg text-center w-[90%] h-fit'
                     }
                 >
-                    <Warning />
+                    <ExclamationTriangleIcon className={'size-8'} />
                     <div className={'flex-1'}>
                         {state.error.map((message) => (
                             <p key={message}>{message || urlError}</p>
@@ -88,7 +94,7 @@ const LoginForm = () => {
                         'flex items-center gap-4 bg-emerald-200 px-8 py-2 rounded-lg text-center w-[90%]'
                     }
                 >
-                    <Success />
+                    <CheckCircledIcon className={'size-8'} />
                     <p className={'flex-1'}>{state.success}</p>
                 </div>
             )}
