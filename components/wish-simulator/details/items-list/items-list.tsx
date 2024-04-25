@@ -1,9 +1,8 @@
-import { Banners } from '@/lib/banners';
 import { getBannerDrop, sortItemsForDetails } from '@/lib/wish-simulator';
 import ItemsTable from '@/components/wish-simulator/details/items-list/items-table';
-import { Character, Weapon } from '@/lib/db/schema';
 import { getCharactersFromWishes } from '@/data/character';
 import { getWeaponsFromWishes } from '@/data/weapon';
+import { Banners, Character, Weapon } from '@/lib/types';
 
 const ItemsList = async ({
     banner,

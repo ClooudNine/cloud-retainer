@@ -16,12 +16,10 @@ const BannerList = () => {
                 fill
                 alt={'Фон кнопок выбора баннера'}
                 draggable={false}
-                className={'hidden xs:max-lg:block'}
+                className={'-z-10 hidden xs:max-lg:block'}
             />
             {currentBanners.map((banner) => {
-                return (
-                    <BannerButton key={banner.title + '-' + banner.id} banner={banner} />
-                );
+                return <BannerButton key={banner.title + '-' + banner.id} banner={banner} />;
             })}
         </div>
     );

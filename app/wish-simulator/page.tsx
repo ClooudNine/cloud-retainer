@@ -12,8 +12,9 @@ import { getAllBanners } from '@/data/banner';
 
 export const metadata = {
     title: 'Cloud Retainer | Симулятор молитв',
-    description:
-        'Симулятор молитв из игры Genshin Impact, который позволяет путешественникам совершать молитвы в неограниченном количестве для развлечения и сбора статистики.',
+    description: `Симулятор молитв из игры Genshin Impact, который позволяет 
+    путешественникам совершать молитвы в неограниченном количестве для 
+    развлечения и сбора статистики. Доступны последние баннеры.`,
 };
 
 export const dynamic = 'force-dynamic';
@@ -25,24 +26,20 @@ export default async function WishSimulator() {
         getWeaponsFromWishes(),
     ]);
 
-    if (allBanners === null) {
+    if (allBanners === null || charactersFromWishes === null || weaponsFromWishes === null) {
         return (
             <div className={'w-full h-full flex justify-center items-center text-5xl'}>
-                Banners fetch error!
-            </div>
-        );
-    }
-
-    if (charactersFromWishes === null || weaponsFromWishes === null) {
-        return (
-            <div className={'w-full h-full flex justify-center items-center text-5xl'}>
-                Characters or weapons fetch error!
+                Data fetch error!
             </div>
         );
     }
 
     return (
-        <main className={'w-full h-full overflow-hidden'}>
+        <main
+            className={
+                'w-full h-full overflow-hidden shadow-[0_-50px_100px_50px_rgba(0,0,0,0.25)_inset]'
+            }
+        >
             <Background isBlurred={false} />
             <Title />
             <BannerProvider

@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import ItemCell from '@/components/wish-simulator/details/items-list/item-cell';
-import { BannerTypes, Character, Rares, Weapon } from '@/lib/db/schema';
 import clsx from 'clsx';
 import { getChancesRules } from '@/lib/wish-simulator';
+import { BannerTypes, Character, Rares, Weapon } from '@/lib/types';
 
 const ItemsTable = ({
     rare,

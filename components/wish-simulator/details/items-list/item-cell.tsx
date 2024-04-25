@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { BannerTypes, Character, Weapon } from '@/lib/db/schema';
+import { BannerTypes, Character, Weapon } from '@/lib/types';
 
 const ItemCell = ({
     item,

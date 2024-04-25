@@ -7,9 +7,10 @@ import { getBannerColor } from '@/lib/wish-simulator';
 import MoreInfo from '@/components/wish-simulator/details/more-info/more-info';
 import ItemsList from '@/components/wish-simulator/details/items-list/items-list';
 import Link from 'next/link';
-import { BannerTypes, bannerTypesEnum, Character, Weapon } from '@/lib/db/schema';
+import { bannerTypesEnum } from '@/lib/db/schema';
 import { getBannerByIdAndType } from '@/data/banner';
 import WishCrossIcon from '@/components/icons/wish-cross';
+import { BannerTypes, Character, Weapon } from '@/lib/types';
 
 export const metadata = {
     title: 'Cloud Retainer | Симулятор молитв - Детали',

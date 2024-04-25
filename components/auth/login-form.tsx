@@ -8,12 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
-import {
-    CheckCircledIcon,
-    ExclamationTriangleIcon,
-    EyeClosedIcon,
-    EyeOpenIcon,
-} from '@radix-ui/react-icons';
+import { CircleCheck, Eye, EyeOff, TriangleAlert } from 'lucide-react';
 
 const LoginForm = () => {
     const searchParams = useSearchParams();
@@ -60,9 +55,9 @@ const LoginForm = () => {
                     onClick={() => setShowPassword(!showPassword)}
                 >
                     {showPassword ? (
-                        <EyeOpenIcon className={'size-8'} />
+                        <Eye className={'size-8'} />
                     ) : (
-                        <EyeClosedIcon className={'size-8'} />
+                        <EyeOff className={'size-8'} />
                     )}
                 </button>
             </label>
@@ -80,7 +75,7 @@ const LoginForm = () => {
                         'flex items-center gap-4 bg-red-200 px-8 py-2 rounded-lg text-center w-[90%] h-fit'
                     }
                 >
-                    <ExclamationTriangleIcon className={'size-8'} />
+                    <TriangleAlert className={'size-8'} />
                     <div className={'flex-1'}>
                         {state.error.map((message) => (
                             <p key={message}>{message || urlError}</p>
@@ -94,7 +89,7 @@ const LoginForm = () => {
                         'flex items-center gap-4 bg-emerald-200 px-8 py-2 rounded-lg text-center w-[90%]'
                     }
                 >
-                    <CheckCircledIcon className={'size-8'} />
+                    <CircleCheck className={'size-8'} />
                     <p className={'flex-1'}>{state.success}</p>
                 </div>
             )}

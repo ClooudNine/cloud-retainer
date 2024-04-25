@@ -9,10 +9,10 @@ import {
     CommandItem,
 } from '@/components/ui/command';
 import { CaretSortIcon } from '@radix-ui/react-icons';
-import { Character, CharacterBanner, StandardBanner } from '@/lib/db/schema';
 import { getCharacterById } from '@/lib/character';
 import Image from 'next/image';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Character, CharacterBanner, StandardBanner } from '@/lib/types';
 
 const SelectCharacter = ({
     banner,

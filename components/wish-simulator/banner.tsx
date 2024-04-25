@@ -2,25 +2,21 @@
 import { useBannerContext } from '@/app/wish-simulator/banner-provider';
 import Image from 'next/image';
 import { CSSProperties } from 'react';
-import {
-    bannerDescriptions,
-    Banners,
-    bannerSecondTitle,
-    EpitomizedPath,
-} from '@/lib/banners';
 import SwitchBannerArrow from '@/components/wish-simulator/switch-banner-arrow';
-import { currentGameVersion } from '@/lib/constants';
+import { bannerDescriptions, bannerSecondTitle, currentGameVersion } from '@/lib/constants';
 import { getBannerColor, getPreviewUrl } from '@/lib/wish-simulator';
 import EpitomizedPathButton from '@/components/wish-simulator/epitomized-path-button';
 import clsx from 'clsx';
+import StarIcon from '@/components/icons/star';
 import {
+    Banners,
     Character,
     CharacterBanner,
+    EpitomizedPath,
     StandardBanner,
     Weapon,
     WeaponBanner,
-} from '@/lib/db/schema';
-import StarIcon from '@/components/icons/star';
+} from '@/lib/types';
 
 const renderCharacterName = (banner: CharacterBanner) => {
     return (
@@ -31,9 +27,7 @@ const renderCharacterName = (banner: CharacterBanner) => {
                     '--bottom-offset': banner.textParameters.b,
                 } as CSSProperties
             }
-            className={
-                'absolute bottom-[var(--bottom-offset)] right-[var(--right-offset)]'
-            }
+            className={'absolute bottom-[var(--bottom-offset)] right-[var(--right-offset)]'}
         >
             <p className={'text-3xl text-white drop-shadow-[0_0_2px_#000000]'}>
                 {banner.character.name}
@@ -43,10 +37,7 @@ const renderCharacterName = (banner: CharacterBanner) => {
     );
 };
 
-const renderWeaponBannerInfo = (
-    banner: WeaponBanner,
-    epitomizedWeapon: Weapon | null
-) => {
+const renderWeaponBannerInfo = (banner: WeaponBanner, epitomizedWeapon: Weapon | null) => {
     const bannerTextParameters = Object.entries(banner.textParameters);
 
     return (
@@ -59,9 +50,7 @@ const renderWeaponBannerInfo = (
                         '--title-size': bannerTextParameters[0][1].fontSize,
                     } as CSSProperties
                 }
-                className={
-                    'absolute bottom-[var(--bottom-offset)] right-[var(--right-offset)]'
-                }
+                className={'absolute bottom-[var(--bottom-offset)] right-[var(--right-offset)]'}
             >
                 {[banner.firstMainWeapon, banner.secondMainWeapon].map((weapon) => (
                     <p
@@ -74,7 +63,7 @@ const renderWeaponBannerInfo = (
                     </p>
                 ))}
                 {epitomizedWeapon && (
-                    <div
+                    <p
                         className={
                             'absolute text-sm px-2 mt-[9%] -ml-[6%] bg-[#687c9c]/90 text-[#e4f4ff]'
                         }
@@ -82,7 +71,7 @@ const renderWeaponBannerInfo = (
                         Текущий курс установлен на:
                         <br />
                         {epitomizedWeapon.title}
-                    </div>
+                    </p>
                 )}
             </div>
             <div
@@ -93,9 +82,7 @@ const renderWeaponBannerInfo = (
                         '--title-size': bannerTextParameters[1][1].fontSize,
                     } as CSSProperties
                 }
-                className={
-                    'absolute bottom-[var(--bottom-offset)] right-[var(--right-offset)]'
-                }
+                className={'absolute bottom-[var(--bottom-offset)] right-[var(--right-offset)]'}
             >
                 <p
                     className={
@@ -112,9 +99,7 @@ const renderStandardBannerInfo = (banner: StandardBanner, characters: Character[
     return (
         <>
             {Object.keys(banner.textParameters).map((title) => {
-                const maybeCharacter = characters.find(
-                    (character) => character.name === title
-                );
+                const maybeCharacter = characters.find((character) => character.name === title);
 
                 return (
                     <div
@@ -170,8 +155,7 @@ const renderBannerInfo = (
 };
 
 const Banner = () => {
-    const { characters, weapons, selectedBanner, bannerStats, epitomizedPath } =
-        useBannerContext();
+    const { characters, weapons, selectedBanner, bannerStats, epitomizedPath } = useBannerContext();
 
     const infoContainerClasses = clsx('absolute flex flex-col gap-6', {
         'top-0': selectedBanner.type !== 'Standard Wish',
@@ -189,7 +173,7 @@ const Banner = () => {
         <>
             <section
                 className={
-                    '-z-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-1 overflow-hidden flex items-center justify-around xs:max-lg:pl-20'
+                    'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-1 overflow-hidden flex items-center justify-around xs:max-lg:pointer-events-none xs:max-lg:pl-20'
                 }
             >
                 <SwitchBannerArrow isForward={false} />
@@ -203,9 +187,7 @@ const Banner = () => {
                     }
                 >
                     <Image
-                        src={`wish-simulator/banners/${getPreviewUrl(
-                            selectedBanner
-                        )}.webp`}
+                        src={`wish-simulator/banners/${getPreviewUrl(selectedBanner)}.webp`}
                         alt={`Картинка баннера ${selectedBanner.title}`}
                         draggable={false}
                         priority={true}
@@ -214,22 +196,20 @@ const Banner = () => {
                         className={'rounded-xl w-[50rem]'}
                     />
                     <div className={infoContainerClasses}>
-                        <div
+                        <p
                             className={
                                 'w-fit text-sm text-white bg-[rgb(var(--palette))] -ml-1 rounded-l-3xl rounded-br-[3rem] px-6 py-0.5 lg:text-base'
                             }
                         >
                             {selectedBanner.type}
-                        </div>
+                        </p>
                         <p
                             className={`pl-10 text-[#595957] text-4xl/tight [&_em]:text-[rgb(var(--palette))] [&_em]:not-italic`}
                             dangerouslySetInnerHTML={{ __html: selectedBanner.title }}
                         />
                         <div
                             dir={'rtl'}
-                            className={
-                                'pl-10 w-80 h-44 overflow-y-scroll scrollbar-for-banner'
-                            }
+                            className={'pl-10 w-80 h-44 overflow-y-scroll scrollbar-for-banner'}
                         >
                             <p dir={'ltr'} className={'text-[#595957] text-xl'}>
                                 {bannerSecondTitle[selectedBanner.type]}
@@ -237,8 +217,8 @@ const Banner = () => {
                             <div dir={'ltr'} className={rulesClasses}>
                                 <StarIcon styles={'fill-white w-8 pl-1'} />
                                 <p className={'text-white text-sm'}>
-                                    Every 10 wishes is guaranteed to include at least one
-                                    4-star or higher item.
+                                    Every 10 wishes is guaranteed to include at least one 4-star or
+                                    higher item.
                                 </p>
                             </div>
                             <p
@@ -251,12 +231,7 @@ const Banner = () => {
                             </p>
                         </div>
                     </div>
-                    {renderBannerInfo(
-                        characters,
-                        weapons,
-                        selectedBanner,
-                        epitomizedPath
-                    )}
+                    {renderBannerInfo(characters, weapons, selectedBanner, epitomizedPath)}
                     {selectedBanner.type === 'Novice Wish' && (
                         <p className={'absolute text-[#d8d4d3] right-[5%] bottom-[7%]'}>
                             Попыток: {20 - bannerStats.NoviceWish.history.length}

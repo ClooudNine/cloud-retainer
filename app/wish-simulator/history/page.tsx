@@ -3,8 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import UserSelect from '@/components/wish-simulator/history/user-select';
 import HistoryTable from '@/components/wish-simulator/history/history-table';
-import { WishHistoryTypes } from '@/lib/banners';
 import WishCrossIcon from '@/components/icons/wish-cross';
+import { WishHistoryTypes } from '@/lib/types';
 
 export const metadata = {
     title: 'Cloud Retainer | Симулятор молитв - История',

@@ -1,10 +1,10 @@
 'use client';
 import { useCallback, useEffect, useState } from 'react';
-import { BaseBannerStatsWithGuaranteed, WishHistoryTypes } from '@/lib/banners';
 import TablePagination from '@/components/wish-simulator/history/table-pagination';
 import GuaranteeStatus from '@/components/wish-simulator/history/guarantee-status';
 import { initialBannerStats } from '@/lib/constants';
-import { TrashIcon } from '@radix-ui/react-icons';
+import { BaseBannerStatsWithGuaranteed, WishHistoryTypes } from '@/lib/types';
+import { Trash2 } from 'lucide-react';
 
 const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
     const [stats, setStats] = useState<BaseBannerStatsWithGuaranteed | null>(null);
@@ -19,9 +19,7 @@ const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
     }, [type]);
 
     const getWishesFromLastItem = (rare: number) => {
-        const wishesCount = stats?.history.findIndex(
-            (wish) => Number(wish.item.rare) === rare
-        );
+        const wishesCount = stats?.history.findIndex((wish) => Number(wish.item.rare) === rare);
         if (wishesCount === -1) return stats?.history.length;
         return wishesCount;
     };
@@ -40,9 +38,7 @@ const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
         };
 
         const maybeBannerStats = localStorage.getItem('bannerStats');
-        const bannerStats = maybeBannerStats
-            ? JSON.parse(maybeBannerStats)
-            : initialBannerStats;
+        const bannerStats = maybeBannerStats ? JSON.parse(maybeBannerStats) : initialBannerStats;
 
         bannerStats[type] = clearStats;
 
@@ -53,11 +49,7 @@ const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
 
     if (!stats || stats.history.length === 0) {
         return (
-            <p
-                className={
-                    'absolute text-[#595252] w-full top-[45%] text-center text-4xl'
-                }
-            >
+            <p className={'absolute text-[#595252] w-full top-[45%] text-center text-4xl'}>
                 История по данному типу отсутствует!
             </p>
         );
@@ -77,29 +69,17 @@ const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
                     <div>
                         <p className={'text-[#9659c7]'}>
                             Всего предметов 4★ получено:&nbsp;
-                            {
-                                stats.history.filter((wish) => wish.item.rare === '4')
-                                    .length
-                            }
+                            {stats.history.filter((wish) => wish.item.rare === '4').length}
                         </p>
                         <p className={'text-[#bd6932]'}>
                             Всего предметов 5★ получено:&nbsp;
-                            {
-                                stats.history.filter((wish) => wish.item.rare === '5')
-                                    .length
-                            }
+                            {stats.history.filter((wish) => wish.item.rare === '5').length}
                         </p>
                     </div>
                     {(type === 'CharacterEventWish' || type === 'WeaponEventWish') && (
                         <div>
-                            <GuaranteeStatus
-                                status={stats.fourStarGuaranteed}
-                                rare={'4'}
-                            />
-                            <GuaranteeStatus
-                                status={stats.fiveStarGuaranteed}
-                                rare={'5'}
-                            />
+                            <GuaranteeStatus status={stats.fourStarGuaranteed} rare={'4'} />
+                            <GuaranteeStatus status={stats.fiveStarGuaranteed} rare={'5'} />
                         </div>
                     )}
                     <div>
@@ -119,7 +99,7 @@ const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
                             }
                             onClick={removeHistory}
                         >
-                            <TrashIcon className={'size-10'} />
+                            <Trash2 className={'size-10'} />
                             <p>Удалить историю</p>
                         </button>
                     </div>
@@ -130,37 +110,17 @@ const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
                     }
                 >
                     <thead>
-                        <tr
-                            className={
-                                'border-2 border-[#dac69f] text-[#595252] bg-[#ede1ca]'
-                            }
-                        >
-                            <th
-                                className={
-                                    'w-1/5 border-2 border-[#dac69f] font-normal p-3'
-                                }
-                            >
+                        <tr className={'border-2 border-[#dac69f] text-[#595252] bg-[#ede1ca]'}>
+                            <th className={'w-1/5 border-2 border-[#dac69f] font-normal p-3'}>
                                 Тип
                             </th>
-                            <th
-                                className={
-                                    'w-[30%] border-2 border-[#dac69f] font-normal p-3'
-                                }
-                            >
+                            <th className={'w-[30%] border-2 border-[#dac69f] font-normal p-3'}>
                                 Имя
                             </th>
-                            <th
-                                className={
-                                    'w-1/4 border-2 border-[#dac69f] font-normal p-3'
-                                }
-                            >
+                            <th className={'w-1/4 border-2 border-[#dac69f] font-normal p-3'}>
                                 Тип Молитвы
                             </th>
-                            <th
-                                className={
-                                    'w-1/4 border-2 border-[#dac69f] font-normal p-3'
-                                }
-                            >
+                            <th className={'w-1/4 border-2 border-[#dac69f] font-normal p-3'}>
                                 Время молитвы
                             </th>
                         </tr>
@@ -174,31 +134,23 @@ const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
                             .slice((page - 1) * 5, (page - 1) * 5 + 5)
                             .map((wish, index) => (
                                 <tr key={index}>
-                                    <td
-                                        className={'border-2 border-[#dac69f] p-1 xs:p-4'}
-                                    >
+                                    <td className={'border-2 border-[#dac69f] p-1 xs:p-4'}>
                                         {wish.type}
                                     </td>
                                     <td
                                         className={`border-2 border-[#dac69f] p-1 xs:p-4 ${
                                             wish.item.rare === '5'
                                                 ? 'text-[#bd6932]'
-                                                : wish.item.rare === '4' &&
-                                                  'text-[#9659c7]'
+                                                : wish.item.rare === '4' && 'text-[#9659c7]'
                                         }`}
                                     >
                                         {wish.item.name}
-                                        {Number(wish.item.rare) > 3 &&
-                                            ` (${wish.item.rare}★)`}
+                                        {Number(wish.item.rare) > 3 && ` (${wish.item.rare}★)`}
                                     </td>
-                                    <td
-                                        className={'border-2 border-[#dac69f] p-1 xs:p-4'}
-                                    >
+                                    <td className={'border-2 border-[#dac69f] p-1 xs:p-4'}>
                                         {wish.wishType}
                                     </td>
-                                    <td
-                                        className={'border-2 border-[#dac69f] p-1 xs:p-4'}
-                                    >
+                                    <td className={'border-2 border-[#dac69f] p-1 xs:p-4'}>
                                         {wish.date}
                                     </td>
                                 </tr>

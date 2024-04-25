@@ -1,0 +1,839 @@
+{
+  "id": "45f2a1e6-92b8-422d-bf08-a8c06d49cfd9",
+  "prevId": "e6fba727-4759-471d-a452-5e12fd87f269",
+  "version": "5",
+  "dialect": "pg",
+  "tables": {
+    "account": {
+      "name": "account",
+      "schema": "",
+      "columns": {
+        "userId": {
+          "name": "userId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider": {
+          "name": "provider",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "providerAccountId": {
+          "name": "providerAccountId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "refresh_token": {
+          "name": "refresh_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "access_token": {
+          "name": "access_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "token_type": {
+          "name": "token_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scope": {
+          "name": "scope",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "id_token": {
+          "name": "id_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "session_state": {
+          "name": "session_state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "account_userId_user_id_fk": {
+          "name": "account_userId_user_id_fk",
+          "tableFrom": "account",
+          "tableTo": "user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "account_provider_providerAccountId_pk": {
+          "name": "account_provider_providerAccountId_pk",
+          "columns": [
+            "provider",
+            "providerAccountId"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "bosses": {
+      "name": "bosses",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "drop": {
+          "name": "drop",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "character_banners": {
+      "name": "character_banners",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "main_character_id": {
+          "name": "main_character_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "version": {
+          "name": "version",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "phase": {
+          "name": "phase",
+          "type": "phases",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "rerun_number": {
+          "name": "rerun_number",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "banner_type": {
+          "name": "banner_type",
+          "type": "banner_types",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "text_parameters": {
+          "name": "text_parameters",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "character_banners_main_character_id_characters_id_fk": {
+          "name": "character_banners_main_character_id_characters_id_fk",
+          "tableFrom": "character_banners",
+          "tableTo": "characters",
+          "columnsFrom": [
+            "main_character_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "characters": {
+      "name": "characters",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "rare": {
+          "name": "rare",
+          "type": "rares",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "element": {
+          "name": "element",
+          "type": "elements",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "weapon_type": {
+          "name": "weapon_type",
+          "type": "weapon_types",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "appearance_version": {
+          "name": "appearance_version",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "base_attack": {
+          "name": "base_attack",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "base_hp": {
+          "name": "base_hp",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "boss_id": {
+          "name": "boss_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "talent_material_id": {
+          "name": "talent_material_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "in_standard_wish": {
+          "name": "in_standard_wish",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "characters_boss_id_bosses_id_fk": {
+          "name": "characters_boss_id_bosses_id_fk",
+          "tableFrom": "characters",
+          "tableTo": "bosses",
+          "columnsFrom": [
+            "boss_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "characters_talent_material_id_talent_materials_id_fk": {
+          "name": "characters_talent_material_id_talent_materials_id_fk",
+          "tableFrom": "characters",
+          "tableTo": "talent_materials",
+          "columnsFrom": [
+            "talent_material_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "featured_characters_in_banners": {
+      "name": "featured_characters_in_banners",
+      "schema": "",
+      "columns": {
+        "banner_id": {
+          "name": "banner_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "character_id": {
+          "name": "character_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "featured_characters_in_banners_banner_id_character_banners_id_fk": {
+          "name": "featured_characters_in_banners_banner_id_character_banners_id_fk",
+          "tableFrom": "featured_characters_in_banners",
+          "tableTo": "character_banners",
+          "columnsFrom": [
+            "banner_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "featured_characters_in_banners_character_id_characters_id_fk": {
+          "name": "featured_characters_in_banners_character_id_characters_id_fk",
+          "tableFrom": "featured_characters_in_banners",
+          "tableTo": "characters",
+          "columnsFrom": [
+            "character_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "featured_characters_in_banners_banner_id_character_id_pk": {
+          "name": "featured_characters_in_banners_banner_id_character_id_pk",
+          "columns": [
+            "banner_id",
+            "character_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "featured_weapons_in_banners": {
+      "name": "featured_weapons_in_banners",
+      "schema": "",
+      "columns": {
+        "banner_id": {
+          "name": "banner_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "weapon_id": {
+          "name": "weapon_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "featured_weapons_in_banners_banner_id_weapon_banners_id_fk": {
+          "name": "featured_weapons_in_banners_banner_id_weapon_banners_id_fk",
+          "tableFrom": "featured_weapons_in_banners",
+          "tableTo": "weapon_banners",
+          "columnsFrom": [
+            "banner_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "featured_weapons_in_banners_weapon_id_weapons_id_fk": {
+          "name": "featured_weapons_in_banners_weapon_id_weapons_id_fk",
+          "tableFrom": "featured_weapons_in_banners",
+          "tableTo": "weapons",
+          "columnsFrom": [
+            "weapon_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "featured_weapons_in_banners_banner_id_weapon_id_pk": {
+          "name": "featured_weapons_in_banners_banner_id_weapon_id_pk",
+          "columns": [
+            "banner_id",
+            "weapon_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "standard_banners": {
+      "name": "standard_banners",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "main_character_id": {
+          "name": "main_character_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "version": {
+          "name": "version",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "preview_version": {
+          "name": "preview_version",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "banner_type": {
+          "name": "banner_type",
+          "type": "banner_types",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'Standard Wish'"
+        },
+        "text_parameters": {
+          "name": "text_parameters",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "standard_banners_main_character_id_characters_id_fk": {
+          "name": "standard_banners_main_character_id_characters_id_fk",
+          "tableFrom": "standard_banners",
+          "tableTo": "characters",
+          "columnsFrom": [
+            "main_character_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "talent_materials": {
+      "name": "talent_materials",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "user": {
+      "name": "user",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "emailVerified": {
+          "name": "emailVerified",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "image": {
+          "name": "image",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "password": {
+          "name": "password",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "role": {
+          "name": "role",
+          "type": "user_roles",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'User'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "user_email_unique": {
+          "name": "user_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      }
+    },
+    "verification_token": {
+      "name": "verification_token",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "token": {
+          "name": "token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expires": {
+          "name": "expires",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "verification_token_token_unique": {
+          "name": "verification_token_token_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "token"
+          ]
+        },
+        "verification_token_email_token_unique": {
+          "name": "verification_token_email_token_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email",
+            "token"
+          ]
+        }
+      }
+    },
+    "weapon_banners": {
+      "name": "weapon_banners",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "first_main_weapon_id": {
+          "name": "first_main_weapon_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "second_main_weapon_id": {
+          "name": "second_main_weapon_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "version": {
+          "name": "version",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "phase": {
+          "name": "phase",
+          "type": "phases",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "banner_type": {
+          "name": "banner_type",
+          "type": "banner_types",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'Weapon Event Wish'"
+        },
+        "text_parameters": {
+          "name": "text_parameters",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "weapon_banners_first_main_weapon_id_weapons_id_fk": {
+          "name": "weapon_banners_first_main_weapon_id_weapons_id_fk",
+          "tableFrom": "weapon_banners",
+          "tableTo": "weapons",
+          "columnsFrom": [
+            "first_main_weapon_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "weapon_banners_second_main_weapon_id_weapons_id_fk": {
+          "name": "weapon_banners_second_main_weapon_id_weapons_id_fk",
+          "tableFrom": "weapon_banners",
+          "tableTo": "weapons",
+          "columnsFrom": [
+            "second_main_weapon_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "weapons": {
+      "name": "weapons",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "rare": {
+          "name": "rare",
+          "type": "rares",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "weapon_type": {
+          "name": "weapon_type",
+          "type": "weapon_types",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "appearance_version": {
+          "name": "appearance_version",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "in_standard_wish": {
+          "name": "in_standard_wish",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {
+    "banner_types": {
+      "name": "banner_types",
+      "values": {
+        "Character Event Wish": "Character Event Wish",
+        "Character Event Wish-2": "Character Event Wish-2",
+        "Weapon Event Wish": "Weapon Event Wish",
+        "Novice Wish": "Novice Wish",
+        "Standard Wish": "Standard Wish"
+      }
+    },
+    "elements": {
+      "name": "elements",
+      "values": {
+        "Anemo": "Anemo",
+        "Cryo": "Cryo",
+        "Dendro": "Dendro",
+        "Electro": "Electro",
+        "Geo": "Geo",
+        "Hydro": "Hydro",
+        "Pyro": "Pyro"
+      }
+    },
+    "phases": {
+      "name": "phases",
+      "values": {
+        "1": "1",
+        "2": "2"
+      }
+    },
+    "rares": {
+      "name": "rares",
+      "values": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5"
+      }
+    },
+    "user_roles": {
+      "name": "user_roles",
+      "values": {
+        "User": "User",
+        "Admin": "Admin"
+      }
+    },
+    "weapon_types": {
+      "name": "weapon_types",
+      "values": {
+        "Bow": "Bow",
+        "Catalyst": "Catalyst",
+        "Claymore": "Claymore",
+        "Polearm": "Polearm",
+        "Sword": "Sword"
+      }
+    }
+  },
+  "schemas": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

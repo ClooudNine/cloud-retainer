@@ -5,10 +5,10 @@ import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata = {
-    title: 'Cloud Retainer | Best Genshin Impact Companion',
+    title: 'Cloud Retainer | Лучший помощник в мире Genshin Impact',
     description: `Крупный проект по игре Genshin Impact, который содержит в себе всё, 
-  что нужно путешественникам: игровые персонажи, оружия, симулятор и история молитв, 
-  калькуляторы и многое другое.`,
+    что нужно путешественникам: игровые персонажи, оружия, симулятор и история молитв, 
+    калькуляторы и многое другое.`,
 };
 
 const genshinFont = localFont({
@@ -22,7 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <html lang="ru" className={'h-full text-[max(4px,1.1vmax)]'}>
             <body
                 className={cn(
-                    'h-full bg-background cursor-genshin font-genshin antialiased overflow-x-hidden bg-gray-100',
+                    'h-full bg-gray-100 cursor-genshin font-genshin antialiased overflow-hidden',
                     genshinFont.variable
                 )}
             >

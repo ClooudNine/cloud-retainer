@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useBannerContext } from '@/app/wish-simulator/banner-provider';
 import clsx from 'clsx';
-import { Weapon } from '@/lib/db/schema';
+import { Weapon } from '@/lib/types';
 
 const WeaponPreview = ({
     currentEpitomizedWeapon,
@@ -20,8 +20,7 @@ const WeaponPreview = ({
         'relative w-[32%] bg-[#e9e5dc] rounded transition active:scale-95 xs:h-4/5',
         {
             'scale-105 border-2 border-y-[#c0ff40] lg:border-4':
-                currentEpitomizedWeapon === weaponId &&
-                typeof setEpitomizedWeapon !== 'undefined',
+                currentEpitomizedWeapon === weaponId && typeof setEpitomizedWeapon !== 'undefined',
             'hover:ring-2 hover:ring-white hover:scale-105 lg:hover:ring-4':
                 typeof setEpitomizedWeapon !== 'undefined',
         }
@@ -37,16 +36,15 @@ const WeaponPreview = ({
                 draggable={false}
                 className={'w-full rounded-t rounded-br-3xl'}
             />
-            {currentEpitomizedWeapon === weaponId &&
-                typeof setEpitomizedWeapon !== 'undefined' && (
-                    <p
-                        className={
-                            'z-10 absolute text-[#6c900d] text-xs size-6 flex justify-center items-center bg-[#c0ff40] rounded -top-0.5 right-0'
-                        }
-                    >
-                        &#10004;
-                    </p>
-                )}
+            {currentEpitomizedWeapon === weaponId && typeof setEpitomizedWeapon !== 'undefined' && (
+                <p
+                    className={
+                        'z-10 absolute text-[#6c900d] text-xs size-6 flex justify-center items-center bg-[#c0ff40] rounded -top-0.5 right-0'
+                    }
+                >
+                    &#10004;
+                </p>
+            )}
             <Image
                 src={`weapons/portraits/${weapon.title}.webp`}
                 alt={'Иконка оружия ' + weapon.title}

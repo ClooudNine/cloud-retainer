@@ -7,15 +7,14 @@ import clsx from 'clsx';
 const SwitchBannerArrow = ({ isForward }: { isForward: boolean }) => {
     const { currentBanners, selectedBanner, switchBanner } = useBannerContext();
 
-    const switchBannerArrowClasses = clsx('w-8 hidden lg:block', {
+    const switchBannerArrowClasses = clsx('w-8 hidden drop-shadow-lg lg:block', {
         'rotate-180': !isForward,
     });
 
     const handleSwitchBanner = useCallback(() => {
         const currentIndex = currentBanners.indexOf(selectedBanner);
         const newIndex =
-            (currentIndex + (isForward ? 1 : -1) + currentBanners.length) %
-            currentBanners.length;
+            (currentIndex + (isForward ? 1 : -1) + currentBanners.length) % currentBanners.length;
         playSfxEffect('sounds/click-1.mp3');
         switchBanner(currentBanners[newIndex]);
     }, [currentBanners, isForward, selectedBanner, switchBanner]);

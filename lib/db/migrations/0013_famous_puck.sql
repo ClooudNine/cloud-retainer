@@ -1,0 +1,1 @@
+ALTER TYPE "materials_types" ADD VALUE 'Talent Material';

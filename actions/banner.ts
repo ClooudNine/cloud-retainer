@@ -1,15 +1,11 @@
 'use server';
-import {
-    BannerTypes,
-    characterBanners,
-    CharacterBannersSchema,
-    standardBanners,
-    weaponBanners,
-} from '@/lib/db/schema';
+import { characterBanners, standardBanners, weaponBanners } from '@/lib/db/schema';
 import { db } from '@/lib/db';
 import { eq } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
+import { BannerTypes } from '@/lib/types';
+import { CharacterBannersSchema } from '@/lib/form-shemas';
 
 export const deleteBanner = async (
     id: number | undefined,

@@ -1,13 +1,15 @@
 import NextAuth, { DefaultSession } from 'next-auth';
 import { DrizzleAdapter } from '@auth/drizzle-adapter';
 import { db } from '@/lib/db';
-import Credentials from '@auth/core/providers/credentials';
-import Google from '@auth/core/providers/google';
-import { LoginSchema, UserRoles, users } from '@/lib/db/schema';
+import { users } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import bcrypt from 'bcrypt';
 import { authConfig } from '@/auth.config';
 import { getUserById } from '@/data/user';
+import Google from 'next-auth/providers/google';
+import Credentials from 'next-auth/providers/credentials';
+import { UserRoles } from '@/lib/types';
+import { LoginSchema } from '@/lib/form-shemas';
 
 export type ExtendedUser = DefaultSession['user'] & {
     role: UserRoles;
@@ -28,10 +30,7 @@ export const {
     session: { strategy: 'jwt' },
     ...authConfig,
     providers: [
-        Google({
-            clientId: process.env.GOOGLE_CLIENT_ID,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        }),
+        Google,
         Credentials({
             async authorize(credentials) {
                 const validatedFields = LoginSchema.safeParse(credentials);

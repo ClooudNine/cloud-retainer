@@ -1,7 +1,6 @@
-import { Banners } from '@/lib/banners';
 import striptags from 'striptags';
-import { Weapon } from '@/lib/db/schema';
 import { Fragment } from 'react';
+import { Banners, Weapon } from '@/lib/types';
 
 const WeaponEventWish = ({
     banner,

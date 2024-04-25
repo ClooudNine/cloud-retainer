@@ -2,11 +2,10 @@
 import Image from 'next/image';
 import { useBannerContext } from '@/app/wish-simulator/banner-provider';
 import { useCallback } from 'react';
-import { BannerItems } from '@/lib/banners';
 import clsx from 'clsx';
 import { useAudioContext } from '@/app/wish-simulator/audio-provider';
-import { Character, Weapon } from '@/lib/db/schema';
 import { wish } from '@/lib/wish';
+import { BannerItems, Character, Weapon } from '@/lib/types';
 
 const WishButton = ({ count }: { count: number }) => {
     const { audio } = useAudioContext();

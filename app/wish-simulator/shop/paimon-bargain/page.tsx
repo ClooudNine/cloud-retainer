@@ -6,11 +6,10 @@ import PaymentModal from '@/components/wish-simulator/shop/paimon-bargain/paymen
 import { useRouter } from 'next/navigation';
 import Balance from '@/components/wish-simulator/shop/balance';
 import CloseButton from '@/components/wish-simulator/close-button';
-import { priceOfFate, purchasesCurrencies } from '@/lib/shop';
 import { playSfxEffect } from '@/lib/wish-simulator';
 import { useAudioContext } from '@/app/wish-simulator/audio-provider';
-import { BalanceStats, PullCurrency, PurchasesCurrency } from '@/lib/banners';
-import { initialBalance } from '@/lib/constants';
+import { initialBalance, priceOfFate, purchasesCurrencies } from '@/lib/constants';
+import { BalanceStats, PullCurrency, PurchasesCurrency } from '@/lib/types';
 
 export default function PaimonBargain() {
     const { audio } = useAudioContext();

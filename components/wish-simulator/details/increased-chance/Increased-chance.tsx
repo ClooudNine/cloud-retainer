@@ -1,5 +1,5 @@
 import IncreasedChanceList from '@/components/wish-simulator/details/increased-chance/Increased-chance-list';
-import { BannerTypes, Character, Weapon } from '@/lib/db/schema';
+import { BannerTypes, Character, Weapon } from '@/lib/types';
 
 const IncreasedChance = ({
     bannerType,

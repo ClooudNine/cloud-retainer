@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import Star from '@/components/icons/star';
 import { playSfxEffect } from '@/lib/wish-simulator';
-import { Currencies } from '@/lib/banners';
-import { currenciesTranslate } from '@/lib/shop';
+import { Currencies } from '@/lib/types';
+import { currenciesTranslate } from '@/lib/constants';
 
 const ObtainItemScreen = ({
     item,

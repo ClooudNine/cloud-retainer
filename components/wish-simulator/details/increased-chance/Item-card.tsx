@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import { Character, Weapon } from '@/lib/db/schema';
 import { getItemPortrait } from '@/lib/wish-simulator';
+import { Character, Weapon } from '@/lib/types';
 
 const ItemCard = ({ item }: { item: Character | Weapon }) => {
     return (

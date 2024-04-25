@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import { elementToColor } from '@/lib/constants';
 import ItemCard from '@/components/wish-simulator/details/increased-chance/Item-card';
-import { BannerTypes, Character, Rares, Weapon } from '@/lib/db/schema';
 import clsx from 'clsx';
+import { BannerTypes, Character, Rares, Weapon } from '@/lib/types';
 
 const IncreasedChanceList = ({
     rare,

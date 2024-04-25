@@ -1,11 +1,5 @@
 'use client';
-import React, {
-    createContext,
-    useCallback,
-    useContext,
-    useEffect,
-    useState,
-} from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import {
     currentGamePhase,
     currentGameVersion,
@@ -14,19 +8,21 @@ import {
 } from '@/lib/constants';
 import { getBannerDrop, getBannersSet, playSfxEffect } from '@/lib/wish-simulator';
 import WishDrop from '@/components/wish-simulator/wish-drop';
+import ChooseVersion from '@/components/wish-simulator/choose-version';
+import CloseButton from '@/components/wish-simulator/close-button';
+import Link from 'next/link';
 import {
     BalanceStats,
     BannerItems,
     Banners,
     BannerStats,
+    Character,
     EpitomizedPath,
+    Phases,
     PullCurrency,
-} from '@/lib/banners';
-import { Character, Phases, Weapon } from '@/lib/db/schema';
-import ChooseVersion from '@/components/wish-simulator/choose-version';
-import CloseButton from '@/components/wish-simulator/close-button';
-import Link from 'next/link';
-import { GearIcon } from '@radix-ui/react-icons';
+    Weapon,
+} from '@/lib/types';
+import { Settings } from 'lucide-react';
 
 type BannerContextProviderProps = {
     children: React.ReactNode;
@@ -90,9 +86,7 @@ export default function BannerProvider({
             banners,
             Number(version),
             phase as Phases,
-            maybeStats
-                ? (JSON.parse(maybeStats) as BannerStats).NoviceWish.history.length
-                : 0
+            maybeStats ? (JSON.parse(maybeStats) as BannerStats).NoviceWish.history.length : 0
         );
 
         setCurrentBanners(baseBannerSet);
@@ -184,7 +178,7 @@ export default function BannerProvider({
                             'z-10 absolute bottom-1/4 left-1/2 -translate-x-1/2 p-1 rounded-full transition bg-[#ede6d6] ring-4 ring-[rgba(237,230,214,0.5)] cursor-genshin duration-500 hover:ring-[#fcfdff] hover:rotate-180 hover:ring-4 hover:drop-shadow-[0_0_5px_#ffffff] active:ring-[#7a8ca4] active:ring-4 active:bg-[#c8c4bb] lg:ring-8 xs:bottom-16 lg:bottom-4'
                         }
                     >
-                        <GearIcon className={'size-12 xs:size-8'} />
+                        <Settings className={'size-12 xs:size-8'} />
                     </button>
                     <Link href={'/'}>
                         <CloseButton

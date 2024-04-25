@@ -3,7 +3,8 @@ import { useCallback, useRef, useState } from 'react';
 import ObtainItemScreen from '@/components/wish-simulator/obtain-item-screen';
 import clsx from 'clsx';
 import { playSfxEffect } from '@/lib/wish-simulator';
-import { BalanceStats } from '@/lib/banners';
+
+import { BalanceStats } from '@/lib/types';
 
 const ObtainModal = ({
     balance,

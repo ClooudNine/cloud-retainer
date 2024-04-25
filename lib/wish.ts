@@ -1,23 +1,30 @@
+import { getBannerStatName } from '@/lib/wish-simulator';
+import { bannerTranslates } from '@/lib/constants';
 import {
     BannerItems,
     Banners,
     BannerStats,
-    bannerTranslates,
+    BannerTypes,
+    Character,
     EpitomizedPath,
+    Rares,
+    Weapon,
+    WeaponBanner,
     WishHistoryTypes,
-} from '@/lib/banners';
-import { BannerTypes, Character, Rares, Weapon, WeaponBanner } from '@/lib/db/schema';
-import { getBannerStatName } from '@/lib/wish-simulator';
+} from '@/lib/types';
 
 const getItemsByRarity = (items: BannerItems, rare: Rares) => {
     return items.filter((item) => item.rare === rare);
 };
+
 const getRandomItem = (items: BannerItems) => {
     return items[Math.floor(Math.random() * items.length)];
 };
+
 const dropItem = (items: BannerItems, rare: Rares) => {
     return getRandomItem(getItemsByRarity(items, rare));
 };
+
 const getBaseChances = (bannerType: BannerTypes) => {
     if (bannerType === 'Weapon Event Wish') {
         return { threeStar: 0.933, fourStar: 0.06, fiveStar: 0.007 };
@@ -25,6 +32,7 @@ const getBaseChances = (bannerType: BannerTypes) => {
         return { threeStar: 0.943, fourStar: 0.051, fiveStar: 0.006 };
     }
 };
+
 export const getPityRules = (bannerType: BannerTypes) => {
     if (bannerType === 'Weapon Event Wish') {
         return {
@@ -42,6 +50,7 @@ export const getPityRules = (bannerType: BannerTypes) => {
         };
     }
 };
+
 const getCurrentChances = (
     bannerType: BannerTypes,
     currentFourStarCounter: number,

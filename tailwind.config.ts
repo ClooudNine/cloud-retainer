@@ -231,19 +231,28 @@ const config = {
                         transform: 'translateX(0)',
                     },
                 },
+                flip: {
+                    '0%': {
+                        transform: 'scaleX(1)',
+                    },
+                    '50%': {
+                        transform: 'scaleX(0)',
+                    },
+                    '100%': {
+                        transform: 'scaleX(1)',
+                    },
+                },
             },
             animation: {
                 'accordion-down': 'accordion-down 0.2s ease-out',
                 'accordion-up': 'accordion-up 0.2s ease-out',
                 'wish-item-appearance': 'wish-item-appearance 1.3s forwards',
                 'item-background-appearance': 'item-background-appearance 1.3s forwards',
-                'item-description-appearance':
-                    'item-description-appearance 1.3s forwards',
+                'item-description-appearance': 'item-description-appearance 1.3s forwards',
                 'item-title-appearance': 'item-title-appearance 1.3s forwards',
                 'item-icon-appearance': 'item-icon-appearance 2s forwards',
                 'item-stars-appearance': 'item-stars-appearance 2.5s forwards',
-                'masterless-stardust-appearance':
-                    'masterless-stardust-appearance 2s forwards',
+                'masterless-stardust-appearance': 'masterless-stardust-appearance 2s forwards',
                 'masterless-starglitter-appearance':
                     'masterless-starglitter-appearance 2s forwards',
                 'star-effect': 'star-effect 2s forwards',
@@ -251,6 +260,7 @@ const config = {
                 'modal-appearance': 'modal-appearance 0.3s',
                 'obtain-item': 'obtain-item 0.6s forwards',
                 'multi-wish-appearance': 'multi-wish-appearance 1s forwards',
+                flip: 'flip 0.4s linear',
             },
             dropShadow: {
                 'shop-item': [
@@ -267,8 +277,7 @@ const config = {
                 genshin: ['var(--font-genshin)'],
             },
             cursor: {
-                genshin:
-                    'url("https://content.retainer.cloud/common/genshin-cursor.cur"), default',
+                genshin: 'url("https://content.retainer.cloud/common/genshin-cursor.cur"), default',
             },
         },
     },

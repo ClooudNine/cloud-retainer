@@ -1,6 +1,7 @@
 import NavbarButton from '@/components/wish-simulator/shop/paimon-bargain/navbar-button';
-import { purchasesCurrencies } from '@/lib/shop';
-import { PurchasesCurrency } from '@/lib/banners';
+
+import { PurchasesCurrency } from '@/lib/types';
+import { purchasesCurrencies } from '@/lib/constants';
 
 export const Navbar = ({
     currentCurrency,

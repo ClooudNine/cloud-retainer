@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import Logo from '@/components/main-page/logo';
+import Logo from '@/components/main/logo';
 import Image from 'next/image';
 import LoginForm from '@/components/auth/login-form';
 

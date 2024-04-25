@@ -1,6 +1,5 @@
 'use client';
 import Image from 'next/image';
-import { Banners } from '@/lib/banners';
 import { useBannerContext } from '@/app/wish-simulator/banner-provider';
 import {
     getButtonPortraitUrl,
@@ -9,6 +8,7 @@ import {
 } from '@/lib/wish-simulator';
 import { useMemo } from 'react';
 import clsx from 'clsx';
+import { Banners } from '@/lib/types';
 
 const BannerButton = ({ banner }: { banner: Banners }) => {
     const { selectedBanner, switchBanner } = useBannerContext();

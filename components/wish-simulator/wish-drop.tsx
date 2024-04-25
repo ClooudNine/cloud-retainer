@@ -3,11 +3,10 @@ import Image from 'next/image';
 import { useCallback, useState } from 'react';
 import { useBannerContext } from '@/app/wish-simulator/banner-provider';
 import { playSfxEffect } from '@/lib/wish-simulator';
-import { Character, Weapon } from '@/lib/db/schema';
-import { BannerItems } from '@/lib/banners';
 import { useAudioContext } from '@/app/wish-simulator/audio-provider';
 import clsx from 'clsx';
 import CloseButton from '@/components/wish-simulator/close-button';
+import { BannerItems, Character, Weapon } from '@/lib/types';
 
 const renderWeaponResult = (weapon: Weapon) => {
     const masterlessCurrencyClasses = clsx(

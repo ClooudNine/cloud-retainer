@@ -1,9 +1,16 @@
-import {Dialog, DialogContent} from "@/components/ui/dialog";
-import CharacterBannerForm from "@/components/admin/banners/character-banner-form";
-import {Character, CharacterBanner} from "@/lib/db/schema";
-import {Banners} from "@/lib/banners";
+import { Dialog, DialogContent } from '@/components/ui/dialog';
+import CharacterBannerForm from '@/components/admin/banners/character-banner-form';
+import { Banners, Character, CharacterBanner } from '@/lib/types';
 
-const EditBannerModal = ({banner, characters, closeModal}: {banner: Banners | null, characters: Character[], closeModal: () => void}) => {
+const EditBannerModal = ({
+    banner,
+    characters,
+    closeModal,
+}: {
+    banner: Banners | null;
+    characters: Character[];
+    closeModal: () => void;
+}) => {
     return (
         <Dialog open={Boolean(banner)}>
             <DialogContent className={'max-w-none w-[70vw]'}>
@@ -16,7 +23,7 @@ const EditBannerModal = ({banner, characters, closeModal}: {banner: Banners | nu
                 )}
             </DialogContent>
         </Dialog>
-    )
-}
+    );
+};
 
 export default EditBannerModal;

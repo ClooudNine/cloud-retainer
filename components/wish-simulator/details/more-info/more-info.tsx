@@ -1,10 +1,9 @@
-import { Banners } from '@/lib/banners';
 import CharacterEventWish from '@/components/wish-simulator/details/more-info/character-event-wish';
 import WeaponEventWish from '@/components/wish-simulator/details/more-info/weapon-event-wish';
 import StandardWish from '@/components/wish-simulator/details/more-info/standard-wish';
 import { CSSProperties } from 'react';
-import { Character, Weapon } from '@/lib/db/schema';
 import NoviceWish from '@/components/wish-simulator/details/more-info/novice-wish';
+import { Banners, Character, Weapon } from '@/lib/types';
 
 const MoreInfo = ({
     banner,
@@ -34,8 +33,8 @@ const MoreInfo = ({
                         {banner.type === 'Standard Wish'
                             ? 'Нет ограничения по времени'
                             : banner.type === 'Novice Wish'
-                            ? 'Нет ограничения по времени (Открыто до 20 молитв)'
-                            : 'Временное событие'}
+                              ? 'Нет ограничения по времени (Открыто до 20 молитв)'
+                              : 'Временное событие'}
                     </p>
                 </div>
             </div>

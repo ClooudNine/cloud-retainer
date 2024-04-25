@@ -4,9 +4,9 @@ import clsx from 'clsx';
 import Cancel from '@/components/ui/cancel';
 import Confirm from '@/components/ui/confirm';
 import ObtainItemScreen from '@/components/wish-simulator/obtain-item-screen';
-import { pullCurrencyDescriptions, purchasesCurrencies } from '@/lib/shop';
 import { playSfxEffect } from '@/lib/wish-simulator';
-import { BalanceStats, PullCurrency, PurchasesCurrency } from '@/lib/banners';
+import { BalanceStats, PullCurrency, PurchasesCurrency } from '@/lib/types';
+import { pullCurrencyDescriptions, purchasesCurrencies } from '@/lib/constants';
 
 const PaymentModal = ({
     balance,

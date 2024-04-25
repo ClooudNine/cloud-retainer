@@ -7,8 +7,8 @@ import CloseButton from '@/components/wish-simulator/close-button';
 import ObtainModal from '@/components/wish-simulator/shop/genesis-crystals/obtain-modal';
 import { playSfxEffect } from '@/lib/wish-simulator';
 import { useAudioContext } from '@/app/wish-simulator/audio-provider';
-import { BalanceStats } from '@/lib/banners';
 import { initialBalance } from '@/lib/constants';
+import { BalanceStats } from '@/lib/types';
 
 export default function GenesisCrystals() {
     const { audio } = useAudioContext();

@@ -13,7 +13,6 @@ import { Button } from '@/components/ui/button';
 import { editCharacterBanner } from '@/actions/banner';
 import { Input } from '@/components/ui/input';
 import Image from 'next/image';
-import { Character, CharacterBanner, CharacterBannersSchema } from '@/lib/db/schema';
 import { getCharacterById } from '@/lib/character';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -40,8 +39,10 @@ import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { getPreviewUrl } from '@/lib/wish-simulator';
 import { currentGamePhase, currentGameVersion } from '@/lib/constants';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 import CharacterPicker from '@/components/admin/banners/character-picker';
+import { Character, CharacterBanner } from '@/lib/types';
+import { CharacterBannersSchema } from '@/lib/form-shemas';
 
 const CharacterBannerForm = ({
     banner,
@@ -133,7 +134,7 @@ const CharacterBannerForm = ({
                             render={({ field }) => (
                                 <FormItem className="flex flex-col">
                                     <FormLabel>Главный персонаж</FormLabel>
-                                    <CharacterPicker {...field} />
+                                    <CharacterPicker />
                                     <FormMessage />
                                 </FormItem>
                             )}

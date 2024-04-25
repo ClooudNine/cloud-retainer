@@ -1,14 +1,13 @@
 'use client';
-import { Banners } from '@/lib/banners';
 import Image from 'next/image';
 import { getPreviewUrl } from '@/lib/wish-simulator';
 import striptags from 'striptags';
 import DeleteBannerButton from '@/components/admin/banners/delete-banner-button';
-import { Character } from '@/lib/db/schema';
 import { useState } from 'react';
-import ConfirmBannerDelete from "@/components/admin/banners/confirm-banner-delete";
-import EditBannerButton from "@/components/admin/banners/edit-banner-button";
-import EditBannerModal from "@/components/admin/banners/edit-banner-modal";
+import ConfirmBannerDelete from '@/components/admin/banners/confirm-banner-delete';
+import EditBannerButton from '@/components/admin/banners/edit-banner-button';
+import EditBannerModal from '@/components/admin/banners/edit-banner-modal';
+import { Banners, Character } from '@/lib/types';
 
 const BannersList = ({
     banners,
@@ -41,8 +40,10 @@ const BannersList = ({
                                 'absolute flex opacity-0 flex-col gap-1 top-1 right-1 transition group-hover:opacity-100'
                             }
                         >
-                           <EditBannerButton setBanner={() => setEditedBanner(banner)} />
-                           <DeleteBannerButton setBanner={() => setDeletedBanner(banner)} />
+                            <EditBannerButton setBanner={() => setEditedBanner(banner)} />
+                            <DeleteBannerButton
+                                setBanner={() => setDeletedBanner(banner)}
+                            />
                         </div>
                         <Image
                             src={`wish-simulator/banners/${getPreviewUrl(banner)}.webp`}
@@ -56,8 +57,15 @@ const BannersList = ({
                         }`}</p>
                     </div>
                 ))}
-            <ConfirmBannerDelete banner={deletedBanner} closeModal={() => setDeletedBanner(null)}/>
-            <EditBannerModal banner={editedBanner} characters={characters} closeModal={() => setEditedBanner(null)}/>
+            <ConfirmBannerDelete
+                banner={deletedBanner}
+                closeModal={() => setDeletedBanner(null)}
+            />
+            <EditBannerModal
+                banner={editedBanner}
+                characters={characters}
+                closeModal={() => setEditedBanner(null)}
+            />
         </div>
     );
 };

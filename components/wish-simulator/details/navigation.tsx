@@ -1,5 +1,6 @@
 import NavigationButton from '@/components/wish-simulator/details/navigation-button';
-import { BannerTypes } from '@/lib/db/schema';
+
+import { BannerTypes } from '@/lib/types';
 
 const Navigation = ({ bannerType }: { bannerType: BannerTypes }) => {
     const sections: {

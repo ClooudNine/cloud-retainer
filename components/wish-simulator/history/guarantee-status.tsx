@@ -1,5 +1,6 @@
 import clsx from 'clsx';
-import { Rares } from '@/lib/db/schema';
+
+import { Rares } from '@/lib/types';
 
 const GuaranteeStatus = ({ status, rare }: { status: boolean; rare: Rares }) => {
     const guaranteeStatusClasses = clsx('[&_em]:not-italic', {

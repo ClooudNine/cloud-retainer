@@ -1,10 +1,11 @@
 'use server';
 import bcrypt from 'bcrypt';
-import { RegisterSchema, users } from '@/lib/db/schema';
+import { users } from '@/lib/db/schema';
 import { db } from '@/lib/db';
 import { getUserByEmail } from '@/data/user';
 import { generateVerificationToken } from '@/data/tokens';
 import { sendVerificationEmail } from '@/lib/mail';
+import { RegisterSchema } from '@/lib/form-shemas';
 
 export type AuthState = {
     error?: string[] | null;

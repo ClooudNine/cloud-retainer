@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import clsx from 'clsx';
 
-import { PurchasesCurrency } from '@/lib/banners';
+import { PurchasesCurrency } from '@/lib/types';
 
 const NavbarButton = ({
     currentCurrency,

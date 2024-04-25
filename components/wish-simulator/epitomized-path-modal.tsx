@@ -4,7 +4,8 @@ import { useCallback, useState } from 'react';
 import { useBannerContext } from '@/app/wish-simulator/banner-provider';
 import ResetEpitomizedPath from '@/components/wish-simulator/reset-epitomized-path';
 import Confirm from '@/components/ui/confirm';
-import { WeaponBanner } from '@/lib/db/schema';
+
+import { WeaponBanner } from '@/lib/types';
 
 export const EpitomizedPathModal = ({ closeModal }: { closeModal: () => void }) => {
     const { selectedBanner, epitomizedPath, weapons, setEpitomizedPath } =

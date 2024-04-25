@@ -1,0 +1,1 @@
+ALTER TABLE "characters_weapon_builds" RENAME COLUMN "level" TO "rating";

@@ -1,8 +1,7 @@
-import { Banners } from '@/lib/banners';
-import { Phases } from '@/lib/db/schema';
 import Image from 'next/image';
 import { getGroupedBanners } from '@/lib/wish-simulator';
 import WishCrossIcon from '@/components/icons/wish-cross';
+import { Banners, Phases } from '@/lib/types';
 
 const ChooseVersion = ({
     allBanners,
@@ -17,9 +16,7 @@ const ChooseVersion = ({
 
     return (
         <section
-            className={
-                'z-20 absolute w-full h-full bg-black/70 flex justify-center items-center'
-            }
+            className={'z-20 absolute w-full h-full bg-black/70 flex justify-center items-center'}
         >
             <div
                 className={
@@ -50,25 +47,18 @@ const ChooseVersion = ({
                             {Object.keys(groupedBanners).map((key) => {
                                 const [version, phase] = key.split('-');
                                 return (
-                                    <tr
-                                        key={key}
-                                        className={'border-b-2 border-b-amber-900'}
-                                    >
+                                    <tr key={key} className={'border-b-2 border-b-amber-900'}>
                                         <td>{version}</td>
                                         <td>{phase}</td>
                                         <td className={'p-4'}>
                                             <div
-                                                className={
-                                                    'flex justify-center items-center gap-2'
-                                                }
+                                                className={'flex justify-center items-center gap-2'}
                                             >
                                                 {groupedBanners[key].map((banner) => {
                                                     if ('mainCharacterId' in banner)
                                                         return (
                                                             <Image
-                                                                key={
-                                                                    banner.character.name
-                                                                }
+                                                                key={banner.character.name}
                                                                 src={`characters/profiles/${banner.character.name}.webp`}
                                                                 alt={`Портрет персонажа ${banner.character.name}`}
                                                                 draggable={false}
@@ -81,11 +71,7 @@ const ChooseVersion = ({
                                             </div>
                                         </td>
                                         <td>
-                                            <div
-                                                className={
-                                                    'flex items-center justify-center'
-                                                }
-                                            >
+                                            <div className={'flex items-center justify-center'}>
                                                 {groupedBanners[key].map((banner) => {
                                                     if ('firstMainWeaponId' in banner) {
                                                         const mainWeapons = [
@@ -93,19 +79,17 @@ const ChooseVersion = ({
                                                             banner.secondMainWeapon,
                                                         ];
 
-                                                        return mainWeapons.map(
-                                                            (mainWeapon) => (
-                                                                <Image
-                                                                    key={mainWeapon.title}
-                                                                    src={`weapons/portraits/${mainWeapon.title}.webp`}
-                                                                    alt={`Портрет оружия ${mainWeapon.title}`}
-                                                                    draggable={false}
-                                                                    width={100}
-                                                                    height={100}
-                                                                    className={'w-20'}
-                                                                />
-                                                            )
-                                                        );
+                                                        return mainWeapons.map((mainWeapon) => (
+                                                            <Image
+                                                                key={mainWeapon.title}
+                                                                src={`weapons/portraits/${mainWeapon.title}.webp`}
+                                                                alt={`Портрет оружия ${mainWeapon.title}`}
+                                                                draggable={false}
+                                                                width={100}
+                                                                height={100}
+                                                                className={'w-20'}
+                                                            />
+                                                        ));
                                                     }
                                                 })}
                                             </div>
@@ -113,10 +97,7 @@ const ChooseVersion = ({
                                         <td>
                                             <button
                                                 onClick={() => {
-                                                    switchVersion(
-                                                        Number(version),
-                                                        phase as Phases
-                                                    );
+                                                    switchVersion(Number(version), phase as Phases);
                                                 }}
                                                 className={
                                                     'cursor-genshin text-white bg-blue-700 px-2 py-1 rounded-lg transition hover:bg-green-600 hover:-translate-y-0.5'

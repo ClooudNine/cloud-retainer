@@ -1,7 +1,13 @@
-import { BannerItems, bannerOrder, Banners, WishHistoryTypes } from '@/lib/banners';
-import { basedCharacters, currentGameVersion, elementToColor } from '@/lib/constants';
+import {
+    bannerOrder,
+    basedCharacters,
+    currentGameVersion,
+    elementToColor,
+} from '@/lib/constants';
 import striptags from 'striptags';
 import {
+    BannerItems,
+    Banners,
     BannerTypes,
     Character,
     CharacterBanner,
@@ -9,7 +15,8 @@ import {
     Rares,
     Weapon,
     WeaponBanner,
-} from '@/lib/db/schema';
+    WishHistoryTypes,
+} from '@/lib/types';
 
 const getCharacterPortrait = (character: Character) => {
     return `characters/portraits/${character.name}.webp`;

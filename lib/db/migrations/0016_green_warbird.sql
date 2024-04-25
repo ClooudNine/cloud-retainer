@@ -1,0 +1,1 @@
+ALTER TABLE "characters" ADD COLUMN "constellation_name" text DEFAULT '' NOT NULL;

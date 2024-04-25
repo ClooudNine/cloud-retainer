@@ -1,5 +1,4 @@
 'use server';
-import { LoginSchema } from '@/lib/db/schema';
 import { signIn } from '@/auth';
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
 import { AuthError } from 'next-auth';
@@ -7,6 +6,7 @@ import { getUserByEmail } from '@/data/user';
 import { generateVerificationToken } from '@/data/tokens';
 import { AuthState } from '@/actions/register';
 import { sendVerificationEmail } from '@/lib/mail';
+import { LoginSchema } from '@/lib/form-shemas';
 
 export const login = async (prevState: AuthState | undefined, formData: FormData) => {
     const validatedFields = LoginSchema.safeParse({

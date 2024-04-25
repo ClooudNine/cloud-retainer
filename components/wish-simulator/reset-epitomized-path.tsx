@@ -12,7 +12,7 @@ const ResetEpitomizedPath = ({
     return (
         <section
             className={
-                'absolute z-10 top-0 bg-black/40 w-full h-full flex justify-center items-center'
+                'z-10 absolute top-0 bg-black/40 w-full h-full flex justify-center items-center'
             }
         >
             <div

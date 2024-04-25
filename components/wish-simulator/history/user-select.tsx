@@ -1,9 +1,10 @@
 'use client';
-import { bannerHistoryTypes, WishHistoryTypes } from '@/lib/banners';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { ChevronUpIcon } from '@radix-ui/react-icons';
+import { bannerHistoryTypes } from '@/lib/constants';
+import { WishHistoryTypes } from '@/lib/types';
+import { ChevronUp } from 'lucide-react';
 
 export const UserSelect = ({ type }: { type: WishHistoryTypes }) => {
     const router = useRouter();
@@ -30,7 +31,7 @@ export const UserSelect = ({ type }: { type: WishHistoryTypes }) => {
                     onClick={() => setIsSelectOpen(!isSelectOpen)}
                 >
                     <p className={'truncate'}>{bannerHistoryTypes[type]}</p>
-                    <ChevronUpIcon
+                    <ChevronUp
                         className={`size-10 ml-auto ${isSelectOpen ? 'rotate-0' : 'rotate-180'}`}
                     />
                 </div>
@@ -42,9 +43,7 @@ export const UserSelect = ({ type }: { type: WishHistoryTypes }) => {
                                 className={'px-8 py-6 rounded-full hover:bg-[#717887]'}
                                 onClick={() => {
                                     setIsSelectOpen(false);
-                                    router.replace(
-                                        `/wish-simulator/history/?type=${option[0]}`
-                                    );
+                                    router.replace(`/wish-simulator/history/?type=${option[0]}`);
                                 }}
                             >
                                 {option[1]}

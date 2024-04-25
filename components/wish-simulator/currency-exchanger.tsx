@@ -5,7 +5,8 @@ import Cancel from '@/components/ui/cancel';
 import Confirm from '@/components/ui/confirm';
 import { useRouter } from 'next/navigation';
 import { playSfxEffect } from '@/lib/wish-simulator';
-import { BalanceStats } from '@/lib/banners';
+
+import { BalanceStats } from '@/lib/types';
 
 const CurrencyExchanger = ({
     balance,
