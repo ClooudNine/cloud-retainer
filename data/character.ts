@@ -37,6 +37,8 @@ export const getCharacterByName = async (name: string) => {
                 enhancementMaterial: true,
                 constellations: true,
                 weapons: { with: { weapon: true } },
+                appearanceVersion: true,
+                artifacts: { with: { firstArtifactSet: true, secondArtifactSet: true } },
             },
         });
 

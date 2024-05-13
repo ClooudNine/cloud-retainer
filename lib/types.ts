@@ -11,6 +11,7 @@ import {
     weapons,
     weaponTypesEnum,
 } from '@/lib/db/schema';
+import React from 'react';
 
 export type CharacterBanner = typeof characterBanners.$inferSelect & {
     character: Character;
@@ -47,11 +48,7 @@ export type Banners = CharacterBanner | WeaponBanner | StandardBanner;
 
 export type BannerItems = (Character | Weapon)[];
 
-export type WishHistoryTypes =
-    | 'CharacterEventWish'
-    | 'WeaponEventWish'
-    | 'NoviceWish'
-    | 'StandardWish';
+export type WishHistoryTypes = 'CharacterEventWish' | 'WeaponEventWish' | 'NoviceWish' | 'StandardWish';
 
 export type WishHistory = {
     type: string;
@@ -88,3 +85,5 @@ export type PurchasesCurrency = 'primogems' | 'masterless-stardust' | 'masterles
 export type Currencies = PullCurrency | PurchasesCurrency | 'genesis-crystal';
 
 export type BalanceStats = { [key in Currencies]: number };
+
+export type Links = { title: string; link: string; icon: React.JSX.Element }[];

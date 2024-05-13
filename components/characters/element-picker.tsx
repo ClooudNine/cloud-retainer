@@ -20,16 +20,15 @@ const ElementPicker = ({
                     '--text-color': `${activeElement ? elementToColor[activeElement] : '0,0,0'}`,
                 } as CSSProperties
             }
-            className={'space-y-1'}
+            className={'space-y-1 pr-4 border-black border-b sm:border-r-2 sm:border-b-0'}
         >
             <p className={'transition text-[rgb(var(--text-color))]'}>Элемент:</p>
             <div className={'flex gap-1.5'}>
                 {elements.map((currentElement) => {
                     const elementClasses = clsx(
-                        'rounded-xl transition hover:saturate-200 hover:drop-shadow-[0_1px_10px_rgb(var(--element-color))]',
+                        'size-20 rounded-xl transition hover:saturate-200 hover:drop-shadow-[0_1px_10px_rgb(var(--element-color))] sm:size-14',
                         {
-                            'ring-2 ring-[rgb(var(--element-color))]':
-                                activeElement === currentElement,
+                            'ring-2 ring-[rgb(var(--element-color))]': activeElement === currentElement,
                         }
                     );
 
@@ -37,9 +36,7 @@ const ElementPicker = ({
                         <Image
                             key={currentElement}
                             onClick={() =>
-                                setActiveElement(
-                                    currentElement === activeElement ? null : currentElement
-                                )
+                                setActiveElement(currentElement === activeElement ? null : currentElement)
                             }
                             src={`common/elements/${currentElement}.svg`}
                             alt={currentElement}

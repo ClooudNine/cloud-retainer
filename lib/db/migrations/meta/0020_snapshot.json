@@ -269,6 +269,13 @@
           "notNull": true,
           "default": "''"
         },
+        "constellation_name": {
+          "name": "constellation_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
         "base_attack": {
           "name": "base_attack",
           "type": "integer",
@@ -468,6 +475,13 @@
           "primaryKey": false,
           "notNull": true,
           "default": "''"
+        },
+        "priority": {
+          "name": "priority",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 1
         }
       },
       "indexes": {},
@@ -487,6 +501,70 @@
         }
       },
       "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.characters_weapon_builds": {
+      "name": "characters_weapon_builds",
+      "schema": "",
+      "columns": {
+        "character_id": {
+          "name": "character_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "weapon_id": {
+          "name": "weapon_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "rating": {
+          "name": "rating",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "characters_weapon_builds_character_id_characters_id_fk": {
+          "name": "characters_weapon_builds_character_id_characters_id_fk",
+          "tableFrom": "characters_weapon_builds",
+          "columnsFrom": [
+            "character_id"
+          ],
+          "tableTo": "characters",
+          "columnsTo": [
+            "id"
+          ],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
+        },
+        "characters_weapon_builds_weapon_id_weapons_id_fk": {
+          "name": "characters_weapon_builds_weapon_id_weapons_id_fk",
+          "tableFrom": "characters_weapon_builds",
+          "columnsFrom": [
+            "weapon_id"
+          ],
+          "tableTo": "weapons",
+          "columnsTo": [
+            "id"
+          ],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {
+        "characters_weapon_builds_character_id_weapon_id_pk": {
+          "name": "characters_weapon_builds_character_id_weapon_id_pk",
+          "columns": [
+            "character_id",
+            "weapon_id"
+          ]
+        }
+      },
       "uniqueConstraints": {}
     },
     "public.featured_characters_in_banners": {
@@ -932,6 +1010,53 @@
           "primaryKey": false,
           "notNull": true
         },
+        "base_attack": {
+          "name": "base_attack",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "additional_characteristic": {
+          "name": "additional_characteristic",
+          "type": "additional_weapon_characteristics",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "additional_characteristic_stat": {
+          "name": "additional_characteristic_stat",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ability": {
+          "name": "ability",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "ascension_material_id": {
+          "name": "ascension_material_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "first_enhancement_material_id": {
+          "name": "first_enhancement_material_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "second_enhancement_material_id": {
+          "name": "second_enhancement_material_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
         "in_standard_wish": {
           "name": "in_standard_wish",
           "type": "boolean",
@@ -940,12 +1065,66 @@
         }
       },
       "indexes": {},
-      "foreignKeys": {},
+      "foreignKeys": {
+        "weapons_ascension_material_id_materials_id_fk": {
+          "name": "weapons_ascension_material_id_materials_id_fk",
+          "tableFrom": "weapons",
+          "columnsFrom": [
+            "ascension_material_id"
+          ],
+          "tableTo": "materials",
+          "columnsTo": [
+            "id"
+          ],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
+        },
+        "weapons_first_enhancement_material_id_materials_id_fk": {
+          "name": "weapons_first_enhancement_material_id_materials_id_fk",
+          "tableFrom": "weapons",
+          "columnsFrom": [
+            "first_enhancement_material_id"
+          ],
+          "tableTo": "materials",
+          "columnsTo": [
+            "id"
+          ],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
+        },
+        "weapons_second_enhancement_material_id_materials_id_fk": {
+          "name": "weapons_second_enhancement_material_id_materials_id_fk",
+          "tableFrom": "weapons",
+          "columnsFrom": [
+            "second_enhancement_material_id"
+          ],
+          "tableTo": "materials",
+          "columnsTo": [
+            "id"
+          ],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     }
   },
   "enums": {
+    "public.additional_weapon_characteristics": {
+      "name": "additional_weapon_characteristics",
+      "schema": "public",
+      "values": [
+        "HP",
+        "Physical Damage",
+        "Energy recharge",
+        "Defence",
+        "Critical Damage",
+        "Elemental Mastery",
+        "Attack",
+        "Critical Rate"
+      ]
+    },
     "public.banner_types": {
       "name": "banner_types",
       "schema": "public",
@@ -1038,6 +1217,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "bc6be950-2278-4ec7-bcf9-52c39d9e97db",
-  "prevId": "d75c7575-2b7e-438d-8469-1277965774c4"
+  "id": "5643ac93-98d5-4e95-bcdb-f03ac08303ec",
+  "prevId": "47d36909-bab0-43e9-9b1d-535ccc59f50a"
 }

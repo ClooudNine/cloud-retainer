@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import { newVerification } from '@/actions/new-verification';
-import { CheckCircledIcon, ExclamationTriangleIcon } from '@radix-ui/react-icons';
+import { CircleCheck, TriangleAlert } from 'lucide-react';
 
 const NewVerificationForm = () => {
     const [success, setSuccess] = useState<string | undefined>();
@@ -36,11 +36,7 @@ const NewVerificationForm = () => {
 
     return (
         <main className={'w-full h-full flex items-center justify-center'}>
-            <section
-                className={
-                    'flex flex-col gap-4 items-center bg-gray-200 rounded-2xl px-8 py-2'
-                }
-            >
+            <section className={'flex flex-col gap-4 items-center bg-gray-200 rounded-2xl px-8 py-2'}>
                 <Image
                     src={'common/xianyun-confirmation.webp'}
                     alt={'Xianyun эмоджи'}
@@ -56,7 +52,7 @@ const NewVerificationForm = () => {
                             'text-xl flex items-center gap-4 bg-red-200 px-8 py-2 rounded-lg text-center whitespace-nowrap'
                         }
                     >
-                        <ExclamationTriangleIcon className={'size-8'} />
+                        <TriangleAlert className={'size-8'} />
                         <p>{error}</p>
                     </div>
                 )}
@@ -66,7 +62,7 @@ const NewVerificationForm = () => {
                             'text-xl flex items-center gap-4 bg-emerald-200 px-8 py-2 rounded-lg text-center whitespace-nowrap'
                         }
                     >
-                        <CheckCircledIcon className={'size-8'} />
+                        <CircleCheck className={'size-8'} />
                         <p>{success}</p>
                     </div>
                 )}

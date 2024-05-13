@@ -9,11 +9,11 @@ const SignOut = () => {
                 await signOut();
             }}
             className={
-                'w-1/5 bg-red-300 p-1 rounded-lg transition hover:bg-red-400 hover:scale-105'
+                'flex-1 flex justify-center items-center bg-red-300 p-1 rounded-lg transition hover:bg-red-400 hover:scale-105'
             }
         >
             <button className={'size-full'} type={'submit'}>
-                <LogOut className={'size-full'} />
+                <LogOut className={'w-full'} />
             </button>
         </form>
     );

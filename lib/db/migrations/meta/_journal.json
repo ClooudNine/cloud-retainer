@@ -141,6 +141,27 @@
       "when": 1714055621014,
       "tag": "0019_special_mordo",
       "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "5",
+      "when": 1714343313393,
+      "tag": "0020_steep_omega_sentinel",
+      "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "6",
+      "when": 1715515937347,
+      "tag": "0021_tricky_norman_osborn",
+      "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "6",
+      "when": 1715517575467,
+      "tag": "0022_rich_colleen_wing",
+      "breakpoints": true
     }
   ]
 }

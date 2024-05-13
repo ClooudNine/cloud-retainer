@@ -13,8 +13,12 @@ const ItemsList = async ({
     mainItems: Character[] | Weapon[];
     featuredItems: Character[] | Weapon[];
 }) => {
-    const charactersFromWishes: Character[] = await getCharactersFromWishes();
-    const weaponsFromWishes: Weapon[] = await getWeaponsFromWishes();
+    const charactersFromWishes = await getCharactersFromWishes();
+    const weaponsFromWishes = await getWeaponsFromWishes();
+
+    if (charactersFromWishes === null || weaponsFromWishes === null) {
+        return <h1>Ошибка получения данных!</h1>;
+    }
 
     const bannerItems = getBannerDrop(banner, charactersFromWishes, weaponsFromWishes);
 
@@ -31,18 +35,8 @@ const ItemsList = async ({
             <p className={'text-[#595252] text-xl'}>
                 Список предметов, доступных для получения с помощью Молитвы:
             </p>
-            <ItemsTable
-                rare={'5'}
-                items={fiveStarItems}
-                mainItems={mainItems}
-                bannerType={banner.type}
-            />
-            <ItemsTable
-                rare={'4'}
-                items={fourStarItems}
-                mainItems={featuredItems}
-                bannerType={banner.type}
-            />
+            <ItemsTable rare={'5'} items={fiveStarItems} mainItems={mainItems} bannerType={banner.type} />
+            <ItemsTable rare={'4'} items={fourStarItems} mainItems={featuredItems} bannerType={banner.type} />
             <ItemsTable rare={'3'} items={threeStarItems} bannerType={banner.type} />
         </div>
     );

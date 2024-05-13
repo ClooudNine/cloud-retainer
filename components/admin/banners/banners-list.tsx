@@ -5,19 +5,10 @@ import striptags from 'striptags';
 import DeleteBannerButton from '@/components/admin/banners/delete-banner-button';
 import { useState } from 'react';
 import ConfirmBannerDelete from '@/components/admin/banners/confirm-banner-delete';
-import EditBannerButton from '@/components/admin/banners/edit-banner-button';
-import EditBannerModal from '@/components/admin/banners/edit-banner-modal';
-import { Banners, Character } from '@/lib/types';
+import { Banners } from '@/lib/types';
 
-const BannersList = ({
-    banners,
-    characters,
-}: {
-    banners: Banners[];
-    characters: Character[];
-}) => {
+const BannersList = ({ banners }: { banners: Banners[] }) => {
     const [deletedBanner, setDeletedBanner] = useState<Banners | null>(null);
-    const [editedBanner, setEditedBanner] = useState<Banners | null>(null);
 
     return (
         <div
@@ -26,10 +17,7 @@ const BannersList = ({
             }
         >
             {banners
-                .sort(
-                    (firstBanner, secondBanner) =>
-                        secondBanner.version - firstBanner.version
-                )
+                .sort((firstBanner, secondBanner) => secondBanner.version - firstBanner.version)
                 .map((banner) => (
                     <div
                         key={`${banner.title}-${banner.id}`}
@@ -40,10 +28,7 @@ const BannersList = ({
                                 'absolute flex opacity-0 flex-col gap-1 top-1 right-1 transition group-hover:opacity-100'
                             }
                         >
-                            <EditBannerButton setBanner={() => setEditedBanner(banner)} />
-                            <DeleteBannerButton
-                                setBanner={() => setDeletedBanner(banner)}
-                            />
+                            <DeleteBannerButton setBanner={() => setDeletedBanner(banner)} />
                         </div>
                         <Image
                             src={`wish-simulator/banners/${getPreviewUrl(banner)}.webp`}
@@ -52,20 +37,10 @@ const BannersList = ({
                             height={300}
                             className={'w-full rounded-lg'}
                         />
-                        <p className={'text-center'}>{`${striptags(banner.title)}-${
-                            banner.version
-                        }`}</p>
+                        <p className={'text-center'}>{`${striptags(banner.title)}-${banner.version}`}</p>
                     </div>
                 ))}
-            <ConfirmBannerDelete
-                banner={deletedBanner}
-                closeModal={() => setDeletedBanner(null)}
-            />
-            <EditBannerModal
-                banner={editedBanner}
-                characters={characters}
-                closeModal={() => setEditedBanner(null)}
-            />
+            <ConfirmBannerDelete banner={deletedBanner} closeModal={() => setDeletedBanner(null)} />
         </div>
     );
 };

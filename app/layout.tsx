@@ -19,10 +19,10 @@ const genshinFont = localFont({
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="ru" className={'h-full text-[max(4px,1.1vmax)]'}>
+        <html lang="ru" className={'h-full text-[max(6px,1.1vmax)]'}>
             <body
                 className={cn(
-                    'h-full bg-gray-100 cursor-genshin font-genshin antialiased overflow-hidden',
+                    'h-full bg-gray-100 overflow-hidden cursor-genshin font-genshin',
                     genshinFont.variable
                 )}
             >

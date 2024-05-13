@@ -1,8 +1,8 @@
 import BackButton from '@/components/main/back-button';
 import Image from 'next/image';
 import { getAllWeapons } from '@/data/weapon';
-import WeaponIcon from '@/components/icons/weapon';
 import WeaponList from '@/components/weapons/weapon-list';
+import { Swords } from 'lucide-react';
 
 export default async function Weapons() {
     const allWeapons = await getAllWeapons();
@@ -15,7 +15,7 @@ export default async function Weapons() {
         <section className={'flex-1 px-4 pt-4 space-y-4'}>
             <div className={'relative flex items-center gap-4'}>
                 <BackButton />
-                <WeaponIcon />
+                <Swords />
                 <h1 className={'-ml-2 text-3xl'}>Список оружия</h1>
                 <Image
                     src={'common/raiden-shogun-namecard.webp'}

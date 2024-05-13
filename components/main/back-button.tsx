@@ -8,7 +8,7 @@ const BackButton = () => {
     return (
         <CircleArrowLeft
             onClick={router.back}
-            className={'size-8 transition rounded-full hover:bg-black hover:stroke-white'}
+            className={'size-16 transition rounded-full hover:bg-black hover:stroke-white sm:size-8'}
         />
     );
 };

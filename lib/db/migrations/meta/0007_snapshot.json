@@ -1,10 +1,8 @@
 {
-  "id": "e6fba727-4759-471d-a452-5e12fd87f269",
-  "prevId": "96887012-919c-472b-b196-d4344e216f0e",
-  "version": "5",
-  "dialect": "pg",
+  "version": "6",
+  "dialect": "postgresql",
   "tables": {
-    "account": {
+    "public.account": {
       "name": "account",
       "schema": "",
       "columns": {
@@ -80,15 +78,15 @@
         "account_userId_user_id_fk": {
           "name": "account_userId_user_id_fk",
           "tableFrom": "account",
-          "tableTo": "user",
           "columnsFrom": [
             "userId"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {
@@ -102,7 +100,7 @@
       },
       "uniqueConstraints": {}
     },
-    "bosses": {
+    "public.bosses": {
       "name": "bosses",
       "schema": "",
       "columns": {
@@ -130,7 +128,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "character_banners": {
+    "public.character_banners": {
       "name": "character_banners",
       "schema": "",
       "columns": {
@@ -188,21 +186,21 @@
         "character_banners_main_character_id_characters_id_fk": {
           "name": "character_banners_main_character_id_characters_id_fk",
           "tableFrom": "character_banners",
-          "tableTo": "characters",
           "columnsFrom": [
             "main_character_id"
           ],
+          "tableTo": "characters",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "characters": {
+    "public.characters": {
       "name": "characters",
       "schema": "",
       "columns": {
@@ -287,21 +285,21 @@
         "characters_boss_id_bosses_id_fk": {
           "name": "characters_boss_id_bosses_id_fk",
           "tableFrom": "characters",
-          "tableTo": "bosses",
           "columnsFrom": [
             "boss_id"
           ],
+          "tableTo": "bosses",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "featured_characters_in_banners": {
+    "public.featured_characters_in_banners": {
       "name": "featured_characters_in_banners",
       "schema": "",
       "columns": {
@@ -323,28 +321,28 @@
         "featured_characters_in_banners_banner_id_character_banners_id_fk": {
           "name": "featured_characters_in_banners_banner_id_character_banners_id_fk",
           "tableFrom": "featured_characters_in_banners",
-          "tableTo": "character_banners",
           "columnsFrom": [
             "banner_id"
           ],
+          "tableTo": "character_banners",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "featured_characters_in_banners_character_id_characters_id_fk": {
           "name": "featured_characters_in_banners_character_id_characters_id_fk",
           "tableFrom": "featured_characters_in_banners",
-          "tableTo": "characters",
           "columnsFrom": [
             "character_id"
           ],
+          "tableTo": "characters",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {
@@ -358,7 +356,7 @@
       },
       "uniqueConstraints": {}
     },
-    "featured_weapons_in_banners": {
+    "public.featured_weapons_in_banners": {
       "name": "featured_weapons_in_banners",
       "schema": "",
       "columns": {
@@ -380,28 +378,28 @@
         "featured_weapons_in_banners_banner_id_weapon_banners_id_fk": {
           "name": "featured_weapons_in_banners_banner_id_weapon_banners_id_fk",
           "tableFrom": "featured_weapons_in_banners",
-          "tableTo": "weapon_banners",
           "columnsFrom": [
             "banner_id"
           ],
+          "tableTo": "weapon_banners",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "featured_weapons_in_banners_weapon_id_weapons_id_fk": {
           "name": "featured_weapons_in_banners_weapon_id_weapons_id_fk",
           "tableFrom": "featured_weapons_in_banners",
-          "tableTo": "weapons",
           "columnsFrom": [
             "weapon_id"
           ],
+          "tableTo": "weapons",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {
@@ -415,7 +413,7 @@
       },
       "uniqueConstraints": {}
     },
-    "standard_banners": {
+    "public.standard_banners": {
       "name": "standard_banners",
       "schema": "",
       "columns": {
@@ -468,21 +466,21 @@
         "standard_banners_main_character_id_characters_id_fk": {
           "name": "standard_banners_main_character_id_characters_id_fk",
           "tableFrom": "standard_banners",
-          "tableTo": "characters",
           "columnsFrom": [
             "main_character_id"
           ],
+          "tableTo": "characters",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "user": {
+    "public.user": {
       "name": "user",
       "schema": "",
       "columns": {
@@ -537,14 +535,14 @@
       "uniqueConstraints": {
         "user_email_unique": {
           "name": "user_email_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "email"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "verification_token": {
+    "public.verification_token": {
       "name": "verification_token",
       "schema": "",
       "columns": {
@@ -580,22 +578,22 @@
       "uniqueConstraints": {
         "verification_token_token_unique": {
           "name": "verification_token_token_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "token"
-          ]
+          ],
+          "nullsNotDistinct": false
         },
         "verification_token_email_token_unique": {
           "name": "verification_token_email_token_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "email",
             "token"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "weapon_banners": {
+    "public.weapon_banners": {
       "name": "weapon_banners",
       "schema": "",
       "columns": {
@@ -654,34 +652,34 @@
         "weapon_banners_first_main_weapon_id_weapons_id_fk": {
           "name": "weapon_banners_first_main_weapon_id_weapons_id_fk",
           "tableFrom": "weapon_banners",
-          "tableTo": "weapons",
           "columnsFrom": [
             "first_main_weapon_id"
           ],
+          "tableTo": "weapons",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "weapon_banners_second_main_weapon_id_weapons_id_fk": {
           "name": "weapon_banners_second_main_weapon_id_weapons_id_fk",
           "tableFrom": "weapon_banners",
-          "tableTo": "weapons",
           "columnsFrom": [
             "second_main_weapon_id"
           ],
+          "tableTo": "weapons",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "weapons": {
+    "public.weapons": {
       "name": "weapons",
       "schema": "",
       "columns": {
@@ -729,67 +727,75 @@
     }
   },
   "enums": {
-    "banner_types": {
+    "public.banner_types": {
       "name": "banner_types",
-      "values": {
-        "Character Event Wish": "Character Event Wish",
-        "Character Event Wish-2": "Character Event Wish-2",
-        "Weapon Event Wish": "Weapon Event Wish",
-        "Novice Wish": "Novice Wish",
-        "Standard Wish": "Standard Wish"
-      }
+      "schema": "public",
+      "values": [
+        "Character Event Wish",
+        "Character Event Wish-2",
+        "Weapon Event Wish",
+        "Novice Wish",
+        "Standard Wish"
+      ]
     },
-    "elements": {
+    "public.elements": {
       "name": "elements",
-      "values": {
-        "Anemo": "Anemo",
-        "Cryo": "Cryo",
-        "Dendro": "Dendro",
-        "Electro": "Electro",
-        "Geo": "Geo",
-        "Hydro": "Hydro",
-        "Pyro": "Pyro"
-      }
+      "schema": "public",
+      "values": [
+        "Anemo",
+        "Cryo",
+        "Dendro",
+        "Electro",
+        "Geo",
+        "Hydro",
+        "Pyro"
+      ]
     },
-    "phases": {
+    "public.phases": {
       "name": "phases",
-      "values": {
-        "1": "1",
-        "2": "2"
-      }
+      "schema": "public",
+      "values": [
+        "1",
+        "2"
+      ]
     },
-    "rares": {
+    "public.rares": {
       "name": "rares",
-      "values": {
-        "1": "1",
-        "2": "2",
-        "3": "3",
-        "4": "4",
-        "5": "5"
-      }
+      "schema": "public",
+      "values": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ]
     },
-    "user_roles": {
+    "public.user_roles": {
       "name": "user_roles",
-      "values": {
-        "User": "User",
-        "Admin": "Admin"
-      }
+      "schema": "public",
+      "values": [
+        "User",
+        "Admin"
+      ]
     },
-    "weapon_types": {
+    "public.weapon_types": {
       "name": "weapon_types",
-      "values": {
-        "Bow": "Bow",
-        "Catalyst": "Catalyst",
-        "Claymore": "Claymore",
-        "Polearm": "Polearm",
-        "Sword": "Sword"
-      }
+      "schema": "public",
+      "values": [
+        "Bow",
+        "Catalyst",
+        "Claymore",
+        "Polearm",
+        "Sword"
+      ]
     }
   },
   "schemas": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "tables": {},
+    "columns": {}
+  },
+  "id": "e6fba727-4759-471d-a452-5e12fd87f269",
+  "prevId": "96887012-919c-472b-b196-d4344e216f0e"
 }

@@ -1,0 +1,1 @@
+ALTER TABLE "characters_talents" ADD COLUMN "priority" integer DEFAULT 1;

@@ -1,5 +1,6 @@
 import {
     boolean,
+    date,
     integer,
     json,
     pgEnum,
@@ -29,13 +30,7 @@ export const elementsEnum = pgEnum('elements', [
     'Pyro',
 ]);
 
-export const weaponTypesEnum = pgEnum('weapon_types', [
-    'Bow',
-    'Catalyst',
-    'Claymore',
-    'Polearm',
-    'Sword',
-]);
+export const weaponTypesEnum = pgEnum('weapon_types', ['Bow', 'Catalyst', 'Claymore', 'Polearm', 'Sword']);
 
 export const bannerTypesEnum = pgEnum('banner_types', [
     'Character Event Wish',
@@ -82,9 +77,13 @@ export const characters = pgTable('characters', {
     rare: raresEnum('rare').notNull(),
     element: elementsEnum('element').notNull(),
     weaponType: weaponTypesEnum('weapon_type').notNull(),
-    appearanceVersion: real('appearance_version').notNull(),
+    appearanceVersion: real('appearance_version')
+        .notNull()
+        .references(() => gameUpdates.version, {
+            onDelete: 'cascade',
+        }),
     description: text('description').notNull().default(''),
-    constellationName: text('constellation_name').notNull().default(''),
+    constellation: text('constellation').notNull().default(''),
     baseAttack: integer('base_attack').notNull().default(0),
     baseHp: integer('base_hp').notNull().default(0),
     bossId: integer('boss_id')
@@ -119,6 +118,11 @@ export const charactersRelations = relations(characters, ({ one, many }) => ({
     talents: many(charactersTalents),
     constellations: many(charactersConstellations),
     weapons: many(charactersWeaponBuilds),
+    artifacts: many(charactersArtifactsBuilds),
+    appearanceVersion: one(gameUpdates, {
+        fields: [characters.appearanceVersion],
+        references: [gameUpdates.version],
+    }),
     boss: one(bosses, {
         fields: [characters.bossId],
         references: [bosses.id],
@@ -126,14 +130,17 @@ export const charactersRelations = relations(characters, ({ one, many }) => ({
     talentMaterial: one(materials, {
         fields: [characters.talentMaterialId],
         references: [materials.id],
+        relationName: 'character_talent_material',
     }),
     localSpecialty: one(materials, {
         fields: [characters.localSpecialtyId],
         references: [materials.id],
+        relationName: 'character_local_speciality',
     }),
     enhancementMaterial: one(materials, {
         fields: [characters.enhancementMaterialId],
         references: [materials.id],
+        relationName: 'character_enhancement_material',
     }),
 }));
 
@@ -142,7 +149,11 @@ export const weapons = pgTable('weapons', {
     title: text('title').notNull(),
     rare: raresEnum('rare').notNull(),
     type: weaponTypesEnum('weapon_type').notNull(),
-    appearanceVersion: real('appearance_version').notNull(),
+    appearanceVersion: real('appearance_version')
+        .notNull()
+        .references(() => gameUpdates.version, {
+            onDelete: 'cascade',
+        }),
     baseAttack: integer('base_attack').notNull().default(0),
     additionalCharacteristic: additionalWeaponCharacteristics('additional_characteristic'),
     additionalCharacteristicStat: real('additional_characteristic_stat'),
@@ -167,25 +178,28 @@ export const weapons = pgTable('weapons', {
 });
 
 export const weaponsRelations = relations(weapons, ({ one, many }) => ({
-    firstMainWeaponInBanners: many(weaponBanners, {
-        relationName: 'first_main_weapon',
-    }),
-    secondMainWeaponInBanners: many(weaponBanners, {
-        relationName: 'second_main_weapon',
-    }),
+    firstMainWeaponInBanners: many(weaponBanners, { relationName: 'first_main_weapon' }),
+    secondMainWeaponInBanners: many(weaponBanners, { relationName: 'second_main_weapon' }),
     featuredWeaponsInBanners: many(featuredWeaponsInBanners),
     characters: many(charactersWeaponBuilds),
+    appearanceVersion: one(gameUpdates, {
+        fields: [weapons.appearanceVersion],
+        references: [gameUpdates.version],
+    }),
     ascensionMaterial: one(materials, {
         fields: [weapons.ascensionMaterialId],
         references: [materials.id],
+        relationName: 'weapon_ascension_material',
     }),
     firstEnhancementMaterial: one(materials, {
         fields: [weapons.firstEnhancementMaterialId],
         references: [materials.id],
+        relationName: 'weapon_first_enhancement_material',
     }),
     secondEnhancementMaterial: one(materials, {
         fields: [weapons.secondEnhancementMaterialId],
         references: [materials.id],
+        relationName: 'weapon_second_enhancement_material',
     }),
 }));
 
@@ -195,7 +209,11 @@ export const characterBanners = pgTable('character_banners', {
     mainCharacterId: integer('main_character_id')
         .notNull()
         .references(() => characters.id, { onDelete: 'cascade' }),
-    version: real('version').notNull(),
+    version: real('version')
+        .notNull()
+        .references(() => gameUpdates.version, {
+            onDelete: 'cascade',
+        }),
     phase: phasesEnum('phase').notNull(),
     rerunNumber: integer('rerun_number').notNull(),
     type: bannerTypesEnum('banner_type').notNull(),
@@ -206,6 +224,10 @@ export const characterBannersRelations = relations(characterBanners, ({ one, man
     character: one(characters, {
         fields: [characterBanners.mainCharacterId],
         references: [characters.id],
+    }),
+    version: one(gameUpdates, {
+        fields: [characterBanners.version],
+        references: [gameUpdates.version],
     }),
     featuredCharactersInBanners: many(featuredCharactersInBanners),
 }));
@@ -227,19 +249,16 @@ export const featuredCharactersInBanners = pgTable(
     }
 );
 
-export const featuredCharactersInBannersRelations = relations(
-    featuredCharactersInBanners,
-    ({ one }) => ({
-        characterBanner: one(characterBanners, {
-            fields: [featuredCharactersInBanners.bannerId],
-            references: [characterBanners.id],
-        }),
-        character: one(characters, {
-            fields: [featuredCharactersInBanners.characterId],
-            references: [characters.id],
-        }),
-    })
-);
+export const featuredCharactersInBannersRelations = relations(featuredCharactersInBanners, ({ one }) => ({
+    characterBanner: one(characterBanners, {
+        fields: [featuredCharactersInBanners.bannerId],
+        references: [characterBanners.id],
+    }),
+    character: one(characters, {
+        fields: [featuredCharactersInBanners.characterId],
+        references: [characters.id],
+    }),
+}));
 
 export const weaponBanners = pgTable('weapon_banners', {
     id: serial('id').primaryKey(),
@@ -250,7 +269,11 @@ export const weaponBanners = pgTable('weapon_banners', {
     secondMainWeaponId: integer('second_main_weapon_id')
         .notNull()
         .references(() => weapons.id, { onDelete: 'cascade' }),
-    version: real('version').notNull(),
+    version: real('version')
+        .notNull()
+        .references(() => gameUpdates.version, {
+            onDelete: 'cascade',
+        }),
     phase: phasesEnum('phase').notNull(),
     type: bannerTypesEnum('banner_type').default('Weapon Event Wish').notNull(),
     textParameters: json('text_parameters')
@@ -271,6 +294,10 @@ export const weaponBannersRelations = relations(weaponBanners, ({ one, many }) =
         fields: [weaponBanners.secondMainWeaponId],
         references: [weapons.id],
         relationName: 'second_main_weapon',
+    }),
+    version: one(gameUpdates, {
+        fields: [weaponBanners.version],
+        references: [gameUpdates.version],
     }),
     featuredWeaponsInBanners: many(featuredWeaponsInBanners),
 }));
@@ -309,7 +336,11 @@ export const standardBanners = pgTable('standard_banners', {
     mainCharacterId: integer('main_character_id')
         .notNull()
         .references(() => characters.id, { onDelete: 'cascade' }),
-    version: real('version').notNull(),
+    version: real('version')
+        .notNull()
+        .references(() => gameUpdates.version, {
+            onDelete: 'cascade',
+        }),
     previewVersion: real('preview_version').notNull(),
     type: bannerTypesEnum('banner_type').default('Standard Wish').notNull(),
     textParameters: json('text_parameters')
@@ -321,6 +352,10 @@ export const standardBannersRelations = relations(standardBanners, ({ one }) => 
     character: one(characters, {
         fields: [standardBanners.mainCharacterId],
         references: [characters.id],
+    }),
+    version: one(gameUpdates, {
+        fields: [standardBanners.version],
+        references: [gameUpdates.version],
     }),
 }));
 
@@ -397,9 +432,13 @@ export const materials = pgTable('materials', {
 });
 
 export const materialsRelations = relations(materials, ({ many }) => ({
-    characters: many(characters),
+    characterTalentMaterial: many(characters, { relationName: 'character_talent_material' }),
+    characterLocalSpecialty: many(characters, { relationName: 'character_local_speciality' }),
+    characterEnhancementMaterial: many(characters, { relationName: 'character_enhancement_material' }),
+    weaponAscensionMaterial: many(weapons, { relationName: 'weapon_ascension_material' }),
+    weaponFirstEnhancementMaterial: many(weapons, { relationName: 'weapon_first_enhancement_material' }),
+    weaponSecondEnhancementMaterial: many(weapons, { relationName: 'weapon_second_enhancement_material' }),
     bosses: many(bosses),
-    weapons: many(weapons),
 }));
 
 export const charactersTalents = pgTable('characters_talents', {
@@ -410,6 +449,7 @@ export const charactersTalents = pgTable('characters_talents', {
     title: text('title').notNull().default(''),
     type: talentTypesEnum('type').notNull(),
     description: text('description').notNull().default(''),
+    priority: integer('priority').default(1),
 });
 
 export const charactersTalentsRelations = relations(charactersTalents, ({ one }) => ({
@@ -464,3 +504,58 @@ export const charactersWeaponBuildsRelations = relations(charactersWeaponBuilds,
         references: [weapons.id],
     }),
 }));
+
+export const artifactsSet = pgTable('artifacts_set', {
+    id: serial('id').primaryKey(),
+    title: text('title'),
+    twoArtifactsBonus: text('two_artifacts_bonus'),
+    fourArtifactsBonus: text('four_artifacts_bonus'),
+});
+
+export const artifactsSetRelations = relations(artifactsSet, ({ many }) => ({
+    firstSetForCharacters: many(charactersArtifactsBuilds, { relationName: 'first_set_for_characters' }),
+    secondSetForCharacters: many(charactersArtifactsBuilds, { relationName: 'second_set_for_characters' }),
+}));
+
+export const charactersArtifactsBuilds = pgTable(
+    'characters_artifacts_builds',
+    {
+        characterId: integer('character_id')
+            .notNull()
+            .references(() => characters.id, { onDelete: 'cascade' }),
+        firstArtifactSetId: integer('first_artifact_set_id')
+            .notNull()
+            .references(() => artifactsSet.id, { onDelete: 'cascade' }),
+        secondArtifactSetId: integer('second_artifact_set_id').references(() => artifactsSet.id, {
+            onDelete: 'cascade',
+        }),
+        rating: integer('rating').notNull().default(1),
+    },
+    (cab) => {
+        return {
+            pk: primaryKey({ columns: [cab.characterId, cab.firstArtifactSetId, cab.secondArtifactSetId] }),
+        };
+    }
+);
+
+export const charactersArtifactsBuildsRelations = relations(charactersArtifactsBuilds, ({ one }) => ({
+    character: one(characters, {
+        fields: [charactersArtifactsBuilds.characterId],
+        references: [characters.id],
+    }),
+    firstArtifactSet: one(artifactsSet, {
+        fields: [charactersArtifactsBuilds.firstArtifactSetId],
+        references: [artifactsSet.id],
+        relationName: 'first_set_for_characters',
+    }),
+    secondArtifactSet: one(artifactsSet, {
+        fields: [charactersArtifactsBuilds.secondArtifactSetId],
+        references: [artifactsSet.id],
+        relationName: 'second_set_for_characters',
+    }),
+}));
+
+export const gameUpdates = pgTable('game_updates', {
+    version: real('version').primaryKey(),
+    date: date('date', { mode: 'date' }),
+});

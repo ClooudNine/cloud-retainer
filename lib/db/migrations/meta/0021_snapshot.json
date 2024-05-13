@@ -1,4 +1,6 @@
 {
+  "id": "7f75dcc3-9759-4742-acd7-faaa14dce447",
+  "prevId": "5643ac93-98d5-4e95-bcdb-f03ac08303ec",
   "version": "6",
   "dialect": "postgresql",
   "tables": {
@@ -78,15 +80,15 @@
         "account_userId_user_id_fk": {
           "name": "account_userId_user_id_fk",
           "tableFrom": "account",
+          "tableTo": "user",
           "columnsFrom": [
             "userId"
           ],
-          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {
@@ -98,6 +100,40 @@
           ]
         }
       },
+      "uniqueConstraints": {}
+    },
+    "public.artifacts_set": {
+      "name": "artifacts_set",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "two_artifacts_bonus": {
+          "name": "two_artifacts_bonus",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "four_artifacts_bonus": {
+          "name": "four_artifacts_bonus",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
     "public.bosses": {
@@ -130,15 +166,15 @@
         "bosses_dropId_materials_id_fk": {
           "name": "bosses_dropId_materials_id_fk",
           "tableFrom": "bosses",
+          "tableTo": "materials",
           "columnsFrom": [
             "dropId"
           ],
-          "tableTo": "materials",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -175,6 +211,7 @@
         "phase": {
           "name": "phase",
           "type": "phases",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
         },
@@ -187,6 +224,7 @@
         "banner_type": {
           "name": "banner_type",
           "type": "banner_types",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
         },
@@ -202,15 +240,28 @@
         "character_banners_main_character_id_characters_id_fk": {
           "name": "character_banners_main_character_id_characters_id_fk",
           "tableFrom": "character_banners",
+          "tableTo": "characters",
           "columnsFrom": [
             "main_character_id"
           ],
-          "tableTo": "characters",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "character_banners_version_game_updates_version_fk": {
+          "name": "character_banners_version_game_updates_version_fk",
+          "tableFrom": "character_banners",
+          "tableTo": "game_updates",
+          "columnsFrom": [
+            "version"
+          ],
+          "columnsTo": [
+            "version"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -241,18 +292,21 @@
         "rare": {
           "name": "rare",
           "type": "rares",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
         },
         "element": {
           "name": "element",
           "type": "elements",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
         },
         "weapon_type": {
           "name": "weapon_type",
           "type": "weapon_types",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
         },
@@ -260,10 +314,17 @@
           "name": "appearance_version",
           "type": "real",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "description": {
           "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "constellation": {
+          "name": "constellation",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
@@ -320,60 +381,157 @@
       },
       "indexes": {},
       "foreignKeys": {
+        "characters_appearance_version_game_updates_version_fk": {
+          "name": "characters_appearance_version_game_updates_version_fk",
+          "tableFrom": "characters",
+          "tableTo": "game_updates",
+          "columnsFrom": [
+            "appearance_version"
+          ],
+          "columnsTo": [
+            "version"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
         "characters_boss_id_bosses_id_fk": {
           "name": "characters_boss_id_bosses_id_fk",
           "tableFrom": "characters",
+          "tableTo": "bosses",
           "columnsFrom": [
             "boss_id"
           ],
-          "tableTo": "bosses",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         },
         "characters_talent_material_id_materials_id_fk": {
           "name": "characters_talent_material_id_materials_id_fk",
           "tableFrom": "characters",
+          "tableTo": "materials",
           "columnsFrom": [
             "talent_material_id"
           ],
-          "tableTo": "materials",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         },
         "characters_local_specialty_id_materials_id_fk": {
           "name": "characters_local_specialty_id_materials_id_fk",
           "tableFrom": "characters",
+          "tableTo": "materials",
           "columnsFrom": [
             "local_specialty_id"
           ],
-          "tableTo": "materials",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         },
         "characters_enhancement_material_id_materials_id_fk": {
           "name": "characters_enhancement_material_id_materials_id_fk",
           "tableFrom": "characters",
+          "tableTo": "materials",
           "columnsFrom": [
             "enhancement_material_id"
           ],
-          "tableTo": "materials",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.characters_artifacts_builds": {
+      "name": "characters_artifacts_builds",
+      "schema": "",
+      "columns": {
+        "character_id": {
+          "name": "character_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "first_artifact_set_id": {
+          "name": "first_artifact_set_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "second_artifact_set_id": {
+          "name": "second_artifact_set_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rating": {
+          "name": "rating",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "characters_artifacts_builds_character_id_characters_id_fk": {
+          "name": "characters_artifacts_builds_character_id_characters_id_fk",
+          "tableFrom": "characters_artifacts_builds",
+          "tableTo": "characters",
+          "columnsFrom": [
+            "character_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "characters_artifacts_builds_first_artifact_set_id_artifacts_set_id_fk": {
+          "name": "characters_artifacts_builds_first_artifact_set_id_artifacts_set_id_fk",
+          "tableFrom": "characters_artifacts_builds",
+          "tableTo": "artifacts_set",
+          "columnsFrom": [
+            "first_artifact_set_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "characters_artifacts_builds_second_artifact_set_id_artifacts_set_id_fk": {
+          "name": "characters_artifacts_builds_second_artifact_set_id_artifacts_set_id_fk",
+          "tableFrom": "characters_artifacts_builds",
+          "tableTo": "artifacts_set",
+          "columnsFrom": [
+            "second_artifact_set_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "characters_artifacts_builds_character_id_first_artifact_set_id_second_artifact_set_id_pk": {
+          "name": "characters_artifacts_builds_character_id_first_artifact_set_id_second_artifact_set_id_pk",
+          "columns": [
+            "character_id",
+            "first_artifact_set_id",
+            "second_artifact_set_id"
+          ]
+        }
+      },
       "uniqueConstraints": {}
     },
     "public.characters_constellations": {
@@ -419,15 +577,15 @@
         "characters_constellations_character_id_characters_id_fk": {
           "name": "characters_constellations_character_id_characters_id_fk",
           "tableFrom": "characters_constellations",
+          "tableTo": "characters",
           "columnsFrom": [
             "character_id"
           ],
-          "tableTo": "characters",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -459,6 +617,7 @@
         "type": {
           "name": "type",
           "type": "talent_types",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
         },
@@ -468,6 +627,13 @@
           "primaryKey": false,
           "notNull": true,
           "default": "''"
+        },
+        "priority": {
+          "name": "priority",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 1
         }
       },
       "indexes": {},
@@ -475,18 +641,82 @@
         "characters_talents_character_id_characters_id_fk": {
           "name": "characters_talents_character_id_characters_id_fk",
           "tableFrom": "characters_talents",
+          "tableTo": "characters",
           "columnsFrom": [
             "character_id"
           ],
-          "tableTo": "characters",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.characters_weapon_builds": {
+      "name": "characters_weapon_builds",
+      "schema": "",
+      "columns": {
+        "character_id": {
+          "name": "character_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "weapon_id": {
+          "name": "weapon_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "rating": {
+          "name": "rating",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "characters_weapon_builds_character_id_characters_id_fk": {
+          "name": "characters_weapon_builds_character_id_characters_id_fk",
+          "tableFrom": "characters_weapon_builds",
+          "tableTo": "characters",
+          "columnsFrom": [
+            "character_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "characters_weapon_builds_weapon_id_weapons_id_fk": {
+          "name": "characters_weapon_builds_weapon_id_weapons_id_fk",
+          "tableFrom": "characters_weapon_builds",
+          "tableTo": "weapons",
+          "columnsFrom": [
+            "weapon_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "characters_weapon_builds_character_id_weapon_id_pk": {
+          "name": "characters_weapon_builds_character_id_weapon_id_pk",
+          "columns": [
+            "character_id",
+            "weapon_id"
+          ]
+        }
+      },
       "uniqueConstraints": {}
     },
     "public.featured_characters_in_banners": {
@@ -511,28 +741,28 @@
         "featured_characters_in_banners_banner_id_character_banners_id_fk": {
           "name": "featured_characters_in_banners_banner_id_character_banners_id_fk",
           "tableFrom": "featured_characters_in_banners",
+          "tableTo": "character_banners",
           "columnsFrom": [
             "banner_id"
           ],
-          "tableTo": "character_banners",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         },
         "featured_characters_in_banners_character_id_characters_id_fk": {
           "name": "featured_characters_in_banners_character_id_characters_id_fk",
           "tableFrom": "featured_characters_in_banners",
+          "tableTo": "characters",
           "columnsFrom": [
             "character_id"
           ],
-          "tableTo": "characters",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {
@@ -568,28 +798,28 @@
         "featured_weapons_in_banners_banner_id_weapon_banners_id_fk": {
           "name": "featured_weapons_in_banners_banner_id_weapon_banners_id_fk",
           "tableFrom": "featured_weapons_in_banners",
+          "tableTo": "weapon_banners",
           "columnsFrom": [
             "banner_id"
           ],
-          "tableTo": "weapon_banners",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         },
         "featured_weapons_in_banners_weapon_id_weapons_id_fk": {
           "name": "featured_weapons_in_banners_weapon_id_weapons_id_fk",
           "tableFrom": "featured_weapons_in_banners",
+          "tableTo": "weapons",
           "columnsFrom": [
             "weapon_id"
           ],
-          "tableTo": "weapons",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {
@@ -601,6 +831,28 @@
           ]
         }
       },
+      "uniqueConstraints": {}
+    },
+    "public.game_updates": {
+      "name": "game_updates",
+      "schema": "",
+      "columns": {
+        "version": {
+          "name": "version",
+          "type": "real",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "date": {
+          "name": "date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
     "public.materials": {
@@ -623,6 +875,7 @@
         "type": {
           "name": "type",
           "type": "materials_types",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": false
         }
@@ -669,6 +922,7 @@
         "banner_type": {
           "name": "banner_type",
           "type": "banner_types",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true,
           "default": "'Standard Wish'"
@@ -685,15 +939,28 @@
         "standard_banners_main_character_id_characters_id_fk": {
           "name": "standard_banners_main_character_id_characters_id_fk",
           "tableFrom": "standard_banners",
+          "tableTo": "characters",
           "columnsFrom": [
             "main_character_id"
           ],
-          "tableTo": "characters",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "standard_banners_version_game_updates_version_fk": {
+          "name": "standard_banners_version_game_updates_version_fk",
+          "tableFrom": "standard_banners",
+          "tableTo": "game_updates",
+          "columnsFrom": [
+            "version"
+          ],
+          "columnsTo": [
+            "version"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -743,6 +1010,7 @@
         "role": {
           "name": "role",
           "type": "user_roles",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true,
           "default": "'User'"
@@ -754,10 +1022,10 @@
       "uniqueConstraints": {
         "user_email_unique": {
           "name": "user_email_unique",
+          "nullsNotDistinct": false,
           "columns": [
             "email"
-          ],
-          "nullsNotDistinct": false
+          ]
         }
       }
     },
@@ -797,18 +1065,18 @@
       "uniqueConstraints": {
         "verification_token_token_unique": {
           "name": "verification_token_token_unique",
+          "nullsNotDistinct": false,
           "columns": [
             "token"
-          ],
-          "nullsNotDistinct": false
+          ]
         },
         "verification_token_email_token_unique": {
           "name": "verification_token_email_token_unique",
+          "nullsNotDistinct": false,
           "columns": [
             "email",
             "token"
-          ],
-          "nullsNotDistinct": false
+          ]
         }
       }
     },
@@ -849,12 +1117,14 @@
         "phase": {
           "name": "phase",
           "type": "phases",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
         },
         "banner_type": {
           "name": "banner_type",
           "type": "banner_types",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true,
           "default": "'Weapon Event Wish'"
@@ -871,28 +1141,41 @@
         "weapon_banners_first_main_weapon_id_weapons_id_fk": {
           "name": "weapon_banners_first_main_weapon_id_weapons_id_fk",
           "tableFrom": "weapon_banners",
+          "tableTo": "weapons",
           "columnsFrom": [
             "first_main_weapon_id"
           ],
-          "tableTo": "weapons",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         },
         "weapon_banners_second_main_weapon_id_weapons_id_fk": {
           "name": "weapon_banners_second_main_weapon_id_weapons_id_fk",
           "tableFrom": "weapon_banners",
+          "tableTo": "weapons",
           "columnsFrom": [
             "second_main_weapon_id"
           ],
-          "tableTo": "weapons",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "weapon_banners_version_game_updates_version_fk": {
+          "name": "weapon_banners_version_game_updates_version_fk",
+          "tableFrom": "weapon_banners",
+          "tableTo": "game_updates",
+          "columnsFrom": [
+            "version"
+          ],
+          "columnsTo": [
+            "version"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -917,12 +1200,14 @@
         "rare": {
           "name": "rare",
           "type": "rares",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
         },
         "weapon_type": {
           "name": "weapon_type",
           "type": "weapon_types",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
         },
@@ -932,6 +1217,54 @@
           "primaryKey": false,
           "notNull": true
         },
+        "base_attack": {
+          "name": "base_attack",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "additional_characteristic": {
+          "name": "additional_characteristic",
+          "type": "additional_weapon_characteristics",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "additional_characteristic_stat": {
+          "name": "additional_characteristic_stat",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ability": {
+          "name": "ability",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "ascension_material_id": {
+          "name": "ascension_material_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "first_enhancement_material_id": {
+          "name": "first_enhancement_material_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "second_enhancement_material_id": {
+          "name": "second_enhancement_material_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
         "in_standard_wish": {
           "name": "in_standard_wish",
           "type": "boolean",
@@ -940,12 +1273,79 @@
         }
       },
       "indexes": {},
-      "foreignKeys": {},
+      "foreignKeys": {
+        "weapons_appearance_version_game_updates_version_fk": {
+          "name": "weapons_appearance_version_game_updates_version_fk",
+          "tableFrom": "weapons",
+          "tableTo": "game_updates",
+          "columnsFrom": [
+            "appearance_version"
+          ],
+          "columnsTo": [
+            "version"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "weapons_ascension_material_id_materials_id_fk": {
+          "name": "weapons_ascension_material_id_materials_id_fk",
+          "tableFrom": "weapons",
+          "tableTo": "materials",
+          "columnsFrom": [
+            "ascension_material_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "weapons_first_enhancement_material_id_materials_id_fk": {
+          "name": "weapons_first_enhancement_material_id_materials_id_fk",
+          "tableFrom": "weapons",
+          "tableTo": "materials",
+          "columnsFrom": [
+            "first_enhancement_material_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "weapons_second_enhancement_material_id_materials_id_fk": {
+          "name": "weapons_second_enhancement_material_id_materials_id_fk",
+          "tableFrom": "weapons",
+          "tableTo": "materials",
+          "columnsFrom": [
+            "second_enhancement_material_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     }
   },
   "enums": {
+    "public.additional_weapon_characteristics": {
+      "name": "additional_weapon_characteristics",
+      "schema": "public",
+      "values": [
+        "HP",
+        "Physical Damage",
+        "Energy recharge",
+        "Defence",
+        "Critical Damage",
+        "Elemental Mastery",
+        "Attack",
+        "Critical Rate"
+      ]
+    },
     "public.banner_types": {
       "name": "banner_types",
       "schema": "public",
@@ -1034,10 +1434,8 @@
   },
   "schemas": {},
   "_meta": {
+    "columns": {},
     "schemas": {},
-    "tables": {},
-    "columns": {}
-  },
-  "id": "bc6be950-2278-4ec7-bcf9-52c39d9e97db",
-  "prevId": "d75c7575-2b7e-438d-8469-1277965774c4"
+    "tables": {}
+  }
 }
