@@ -9,10 +9,10 @@ const NavbarLinks = ({ links }: { links: Links }) => {
     const [isOpenLinkTab, setIsOpenLinkTab] = useState<boolean>(false);
 
     const linksClasses = clsx(
-        'w-full max-xs:fixed bottom-0 max-xs:px-4 rounded-t-3xl flex justify-center items-center bg-gray-200 gap-4 max-xs:shadow-[0_-10px_35px_#000000] transition-[height] xs:flex-col xs:flex-1 xs:overflow-y-auto',
+        'w-full max-xs:fixed bottom-0 max-xs:px-4 rounded-t-3xl flex justify-center items-center bg-gray-200 gap-4 max-xs:shadow-[0_-10px_35px_#000000] transition-[height] xs:flex-col xs:flex-1 xs:max-lg:overflow-y-auto',
         {
-            'h-full flex-col': isOpenLinkTab,
-            'z-10 h-28 flex-row': !isOpenLinkTab,
+            'z-10 h-full flex-col': isOpenLinkTab,
+            'z-20 h-28 flex-row': !isOpenLinkTab,
         }
     );
 

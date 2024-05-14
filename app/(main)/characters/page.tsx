@@ -19,17 +19,16 @@ export default async function Characters() {
     }
 
     return (
-        <section className={'h-[75%] flex flex-col gap-4 px-4 pt-10 sm:pt-4'}>
+        <section className={'w-full overflow-y-auto flex flex-col gap-4 px-4 pt-10 max-xs:h-3/4 xs:pt-4'}>
             <div className={'relative flex items-center gap-4'}>
                 <BackButton />
-                <CharacterIcon className={''} />
-                <h1 className={'-ml-2 text-3xl'}>Список персонажей</h1>
+                <CharacterIcon className={'h-full w-auto'} />
+                <h1 className={'-ml-2.5 text-3xl'}>Список персонажей</h1>
                 <Image
                     src={'common/xianyun-namecard.webp'}
                     alt={'Xianyun namecard'}
-                    width={500}
-                    height={300}
-                    className={'-z-10 absolute h-full w-auto right-0'}
+                    fill
+                    className={'-z-10 object-contain object-right'}
                 />
             </div>
             <CharactersList characters={allCharacters} />

@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -18,49 +18,52 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
     const [weaponType, setWeaponType] = useState<WeaponType | null>(null);
     const [sortOption, setSortOption] = useState<string>('appearance');
 
-    const filteredCharacters = characters.filter((character) => {
-        const matchesSearch = character.name.toLowerCase().includes(searchQuery.toLowerCase());
-        const matchesElement = element ? character.element === element : true;
-        const matchesWeaponType = weaponType ? character.weaponType === weaponType : true;
+    const filteredCharacters = useMemo(() => {
+        return characters.filter((character) => {
+            const matchesSearch = character.name.toLowerCase().includes(searchQuery.toLowerCase());
+            const matchesElement = !element || character.element === element;
+            const matchesWeaponType = !weaponType || character.weaponType === weaponType;
+            return matchesSearch && matchesElement && matchesWeaponType;
+        });
+    }, [characters, searchQuery, element, weaponType]);
 
-        return matchesSearch && matchesElement && matchesWeaponType;
-    });
-
-    const sortedCharacters = filteredCharacters.sort((a, b) => {
-        switch (sortOption) {
-            case 'rare':
-                return parseInt(b.rare) - parseInt(a.rare);
-            case 'appearance':
-                return b.appearanceVersion - a.appearanceVersion;
-            default:
-                return a.name.localeCompare(b.name);
-        }
-    });
+    const sortedCharacters = useMemo(() => {
+        const sortOptions: Record<string, (a: Character, b: Character) => number> = {
+            appearance: (a: Character, b: Character) => b.appearanceVersion - a.appearanceVersion,
+            rare: (a: Character, b: Character) => parseInt(b.rare) - parseInt(a.rare),
+            name: (a: Character, b: Character) => a.name.localeCompare(b.name),
+        };
+        return [...filteredCharacters].sort(sortOptions[sortOption]);
+    }, [filteredCharacters, sortOption]);
 
     return (
         <>
             <Input
                 placeholder={'Введите имя персонажа'}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className={'text-center border-gray-500 h-14 text-2xl sm:text-base sm:h-9'}
+                className={'text-center border-gray-500 max-xs:h-14 max-xs:text-2xl'}
             />
-            <div className={'flex flex-col justify-between tracking-wide text-3xl sm:flex-row sm:text-base'}>
+            <div
+                className={
+                    'flex flex-wrap justify-between tracking-wide max-xs:gap-2 max-xs:text-3xl max-xs:flex-col'
+                }
+            >
                 <ElementPicker activeElement={element} setActiveElement={setElement} />
                 <WeaponTypePicker activeWeaponType={weaponType} setActiveWeaponType={setWeaponType} />
-                <Label className={'text-3xl sm:text-base sm:w-1/4'}>
+                <Label className={'max-xs:text-3xl xs:w-1/4'}>
                     Сортировать по:
                     <Select value={sortOption} onValueChange={setSortOption}>
-                        <SelectTrigger className={'text-xl border-gray-500 mt-3 sm:text-base'}>
+                        <SelectTrigger className={'max-xs:text-xl border-gray-500 mt-3'}>
                             <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem className={'text-xl sm:text-base'} value={'appearance'}>
+                            <SelectItem className={'max-xs:text-xl'} value={'appearance'}>
                                 Версия выхода
                             </SelectItem>
-                            <SelectItem className={'text-xl sm:text-base'} value={'name'}>
+                            <SelectItem className={'max-xs:text-xl'} value={'name'}>
                                 Имя
                             </SelectItem>
-                            <SelectItem className={'text-xl sm:text-base'} value={'rare'}>
+                            <SelectItem className={'max-xs:text-xl'} value={'rare'}>
                                 Редкость
                             </SelectItem>
                         </SelectContent>
@@ -74,14 +77,15 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
                             key={character.name}
                             href={`characters/${toLink(character.name)}`}
                             className={
-                                'relative w-[calc((100%-3*0.5rem)/4)] h-[13rem] sm:w-[10.45%] sm:h-[9.8rem] flex flex-col justify-end rounded-2xl bg-gray-300 overflow-hidden transition duration-500 hover:-translate-y-1.5'
+                                'relative w-[calc(25%-0.5rem)] rounded-2xl bg-gray-300 overflow-hidden transition duration-500 hover:-translate-y-1.5 xs:w-[calc(16.66%-0.5rem)] lg:w-[calc(10%-0.5rem)]'
                             }
                         >
                             <Image
                                 src={`common/items-backgrounds-by-rarity/background-item-${character.rare}-star.webp`}
                                 alt={character.rare}
-                                fill
-                                className={'object-contain object-top'}
+                                width={256}
+                                height={256}
+                                className={'w-full h-auto object-top'}
                             />
                             <Image
                                 src={`characters/profiles/${getCharacterAsset(character.name)}.webp`}
@@ -96,10 +100,10 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
                                     width={30}
                                     height={30}
                                     className={
-                                        'size-10 contrast-200 drop-shadow-[0_1px_5px_#000000] sm:size-6'
+                                        'size-10 contrast-200 drop-shadow-[0_1px_5px_#000000] xs:size-6'
                                     }
                                 />
-                                <p className={'text-lg whitespace-nowrap truncate sm:text-sm'}>
+                                <p className={'text-lg whitespace-nowrap truncate xs:text-sm'}>
                                     {character.name}
                                 </p>
                             </div>

@@ -35,12 +35,12 @@ export default async function MainLayout({ children }: { children: React.ReactNo
         <main className={'h-full flex max-xs:flex-col'}>
             <aside
                 className={
-                    'relative flex flex-col justify-between items-center gap-8 p-3 bg-gray-200 max-xs:rounded-b-[8rem] shadow-[0_10px_35px_#000000] max-xs:text-3xl xs:pt-6 xs:shadow-[5px_0_35px_#000000] xs:w-60 xs:rounded-r-2xl'
+                    'relative flex flex-col justify-between items-center gap-8 px-2 py-3 bg-gray-200 max-xs:rounded-b-[8rem] shadow-[0_10px_35px_#000000] max-xs:text-3xl xs:pt-6 xs:shadow-[5px_0_35px_#000000] xs:w-60 xs:rounded-r-2xl'
                 }
             >
                 <Logo styles={''} />
                 <NavbarLinks links={navbarLinks} />
-                <div className={'w-full bottom-4 flex gap-2 max-xs:px-3 max-xs:fixed xs:flex-col'}>
+                <div className={'z-10 w-full bottom-4 flex gap-2 max-xs:px-3 max-xs:fixed xs:flex-col'}>
                     {user ? (
                         <div className={'w-full flex gap-1 max-xs:h-20'}>
                             <AccountButton user={user} />

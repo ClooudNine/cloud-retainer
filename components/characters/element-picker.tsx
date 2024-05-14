@@ -20,13 +20,13 @@ const ElementPicker = ({
                     '--text-color': `${activeElement ? elementToColor[activeElement] : '0,0,0'}`,
                 } as CSSProperties
             }
-            className={'space-y-1 pr-4 border-black border-b sm:border-r-2 sm:border-b-0'}
+            className={'space-y-2'}
         >
-            <p className={'transition text-[rgb(var(--text-color))]'}>Элемент:</p>
+            <p className={'transition-colors text-[rgb(var(--text-color))]'}>Элемент:</p>
             <div className={'flex gap-1.5'}>
                 {elements.map((currentElement) => {
                     const elementClasses = clsx(
-                        'size-20 rounded-xl transition hover:saturate-200 hover:drop-shadow-[0_1px_10px_rgb(var(--element-color))] sm:size-14',
+                        'size-20 rounded-xl transition hover:saturate-200 hover:drop-shadow-[0_1px_10px_rgb(var(--element-color))] xs:size-14',
                         {
                             'ring-2 ring-[rgb(var(--element-color))]': activeElement === currentElement,
                         }
