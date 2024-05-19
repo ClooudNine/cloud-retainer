@@ -1,1 +1,0 @@
-ALTER TABLE "characters" ALTER COLUMN "appearance_version" SET NOT NULL;

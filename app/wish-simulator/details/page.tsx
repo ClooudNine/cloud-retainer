@@ -26,10 +26,7 @@ export default async function Details({
         section: 'increased-chance' | 'more-info' | 'items-list';
     };
 }) {
-    if (
-        !bannerTypesEnum.enumValues.includes(searchParams.type) ||
-        isNaN(Number(searchParams.id))
-    ) {
+    if (!bannerTypesEnum.enumValues.includes(searchParams.type) || isNaN(Number(searchParams.id))) {
         return (
             <p className={'w-full h-full flex items-center justify-center text-6xl'}>
                 Некорректные параметры запроса!
@@ -41,9 +38,7 @@ export default async function Details({
 
     if (!banner) {
         return (
-            <p className={'w-full h-full flex items-center justify-center text-9xl'}>
-                Баннер не найден :(
-            </p>
+            <p className={'w-full h-full flex items-center justify-center text-9xl'}>Баннер не найден :(</p>
         );
     }
 
@@ -55,15 +50,13 @@ export default async function Details({
         featuredItems = banner.featuredWeaponsInBanners.map(({ weapon }) => weapon);
     } else if ('rerunNumber' in banner) {
         mainItems = [banner.character];
-        featuredItems = banner.featuredCharactersInBanners.map(
-            ({ character }) => character
-        );
+        featuredItems = banner.featuredCharactersInBanners.map(({ character }) => character);
     }
 
     const bannerColor = getBannerColor(banner);
 
     return (
-        <main className={'w-full h-full flex items-center justify-center'}>
+        <main className={'size-full flex items-center justify-center'}>
             <Background isBlurred={true} />
             <div
                 className={
@@ -83,9 +76,7 @@ export default async function Details({
                 <Title title={banner.title} palette={bannerColor} />
                 <Link
                     href={'/wish-simulator'}
-                    className={
-                        'absolute cursor-genshin top-[2.5%] right-[7%] xs:top-[6.2%] xs:right-[2.4%]'
-                    }
+                    className={'absolute cursor-genshin top-[2.5%] right-[7%] xs:top-[6.2%] xs:right-[2.4%]'}
                 >
                     <WishCrossIcon fillColor={'#e9d5af'} />
                 </Link>
@@ -104,11 +95,7 @@ export default async function Details({
                         palette={bannerColor}
                     />
                 ) : (
-                    <ItemsList
-                        banner={banner}
-                        mainItems={mainItems}
-                        featuredItems={featuredItems}
-                    />
+                    <ItemsList banner={banner} mainItems={mainItems} featuredItems={featuredItems} />
                 )}
             </div>
         </main>

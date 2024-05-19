@@ -1,7 +1,10 @@
 import {
+    artifactsSet,
     bannerTypesEnum,
     characterBanners,
     characters,
+    charactersConstellations,
+    charactersTalents,
     elementsEnum,
     phasesEnum,
     raresEnum,
@@ -29,6 +32,10 @@ export type StandardBanner = typeof standardBanners.$inferSelect & {
 };
 
 export type Character = typeof characters.$inferSelect;
+export type CharacterTalent = typeof charactersTalents.$inferSelect;
+export type CharacterConstellation = typeof charactersConstellations.$inferSelect;
+
+export type ArtifactSet = typeof artifactsSet.$inferSelect;
 
 export type Weapon = typeof weapons.$inferSelect;
 

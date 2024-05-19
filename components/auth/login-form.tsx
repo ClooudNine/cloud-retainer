@@ -25,18 +25,18 @@ const LoginForm = () => {
         <form
             action={dispatch}
             className={
-                'flex flex-col justify-evenly items-center gap-4 py-4 bg-gray-200/80 w-[30rem] rounded-lg'
+                'flex flex-col justify-evenly items-center gap-4 py-4 bg-gray-200/80 w-[35rem] rounded-lg shadow-2xl max-xl:text-2xl'
             }
         >
-            <h2 className={'text-3xl mx-auto'}>Вход</h2>
+            <h1 className={'text-5xl xs:text-3xl'}>Вход в аккаунт</h1>
             <label className={'w-[90%] space-y-2'}>
                 <p>Email</p>
                 <input
                     name={'email'}
                     type={'email'}
-                    placeholder={'example@gmail.com'}
+                    placeholder={'example@mail.com'}
                     required={true}
-                    className={'border-2 border-gray-500 rounded-lg w-full h-8'}
+                    className={'border-2 border-gray-500 rounded w-full'}
                 />
             </label>
             <label className={'relative w-[90%] space-y-2'}>
@@ -47,33 +47,29 @@ const LoginForm = () => {
                     minLength={8}
                     placeholder={'********'}
                     required={true}
-                    className={'-z-10 border-2 border-gray-500 rounded-lg w-full h-8'}
+                    className={'border-2 border-gray-500 rounded w-full'}
                 />
                 <button
                     type={'button'}
-                    className={'absolute top-[36%] right-2'}
+                    className={'absolute right-2'}
                     onClick={() => setShowPassword(!showPassword)}
                 >
                     {showPassword ? (
-                        <Eye className={'size-8'} />
+                        <Eye className={'size-10 xl:size-7'} />
                     ) : (
-                        <EyeOff className={'size-8'} />
+                        <EyeOff className={'size-10 xl:size-7'} />
                     )}
                 </button>
             </label>
             <Link
                 href={'/register'}
-                className={
-                    'flex items-center underline transition-all duration-500 hover:tracking-widest'
-                }
+                className={'underline transition-all duration-500 hover:tracking-widest'}
             >
                 Нет аккаунта? Создать →
             </Link>
             {state?.error && (
                 <div
-                    className={
-                        'flex items-center gap-4 bg-red-200 px-8 py-2 rounded-lg text-center w-[90%] h-fit'
-                    }
+                    className={'flex items-center bg-red-200 px-8 py-2 rounded-lg text-center w-[90%] h-fit'}
                 >
                     <TriangleAlert className={'size-8'} />
                     <div className={'flex-1'}>
@@ -129,9 +125,10 @@ function GoogleButton() {
         >
             <Image
                 src={'common/google.webp'}
-                alt={'Вход с помощью Google'}
+                alt={'Google logo'}
                 width={30}
                 height={30}
+                className={'size-8'}
             />
             Войти с помощью Google
         </button>

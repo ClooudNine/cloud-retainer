@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function ShopLayout({ children }: { children: React.ReactNode }) {
     return (
-        <main className={'h-full w-full flex'}>
+        <main className={'size-full flex'}>
             <Background isBlurred={true} />
             <Sidebar />
             <section className={'flex-1'}>{children}</section>

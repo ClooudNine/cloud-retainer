@@ -14,21 +14,19 @@ export const metadata = {
 export default async function Characters() {
     const allCharacters = await getAllCharacters();
 
-    if (allCharacters === null) {
-        return <p>Characters fetch error!</p>;
-    }
+    if (!allCharacters) return <p>Characters fetch error!</p>;
 
     return (
-        <section className={'w-full overflow-y-auto flex flex-col gap-4 px-4 pt-10 max-xs:h-3/4 xs:pt-4'}>
+        <section className={'flex-1 flex flex-col gap-4 px-4 pt-10 max-xs:h-3/4 xs:pt-4'}>
             <div className={'relative flex items-center gap-4'}>
-                <BackButton />
+                <BackButton className={''} />
                 <CharacterIcon className={'h-full w-auto'} />
                 <h1 className={'-ml-2.5 text-3xl'}>Список персонажей</h1>
                 <Image
                     src={'common/xianyun-namecard.webp'}
                     alt={'Xianyun namecard'}
                     fill
-                    className={'-z-10 object-contain object-right'}
+                    className={'-z-10] object-contain object-right'}
                 />
             </div>
             <CharactersList characters={allCharacters} />

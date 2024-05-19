@@ -11,7 +11,7 @@ const RarityStars = ({ rare }: { rare: Rares }) => {
                     alt={'Звезда'}
                     width={25}
                     height={25}
-                    className={'size-8 sm:size-6'}
+                    className={'size-8 xs:size-6'}
                 />
             ))}
         </div>

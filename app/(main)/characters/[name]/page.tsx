@@ -3,7 +3,6 @@ import BackButton from '@/components/main/back-button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
     ArrowRight,
-    ArrowRightCircle,
     Check,
     ChevronsUp,
     Cross,
@@ -17,54 +16,53 @@ import {
     X,
     Zap,
 } from 'lucide-react';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Metadata } from 'next';
-import { getCharacterByName } from '@/data/character';
+import { getCharacterBySlug } from '@/data/character';
 import { getCharacterAsset } from '@/lib/character';
-import { elementToColor } from '@/lib/constants';
-import { CSSProperties } from 'react';
 import Link from 'next/link';
 import { buttonVariants } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import { cn, toTitle } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import RarityStars from '@/components/main/rarity-stars';
+import CharacteristicCard from '@/components/characters/characteristic-card';
+import MaterialCard from '@/components/characters/material-card';
+import InformationCard from '@/components/characters/information-card';
+import TalentModal from '@/components/characters/talent-modal';
+import ConstellationModal from '@/components/characters/constellation-modal';
+import { elementToColor } from '@/lib/constants';
+import { CSSProperties, Fragment } from 'react';
+import ArtifactCard from '@/components/characters/artifact-card';
 
 export async function generateMetadata({ params }: { params: { name: string } }): Promise<Metadata> {
-    const correctName = toTitle(params.name);
+    const character = await getCharacterBySlug(params.name);
+
+    if (!character) {
+        return {
+            title: `Cloud Retainer | Персонажи - Персонаж не найден!`,
+            description: `Персонаж не найден! Проверьте правильность написания запроса.`,
+        };
+    }
 
     return {
-        title: `Cloud Retainer | Персонажи - ${correctName}`,
-        description: `Персонаж ${correctName}. Основная информация, характеристики, таланты, созвездия, сборки.`,
+        title: `Cloud Retainer | Персонажи - ${character.name}`,
+        description: `Персонаж ${character.name}. Основная информация, характеристики, таланты, созвездия, сборка.`,
     };
 }
 
 export default async function CharacterPage({ params }: { params: { name: string } }) {
-    const correctName = toTitle(params.name);
-    const character = await getCharacterByName(correctName);
+    const character = await getCharacterBySlug(params.name);
 
     if (!character) {
         return (
-            <section
-                className={'flex flex-col gap-4 items-center justify-center my-auto mx-auto self-center'}
-            >
-                <Frown className={'size-44 sm:size-28'} />
-                <h1 className={'text-5xl sm:text-3xl'}>Персонаж не найден!</h1>
+            <section className={'space-y-4 text-center m-auto'}>
+                <Frown className={'mx-auto size-44 xs:size-28'} />
+                <h1 className={'text-5xl xs:text-3xl'}>Персонаж не найден!</h1>
                 <Link
                     className={cn(
                         buttonVariants({
                             variant: 'default',
                             size: 'default',
-                            className: 'max-sm:p-8 max-sm:text-2xl max-sm:rounded-xl',
+                            className: 'max-xs:p-8 max-xs:text-2xl max-xs:rounded-xl',
                         })
                     )}
                     href={'/characters'}
@@ -75,18 +73,132 @@ export default async function CharacterPage({ params }: { params: { name: string
         );
     }
 
+    const tabs = {
+        main: 'Основная информация',
+        talents: 'Таланты',
+        constellations: 'Созвездия',
+        build: 'Сборка',
+    };
+
+    const characteristicData = [
+        {
+            title: 'Тип оружия',
+            icon: (
+                <Image
+                    src={`weapons/icons/${character.weaponType}.webp`}
+                    alt={character.weaponType}
+                    width={80}
+                    height={80}
+                    className={'size-20 mx-auto xl:size-12'}
+                />
+            ),
+            stat: character.weaponType,
+            className: '',
+        },
+        {
+            title: 'Базовая атака',
+            icon: <Swords className={'size-20 mx-auto xl:size-12'} />,
+            stat: character.baseAttack,
+            className: '',
+        },
+        {
+            title: 'Базовое HP',
+            stat: character.baseHp,
+            icon: <Cross className={'size-20 mx-auto xl:size-12'} />,
+            className: '',
+        },
+        {
+            title: 'Версия выхода',
+            icon: character.appearanceVersion.version,
+            stat: character.appearanceVersion.date.toLocaleDateString(),
+            className: 'p-4 size-fit mx-auto border-2 border-black rounded-xl xl:p-2 xl:border-4',
+        },
+        {
+            title: 'Стандарт?',
+            icon: character.inStandardWish ? 'Да' : 'Нет',
+            stat: character.inStandardWish ? (
+                <Check className={'size-12 xl:size-6'} />
+            ) : (
+                <X className={'size-12 xl:size-6'} />
+            ),
+            className: `p-4 size-fit mx-auto text-white rounded-xl ${character.inStandardWish ? 'bg-green-500' : 'bg-red-500'} xl:p-3`,
+        },
+    ];
+
+    const materialData = [
+        {
+            name: character.boss.name,
+            icon: (
+                <div className={'flex justify-center items-center gap-2'}>
+                    <Image
+                        src={`common/bosses/profiles/${character.boss.name}.webp`}
+                        alt={character.boss.name}
+                        width={90}
+                        height={90}
+                        className={'size-28 rounded-full xl:size-16'}
+                    />
+                    <ArrowRight className={'size-16 xl:size-8'} />
+                    <Image
+                        src={`common/bosses/drop/${character.boss.drop.name}.webp`}
+                        alt={character.boss.drop.name}
+                        width={90}
+                        height={90}
+                        className={'size-28 xl:size-16'}
+                    />
+                </div>
+            ),
+        },
+        {
+            name: character.talentMaterial.name,
+            icon: (
+                <Image
+                    src={`common/materials/books/${character.talentMaterial.name}.webp`}
+                    alt={character.talentMaterial.name}
+                    width={90}
+                    height={90}
+                    className={'size-32 xl:size-16'}
+                />
+            ),
+        },
+        {
+            name: character.localSpecialty.name,
+            icon: (
+                <Image
+                    src={`common/materials/local-specialities/${character.localSpecialty.name}.webp`}
+                    alt={character.localSpecialty.name}
+                    width={90}
+                    height={90}
+                    className={'size-32 xl:size-16'}
+                />
+            ),
+        },
+        {
+            name: character.enhancementMaterial.name,
+            icon: (
+                <Image
+                    src={`common/materials/enhancement-materials/${character.enhancementMaterial.name}.webp`}
+                    alt={character.enhancementMaterial.name}
+                    width={90}
+                    height={90}
+                    className={'size-32 xl:size-16'}
+                />
+            ),
+        },
+    ];
+
     return (
-        <section className={'flex-1 flex flex-col px-4 pt-4 space-y-4 sm:pt-1'}>
-            <Image
-                src={`characters/splash-arts/${getCharacterAsset(character.name)}.webp`}
-                alt={character.name}
-                fill
-                className={
-                    '-z-10 -mt-[20%] animate-banner-preview-appearance object-contain pointer-events-none sm:ml-[40%]'
-                }
-            />
-            <div className={'flex justify-center gap-4 text-5xl sm:text-3xl'}>
-                <BackButton />
+        <section
+            style={
+                {
+                    '--element-color': elementToColor[character.element],
+                } as CSSProperties
+            }
+            className={
+                'overflow-x-hidden flex flex-col gap-2 px-4 pt-8 max-xs:h-3/4 xs:pt-4 max-xl:items-center xl:overflow-hidden xl:flex-1'
+            }
+        >
+            <div className={'flex gap-4 text-5xl xs:text-3xl'}>
+                <BackButton className={'h-1/2'} />
                 <Image
                     src={`common/elements/${character.element}.svg`}
                     alt={character.element}
@@ -96,353 +208,143 @@ export default async function CharacterPage({ params }: { params: { name: string
                 />
                 <div>
                     <h1>{character.name}</h1>
-                    <h2 className={'text-gray-400 text-xl sm:text-lg'}>{character.title}</h2>
+                    <h2 className={'text-gray-400 text-xl xs:text-lg'}>{character.title}</h2>
                     <RarityStars rare={character.rare} />
                 </div>
             </div>
-            <Tabs defaultValue={'main'} className={'flex-1 w-full xs:w-[65%]'}>
-                <TabsList className={'grid w-full grid-cols-4 bg-gray-200'}>
-                    <TabsTrigger value={'main'}>Основная информация</TabsTrigger>
-                    <TabsTrigger value={'talents'}>Таланты</TabsTrigger>
-                    <TabsTrigger value={'constellations'}>Созвездия</TabsTrigger>
-                    <TabsTrigger value={'build'}>Сборка</TabsTrigger>
+            <Image
+                src={`characters/splash-arts/${getCharacterAsset(character.name)}.webp`}
+                alt={character.name}
+                width={2048}
+                height={1024}
+                className={
+                    '-z-10 animate-banner-preview-appearance object-contain object-right-bottom max-xs:max-w-none max-xs:w-[150%] xl:absolute xl:left-[40%] xl:size-full'
+                }
+            />
+            <Tabs defaultValue={'main'} className={'flex-1 w-full xl:w-[65%]'}>
+                <TabsList
+                    className={
+                        'grid w-full h-min gap-2 grid-cols-2 bg-gray-200 max-xl:grid-rows-2 xl:grid-cols-4'
+                    }
+                >
+                    {Object.entries(tabs).map(([value, label]) => (
+                        <TabsTrigger key={value} className={'max-xl:text-2xl'} value={value}>
+                            {label}
+                        </TabsTrigger>
+                    ))}
                 </TabsList>
-                <TabsContent className={'h-full space-y-1.5'} value={'main'}>
-                    <Card className={'h-[30%]'}>
-                        <CardHeader className={'py-2 items-center'}>
-                            <CardTitle className={'flex items-center gap-2 text-xl'}>
-                                <ScrollText className={'size-6'} /> Описание{' '}
-                                <ScrollText className={'size-6'} />
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent className={'h-3/4 pb-2 text-center leading-snug'}>
-                            <ScrollArea className={'h-full italic'}>{character.description}</ScrollArea>
-                        </CardContent>
-                    </Card>
-                    <Card className={'h-2/5'}>
-                        <CardHeader className={'py-2 items-center'}>
-                            <CardTitle className={'flex items-center gap-2 text-xl'}>
-                                <Zap className={'size-6'} /> Характеристики <Zap className={'size-6'} />
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent className={'p-2 flex justify-between'}>
-                            <Card>
-                                <CardHeader className={'p-2 text-center'}>
-                                    <CardTitle>Тип оружия</CardTitle>
-                                </CardHeader>
-                                <CardContent className={'pb-0'}>
-                                    <Image
-                                        src={`weapons/icons/${character.weaponType}.webp`}
-                                        alt={character.weaponType}
-                                        width={80}
-                                        height={80}
-                                        className={'size-12 mx-auto'}
-                                    />
-                                </CardContent>
-                                <CardFooter className={'p-2 justify-center'}>
-                                    {character.weaponType}
-                                </CardFooter>
-                            </Card>
-                            <Card className={'flex flex-col items-center justify-between p-2'}>
-                                <CardHeader className={'p-0'}>
-                                    <CardTitle>Базовая атака</CardTitle>
-                                </CardHeader>
-                                <CardContent className={'p-0'}>
-                                    <Swords className={'size-12'} />
-                                </CardContent>
-                                <CardFooter className={'p-0'}>{character.baseAttack}</CardFooter>
-                            </Card>
-                            <Card>
-                                <CardHeader className={'p-2'}>
-                                    <CardTitle>Базовое HP</CardTitle>
-                                </CardHeader>
-                                <CardContent className={'p-0'}>
-                                    <Cross className={'size-12 mx-auto'} />
-                                </CardContent>
-                                <CardFooter className={'p-2 justify-center'}>{character.baseHp}</CardFooter>
-                            </Card>
-                            <Card>
-                                <CardHeader className={'p-2 text-center'}>
-                                    <CardTitle>Версия выхода</CardTitle>
-                                </CardHeader>
-                                <CardContent
-                                    className={'mx-auto size-12 border-4 border-black rounded-xl p-2'}
-                                >
-                                    {character.appearanceVersion.version}
-                                </CardContent>
-                                <CardFooter className={'p-2 justify-center'}>
-                                    {character.appearanceVersion.date.toLocaleDateString()}
-                                </CardFooter>
-                            </Card>
-                            <Card>
-                                <CardHeader className={'p-2'}>
-                                    <CardTitle>Стандарт?</CardTitle>
-                                </CardHeader>
-                                <CardContent
-                                    className={`flex justify-center items-center p-0 mx-auto text-white rounded-xl size-12 ${character.inStandardWish ? 'bg-green-500' : 'bg-red-500'}`}
-                                >
-                                    {character.inStandardWish ? 'Да' : 'Нет'}
-                                </CardContent>
-                                <CardFooter className={'p-2 justify-center'}>
-                                    {character.inStandardWish ? (
-                                        <Check className={'size-6'} />
-                                    ) : (
-                                        <X className={'size-6'} />
-                                    )}
-                                </CardFooter>
-                            </Card>
-                        </CardContent>
-                        <CardFooter className={'pb-2 text-destructive justify-center'}>
-                            Характеристики указаны для персонажа с 90-ым уровнем
-                        </CardFooter>
-                    </Card>
-                    <Card className={'h-[30%]'}>
-                        <CardHeader className={'py-2 items-center'}>
-                            <CardTitle className={'flex items-center gap-2 text-xl'}>
-                                <Leaf className={'size-6'} /> Материалы <Leaf className={'size-6'} />
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent className={'flex justify-between pb-2'}>
-                            <div className={'border bg-card shadow p-2 rounded-xl'}>
-                                <div className={'flex justify-center items-center gap-2'}>
-                                    <Image
-                                        src={`common/bosses/profiles/${character.boss.name}.webp`}
-                                        alt={character.boss.name}
-                                        width={90}
-                                        height={90}
-                                        className={'size-16 rounded-full'}
-                                    />
-                                    <ArrowRight className={'size-8'} />
-                                    <Image
-                                        src={`common/bosses/drop/${character.boss.drop.name}.webp`}
-                                        alt={character.boss.drop.name}
-                                        width={90}
-                                        height={90}
-                                        className={'size-16'}
-                                    />
-                                </div>
-                                <p>{character.boss.name}</p>
-                            </div>
-                            <div className={'border bg-card shadow p-2 rounded-xl'}>
-                                <Image
-                                    src={`common/materials/books/${character.talentMaterial.name}.webp`}
-                                    alt={character.talentMaterial.name}
-                                    width={90}
-                                    height={90}
-                                    className={'size-16 mx-auto'}
-                                />
-                                <p>{character.talentMaterial.name}</p>
-                            </div>
-                            <div className={'border bg-card shadow p-2 rounded-xl'}>
-                                <Image
-                                    src={`common/materials/local-specialities/${character.localSpecialty.name}.webp`}
-                                    alt={character.localSpecialty.name}
-                                    width={90}
-                                    height={90}
-                                    className={'size-16 mx-auto'}
-                                />
-                                <p>{character.localSpecialty.name}</p>
-                            </div>
-                            <div className={'border bg-card shadow p-2 rounded-xl'}>
-                                <Image
-                                    src={`common/materials/enhancement-materials/${character.enhancementMaterial.name}.webp`}
-                                    alt={character.enhancementMaterial.name}
-                                    width={90}
-                                    height={90}
-                                    className={'size-16 mx-auto'}
-                                />
-                                <p>{character.enhancementMaterial.name}</p>
-                            </div>
-                        </CardContent>
-                    </Card>
+                <TabsContent value={'main'} className={'h-[calc(100%-2.25rem-(0.375rem*4))] space-y-1.5'}>
+                    <InformationCard
+                        cardClasses={'xl:h-[30%]'}
+                        title={'Описание'}
+                        icon={<ScrollText className={'h-full w-auto'} />}
+                        contentClasses={'h-3/4'}
+                        content={
+                            <ScrollArea className={'h-full text-center italic max-xl:text-2xl'}>
+                                {character.description}
+                            </ScrollArea>
+                        }
+                    />
+                    <InformationCard
+                        cardClasses={'xl:h-2/5'}
+                        title={'Характеристики'}
+                        icon={<Zap className={'h-full w-auto'} />}
+                        contentClasses={'flex flex-wrap gap-2 max-xl:text-2xl'}
+                        content={characteristicData.map((characteristic) => (
+                            <CharacteristicCard
+                                key={characteristic.title}
+                                title={characteristic.title}
+                                icon={characteristic.icon}
+                                stat={characteristic.stat}
+                                className={characteristic.className}
+                            />
+                        ))}
+                        footerContent={'Характеристики указаны для персонажа с 90-ым уровнем'}
+                    />
+                    <InformationCard
+                        cardClasses={'xl:h-[30%]'}
+                        title={'Материалы'}
+                        icon={<Leaf className={'h-full w-auto'} />}
+                        contentClasses={'flex flex-wrap justify-between gap-2 max-xl:text-2xl'}
+                        content={materialData.map((material) => (
+                            <MaterialCard key={material.name} title={material.name} icon={material.icon} />
+                        ))}
+                    />
                 </TabsContent>
-                <TabsContent value={'talents'} className={'h-full space-y-1.5'}>
+                <TabsContent value={'talents'} className={'h-[calc(100%-2.75rem)] space-y-1.5'}>
                     <h3
                         className={
-                            'flex items-center justify-center gap-2 bg-card shadow mx-auto rounded-lg text-destructive p-2'
+                            'flex items-center justify-center text-center gap-2 bg-card shadow rounded-lg text-destructive py-2 max-xl:flex-col max-xl:text-2xl'
                         }
                     >
-                        <Info className={'size-6'} /> Для получения подробной информации нажмите на талант
+                        <Info className={'h-full w-auto'} /> Для получения подробной информации нажмите на
+                        талант
                     </h3>
                     {character.talents.map((talent) => (
-                        <AlertDialog key={talent.title}>
-                            <AlertDialogTrigger asChild>
-                                <Card
-                                    style={
-                                        {
-                                            '--element-color': elementToColor[character.element],
-                                        } as CSSProperties
-                                    }
-                                    className={
-                                        'group flex items-center justify-between transition duration-500 hover:border-[rgb(var(--element-color))] hover:bg-[rgb(var(--element-color))] hover:translate-x-3 hover:text-white'
-                                    }
-                                >
-                                    <CardHeader className={'py-2 items-center'}>
-                                        <CardTitle>
-                                            <Image
-                                                src={`characters/talents/${talent.type === 'Normal Attack' ? character.weaponType + ' ' + character.element : talent.title}.webp`}
-                                                alt={talent.title}
-                                                width={80}
-                                                height={80}
-                                                className={'transition duration-500 group-hover:animate-flip'}
-                                            />
-                                        </CardTitle>
-                                    </CardHeader>
-                                    <CardContent className={'py-2 text-center'}>
-                                        <p>{talent.title}</p>
-                                        <p className={'text-muted-foreground'}>{talent.type}</p>
-                                    </CardContent>
-                                    <CardFooter className={'py-2'}>
-                                        <ArrowRightCircle className={'size-8 group-hover:stroke-white'} />
-                                    </CardFooter>
-                                </Card>
-                            </AlertDialogTrigger>
-                            <AlertDialogContent>
-                                <AlertDialogHeader>
-                                    <AlertDialogTitle className={'flex justify-between'}>
-                                        {talent.title}
-                                        <Image
-                                            src={`characters/talents/${talent.type === 'Normal Attack' ? character.weaponType + ' ' + character.element : talent.title}.webp`}
-                                            alt={talent.title}
-                                            width={80}
-                                            height={80}
-                                            className={'absolute top-2 right-2'}
-                                        />
-                                    </AlertDialogTitle>
-                                    <AlertDialogDescription>
-                                        {character.name} - {talent.type}
-                                    </AlertDialogDescription>
-                                </AlertDialogHeader>
-                                <div
-                                    style={
-                                        {
-                                            '--element-color': elementToColor[character.element],
-                                        } as CSSProperties
-                                    }
-                                    dangerouslySetInnerHTML={{ __html: talent.description }}
-                                    className={'[&_em]:not-italic [&_em]:text-[rgb(var(--element-color))]'}
-                                ></div>
-                                <AlertDialogFooter>
-                                    <AlertDialogAction>Назад</AlertDialogAction>
-                                </AlertDialogFooter>
-                            </AlertDialogContent>
-                        </AlertDialog>
+                        <TalentModal
+                            key={talent.title}
+                            talent={talent}
+                            element={character.element}
+                            weaponType={character.weaponType}
+                            characterName={character.name}
+                        />
                     ))}
                 </TabsContent>
-                <TabsContent value={'constellations'} className={'h-full space-y-1.5'}>
-                    <div className={'flex gap-2 h-full'}>
-                        <div className={'w-3/5 flex flex-wrap gap-1 justify-between'}>
+                <TabsContent value={'constellations'} className={'h-[calc(100%-3rem)] space-y-1.5'}>
+                    <div className={'flex gap-2 h-full max-xl:flex-col-reverse'}>
+                        <div className={'flex flex-wrap gap-1 xl:w-3/5'}>
                             {character.constellations
                                 .sort((c1, c2) => c1.level - c2.level)
                                 .map((constellation) => (
-                                    <AlertDialog key={constellation.title}>
-                                        <AlertDialogTrigger asChild>
-                                            <Card
-                                                style={
-                                                    {
-                                                        '--element-color': elementToColor[character.element],
-                                                    } as CSSProperties
-                                                }
-                                                className={
-                                                    'w-[49.5%] group transition duration-500 hover:border-[rgb(var(--element-color))] hover:bg-[rgb(var(--element-color))] hover:scale-105 hover:text-white'
-                                                }
-                                            >
-                                                <CardHeader className={'py-2 items-center'}>
-                                                    <CardTitle>
-                                                        <Image
-                                                            src={`characters/constellations/${constellation.title}.webp`}
-                                                            alt={constellation.title}
-                                                            width={80}
-                                                            height={80}
-                                                            className={
-                                                                'size-16 transition duration-500 group-hover:animate-flip'
-                                                            }
-                                                        />
-                                                    </CardTitle>
-                                                </CardHeader>
-                                                <CardContent className={'py-2 text-center'}>
-                                                    <p>{constellation.title}</p>
-                                                    <p className={'text-muted-foreground'}>
-                                                        Level {constellation.level}
-                                                    </p>
-                                                </CardContent>
-                                            </Card>
-                                        </AlertDialogTrigger>
-                                        <AlertDialogContent>
-                                            <AlertDialogHeader>
-                                                <AlertDialogTitle className={'flex justify-between'}>
-                                                    {constellation.title}
-                                                    <Image
-                                                        src={`characters/constellations/${constellation.title}.webp`}
-                                                        alt={constellation.title}
-                                                        width={80}
-                                                        height={80}
-                                                        className={'absolute top-2 right-2'}
-                                                    />
-                                                </AlertDialogTitle>
-                                                <AlertDialogDescription>
-                                                    Level {constellation.level}
-                                                </AlertDialogDescription>
-                                            </AlertDialogHeader>
-                                            <div
-                                                style={
-                                                    {
-                                                        '--element-color': elementToColor[character.element],
-                                                    } as CSSProperties
-                                                }
-                                                dangerouslySetInnerHTML={{
-                                                    __html: constellation.description,
-                                                }}
-                                                className={
-                                                    '[&_em]:not-italic [&_em]:text-[rgb(var(--element-color))]'
-                                                }
-                                            ></div>
-                                            <AlertDialogFooter>
-                                                <AlertDialogAction>Назад</AlertDialogAction>
-                                            </AlertDialogFooter>
-                                        </AlertDialogContent>
-                                    </AlertDialog>
+                                    <ConstellationModal
+                                        key={constellation.title}
+                                        constellation={constellation}
+                                        element={character.element}
+                                    />
                                 ))}
                         </div>
-                        <div className={'relative bg-card w-2/5 h-full shadow rounded-xl'}>
+                        <div
+                            className={
+                                'flex flex-col items-center justify-center bg-card shadow rounded-xl xl:w-2/5'
+                            }
+                        >
                             <Image
                                 src={`characters/constellations/${character.constellation}.webp`}
                                 alt={character.constellation}
-                                fill
-                                className={
-                                    'drop-shadow-[0_1px_1px_rgba(0,0,0,1)] object-contain saturate-200'
-                                }
+                                width={512}
+                                height={512}
+                                className={'w-1/2 drop-shadow-[0_1px_1px_#000000] saturate-200 xl:w-full'}
                             />
-                            <h3 className={'flex items-center justify-center gap-2 mt-[150%]'}>
-                                <Sparkle className={'size-6'} /> Созвездие: {character.constellation}{' '}
-                                <Sparkle className={'size-6'} />
+                            <h3 className={'flex items-center justify-center gap-2 max-xl:text-2xl'}>
+                                <Sparkle className={'size-12 xl:size-6'} /> Созвездие:{' '}
+                                {character.constellation}
+                                <Sparkle className={'size-12 xl:size-6'} />
                             </h3>
                         </div>
                     </div>
                 </TabsContent>
-                <TabsContent value={'build'} className={'h-full space-y-1.5'}>
-                    <Card>
-                        <CardHeader className={'py-2'}>
-                            <CardTitle className={'flex items-center gap-2 text-xl'}>
-                                <Swords className={'size-6'} /> Топ оружия <Swords className={'size-6'} />
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent className={'flex gap-4 pb-2'}>
-                            {character.weapons
-                                .sort((w1, w2) => w1.rating - w2.rating)
-                                .map((ratingWeapon) => {
-                                    const weapon = ratingWeapon.weapon;
-                                    return (
-                                        <Link
-                                            key={weapon.title}
-                                            href={`/weapons/${weapon.title}`}
-                                            className={
-                                                'flex-1 h-44 flex flex-col justify-end relative rounded-2xl bg-gray-300 overflow-hidden transition duration-500 hover:-translate-y-1.5'
-                                            }
-                                        >
+                <TabsContent value={'build'} className={'h-[calc(100%-3.75rem)] space-y-1.5'}>
+                    <InformationCard
+                        cardClasses={'xl:h-[34%]'}
+                        title={'Топ оружия'}
+                        icon={<Swords className={'h-full w-auto'} />}
+                        contentClasses={'h-[calc(100%-2.5rem)] flex flex-wrap gap-2'}
+                        content={character.weapons
+                            .sort((w1, w2) => w1.rating - w2.rating)
+                            .map((ratingWeapon) => {
+                                const weapon = ratingWeapon.weapon;
+                                return (
+                                    <Link
+                                        key={weapon.title}
+                                        href={`/weapons/${weapon.title}`}
+                                        className={
+                                            'max-xl:w-[32%] xl:flex-1 max-xl:h-48 rounded-2xl bg-gray-300 overflow-hidden transition duration-500 hover:-translate-y-1.5'
+                                        }
+                                    >
+                                        <div className={'relative w-full h-3/4'}>
                                             <p
                                                 className={
-                                                    'z-10 absolute top-2 left-2 flex justify-center items-center p-1 size-5 rounded-full ring-2 ring-white text-white'
+                                                    'z-10 absolute top-2 left-2 px-2 rounded-full border-2 border-white text-white'
                                                 }
                                             >
                                                 {ratingWeapon.rating}
@@ -451,112 +353,79 @@ export default async function CharacterPage({ params }: { params: { name: string
                                                 src={`common/items-backgrounds-by-rarity/background-item-${weapon.rare}-star.webp`}
                                                 alt={weapon.rare}
                                                 fill
-                                                className={'object-contain object-top'}
+                                                className={'object-cover'}
                                             />
                                             <Image
                                                 src={`weapons/portraits/${weapon.title}.webp`}
                                                 alt={weapon.title}
                                                 fill
-                                                className={'object-contain object-top'}
+                                                className={'object-contain'}
                                             />
-                                            <div
-                                                className={
-                                                    'h-1/4 flex justify-center items-center text-center text-sm'
-                                                }
-                                            >
-                                                {weapon.title}
-                                            </div>
-                                        </Link>
-                                    );
-                                })}
-                        </CardContent>
-                    </Card>
-                    <Card>
-                        <CardHeader className={'py-2'}>
-                            <CardTitle className={'flex items-center gap-2 text-xl'}>
-                                <Crown className={'size-6'} /> Топ артефактов <Crown className={'size-6'} />
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent className={'flex gap-4 pb-2'}>
-                            {character.artifacts
-                                .sort((a1, a2) => a1.rating - a2.rating)
-                                .map((ratingArtifact) => {
-                                    const firstSet = ratingArtifact.firstArtifactSet;
-                                    const secondSet = ratingArtifact.secondArtifactSet;
-                                    return (
-                                        <div
-                                            key={firstSet.title}
+                                        </div>
+                                        <p
                                             className={
-                                                'flex-1 h-44 flex flex-col justify-end relative rounded-2xl bg-gray-300 overflow-hidden'
+                                                'h-1/4 flex justify-center items-center text-center text-xl xl:text-sm'
                                             }
                                         >
-                                            <p
-                                                className={
-                                                    'z-10 absolute top-2 left-2 flex justify-center items-center p-1 size-5 rounded-full ring-2 ring-white text-white'
-                                                }
-                                            >
-                                                {ratingArtifact.rating}
-                                            </p>
-                                            <Image
-                                                src={`common/items-backgrounds-by-rarity/background-item-5-star.webp`}
-                                                alt={'5'}
-                                                fill
-                                                className={'object-contain object-top'}
-                                            />
-                                            <Image
-                                                src={`common/artifacts/${firstSet.title}.webp`}
-                                                alt={firstSet.title}
-                                                fill
-                                                className={'object-contain object-top'}
-                                            />
-                                            <div
-                                                className={
-                                                    'h-1/4 flex justify-center items-center text-center text-sm'
-                                                }
-                                            >
-                                                {firstSet.title}
-                                            </div>
-                                        </div>
-                                    );
-                                })}
-                        </CardContent>
-                    </Card>
-                    <Card>
-                        <CardHeader className={'py-2'}>
-                            <CardTitle className={'flex items-center gap-2 text-xl'}>
-                                <ChevronsUp className={'size-6'} /> Порядок прокачки талантов{' '}
-                                <ChevronsUp className={'size-6'} />
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent className={'flex justify-around items-center pb-2'}>
-                            {character.talents
-                                .filter((talent) => talent.priority !== null)
-                                .sort((t1, t2) => Number(t1.priority) - Number(t2.priority))
-                                .map((talent, index) => (
-                                    <>
-                                        <div className={'relative'}>
-                                            <p
-                                                className={
-                                                    'z-10 absolute top-2 left-2 flex justify-center items-center p-1 size-5 rounded-full ring-2 ring-black'
-                                                }
-                                            >
-                                                {talent.priority}
-                                            </p>
-                                            <Image
-                                                key={talent.title}
-                                                src={`characters/talents/${talent.type === 'Normal Attack' ? character.weaponType + ' ' + character.element : talent.title}.webp`}
-                                                alt={talent.title}
-                                                width={80}
-                                                height={80}
-                                                className={'mx-auto'}
-                                            />
-                                            <p>{talent.type}</p>
-                                        </div>
-                                        {index !== 2 && <ArrowRight className={'size-12'} />}
-                                    </>
-                                ))}
-                        </CardContent>
-                    </Card>
+                                            {weapon.title}
+                                        </p>
+                                    </Link>
+                                );
+                            })}
+                    />
+                    <InformationCard
+                        cardClasses={'xl:h-[35%]'}
+                        title={'Топ артефактов'}
+                        icon={<Crown className={'h-full w-auto'} />}
+                        contentClasses={'h-[calc(100%-4.5rem)] flex gap-2'}
+                        content={character.artifacts
+                            .sort((a1, a2) => a1.rating - a2.rating)
+                            .map((ratingArtifact) => (
+                                <ArtifactCard
+                                    key={
+                                        ratingArtifact.firstArtifactSet.title +
+                                        ' ' +
+                                        ratingArtifact.secondArtifactSet.title
+                                    }
+                                    firstArtifactSet={ratingArtifact.firstArtifactSet}
+                                    secondArtifactSet={ratingArtifact.secondArtifactSet}
+                                    rating={ratingArtifact.rating}
+                                />
+                            ))}
+                        footerContent={'Для получения дополнительной информации наведите курсор на набор'}
+                    />
+                    <InformationCard
+                        cardClasses={'xl:h-1/4'}
+                        title={'Порядок прокачки талантов'}
+                        icon={<ChevronsUp className={'h-full w-auto'} />}
+                        contentClasses={'flex justify-around items-center'}
+                        content={character.talents
+                            .filter((talent) => talent.priority !== null)
+                            .sort((t1, t2) => Number(t1.priority) - Number(t2.priority))
+                            .map((talent, index) => (
+                                <Fragment key={talent.title}>
+                                    <div className={'relative max-xl:text-xl'}>
+                                        <p
+                                            className={
+                                                'absolute top-2 -left-2 px-2 rounded-full border-2 border-black'
+                                            }
+                                        >
+                                            {talent.priority}
+                                        </p>
+                                        <Image
+                                            key={talent.title}
+                                            src={`characters/talents/${talent.type === 'Normal Attack' ? character.weaponType + ' ' + character.element : talent.title}.webp`}
+                                            alt={talent.title}
+                                            width={80}
+                                            height={80}
+                                            className={'size-28 mx-auto xl:size-14'}
+                                        />
+                                        <p>{talent.type}</p>
+                                    </div>
+                                    {index !== 2 && <ArrowRight className={'size-12'} />}
+                                </Fragment>
+                            ))}
+                    />
                 </TabsContent>
             </Tabs>
         </section>

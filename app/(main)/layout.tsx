@@ -32,7 +32,7 @@ export default async function MainLayout({ children }: { children: React.ReactNo
     }
 
     return (
-        <main className={'h-full flex max-xs:flex-col'}>
+        <main className={'relative h-full flex max-xs:flex-col'}>
             <aside
                 className={
                     'relative flex flex-col justify-between items-center gap-8 px-2 py-3 bg-gray-200 max-xs:rounded-b-[8rem] shadow-[0_10px_35px_#000000] max-xs:text-3xl xs:pt-6 xs:shadow-[5px_0_35px_#000000] xs:w-60 xs:rounded-r-2xl'
@@ -49,10 +49,10 @@ export default async function MainLayout({ children }: { children: React.ReactNo
                     ) : (
                         <>
                             <AuthLink title={'Регистрация'} link={'/register'}>
-                                <UserPlus className={'h-full w-auto'} />
+                                <UserPlus className={'size-12 xs:size-6'} />
                             </AuthLink>
                             <AuthLink title={'Войти'} link={'/login'}>
-                                <LogIn className={'h-full w-auto'} />
+                                <LogIn className={'size-12 xs:size-6'} />
                             </AuthLink>
                         </>
                     )}

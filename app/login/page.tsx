@@ -5,7 +5,7 @@ import LoginForm from '@/components/auth/login-form';
 
 export default function LoginPage() {
     return (
-        <main className={'w-full h-full flex justify-center items-center'}>
+        <main className={'size-full flex justify-center items-center'}>
             <Logo styles={'absolute top-12 left-12'} />
             <Image
                 src={'common/xianyun-main.webp'}

@@ -13,10 +13,7 @@ export const getAllWeapons = async () => {
 };
 export const getWeaponsFromWishes = async () => {
     try {
-        const weaponsFromWishes = await db
-            .select()
-            .from(weapons)
-            .where(isNotNull(weapons.inStandardWish));
+        const weaponsFromWishes = await db.select().from(weapons).where(isNotNull(weapons.inStandardWish));
 
         return weaponsFromWishes;
     } catch {
@@ -24,10 +21,10 @@ export const getWeaponsFromWishes = async () => {
     }
 };
 
-export const getWeaponByTitle = async (title: string) => {
+export const getWeaponBySlug = async (slug: string) => {
     try {
-        const weaponByTitle = await db.query.weapons.findFirst({
-            where: eq(weapons.title, title),
+        const weaponBySlug = await db.query.weapons.findFirst({
+            where: eq(weapons.slug, slug),
             with: {
                 ascensionMaterial: true,
                 firstEnhancementMaterial: true,
@@ -36,7 +33,7 @@ export const getWeaponByTitle = async (title: string) => {
             },
         });
 
-        return weaponByTitle;
+        return weaponBySlug;
     } catch {
         return null;
     }

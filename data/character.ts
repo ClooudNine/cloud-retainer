@@ -25,10 +25,10 @@ export const getCharactersFromWishes = async () => {
     }
 };
 
-export const getCharacterByName = async (name: string) => {
+export const getCharacterBySlug = async (slug: string) => {
     try {
-        const characterByName = await db.query.characters.findFirst({
-            where: eq(characters.name, name),
+        const characterBySlug = await db.query.characters.findFirst({
+            where: eq(characters.slug, slug),
             with: {
                 boss: { with: { drop: true } },
                 talentMaterial: true,
@@ -42,7 +42,7 @@ export const getCharacterByName = async (name: string) => {
             },
         });
 
-        return characterByName;
+        return characterBySlug;
     } catch {
         return null;
     }

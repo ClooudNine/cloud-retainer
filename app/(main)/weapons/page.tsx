@@ -7,22 +7,19 @@ import { Swords } from 'lucide-react';
 export default async function Weapons() {
     const allWeapons = await getAllWeapons();
 
-    if (allWeapons === null) {
-        return <p>Characters fetch error!</p>;
-    }
+    if (!allWeapons) return <p>Weapons fetch error!</p>;
 
     return (
-        <section className={'flex-1 px-4 pt-4 space-y-4'}>
+        <section className={'flex-1 flex flex-col gap-4 px-4 pt-10 max-xs:h-3/4 xs:pt-4'}>
             <div className={'relative flex items-center gap-4'}>
-                <BackButton />
-                <Swords />
-                <h1 className={'-ml-2 text-3xl'}>Список оружия</h1>
+                <BackButton className={''} />
+                <Swords className={'h-full w-auto'} />
+                <h1 className={'-ml-2.5 text-3xl'}>Список оружия</h1>
                 <Image
                     src={'common/raiden-shogun-namecard.webp'}
                     alt={'Raiden Shogun namecard'}
-                    width={500}
-                    height={300}
-                    className={'absolute right-0'}
+                    fill
+                    className={'-z-10 object-contain object-right'}
                 />
             </div>
             <WeaponList weapons={allWeapons} />

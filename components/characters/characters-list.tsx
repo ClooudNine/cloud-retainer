@@ -8,9 +8,8 @@ import { Label } from '@/components/ui/label';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Character, Elements, WeaponType } from '@/lib/types';
 import ElementPicker from '@/components/characters/element-picker';
-import WeaponTypePicker from '@/components/characters/weapon-type-picker';
+import WeaponTypePicker from '@/components/weapons/weapon-type-picker';
 import { getCharacterAsset } from '@/lib/character';
-import { toLink } from '@/lib/utils';
 
 const CharactersList = ({ characters }: { characters: Character[] }) => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -53,7 +52,7 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
                 <Label className={'max-xs:text-3xl xs:w-1/4'}>
                     Сортировать по:
                     <Select value={sortOption} onValueChange={setSortOption}>
-                        <SelectTrigger className={'max-xs:text-xl border-gray-500 mt-3'}>
+                        <SelectTrigger className={'max-xs:text-xl border-gray-500 mt-4'}>
                             <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
@@ -75,9 +74,9 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
                     {sortedCharacters.map((character) => (
                         <Link
                             key={character.name}
-                            href={`characters/${toLink(character.name)}`}
+                            href={`characters/${character.slug}`}
                             className={
-                                'relative w-[calc(25%-0.5rem)] rounded-2xl bg-gray-300 overflow-hidden transition duration-500 hover:-translate-y-1.5 xs:w-[calc(16.66%-0.5rem)] lg:w-[calc(10%-0.5rem)]'
+                                'relative w-[calc(25%-0.5rem)] rounded-2xl bg-gray-300 overflow-hidden transition duration-500 hover:-translate-y-1.5 xs:w-[calc(16.66%-0.5rem)] xl:w-[calc(10%-0.5rem)]'
                             }
                         >
                             <Image
@@ -85,7 +84,7 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
                                 alt={character.rare}
                                 width={256}
                                 height={256}
-                                className={'w-full h-auto object-top'}
+                                className={'w-full'}
                             />
                             <Image
                                 src={`characters/profiles/${getCharacterAsset(character.name)}.webp`}
@@ -103,9 +102,7 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
                                         'size-10 contrast-200 drop-shadow-[0_1px_5px_#000000] xs:size-6'
                                     }
                                 />
-                                <p className={'text-lg whitespace-nowrap truncate xs:text-sm'}>
-                                    {character.name}
-                                </p>
+                                <p className={'text-lg truncate xs:text-sm'}>{character.name}</p>
                             </div>
                         </Link>
                     ))}

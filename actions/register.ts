@@ -35,12 +35,13 @@ export const register = async (prevState: AuthState, formData: FormData) => {
         return { error: ['Пользователь с таким E-Mail уже зарегистрирован!'] };
     }
 
-    await db
-        .insert(users)
-        .values({ name: username, email: email, password: hashedPassword });
+    await db.insert(users).values({ name: username, email: email, password: hashedPassword });
 
     const verificationToken = await generateVerificationToken(email);
     await sendVerificationEmail(verificationToken[0].email, verificationToken[0].token);
 
-    return { success: 'Письмо подтверждения отправлено!' };
+    return {
+        success:
+            'Письмо подтверждения отправлено!<br/>При отсутствии письма в папке "Входящие" проверьте папку "Спам"!',
+    };
 };

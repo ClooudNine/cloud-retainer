@@ -19,7 +19,7 @@ export default function WishHistory({
     };
 }) {
     return (
-        <main className={'w-full h-full flex items-center justify-center'}>
+        <main className={'size-full flex items-center justify-center'}>
             <Background isBlurred={true} />
             <div
                 className={
@@ -46,9 +46,7 @@ export default function WishHistory({
                 <UserSelect type={searchParams['type']} />
                 <Link
                     href={'/wish-simulator'}
-                    className={
-                        'absolute cursor-genshin top-[2.5%] right-[7%] xs:top-[6.2%] xs:right-[2.4%]'
-                    }
+                    className={'absolute cursor-genshin top-[2.5%] right-[7%] xs:top-[6.2%] xs:right-[2.4%]'}
                 >
                     <WishCrossIcon fillColor={'#e9d5af'} />
                 </Link>

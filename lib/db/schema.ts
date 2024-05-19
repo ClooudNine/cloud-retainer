@@ -73,6 +73,7 @@ export const additionalWeaponCharacteristics = pgEnum('additional_weapon_charact
 export const characters = pgTable('characters', {
     id: serial('id').primaryKey(),
     name: text('name').notNull(),
+    slug: text('slug').notNull(),
     title: text('title').notNull(),
     rare: raresEnum('rare').notNull(),
     element: elementsEnum('element').notNull(),
@@ -147,6 +148,7 @@ export const charactersRelations = relations(characters, ({ one, many }) => ({
 export const weapons = pgTable('weapons', {
     id: serial('id').primaryKey(),
     title: text('title').notNull(),
+    slug: text('slug').notNull(),
     rare: raresEnum('rare').notNull(),
     type: weaponTypesEnum('weapon_type').notNull(),
     appearanceVersion: real('appearance_version')
@@ -507,9 +509,9 @@ export const charactersWeaponBuildsRelations = relations(charactersWeaponBuilds,
 
 export const artifactsSet = pgTable('artifacts_set', {
     id: serial('id').primaryKey(),
-    title: text('title'),
-    twoArtifactsBonus: text('two_artifacts_bonus'),
-    fourArtifactsBonus: text('four_artifacts_bonus'),
+    title: text('title').notNull(),
+    twoArtifactsBonus: text('two_artifacts_bonus').notNull(),
+    fourArtifactsBonus: text('four_artifacts_bonus').notNull(),
 });
 
 export const artifactsSetRelations = relations(artifactsSet, ({ many }) => ({
@@ -526,9 +528,11 @@ export const charactersArtifactsBuilds = pgTable(
         firstArtifactSetId: integer('first_artifact_set_id')
             .notNull()
             .references(() => artifactsSet.id, { onDelete: 'cascade' }),
-        secondArtifactSetId: integer('second_artifact_set_id').references(() => artifactsSet.id, {
-            onDelete: 'cascade',
-        }),
+        secondArtifactSetId: integer('second_artifact_set_id')
+            .notNull()
+            .references(() => artifactsSet.id, {
+                onDelete: 'cascade',
+            }),
         rating: integer('rating').notNull().default(1),
     },
     (cab) => {
@@ -557,5 +561,5 @@ export const charactersArtifactsBuildsRelations = relations(charactersArtifactsB
 
 export const gameUpdates = pgTable('game_updates', {
     version: real('version').primaryKey(),
-    date: date('date', { mode: 'date' }),
+    date: date('date', { mode: 'date' }).notNull(),
 });

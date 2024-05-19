@@ -26,20 +26,12 @@ export default async function WishSimulator() {
         getWeaponsFromWishes(),
     ]);
 
-    if (allBanners === null || charactersFromWishes === null || weaponsFromWishes === null) {
-        return (
-            <div className={'w-full h-full flex justify-center items-center text-5xl'}>
-                Data fetch error!
-            </div>
-        );
+    if (!allBanners || !charactersFromWishes || !weaponsFromWishes) {
+        return <div className={'size-full flex justify-center items-center text-5xl'}>Data fetch error!</div>;
     }
 
     return (
-        <main
-            className={
-                'w-full h-full overflow-hidden shadow-[0_-50px_100px_50px_rgba(0,0,0,0.25)_inset]'
-            }
-        >
+        <main className={'size-full overflow-hidden shadow-[0_-50px_100px_50px_rgba(0,0,0,0.25)_inset]'}>
             <Background isBlurred={false} />
             <Title />
             <BannerProvider
