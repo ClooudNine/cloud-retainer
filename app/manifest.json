@@ -1,0 +1,16 @@
+{
+  "name": "Cloud Retainer | Best Genshin Impact Companion",
+  "short_name": "Cloud Retainer",
+  "description": "A major project for the game Genshin Impact, which contains everything, what travelers need: game characters, weapons, a simulator and a wish story, calculators and more",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f3f4f6",
+  "theme_color": "#f3f4f6",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "256x256",
+      "type": "image/x-icon"
+    }
+  ]
+}
