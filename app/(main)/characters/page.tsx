@@ -26,7 +26,7 @@ export default async function Characters() {
                     src={'common/xianyun-namecard.webp'}
                     alt={'Xianyun namecard'}
                     fill
-                    className={'-z-10] object-contain object-right'}
+                    className={'-z-10 object-contain object-right'}
                 />
             </div>
             <CharactersList characters={allCharacters} />

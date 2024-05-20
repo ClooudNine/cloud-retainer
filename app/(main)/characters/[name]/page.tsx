@@ -336,7 +336,7 @@ export default async function CharacterPage({ params }: { params: { name: string
                                 return (
                                     <Link
                                         key={weapon.title}
-                                        href={`/weapons/${weapon.title}`}
+                                        href={`/weapons/${weapon.slug}`}
                                         className={
                                             'max-xl:w-[32%] xl:flex-1 max-xl:h-48 rounded-2xl bg-gray-300 overflow-hidden transition duration-500 hover:-translate-y-1.5'
                                         }
