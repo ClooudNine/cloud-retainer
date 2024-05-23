@@ -1,8 +1,9 @@
-import './globals.css';
+import '../globals.css';
 import localFont from 'next/font/local';
 import Script from 'next/script';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
+import { i18n, type Locale } from '@/i18n-config';
 
 export const metadata = {
     title: 'Cloud Retainer | Лучший помощник в мире Genshin Impact',
@@ -12,14 +13,24 @@ export const metadata = {
 };
 
 const genshinFont = localFont({
-    src: '../public/fonts/Genshin Impact.woff2',
+    src: '../../public/fonts/Genshin Impact.woff2',
     display: 'swap',
     variable: '--font-genshin',
 });
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export async function generateStaticParams() {
+    return i18n.locales.map((locale) => ({ lang: locale }));
+}
+
+export default function RootLayout({
+    children,
+    params,
+}: {
+    children: React.ReactNode;
+    params: { lang: Locale };
+}) {
     return (
-        <html lang="ru" className={'h-full text-[max(6px,1.1vmax)]'}>
+        <html lang={params.lang} className={'h-full text-[max(6px,1.1vmax)]'}>
             <body
                 className={cn(
                     'h-full bg-gray-100 overflow-hidden cursor-genshin font-genshin',

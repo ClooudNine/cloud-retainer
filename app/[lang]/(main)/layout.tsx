@@ -2,30 +2,63 @@ import Logo from '@/components/main/logo';
 import CharacterIcon from '@/components/icons/character';
 import { currentUser } from '@/lib/auth';
 import HelpDialog from '@/components/main/help-dialog';
-import { CalendarRange, Construction, LogIn, Sparkles, Swords, Trophy, UserPlus } from 'lucide-react';
+import {
+    CalendarRange,
+    Construction,
+    LogIn,
+    Sparkles,
+    Swords,
+    Trophy,
+    UserPlus,
+} from 'lucide-react';
 import SignOut from '@/components/main/sign-out';
 import AccountButton from '@/components/main/account-button';
 import AuthLink from '@/components/main/auth-link';
 import NavbarLinks from '@/components/main/navbar-links';
+import { getDictionary } from '@/get-dictionary';
+import { Locale } from '@/i18n-config';
 
-export default async function MainLayout({ children }: { children: React.ReactNode }) {
+export default async function MainLayout({
+    children,
+    params,
+}: {
+    children: React.ReactNode;
+    params: { lang: Locale };
+}) {
+    const dictionary = await getDictionary(params.lang);
     const user = await currentUser();
 
     const navbarLinks = [
         {
-            title: 'Симулятор молитв',
+            title: dictionary['main'].wishsimulator,
             link: '/wish-simulator',
             icon: <Sparkles className={'h-full w-auto'} />,
         },
-        { title: 'Персонажи', link: '/characters', icon: <CharacterIcon className={'h-full w-auto'} /> },
-        { title: 'Оружие', link: '/weapons', icon: <Swords className={'h-full w-auto'} /> },
-        { title: 'Достижения', link: '/achievements', icon: <Trophy className={'h-full w-auto'} /> },
-        { title: 'События', link: '/events', icon: <CalendarRange className={'h-full w-auto'} /> },
+        {
+            title: dictionary['main'].characters,
+            link: '/characters',
+            icon: <CharacterIcon className={'h-full w-auto'} />,
+        },
+        {
+            title: dictionary['main'].weapons,
+            link: '/weapons',
+            icon: <Swords className={'h-full w-auto'} />,
+        },
+        {
+            title: dictionary['main'].achievements,
+            link: '/achievements',
+            icon: <Trophy className={'h-full w-auto'} />,
+        },
+        {
+            title: dictionary['main'].events,
+            link: '/events',
+            icon: <CalendarRange className={'h-full w-auto'} />,
+        },
     ];
 
     if (user?.role === 'Admin') {
         navbarLinks.push({
-            title: 'Админ-панель',
+            title: dictionary['main'].admin,
             link: '/admin',
             icon: <Construction className={'h-full w-auto'} />,
         });
@@ -40,7 +73,11 @@ export default async function MainLayout({ children }: { children: React.ReactNo
             >
                 <Logo styles={''} />
                 <NavbarLinks links={navbarLinks} />
-                <div className={'z-10 w-full bottom-4 flex gap-2 max-xs:px-3 max-xs:fixed xs:flex-col'}>
+                <div
+                    className={
+                        'z-10 w-full bottom-4 flex gap-2 max-xs:px-3 max-xs:fixed xs:flex-col'
+                    }
+                >
                     {user ? (
                         <div className={'w-full flex gap-1 max-xs:h-20'}>
                             <AccountButton user={user} />
@@ -48,15 +85,15 @@ export default async function MainLayout({ children }: { children: React.ReactNo
                         </div>
                     ) : (
                         <>
-                            <AuthLink title={'Регистрация'} link={'/register'}>
+                            <AuthLink title={dictionary['main'].registration} link={'/register'}>
                                 <UserPlus className={'size-12 xs:size-6'} />
                             </AuthLink>
-                            <AuthLink title={'Войти'} link={'/login'}>
+                            <AuthLink title={dictionary['main'].authorization} link={'/login'}>
                                 <LogIn className={'size-12 xs:size-6'} />
                             </AuthLink>
                         </>
                     )}
-                    <HelpDialog />
+                    <HelpDialog dictionary={dictionary['main']} />
                 </div>
             </aside>
             {children}

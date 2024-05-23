@@ -5,6 +5,7 @@ export const authConfig = {
     pages: { signIn: '/login' },
     callbacks: {
         authorized({ auth, request: { nextUrl } }) {
+            console.log('moddleware');
             const isLoggedIn = !!auth?.user;
 
             const isApiPathRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
