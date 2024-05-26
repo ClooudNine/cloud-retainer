@@ -563,3 +563,31 @@ export const gameUpdates = pgTable('game_updates', {
     version: real('version').primaryKey(),
     date: date('date', { mode: 'date' }).notNull(),
 });
+
+export const achievementsChapters = pgTable('achievements_chapters', {
+    id: serial('id').primaryKey(),
+    title: text('title').notNull(),
+});
+
+export const achievementsChaptersRelations = relations(achievementsChapters, ({ many }) => ({
+    achievements: many(achievements),
+}));
+
+export const achievements = pgTable('achievements', {
+    id: serial('id').primaryKey(),
+    title: text('title').notNull(),
+    chapter: integer('chapter')
+        .notNull()
+        .references(() => achievementsChapters.id, { onDelete: 'cascade' }),
+    description: text('description').notNull(),
+    reward: integer('reward').notNull(),
+    hidden: boolean('hidden'),
+    requirements: text('requirements').notNull(),
+});
+
+export const achievementsRelations = relations(achievements, ({ one }) => ({
+    chapter: one(achievementsChapters, {
+        fields: [achievements.chapter],
+        references: [achievementsChapters.id],
+    }),
+}));
