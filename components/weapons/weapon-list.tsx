@@ -6,7 +6,7 @@ import WeaponTypePicker from '@/components/weapons/weapon-type-picker';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import Image from 'next/image';
 import RarePicker from '@/components/weapons/rare-picker';
 

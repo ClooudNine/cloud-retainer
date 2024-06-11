@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { playSfxEffect } from '@/lib/wish-simulator';
 
 import { BalanceStats } from '@/lib/types';
+import { useTranslations } from 'next-intl';
 
 const CurrencyExchanger = ({
     balance,
@@ -17,6 +18,7 @@ const CurrencyExchanger = ({
     setBalance: (newBalance: BalanceStats) => void;
     closeCurrencyExchanger: () => void;
 }) => {
+    const t = useTranslations();
     const router = useRouter();
 
     const [count, setCount] = useState<number>(1);
@@ -39,7 +41,7 @@ const CurrencyExchanger = ({
             setRedirectModal(true);
         } else {
             let newBalance = { ...balance };
-            newBalance.primogems += count;
+            newBalance.primogem += count;
             newBalance['genesis-crystal'] -= count;
             setBalance(newBalance);
             localStorage.setItem('balance', JSON.stringify(newBalance));
@@ -62,55 +64,43 @@ const CurrencyExchanger = ({
                     src={'wish-simulator/assets/confirmation-modal.webp'}
                     width={930}
                     height={594}
-                    alt={'Покупка предмета'}
+                    alt={t('image-alts.buy-item-background')}
                     draggable={false}
                     className={'w-[120vh]'}
                 />
                 <p className={'absolute w-full text-center text-3xl top-[6%]'}>
-                    Получить Камни Истока
+                    {t('wish-simulator.get')} {t('common.primogem', { count: 2 })}
                 </p>
-                <div
-                    className={
-                        'absolute flex top-[18%] w-full h-[23%] items-center justify-center text-lg'
-                    }
-                >
-                    <div
-                        className={
-                            'flex flex-col h-full items-center w-2/5 bg-[#d3cbbe]/80'
-                        }
-                    >
+                <div className={'absolute flex top-[18%] w-full h-[23%] items-center justify-center text-lg'}>
+                    <div className={'flex flex-col h-full items-center w-2/5 bg-[#d3cbbe]/80'}>
                         <Image
                             src={'wish-simulator/assets/genesis-crystal.webp'}
                             width={256}
                             height={256}
-                            alt={'Кристалл Сотворения'}
+                            alt={t('common.genesis-crystal.title', { count: 1 })}
                             draggable={false}
                             className={'h-4/5 w-auto'}
                         />
-                        <p className={'-mt-2'}>Кристалл Сотворения ×1</p>
+                        <p className={'-mt-2'}>{t('common.genesis-crystal.title', { count: 1 })} ×1</p>
                     </div>
                     <Image
                         src={'wish-simulator/assets/exchanger-arrow.webp'}
                         width={50}
                         height={57}
-                        alt={'Стрелка'}
+                        alt={t('wish-simulator.arrow')}
                         draggable={false}
                         className={'absolute h-2/5 w-auto'}
                     />
-                    <div
-                        className={
-                            'flex flex-col h-full items-center w-2/5 bg-[#ecd6a4]/80'
-                        }
-                    >
+                    <div className={'flex flex-col h-full items-center w-2/5 bg-[#ecd6a4]/80'}>
                         <Image
-                            src={'wish-simulator/assets/primogems.webp'}
+                            src={'wish-simulator/assets/primogem.webp'}
                             width={256}
                             height={256}
-                            alt={'Примогем'}
+                            alt={t('common.primogem', { count: 1 })}
                             draggable={false}
                             className={'h-4/5 w-auto'}
                         />
-                        <p className={'-mt-2'}>Камень Истока ×1</p>
+                        <p className={'-mt-2'}>{t('common.primogem', { count: 1 })} ×1</p>
                     </div>
                 </div>
                 <div
@@ -118,7 +108,7 @@ const CurrencyExchanger = ({
                         'absolute w-full h-[33%] flex flex-col items-center justify-between gap-2.5 top-[44%] text-lg/none xs:gap-4'
                     }
                 >
-                    <p>Количество</p>
+                    <p>{t('wish-simulator.count')}</p>
                     <div className={'relative flex items-center justify-center w-2/5'}>
                         <button
                             onClick={() => {
@@ -187,16 +177,16 @@ const CurrencyExchanger = ({
                                 'flex-1 bg-[#5b5f71] flex justify-center items-center py-5 rounded-full transition hover:ring-2 hover:ring-[#f7e8c7] active:bg-[#e7d0b1] active:ring-[#9d9a92] lg:hover:ring-4'
                             }
                         >
-                            Максимум
+                            {t('wish-simulator.max')}
                         </button>
                     </div>
                     <div className={'flex gap-3 items-center text-xl'}>
-                        <p>Стоимость:</p>
+                        <p> {t('wish-simulator.price')}</p>
                         <Image
                             src={'wish-simulator/assets/genesis-crystal.webp'}
                             width={60}
                             height={60}
-                            alt={'Кристалл Сотворения'}
+                            alt={t('common.genesis-crystal.title', { count: 1 })}
                             draggable={false}
                             className={'h-10 w-auto'}
                         />
@@ -206,7 +196,7 @@ const CurrencyExchanger = ({
                 <div className={'absolute flex justify-evenly w-full h-[10%] top-[83%]'}>
                     <Cancel handler={closeCurrencyExchanger} />
                     <Confirm
-                        title={'Обменять'}
+                        title={t('wish-simulator.exchange')}
                         handler={confirmExchange}
                         disabledCondition={count === 0}
                     />
@@ -220,25 +210,20 @@ const CurrencyExchanger = ({
                         <Image
                             src={'wish-simulator/assets/confirmation-modal.webp'}
                             fill
-                            alt={'Переход к получению Кристаллов Сотворения'}
+                            alt={t('image-alts.go-to-genesis-crystal-shop')}
                             draggable={false}
                         />
                         <p className={'absolute top-[5.5%] text-3xl'}>
-                            Пополнение кристаллов
+                            {t('wish-simulator.genesis-crystals')}
                         </p>
-                        <p className={'absolute top-[38%] text-center text-2xl/tight'}>
-                            Недостаточно Кристаллов Сотворения.
-                            <br />
-                            Перейти на экран получения Кристаллов?
-                        </p>
-                        <div
-                            className={
-                                'absolute flex justify-evenly w-full h-[10%] top-[83%]'
-                            }
-                        >
+                        <p
+                            className={'absolute top-[38%] text-center text-2xl/tight'}
+                            dangerouslySetInnerHTML={{ __html: t.raw('wish-simulator.crystals-not-enough') }}
+                        ></p>
+                        <div className={'absolute flex justify-evenly w-full h-[10%] top-[83%]'}>
                             <Cancel handler={closeCurrencyExchanger} />
                             <Confirm
-                                title={'Перейти'}
+                                title={t('wish-simulator.go-over')}
                                 handler={() => {
                                     closeCurrencyExchanger();
                                     router.push('/wish-simulator/shop/genesis-crystals');

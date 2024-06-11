@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import EpitomizedPathModal from '@/components/wish-simulator/epitomized-path-modal';
-import { useBannerContext } from '@/app/wish-simulator/banner-provider';
+import { useBannerContext } from '@/components/wish-simulator/banner-provider';
 import { playSfxEffect } from '@/lib/wish-simulator';
 
 const EpitomizedPathButton = () => {

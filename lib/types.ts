@@ -1,4 +1,6 @@
 import {
+    achievements,
+    achievementsChapters,
     artifactsSet,
     bannerTypesEnum,
     characterBanners,
@@ -6,15 +8,20 @@ import {
     charactersConstellations,
     charactersTalents,
     elementsEnum,
+    events,
     phasesEnum,
+    promocodes,
     raresEnum,
     standardBanners,
+    userAchievements,
+    userEvents,
     userRolesEnum,
     weaponBanners,
     weapons,
     weaponTypesEnum,
 } from '@/lib/db/schema';
 import React from 'react';
+import { type InferSelectModel } from 'drizzle-orm';
 
 export type CharacterBanner = typeof characterBanners.$inferSelect & {
     character: Character;
@@ -38,6 +45,19 @@ export type CharacterConstellation = typeof charactersConstellations.$inferSelec
 export type ArtifactSet = typeof artifactsSet.$inferSelect;
 
 export type Weapon = typeof weapons.$inferSelect;
+
+export type Achievement = typeof achievements.$inferSelect;
+export type AchievementChapter = InferSelectModel<typeof achievementsChapters> & {
+    achievements: Achievement[];
+};
+export type CompletedAchievement = InferSelectModel<typeof userAchievements> & {
+    achievement: Achievement;
+};
+
+export type GameEvent = typeof events.$inferSelect;
+export type FavoriteEvent = typeof userEvents.$inferSelect;
+
+export type Promocode = typeof promocodes.$inferSelect;
 
 export type BannerTypes = (typeof bannerTypesEnum.enumValues)[number];
 
@@ -87,7 +107,7 @@ export type BannerStats = {
 
 export type PullCurrency = 'intertwined-fate' | 'acquaint-fate';
 
-export type PurchasesCurrency = 'primogems' | 'masterless-stardust' | 'masterless-starglitter';
+export type PurchasesCurrency = 'primogem' | 'masterless-stardust' | 'masterless-starglitter';
 
 export type Currencies = PullCurrency | PurchasesCurrency | 'genesis-crystal';
 

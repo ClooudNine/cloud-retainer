@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import { playSfxEffect } from '@/lib/wish-simulator';
 
 import { BalanceStats } from '@/lib/types';
+import { useTranslations } from 'next-intl';
 
 const ObtainModal = ({
     balance,
@@ -17,6 +18,7 @@ const ObtainModal = ({
     count: number;
     closeObtainModal: () => void;
 }) => {
+    const t = useTranslations();
     const convertToPrimogems = useRef<HTMLInputElement | null>(null);
     const [isSuccessful, setIsSuccessful] = useState<boolean>(false);
 
@@ -27,7 +29,7 @@ const ObtainModal = ({
         playSfxEffect('sounds/obtain-item.mp3');
 
         if (convertToPrimogems.current?.checked) {
-            newBalance['primogems'] += count;
+            newBalance['primogem'] += count;
             closeObtainModal();
         } else {
             newBalance['genesis-crystal'] += count;
@@ -60,13 +62,13 @@ const ObtainModal = ({
                 <div className={obtainModalClasses}>
                     <Image
                         src={`wish-simulator/assets/shop/genesis-crystals/${count}-crystals.webp`}
-                        alt={count + ' Кристаллов Сотворения'}
+                        alt={count + ` ${t('common.genesis-crystal.title', { count: count })}`}
                         width={300}
                         height={300}
                         draggable={false}
                         className={'h-1/2 w-auto'}
                     />
-                    <p className={'text-2xl'}>{count} Кристаллов Сотворения</p>
+                    <p className={'text-2xl'}> {t('common.genesis-crystal.title', { count: count })}</p>
                     <label className={'flex items-center gap-2 text-lg cursor-genshin'}>
                         <input
                             type={'checkbox'}
@@ -74,18 +76,16 @@ const ObtainModal = ({
                             onClick={() => playSfxEffect('sounds/click-1.mp3')}
                             className={'size-4 cursor-genshin'}
                         />
-                        Автоматически конвертировать в примогемы
+                        {t('wish-simulator.convert-to-primogems')}
                     </label>
-                    <div
-                        className={'w-full flex justify-center text-white gap-4 text-xl'}
-                    >
+                    <div className={'w-full flex justify-center text-white gap-4 text-xl'}>
                         <button
                             onClick={closeObtainModalHandler}
                             className={
                                 'w-[30%] bg-red-600 rounded-2xl py-2 cursor-genshin transition-colors hover:bg-red-700'
                             }
                         >
-                            Отмена
+                            {t('wish-simulator.cancel')}
                         </button>
                         <button
                             onClick={confirmObtain}
@@ -93,7 +93,7 @@ const ObtainModal = ({
                                 'w-[30%] bg-green-600 rounded-2xl py-2 cursor-genshin transition-colors hover:bg-green-700'
                             }
                         >
-                            Получить
+                            {t('wish-simulator.get')}
                         </button>
                     </div>
                 </div>

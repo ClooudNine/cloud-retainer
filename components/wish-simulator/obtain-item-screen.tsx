@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Star from '@/components/icons/star';
 import { playSfxEffect } from '@/lib/wish-simulator';
 import { Currencies } from '@/lib/types';
-import { currenciesTranslate } from '@/lib/constants';
+import { useTranslations } from 'next-intl';
 
 const ObtainItemScreen = ({
     item,
@@ -13,6 +13,8 @@ const ObtainItemScreen = ({
     count: number;
     closeSuccessfulPurchase: () => void;
 }) => {
+    const t = useTranslations();
+
     return (
         <section
             onClick={() => {
@@ -27,14 +29,14 @@ const ObtainItemScreen = ({
                 src={'wish-simulator/assets/stars-animation.webp'}
                 width={1}
                 height={1}
-                alt={'Звёзды'}
+                alt={t('common.star')}
                 draggable={false}
                 className={'max-h-full max-w-none w-auto absolute animate-obtain-item'}
             />
             <div className={'flex flex-col items-center gap-6 animate-modal-appearance'}>
                 <div className={'flex gap-4 items-center'}>
                     <Star styles={'size-[2vh] fill-[#d6bb8e] -mb-[15%]'} />
-                    <p className={'text-[#d6bb8e] text-[4vh]'}>Получено:</p>
+                    <p className={'text-[#d6bb8e] text-[4vh]'}>{t('wish-simulator.obtained')}</p>
                     <Star styles={'size-[4vh] fill-[#d6bb8e] -mt-[15%]'} />
                 </div>
                 <div
@@ -43,55 +45,43 @@ const ObtainItemScreen = ({
                     }
                 >
                     <div className={'bg-[#e9e5dc] rounded-[1.5vh] h-[22vh] w-[17vh]'}>
-                        <div
-                            className={
-                                'relative flex items-center justify-center h-[83%]'
-                            }
-                        >
+                        <div className={'relative flex items-center justify-center h-[83%]'}>
                             <Image
-                                src={
-                                    'common/items-backgrounds-by-rarity/background-item-5-star.webp'
-                                }
-                                alt={'Фон пятизвёздочного предмета'}
+                                src={'common/items-backgrounds-by-rarity/background-item-5-star.webp'}
+                                alt={t('image-alts.five-star-item-background')}
                                 draggable={false}
                                 fill
                                 className={'rounded-t-[1.5vh] rounded-br-[4vh]'}
                             />
                             <Image
                                 src={`wish-simulator/assets/${item}.webp`}
-                                alt={currenciesTranslate[item]}
+                                alt={t(`common.${item}.title`, { count: 1 })}
                                 width={200}
                                 height={200}
                                 draggable={false}
                                 className={'relative h-[85%] w-auto'}
                             />
-                            <div
-                                className={
-                                    'absolute w-full flex justify-center -bottom-[4%] '
-                                }
-                            >
+                            <div className={'absolute w-full flex justify-center -bottom-[4%] '}>
                                 {Array.from(Array(Number(5)).keys()).map((number) => (
                                     <Image
                                         key={number}
                                         src={'common/star.webp'}
                                         width={40}
                                         height={40}
-                                        alt={'Звезда'}
+                                        alt={t('common.star')}
                                         draggable={false}
                                         className={'w-[15%] drop-shadow'}
                                     />
                                 ))}
                             </div>
                         </div>
-                        <p className={'text-[#4a505e] text-center text-[2.2vh] mt-[2%]'}>
-                            {count}
-                        </p>
+                        <p className={'text-[#4a505e] text-center text-[2.2vh] mt-[2%]'}>{count}</p>
                     </div>
                     <p className={'text-white text-center text-[2vh]'}>
-                        {currenciesTranslate[item]}
+                        {t(`common.${item}.title`, { count: count })}
                     </p>
                 </div>
-                <p className={'text-[#aca59d] text-[2.5vh]'}>Нажмите, чтобы продолжить</p>
+                <p className={'text-[#aca59d] text-[2.5vh]'}>{t('wish-simulator.click-to-continue')}</p>
             </div>
         </section>
     );

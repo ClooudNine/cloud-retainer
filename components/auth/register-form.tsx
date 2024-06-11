@@ -1,6 +1,6 @@
 'use client';
 import { CircleCheck, Eye, EyeOff, TriangleAlert } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import { AuthState, register } from '@/actions/register';
 import { useFormState, useFormStatus } from 'react-dom';
 import { useState } from 'react';

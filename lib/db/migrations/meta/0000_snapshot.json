@@ -1,7 +1,5 @@
 {
-  "id": "dc7723c9-ced0-478f-bef9-7a8d0ee5ca64",
-  "prevId": "00000000-0000-0000-0000-000000000000",
-  "version": "6",
+  "version": "7",
   "dialect": "postgresql",
   "tables": {
     "public.account": {
@@ -80,15 +78,15 @@
         "account_userId_user_id_fk": {
           "name": "account_userId_user_id_fk",
           "tableFrom": "account",
-          "tableTo": "user",
           "columnsFrom": [
             "userId"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {
@@ -142,15 +140,15 @@
         "achievements_chapter_achievements_chapters_id_fk": {
           "name": "achievements_chapter_achievements_chapters_id_fk",
           "tableFrom": "achievements",
-          "tableTo": "achievements_chapters",
           "columnsFrom": [
             "chapter"
           ],
+          "tableTo": "achievements_chapters",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
@@ -242,15 +240,15 @@
         "bosses_dropId_materials_id_fk": {
           "name": "bosses_dropId_materials_id_fk",
           "tableFrom": "bosses",
-          "tableTo": "materials",
           "columnsFrom": [
             "dropId"
           ],
+          "tableTo": "materials",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
@@ -316,28 +314,28 @@
         "character_banners_main_character_id_characters_id_fk": {
           "name": "character_banners_main_character_id_characters_id_fk",
           "tableFrom": "character_banners",
-          "tableTo": "characters",
           "columnsFrom": [
             "main_character_id"
           ],
+          "tableTo": "characters",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "character_banners_version_game_updates_version_fk": {
           "name": "character_banners_version_game_updates_version_fk",
           "tableFrom": "character_banners",
-          "tableTo": "game_updates",
           "columnsFrom": [
             "version"
           ],
+          "tableTo": "game_updates",
           "columnsTo": [
             "version"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
@@ -466,67 +464,67 @@
         "characters_appearance_version_game_updates_version_fk": {
           "name": "characters_appearance_version_game_updates_version_fk",
           "tableFrom": "characters",
-          "tableTo": "game_updates",
           "columnsFrom": [
             "appearance_version"
           ],
+          "tableTo": "game_updates",
           "columnsTo": [
             "version"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "characters_boss_id_bosses_id_fk": {
           "name": "characters_boss_id_bosses_id_fk",
           "tableFrom": "characters",
-          "tableTo": "bosses",
           "columnsFrom": [
             "boss_id"
           ],
+          "tableTo": "bosses",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "characters_talent_material_id_materials_id_fk": {
           "name": "characters_talent_material_id_materials_id_fk",
           "tableFrom": "characters",
-          "tableTo": "materials",
           "columnsFrom": [
             "talent_material_id"
           ],
+          "tableTo": "materials",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "characters_local_specialty_id_materials_id_fk": {
           "name": "characters_local_specialty_id_materials_id_fk",
           "tableFrom": "characters",
-          "tableTo": "materials",
           "columnsFrom": [
             "local_specialty_id"
           ],
+          "tableTo": "materials",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "characters_enhancement_material_id_materials_id_fk": {
           "name": "characters_enhancement_material_id_materials_id_fk",
           "tableFrom": "characters",
-          "tableTo": "materials",
           "columnsFrom": [
             "enhancement_material_id"
           ],
+          "tableTo": "materials",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
@@ -567,41 +565,41 @@
         "characters_artifacts_builds_character_id_characters_id_fk": {
           "name": "characters_artifacts_builds_character_id_characters_id_fk",
           "tableFrom": "characters_artifacts_builds",
-          "tableTo": "characters",
           "columnsFrom": [
             "character_id"
           ],
+          "tableTo": "characters",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "characters_artifacts_builds_first_artifact_set_id_artifacts_set_id_fk": {
           "name": "characters_artifacts_builds_first_artifact_set_id_artifacts_set_id_fk",
           "tableFrom": "characters_artifacts_builds",
-          "tableTo": "artifacts_set",
           "columnsFrom": [
             "first_artifact_set_id"
           ],
+          "tableTo": "artifacts_set",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "characters_artifacts_builds_second_artifact_set_id_artifacts_set_id_fk": {
           "name": "characters_artifacts_builds_second_artifact_set_id_artifacts_set_id_fk",
           "tableFrom": "characters_artifacts_builds",
-          "tableTo": "artifacts_set",
           "columnsFrom": [
             "second_artifact_set_id"
           ],
+          "tableTo": "artifacts_set",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {
@@ -659,15 +657,15 @@
         "characters_constellations_character_id_characters_id_fk": {
           "name": "characters_constellations_character_id_characters_id_fk",
           "tableFrom": "characters_constellations",
-          "tableTo": "characters",
           "columnsFrom": [
             "character_id"
           ],
+          "tableTo": "characters",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
@@ -723,15 +721,15 @@
         "characters_talents_character_id_characters_id_fk": {
           "name": "characters_talents_character_id_characters_id_fk",
           "tableFrom": "characters_talents",
-          "tableTo": "characters",
           "columnsFrom": [
             "character_id"
           ],
+          "tableTo": "characters",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
@@ -766,28 +764,28 @@
         "characters_weapon_builds_character_id_characters_id_fk": {
           "name": "characters_weapon_builds_character_id_characters_id_fk",
           "tableFrom": "characters_weapon_builds",
-          "tableTo": "characters",
           "columnsFrom": [
             "character_id"
           ],
+          "tableTo": "characters",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "characters_weapon_builds_weapon_id_weapons_id_fk": {
           "name": "characters_weapon_builds_weapon_id_weapons_id_fk",
           "tableFrom": "characters_weapon_builds",
-          "tableTo": "weapons",
           "columnsFrom": [
             "weapon_id"
           ],
+          "tableTo": "weapons",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {
@@ -823,28 +821,28 @@
         "featured_characters_in_banners_banner_id_character_banners_id_fk": {
           "name": "featured_characters_in_banners_banner_id_character_banners_id_fk",
           "tableFrom": "featured_characters_in_banners",
-          "tableTo": "character_banners",
           "columnsFrom": [
             "banner_id"
           ],
+          "tableTo": "character_banners",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "featured_characters_in_banners_character_id_characters_id_fk": {
           "name": "featured_characters_in_banners_character_id_characters_id_fk",
           "tableFrom": "featured_characters_in_banners",
-          "tableTo": "characters",
           "columnsFrom": [
             "character_id"
           ],
+          "tableTo": "characters",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {
@@ -880,28 +878,28 @@
         "featured_weapons_in_banners_banner_id_weapon_banners_id_fk": {
           "name": "featured_weapons_in_banners_banner_id_weapon_banners_id_fk",
           "tableFrom": "featured_weapons_in_banners",
-          "tableTo": "weapon_banners",
           "columnsFrom": [
             "banner_id"
           ],
+          "tableTo": "weapon_banners",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "featured_weapons_in_banners_weapon_id_weapons_id_fk": {
           "name": "featured_weapons_in_banners_weapon_id_weapons_id_fk",
           "tableFrom": "featured_weapons_in_banners",
-          "tableTo": "weapons",
           "columnsFrom": [
             "weapon_id"
           ],
+          "tableTo": "weapons",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {
@@ -1021,28 +1019,28 @@
         "standard_banners_main_character_id_characters_id_fk": {
           "name": "standard_banners_main_character_id_characters_id_fk",
           "tableFrom": "standard_banners",
-          "tableTo": "characters",
           "columnsFrom": [
             "main_character_id"
           ],
+          "tableTo": "characters",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "standard_banners_version_game_updates_version_fk": {
           "name": "standard_banners_version_game_updates_version_fk",
           "tableFrom": "standard_banners",
-          "tableTo": "game_updates",
           "columnsFrom": [
             "version"
           ],
+          "tableTo": "game_updates",
           "columnsTo": [
             "version"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
@@ -1104,10 +1102,10 @@
       "uniqueConstraints": {
         "user_email_unique": {
           "name": "user_email_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "email"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
@@ -1147,18 +1145,18 @@
       "uniqueConstraints": {
         "verification_token_token_unique": {
           "name": "verification_token_token_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "token"
-          ]
+          ],
+          "nullsNotDistinct": false
         },
         "verification_token_email_token_unique": {
           "name": "verification_token_email_token_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "email",
             "token"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
@@ -1223,41 +1221,41 @@
         "weapon_banners_first_main_weapon_id_weapons_id_fk": {
           "name": "weapon_banners_first_main_weapon_id_weapons_id_fk",
           "tableFrom": "weapon_banners",
-          "tableTo": "weapons",
           "columnsFrom": [
             "first_main_weapon_id"
           ],
+          "tableTo": "weapons",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "weapon_banners_second_main_weapon_id_weapons_id_fk": {
           "name": "weapon_banners_second_main_weapon_id_weapons_id_fk",
           "tableFrom": "weapon_banners",
-          "tableTo": "weapons",
           "columnsFrom": [
             "second_main_weapon_id"
           ],
+          "tableTo": "weapons",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "weapon_banners_version_game_updates_version_fk": {
           "name": "weapon_banners_version_game_updates_version_fk",
           "tableFrom": "weapon_banners",
-          "tableTo": "game_updates",
           "columnsFrom": [
             "version"
           ],
+          "tableTo": "game_updates",
           "columnsTo": [
             "version"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
@@ -1365,54 +1363,54 @@
         "weapons_appearance_version_game_updates_version_fk": {
           "name": "weapons_appearance_version_game_updates_version_fk",
           "tableFrom": "weapons",
-          "tableTo": "game_updates",
           "columnsFrom": [
             "appearance_version"
           ],
+          "tableTo": "game_updates",
           "columnsTo": [
             "version"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "weapons_ascension_material_id_materials_id_fk": {
           "name": "weapons_ascension_material_id_materials_id_fk",
           "tableFrom": "weapons",
-          "tableTo": "materials",
           "columnsFrom": [
             "ascension_material_id"
           ],
+          "tableTo": "materials",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "weapons_first_enhancement_material_id_materials_id_fk": {
           "name": "weapons_first_enhancement_material_id_materials_id_fk",
           "tableFrom": "weapons",
-          "tableTo": "materials",
           "columnsFrom": [
             "first_enhancement_material_id"
           ],
+          "tableTo": "materials",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "weapons_second_enhancement_material_id_materials_id_fk": {
           "name": "weapons_second_enhancement_material_id_materials_id_fk",
           "tableFrom": "weapons",
-          "tableTo": "materials",
           "columnsFrom": [
             "second_enhancement_material_id"
           ],
+          "tableTo": "materials",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
@@ -1522,8 +1520,10 @@
   },
   "schemas": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "tables": {},
+    "columns": {}
+  },
+  "id": "dc7723c9-ced0-478f-bef9-7a8d0ee5ca64",
+  "prevId": "00000000-0000-0000-0000-000000000000"
 }

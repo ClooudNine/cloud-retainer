@@ -1,0 +1,1 @@
+ALTER TABLE "promocodes" DROP COLUMN IF EXISTS "is_ended";

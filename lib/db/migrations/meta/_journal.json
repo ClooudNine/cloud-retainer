@@ -15,6 +15,69 @@
       "when": 1716668560058,
       "tag": "0001_thick_venus",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1716849962305,
+      "tag": "0002_thankful_cassandra_nova",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1716900342561,
+      "tag": "0003_black_deathstrike",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1716908534848,
+      "tag": "0004_far_shatterstar",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1716975727780,
+      "tag": "0005_productive_dexter_bennett",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1717595343902,
+      "tag": "0006_thankful_rumiko_fujikawa",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1718030225428,
+      "tag": "0007_bumpy_chat",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1718030815510,
+      "tag": "0008_broad_the_phantom",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1718037740011,
+      "tag": "0009_organic_silver_samurai",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1718102359860,
+      "tag": "0010_grey_banshee",
+      "breakpoints": true
     }
   ]
 }

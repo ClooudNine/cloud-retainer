@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { useCallback } from 'react';
-import { useBannerContext } from '@/app/wish-simulator/banner-provider';
+import { useBannerContext } from '@/components/wish-simulator/banner-provider';
 import { playSfxEffect } from '@/lib/wish-simulator';
 import clsx from 'clsx';
 

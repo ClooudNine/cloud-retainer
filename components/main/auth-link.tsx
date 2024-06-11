@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from '@/navigation';
 
 const AuthLink = ({ title, link, children }: { title: string; link: string; children: React.ReactNode }) => {
     return (

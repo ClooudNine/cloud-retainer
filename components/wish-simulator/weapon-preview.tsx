@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useBannerContext } from '@/app/wish-simulator/banner-provider';
+import { useBannerContext } from '@/components/wish-simulator/banner-provider';
 import clsx from 'clsx';
 import { Weapon } from '@/lib/types';
 

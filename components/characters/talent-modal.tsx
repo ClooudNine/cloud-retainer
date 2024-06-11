@@ -51,7 +51,7 @@ const TalentModal = ({
                     <ArrowRightCircle className={'size-16 group-hover:stroke-white xl:size-8'} />
                 </Card>
             </DialogTrigger>
-            <DialogContent className={'max-w-2xl xs:max-xl:max-w-[75%]'}>
+            <DialogContent className={'max-w-3xl xs:max-xl:max-w-[75%]'}>
                 <DialogHeader>
                     <DialogTitle className={'max-xl:text-3xl'}>
                         {talent.title}

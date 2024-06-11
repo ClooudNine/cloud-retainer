@@ -1,15 +1,7 @@
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import { playSfxEffect } from '@/lib/wish-simulator';
 
-const FooterLink = ({
-    title,
-    link,
-    sfxEffect,
-}: {
-    title: string;
-    link: string;
-    sfxEffect: string;
-}) => {
+const FooterLink = ({ title, link, sfxEffect }: { title: string; link: string; sfxEffect: string }) => {
     return (
         <Link
             onClick={() => playSfxEffect(`sounds/${sfxEffect}.mp3`)}

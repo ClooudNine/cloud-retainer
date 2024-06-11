@@ -1,13 +1,4 @@
-import {
-    BalanceStats,
-    BannerStats,
-    BannerTypes,
-    Currencies,
-    Elements,
-    Phases,
-    PullCurrency,
-    PurchasesCurrency,
-} from '@/lib/types';
+import { BalanceStats, BannerStats, BannerTypes, Elements, Phases, PurchasesCurrency } from '@/lib/types';
 
 export const currentGameVersion: number = 4.1;
 
@@ -55,7 +46,7 @@ export const initialBannerStats: BannerStats = {
 export const initialBalance: BalanceStats = {
     'intertwined-fate': 0,
     'acquaint-fate': 20,
-    primogems: 3200,
+    primogem: 3200,
     'masterless-stardust': 0,
     'masterless-starglitter': 0,
     'genesis-crystal': 0,
@@ -67,24 +58,6 @@ export const bannerOrder: { [key in BannerTypes]: number } = {
     'Character Event Wish-2': 3,
     'Weapon Event Wish': 4,
     'Standard Wish': 5,
-};
-
-export const bannerDescriptions: { [key in BannerTypes]: string } = {
-    'Novice Wish': '"As a dutiful main would."',
-    'Character Event Wish':
-        '5-star event-exclusive characters can only be obtained in the specified wish during the specified time period(s). View Details for more.',
-    'Character Event Wish-2':
-        '5-star event-exclusive characters can only be obtained in the specified wish during the specified time period(s). View Details for more.',
-    'Weapon Event Wish': 'View Details for more.',
-    'Standard Wish': 'Standard wishes have no time limit. View Details for more.',
-};
-
-export const bannerSecondTitle: { [key in BannerTypes]: string } = {
-    'Novice Wish': '10-set 20% off. First 10-set will receive Noelle',
-    'Character Event Wish': 'Probability increased!',
-    'Character Event Wish-2': 'Probability increased!',
-    'Weapon Event Wish': 'Probability increased!',
-    'Standard Wish': 'Standard Wish',
 };
 
 export const bannerHistoryTypes: { [key: string]: string } = {
@@ -102,38 +75,14 @@ export const bannerTranslates: { [key in BannerTypes]: string } = {
     'Standard Wish': 'Стандартная молитва',
 };
 
-export const purchasesCurrencies: { [key in PurchasesCurrency]: string } = {
-    'masterless-starglitter': 'Звёздный блеск',
-    'masterless-stardust': 'Звёздная пыль',
-    primogems: 'Камни Истока',
-};
+export const purchasesCurrencies: PurchasesCurrency[] = [
+    'masterless-starglitter',
+    'masterless-stardust',
+    'primogem',
+];
 
 export const priceOfFate: { [key in PurchasesCurrency]: number } = {
     'masterless-starglitter': 5,
     'masterless-stardust': 75,
-    primogems: 160,
-};
-
-export const pullCurrencyDescriptions: {
-    [key in PullCurrency]: { translate: string; description: string };
-} = {
-    'intertwined-fate': {
-        translate: 'Переплетающиеся судьбы',
-        description:
-            'Судьбоносный камень, который соединяет мечты. Его блёклое свечение переплетает судьбы и соединяет мечты так же, как звёзды соединяются в созвездия.',
-    },
-    'acquaint-fate': {
-        translate: 'Судьбоносные встречи',
-        description:
-            'Семена надежды, освещающие ночное небо. Несмотря на расстояние, те кому суждено встретится, обязательно найдут друг друга под звёздами',
-    },
-};
-
-export const currenciesTranslate: { [key in Currencies]: string } = {
-    'intertwined-fate': 'Переплетающиеся судьбы',
-    'acquaint-fate': 'Судьбоносные встречи',
-    primogems: 'Примогемы',
-    'masterless-stardust': 'Звёздная пыль',
-    'masterless-starglitter': 'Звёздный блеск',
-    'genesis-crystal': 'Кристалл Сотворения',
+    primogem: 160,
 };

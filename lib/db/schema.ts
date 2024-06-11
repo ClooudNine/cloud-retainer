@@ -371,6 +371,11 @@ export const users = pgTable('user', {
     role: userRolesEnum('role').default('User').notNull(),
 });
 
+export const usersRelations = relations(users, ({ many }) => ({
+    achievements: many(userAchievements),
+    events: many(userEvents),
+}));
+
 export const account = pgTable(
     'account',
     {
@@ -582,12 +587,89 @@ export const achievements = pgTable('achievements', {
     description: text('description').notNull(),
     reward: integer('reward').notNull(),
     hidden: boolean('hidden'),
-    requirements: text('requirements').notNull(),
+    requirements: text('requirements'),
 });
 
-export const achievementsRelations = relations(achievements, ({ one }) => ({
+export const achievementsRelations = relations(achievements, ({ one, many }) => ({
     chapter: one(achievementsChapters, {
         fields: [achievements.chapter],
         references: [achievementsChapters.id],
+    }),
+    users: many(userAchievements),
+}));
+
+export const userAchievements = pgTable(
+    'user_achievements',
+    {
+        userId: uuid('user_id')
+            .notNull()
+            .references(() => users.id, { onDelete: 'cascade' }),
+        achievementId: integer('achievement_id')
+            .notNull()
+            .references(() => achievements.id, { onDelete: 'cascade' }),
+        achievedAt: date('achieved_at', { mode: 'date' }).notNull().defaultNow(),
+    },
+    (ua) => {
+        return {
+            pk: primaryKey({ columns: [ua.userId, ua.achievementId] }),
+        };
+    }
+);
+
+export const userAchievementsRelations = relations(userAchievements, ({ one }) => ({
+    user: one(users, {
+        fields: [userAchievements.userId],
+        references: [users.id],
+    }),
+    achievement: one(achievements, {
+        fields: [userAchievements.achievementId],
+        references: [achievements.id],
+    }),
+}));
+
+export const events = pgTable('events', {
+    id: serial('id').primaryKey(),
+    title: text('title').notNull(),
+    description: text('description').notNull(),
+    startDate: date('start_date', { mode: 'date' }).notNull(),
+    endDate: date('end_date', { mode: 'date' }).notNull(),
+});
+
+export const eventsRelations = relations(events, ({ many }) => ({
+    users: many(userEvents),
+}));
+
+export const promocodes = pgTable('promocodes', {
+    id: serial('id').primaryKey(),
+    value: text('value').notNull(),
+    rewards: text('rewards').notNull(),
+    startDate: date('start_date', { mode: 'date' }).notNull(),
+});
+
+export const userEvents = pgTable(
+    'user_events',
+    {
+        userId: uuid('user_id')
+            .notNull()
+            .references(() => users.id, { onDelete: 'cascade' }),
+        eventId: integer('event_id')
+            .notNull()
+            .references(() => achievements.id, { onDelete: 'cascade' }),
+    },
+    (ua) => {
+        return {
+            pk: primaryKey({ columns: [ua.userId, ua.eventId] }),
+        };
+    }
+);
+
+export const userEventsRelations = relations(userEvents, ({ one }) => ({
+    user: one(users, {
+        fields: [userEvents.userId],
+        references: [users.id],
+    }),
+    event: one(events, {
+        fields: [userEvents.eventId],
+        references: [events.id],
     }),
 }));

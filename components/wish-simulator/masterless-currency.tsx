@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { useBannerContext } from '@/app/wish-simulator/banner-provider';
+import { useBannerContext } from '@/components/wish-simulator/banner-provider';
 
 const MasterlessCurrency = () => {
     const { balance } = useBannerContext();
@@ -24,9 +24,7 @@ const MasterlessCurrency = () => {
                     draggable={false}
                     className={'size-12 xs:size-6'}
                 />
-                <p className={'drop-shadow-[0_0_2px_rgba(0,0,0,0.5)]'}>
-                    {balance['masterless-starglitter']}
-                </p>
+                <p className={'drop-shadow-[0_0_2px_rgba(0,0,0,0.5)]'}>{balance['masterless-starglitter']}</p>
             </div>
             <div
                 className={
@@ -41,9 +39,7 @@ const MasterlessCurrency = () => {
                     draggable={false}
                     className={'size-12 xs:size-6'}
                 />
-                <p className={'drop-shadow-[0_0_2px_rgba(0,0,0,0.5)]'}>
-                    {balance['masterless-stardust']}
-                </p>
+                <p className={'drop-shadow-[0_0_2px_rgba(0,0,0,0.5)]'}>{balance['masterless-stardust']}</p>
             </div>
         </div>
     );

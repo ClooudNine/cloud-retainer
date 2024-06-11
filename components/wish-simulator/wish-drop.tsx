@@ -1,9 +1,9 @@
 'use client';
 import Image from 'next/image';
 import { useCallback, useState } from 'react';
-import { useBannerContext } from '@/app/wish-simulator/banner-provider';
+import { useBannerContext } from '@/components/wish-simulator/banner-provider';
 import { playSfxEffect } from '@/lib/wish-simulator';
-import { useAudioContext } from '@/app/wish-simulator/audio-provider';
+import { useAudioContext } from '@/components/wish-simulator/audio-provider';
 import clsx from 'clsx';
 import CloseButton from '@/components/wish-simulator/close-button';
 import { BannerItems, Character, Weapon } from '@/lib/types';
@@ -13,8 +13,7 @@ const renderWeaponResult = (weapon: Weapon) => {
         'absolute flex items-end gap-8 w-[90%] h-[7%] bottom-[5%] right-[2%] xs:right-0.5 xs:bottom-[35%] xs:w-[22%]',
         {
             'animate-masterless-stardust-appearance text-[#f1aafc]': weapon.rare === '3',
-            'animate-masterless-starglitter-appearance text-[#ffeb64]':
-                weapon.rare !== '3',
+            'animate-masterless-starglitter-appearance text-[#ffeb64]': weapon.rare !== '3',
         }
     );
 
@@ -63,9 +62,7 @@ const renderWeaponResult = (weapon: Weapon) => {
                                 style={{
                                     animationDelay: `${number * 100}ms`,
                                 }}
-                                className={
-                                    'w-8 opacity-0 animate-item-stars-appearance xs:w-5'
-                                }
+                                className={'w-8 opacity-0 animate-item-stars-appearance xs:w-5'}
                             />
                         ))}
                     </div>
@@ -109,11 +106,7 @@ const renderWeaponResult = (weapon: Weapon) => {
                 </div>
                 <div className={'flex flex-col gap-1 text-3xl/tight xs:text-base/tight'}>
                     <p className={'text-white'}>Бонус</p>
-                    <p>
-                        {weapon.rare === '3'
-                            ? 'Блуждающая звёздная пыль'
-                            : 'Блуждающий звёздный блеск'}
-                    </p>
+                    <p>{weapon.rare === '3' ? 'Блуждающая звёздная пыль' : 'Блуждающий звёздный блеск'}</p>
                     <p>{weapon.rare === '4' ? 'x2' : 'x15'}</p>
                 </div>
             </div>
@@ -146,24 +139,20 @@ const renderCharacterResult = (character: Character) => {
                         {character.name}
                     </p>
                     <div className={'flex gap-1 mt-1'}>
-                        {Array.from(Array(Number(character.rare)).keys()).map(
-                            (number) => (
-                                <Image
-                                    key={number}
-                                    src={'common/star.webp'}
-                                    width={40}
-                                    height={40}
-                                    alt={'Звезда'}
-                                    draggable={false}
-                                    style={{
-                                        animationDelay: `${number * 100}ms`,
-                                    }}
-                                    className={
-                                        'w-8 opacity-0 animate-item-stars-appearance xs:w-5'
-                                    }
-                                />
-                            )
-                        )}
+                        {Array.from(Array(Number(character.rare)).keys()).map((number) => (
+                            <Image
+                                key={number}
+                                src={'common/star.webp'}
+                                width={40}
+                                height={40}
+                                alt={'Звезда'}
+                                draggable={false}
+                                style={{
+                                    animationDelay: `${number * 100}ms`,
+                                }}
+                                className={'w-8 opacity-0 animate-item-stars-appearance xs:w-5'}
+                            />
+                        ))}
                     </div>
                 </div>
             </div>
@@ -173,9 +162,7 @@ const renderCharacterResult = (character: Character) => {
                 width={2048}
                 height={1024}
                 draggable={false}
-                className={
-                    '-z-10 animate-wish-item-appearance object-contain max-w-[300%] h-full'
-                }
+                className={'-z-10 animate-wish-item-appearance object-contain max-w-[300%] h-full'}
             />
         </>
     );
@@ -196,19 +183,11 @@ const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
     const nextItemCallback = useCallback(() => {
         setIsSkipButtonVisible(true);
 
-        if (
-            isVideoPlaying ||
-            isAnimationPlaying ||
-            pullCounts === 1 ||
-            currentItemIndex === 10
-        )
-            return;
+        if (isVideoPlaying || isAnimationPlaying || pullCounts === 1 || currentItemIndex === 10) return;
 
         if (currentItemIndex + 1 < pullCounts) {
             setIsAnimationPlaying(true);
-            playSfxEffect(
-                `sounds/${droppedItems[currentItemIndex + 1].rare}-star-item-obtain.mp3`
-            );
+            playSfxEffect(`sounds/${droppedItems[currentItemIndex + 1].rare}-star-item-obtain.mp3`);
             setTimeout(() => setIsAnimationPlaying(false), 900);
         }
         setCurrentItemIndex(currentItemIndex + 1);
@@ -243,9 +222,7 @@ const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
                         setIsAnimationPlaying(false);
                         setCurrentItemIndex(pullCounts === 10 ? pullCounts : 0);
                         if (pullCounts === 1)
-                            playSfxEffect(
-                                `sounds/${droppedItems[0].rare}-star-item-obtain.mp3`
-                            );
+                            playSfxEffect(`sounds/${droppedItems[0].rare}-star-item-obtain.mp3`);
                     }}
                     className={skipButtonClasses}
                 >
@@ -277,35 +254,25 @@ const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
                         setIsVideoPlaying(false);
                         setCurrentItemIndex(currentItemIndex + 1);
                         playSfxEffect(
-                            `sounds/${
-                                droppedItems[currentItemIndex + 1].rare
-                            }-star-item-obtain.mp3`
+                            `sounds/${droppedItems[currentItemIndex + 1].rare}-star-item-obtain.mp3`
                         );
                     }}
                 ></video>
             ) : currentItemIndex === 10 ? (
-                <div
-                    className={
-                        'flex gap-1 py-8 ml-4 max-xs:overflow-x-scroll max-xs:no-scrollbar'
-                    }
-                >
+                <div className={'flex gap-1 py-8 ml-4 max-xs:overflow-x-scroll max-xs:no-scrollbar'}>
                     {droppedItems
                         .sort((a, b) => {
                             const rareCompare = Number(b.rare) - Number(a.rare);
-                            const nameTypeCompare =
-                                Number('type' in a) - Number('type' in b);
+                            const nameTypeCompare = Number('type' in a) - Number('type' in b);
 
                             return rareCompare || nameTypeCompare;
                         })
                         .map((item, index) => {
-                            const wishContainerClasses = clsx(
-                                'transition hover:scale-105',
-                                {
-                                    'drop-shadow-three-star-item': item.rare === '3',
-                                    'drop-shadow-four-star-item': item.rare === '4',
-                                    'drop-shadow-five-star-item': item.rare === '5',
-                                }
-                            );
+                            const wishContainerClasses = clsx('transition hover:scale-105', {
+                                'drop-shadow-three-star-item': item.rare === '3',
+                                'drop-shadow-four-star-item': item.rare === '4',
+                                'drop-shadow-five-star-item': item.rare === '5',
+                            });
 
                             const splashArtClasses = clsx(
                                 'absolute max-w-none drop-shadow-[8px_10px_1px_#000000]',
@@ -320,10 +287,7 @@ const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
                             });
 
                             return (
-                                <div
-                                    key={item.title + '-' + index}
-                                    className={wishContainerClasses}
-                                >
+                                <div key={item.title + '-' + index} className={wishContainerClasses}>
                                     <div
                                         style={{
                                             animationDelay: `${index * 100}ms`,
@@ -360,22 +324,14 @@ const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
                                                     ? `common/elements/${item.element}.svg`
                                                     : `weapons/icons/${item.type}.webp`
                                             }
-                                            alt={
-                                                'name' in item ? item.element : item.type
-                                            }
+                                            alt={'name' in item ? item.element : item.type}
                                             draggable={false}
                                             width={100}
                                             height={100}
                                             className={itemIconClasses}
                                         />
-                                        <div
-                                            className={
-                                                'absolute w-full flex justify-center bottom-[9%]'
-                                            }
-                                        >
-                                            {Array.from(
-                                                Array(Number(item.rare)).keys()
-                                            ).map((number) => (
+                                        <div className={'absolute w-full flex justify-center bottom-[9%]'}>
+                                            {Array.from(Array(Number(item.rare)).keys()).map((number) => (
                                                 <Image
                                                     key={number + '-' + index}
                                                     src={'common/star.webp'}
@@ -404,9 +360,7 @@ const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
                     />
                     {'type' in droppedItems[currentItemIndex]
                         ? renderWeaponResult(droppedItems[currentItemIndex] as Weapon)
-                        : renderCharacterResult(
-                              droppedItems[currentItemIndex] as Character
-                          )}
+                        : renderCharacterResult(droppedItems[currentItemIndex] as Character)}
                 </div>
             )}
         </section>

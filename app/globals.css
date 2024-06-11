@@ -110,6 +110,24 @@
         background: #e7e5e3;
     }
 
+    .event-scrollbar {
+        scrollbar-color:  black #e7e5e3;
+        scrollbar-width: thin;
+    }
+
+    .event-scrollbar::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    .event-scrollbar::-webkit-scrollbar-track {
+        background: #e7e5e3;
+    }
+
+    .event-scrollbar::-webkit-scrollbar-thumb {
+        background: black;
+    }
+
     .payment-track,
     .payment-track::-webkit-slider-runnable-track,
     .payment-track::-webkit-slider-thumb {

@@ -1,11 +1,13 @@
 'use client';
 import Image from 'next/image';
-import { useBannerContext } from '@/app/wish-simulator/banner-provider';
+import { useBannerContext } from '@/components/wish-simulator/banner-provider';
 import { useState } from 'react';
 import CurrencyExchanger from '@/components/wish-simulator/currency-exchanger';
 import { playSfxEffect } from '@/lib/wish-simulator';
+import { useTranslations } from 'next-intl';
 
 const CurrentBalance = () => {
+    const t = useTranslations('common');
     const { pullCurrency, balance, setBalance } = useBannerContext();
     const [isExchange, setIsExchange] = useState<boolean>(false);
 
@@ -22,14 +24,14 @@ const CurrentBalance = () => {
                     }
                 >
                     <Image
-                        src={'wish-simulator/assets/primogems.webp'}
+                        src={'wish-simulator/assets/primogem.webp'}
                         width={40}
                         height={40}
-                        alt={'Примогем'}
+                        alt={t('primogem')}
                         draggable={false}
                         className={'size-8 xs:size-6'}
                     />
-                    <p>{balance['primogems']}</p>
+                    <p>{balance['primogem']}</p>
                     <button
                         onClick={() => {
                             playSfxEffect('sounds/click-8.mp3');
@@ -43,15 +45,13 @@ const CurrentBalance = () => {
                     </button>
                 </div>
                 <div
-                    className={
-                        'flex items-center bg-black/40 rounded-full ring-2 px-1 gap-1 ring-[#84a4c5]'
-                    }
+                    className={'flex items-center bg-black/40 rounded-full ring-2 px-1 gap-1 ring-[#84a4c5]'}
                 >
                     <Image
                         src={`wish-simulator/assets/${pullCurrency}.webp`}
                         width={40}
                         height={40}
-                        alt={'Переплетающиеся судьбы'}
+                        alt={t('intertwined-fate')}
                         draggable={false}
                         className={'size-8 xs:size-6'}
                     />

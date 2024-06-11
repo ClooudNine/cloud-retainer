@@ -1,7 +1,10 @@
 import Image from 'next/image';
 import SidebarButton from '@/components/wish-simulator/shop/sidebar-button';
+import { useTranslations } from 'next-intl';
 
 const Sidebar = () => {
+    const t = useTranslations();
+
     return (
         <aside
             className={
@@ -17,20 +20,18 @@ const Sidebar = () => {
                     src={'wish-simulator/assets/shop/icon-shop.webp'}
                     width={256}
                     height={256}
-                    alt={'Иконка магазина'}
-                    className={
-                        'absolute top-0 left-2 h-[120%] w-auto opacity-30 brightness-50'
-                    }
+                    alt={t('image-alts.shop-icon')}
+                    className={'absolute top-0 left-2 h-[120%] w-auto opacity-30 brightness-50'}
                 />
-                <p className={'relative'}>Магазин</p>
+                <p className={'relative'}>{t('wish-simulator.shop')}</p>
             </div>
             <div className={'flex gap-2 xs:block'}>
                 <SidebarButton
-                    title={'Магазин Паймон'}
+                    title={t('wish-simulator.paimon-bargain')}
                     section={'paimon-bargain'}
                 ></SidebarButton>
                 <SidebarButton
-                    title={'Пополнение кристаллов'}
+                    title={t('wish-simulator.genesis-crystals')}
                     section={'genesis-crystals'}
                 ></SidebarButton>
             </div>

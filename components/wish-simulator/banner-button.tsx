@@ -1,16 +1,14 @@
 'use client';
 import Image from 'next/image';
-import { useBannerContext } from '@/app/wish-simulator/banner-provider';
-import {
-    getButtonPortraitUrl,
-    getMainItemsName,
-    playSfxEffect,
-} from '@/lib/wish-simulator';
+import { useBannerContext } from '@/components/wish-simulator/banner-provider';
+import { getButtonPortraitUrl, getMainItemsName, playSfxEffect } from '@/lib/wish-simulator';
 import { useMemo } from 'react';
 import clsx from 'clsx';
 import { Banners } from '@/lib/types';
+import { useTranslations } from 'next-intl';
 
 const BannerButton = ({ banner }: { banner: Banners }) => {
+    const t = useTranslations();
     const { selectedBanner, switchBanner } = useBannerContext();
 
     const portrait = useMemo(() => getButtonPortraitUrl(banner), [banner]);
@@ -23,13 +21,10 @@ const BannerButton = ({ banner }: { banner: Banners }) => {
         }
     );
 
-    const portraitClasses = clsx(
-        'h-4/5 w-auto mt-7 object-contain object-bottom transition',
-        {
-            '-translate-y-1': banner === selectedBanner,
-            '-mx-4 -rotate-12': banner.type === 'Weapon Event Wish',
-        }
-    );
+    const portraitClasses = clsx('h-4/5 w-auto mt-7 object-contain object-bottom transition', {
+        '-translate-y-1': banner === selectedBanner,
+        '-mx-4 -rotate-12': banner.type === 'Weapon Event Wish',
+    });
 
     const handleSwitchBanner = () => {
         playSfxEffect('sounds/click-2.mp3');
@@ -44,7 +39,7 @@ const BannerButton = ({ banner }: { banner: Banners }) => {
                         ? 'wish-simulator/assets/banner-button-background-active.webp'
                         : 'wish-simulator/assets/banner-button-background.webp'
                 }
-                alt={'Фон кнопки выбора баннера'}
+                alt={t('image-alts.wish-button-background')}
                 draggable={false}
                 fill
                 onClick={handleSwitchBanner}
@@ -58,7 +53,7 @@ const BannerButton = ({ banner }: { banner: Banners }) => {
                     <Image
                         key={url}
                         src={url}
-                        alt={itemNames[index]}
+                        alt={t(`characters.${itemNames[index]}`)}
                         draggable={false}
                         width={150}
                         height={70}

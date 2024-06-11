@@ -2,33 +2,29 @@ import Image from 'next/image';
 import clsx from 'clsx';
 
 import { PurchasesCurrency } from '@/lib/types';
+import { useTranslations } from 'next-intl';
 
 const NavbarButton = ({
-    currentCurrency,
+    isActiveCurrency,
     currency,
     setCurrency,
 }: {
-    currentCurrency: PurchasesCurrency;
-    currency: [PurchasesCurrency, string];
+    isActiveCurrency: boolean;
+    currency: PurchasesCurrency;
     setCurrency: () => void;
 }) => {
-    const isActiveCurrency = currentCurrency === currency[0];
-    const currencyButtonClasses = clsx(
-        'group h-full flex-1 relative cursor-genshin transition',
-        {
-            'text-[#ece5d7] hover:drop-shadow-[0px_0px_15px_#ffffff] active:drop-shadow-none active:text-[#3b4254]':
-                !isActiveCurrency,
-            'text-[#3b4254]': isActiveCurrency,
-        }
-    );
+    const t = useTranslations();
 
-    const currencyButtonBackgroundClasses = clsx(
-        'w-full h-[115%] absolute -top-[7%] transition',
-        {
-            'opacity-0 group-active:opacity-100': !isActiveCurrency,
-            'opacity-100': isActiveCurrency,
-        }
-    );
+    const currencyButtonClasses = clsx('group h-full flex-1 relative cursor-genshin transition', {
+        'text-[#ece5d7] hover:drop-shadow-[0px_0px_15px_#ffffff] active:drop-shadow-none active:text-[#3b4254]':
+            !isActiveCurrency,
+        'text-[#3b4254]': isActiveCurrency,
+    });
+
+    const currencyButtonBackgroundClasses = clsx('w-full h-[115%] absolute -top-[7%] transition', {
+        'opacity-0 group-active:opacity-100': !isActiveCurrency,
+        'opacity-100': isActiveCurrency,
+    });
 
     return (
         <button onClick={setCurrency} className={currencyButtonClasses}>
@@ -36,11 +32,11 @@ const NavbarButton = ({
                 src={'wish-simulator/assets/shop/select-currency-background.webp'}
                 width={377}
                 height={60}
-                alt={'Фон кнопки выбора валюты'}
+                alt={t('image-alts.choose-valet-background')}
                 draggable={false}
                 className={currencyButtonBackgroundClasses}
             />
-            <p className={'relative'}>{currency[1]}</p>
+            <p className={'relative'}>{t(`common.${currency}`, { count: 1 })}</p>
         </button>
     );
 };

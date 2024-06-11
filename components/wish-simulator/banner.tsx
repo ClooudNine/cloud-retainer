@@ -1,9 +1,9 @@
 'use client';
-import { useBannerContext } from '@/app/wish-simulator/banner-provider';
+import { useBannerContext } from '@/components/wish-simulator/banner-provider';
 import Image from 'next/image';
 import { CSSProperties } from 'react';
 import SwitchBannerArrow from '@/components/wish-simulator/switch-banner-arrow';
-import { bannerDescriptions, bannerSecondTitle, currentGameVersion } from '@/lib/constants';
+import { currentGameVersion } from '@/lib/constants';
 import { getBannerColor, getPreviewUrl } from '@/lib/wish-simulator';
 import EpitomizedPathButton from '@/components/wish-simulator/epitomized-path-button';
 import clsx from 'clsx';
@@ -17,6 +17,8 @@ import {
     Weapon,
     WeaponBanner,
 } from '@/lib/types';
+import { useTranslations } from 'next-intl';
+import striptags from 'striptags';
 
 const renderCharacterName = (banner: CharacterBanner) => {
     return (
@@ -29,9 +31,7 @@ const renderCharacterName = (banner: CharacterBanner) => {
             }
             className={'absolute bottom-[var(--bottom-offset)] right-[var(--right-offset)]'}
         >
-            <p className={'text-3xl text-white drop-shadow-[0_0_2px_#000000]'}>
-                {banner.character.name}
-            </p>
+            <p className={'text-3xl text-white drop-shadow-[0_0_2px_#000000]'}>{banner.character.name}</p>
             <p className={'text-sm mt-7 text-[#c2bd96]'}>{banner.character.title}</p>
         </div>
     );
@@ -63,11 +63,7 @@ const renderWeaponBannerInfo = (banner: WeaponBanner, epitomizedWeapon: Weapon |
                     </p>
                 ))}
                 {epitomizedWeapon && (
-                    <p
-                        className={
-                            'absolute text-sm px-2 mt-[9%] -ml-[6%] bg-[#687c9c]/90 text-[#e4f4ff]'
-                        }
-                    >
+                    <p className={'absolute text-sm px-2 mt-[9%] -ml-[6%] bg-[#687c9c]/90 text-[#e4f4ff]'}>
                         Текущий курс установлен на:
                         <br />
                         {epitomizedWeapon.title}
@@ -95,7 +91,7 @@ const renderWeaponBannerInfo = (banner: WeaponBanner, epitomizedWeapon: Weapon |
     );
 };
 
-const renderStandardBannerInfo = (banner: StandardBanner, characters: Character[]) => {
+const renderStandardBannerInfo = (banner: StandardBanner, characters: Character[], t: any) => {
     return (
         <>
             {Object.keys(banner.textParameters).map((title) => {
@@ -117,10 +113,8 @@ const renderStandardBannerInfo = (banner: StandardBanner, characters: Character[
                     >
                         {maybeCharacter ? (
                             <>
-                                <p>{maybeCharacter.name}</p>
-                                <p className={'text-xs mt-3 text-[#c2bd96]'}>
-                                    {maybeCharacter.title}
-                                </p>
+                                <p>{t(`characters.${[maybeCharacter.name]}.name`)}</p>
+                                <p className={'text-xs mt-3 text-[#c2bd96]'}>{maybeCharacter.title}</p>
                             </>
                         ) : (
                             <pre className={'font-genshin leading-tight'}>{title}</pre>
@@ -136,11 +130,12 @@ const renderBannerInfo = (
     characters: Character[],
     weapons: Weapon[],
     selectedBanner: Banners,
-    epitomizedPath: EpitomizedPath
+    epitomizedPath: EpitomizedPath,
+    t: any
 ) => {
     if ('mainCharacterId' in selectedBanner) {
         if (selectedBanner.type === 'Standard Wish')
-            return renderStandardBannerInfo(selectedBanner as StandardBanner, characters);
+            return renderStandardBannerInfo(selectedBanner as StandardBanner, characters, t);
 
         return renderCharacterName(selectedBanner as CharacterBanner);
     } else {
@@ -155,6 +150,7 @@ const renderBannerInfo = (
 };
 
 const Banner = () => {
+    const t = useTranslations();
     const { characters, weapons, selectedBanner, bannerStats, epitomizedPath } = useBannerContext();
 
     const infoContainerClasses = clsx('absolute flex flex-col gap-6', {
@@ -164,8 +160,7 @@ const Banner = () => {
 
     const rulesClasses = clsx('flex items-center gap-1 mt-2', {
         'bg-[rgba(var(--palette),0.8)]': currentGameVersion !== 1,
-        'bg-[rgba(65,163,162,0.8)]':
-            currentGameVersion === 1 && selectedBanner.type === 'Standard Wish',
+        'bg-[rgba(65,163,162,0.8)]': currentGameVersion === 1 && selectedBanner.type === 'Standard Wish',
         'bg-[rgba(230,98,106,1)]': selectedBanner.type === 'Novice Wish',
     });
 
@@ -188,7 +183,7 @@ const Banner = () => {
                 >
                     <Image
                         src={`wish-simulator/banners/${getPreviewUrl(selectedBanner)}.webp`}
-                        alt={`Картинка баннера ${selectedBanner.title}`}
+                        alt={striptags(t.raw(`wish-simulator.banners.${selectedBanner.title}`))}
                         draggable={false}
                         priority={true}
                         width={1200}
@@ -201,37 +196,31 @@ const Banner = () => {
                                 'w-fit text-sm text-white bg-[rgb(var(--palette))] -ml-1 rounded-l-3xl rounded-br-[3rem] px-6 py-0.5 lg:text-base'
                             }
                         >
-                            {selectedBanner.type}
+                            {t(`wish-simulator.banner-types.${selectedBanner.type}`)}
                         </p>
                         <p
                             className={`pl-10 text-[#595957] text-4xl/tight [&_em]:text-[rgb(var(--palette))] [&_em]:not-italic`}
-                            dangerouslySetInnerHTML={{ __html: selectedBanner.title }}
+                            dangerouslySetInnerHTML={{
+                                __html: t.raw(`wish-simulator.banners.${selectedBanner.title}`),
+                            }}
                         />
-                        <div
-                            dir={'rtl'}
-                            className={'pl-10 w-80 h-44 overflow-y-scroll scrollbar-for-banner'}
-                        >
+                        <div dir={'rtl'} className={'pl-10 w-80 h-44 overflow-y-scroll scrollbar-for-banner'}>
                             <p dir={'ltr'} className={'text-[#595957] text-xl'}>
-                                {bannerSecondTitle[selectedBanner.type]}
+                                {t(`wish-simulator.banner-second-titles.${selectedBanner.type}`)}
                             </p>
                             <div dir={'ltr'} className={rulesClasses}>
                                 <StarIcon styles={'fill-white w-8 pl-1'} />
-                                <p className={'text-white text-sm'}>
-                                    Every 10 wishes is guaranteed to include at least one 4-star or
-                                    higher item.
-                                </p>
+                                <p className={'text-white text-sm'}>{t('wish-simulator.guarantee')}</p>
                             </div>
                             <p
                                 dir={'ltr'}
-                                className={
-                                    'mt-2 text-[#595957] text-sm drop-shadow-[0_0_2px_#ffffff]'
-                                }
+                                className={'mt-2 text-[#595957] text-sm drop-shadow-[0_0_2px_#ffffff]'}
                             >
-                                {bannerDescriptions[selectedBanner.type]}
+                                {t(`wish-simulator.banner-descriptions.${selectedBanner.type}`)}
                             </p>
                         </div>
                     </div>
-                    {renderBannerInfo(characters, weapons, selectedBanner, epitomizedPath)}
+                    {renderBannerInfo(characters, weapons, selectedBanner, epitomizedPath, t)}
                     {selectedBanner.type === 'Novice Wish' && (
                         <p className={'absolute text-[#d8d4d3] right-[5%] bottom-[7%]'}>
                             Попыток: {20 - bannerStats.NoviceWish.history.length}

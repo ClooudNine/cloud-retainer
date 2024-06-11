@@ -5,7 +5,7 @@ import { useFormState, useFormStatus } from 'react-dom';
 import { login } from '@/actions/login';
 import { useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import { signIn } from 'next-auth/react';
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
 import { CircleCheck, Eye, EyeOff, TriangleAlert } from 'lucide-react';

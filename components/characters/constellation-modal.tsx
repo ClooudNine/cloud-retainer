@@ -40,12 +40,12 @@ const ConstellationModal = ({
                         />
                     </CardHeader>
                     <CardContent className={'py-2 text-center max-xl:text-2xl'}>
-                        <p>{constellation.title}</p>
+                        <p className={'overflow-hidden text-ellipsis xl:h-12'}>{constellation.title}</p>
                         <p className={'text-muted-foreground'}>Level {constellation.level}</p>
                     </CardContent>
                 </Card>
             </DialogTrigger>
-            <DialogContent className={'max-w-2xl xs:max-xl:max-w-[75%]'}>
+            <DialogContent className={'max-w-3xl xs:max-xl:max-w-[75%]'}>
                 <DialogHeader>
                     <DialogTitle className={'max-xl:text-3xl'}>
                         {constellation.title}

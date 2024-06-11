@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { newVerification } from '@/actions/new-verification';
 import { CircleCheck, TriangleAlert } from 'lucide-react';
 import Logo from '@/components/main/logo';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
 

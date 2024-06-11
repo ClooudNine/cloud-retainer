@@ -242,6 +242,16 @@ const config = {
                         transform: 'scaleX(1)',
                     },
                 },
+                'slide-out': {
+                    from: {
+                        transform: 'translateX(0)',
+                        opacity: '1',
+                    },
+                    to: {
+                        transform: 'translateX(100%)',
+                        opacity: '0',
+                    },
+                },
             },
             animation: {
                 'accordion-down': 'accordion-down 0.2s ease-out',
@@ -253,22 +263,17 @@ const config = {
                 'item-icon-appearance': 'item-icon-appearance 2s forwards',
                 'item-stars-appearance': 'item-stars-appearance 2.5s forwards',
                 'masterless-stardust-appearance': 'masterless-stardust-appearance 2s forwards',
-                'masterless-starglitter-appearance':
-                    'masterless-starglitter-appearance 2s forwards',
+                'masterless-starglitter-appearance': 'masterless-starglitter-appearance 2s forwards',
                 'star-effect': 'star-effect 2s forwards',
                 'banner-preview-appearance': 'banner-preview-appearance 0.8s',
                 'modal-appearance': 'modal-appearance 0.3s',
                 'obtain-item': 'obtain-item 0.6s forwards',
                 'multi-wish-appearance': 'multi-wish-appearance 1s forwards',
                 flip: 'flip 0.4s linear',
+                'slide-out': 'slide-out 0.5s forwards',
             },
             dropShadow: {
-                'shop-item': [
-                    '0 5px 0 #ffffff',
-                    '0 -5px 0 #ffffff',
-                    '5px 0 0 #ffffff',
-                    '-5px 0 0 #ffffff',
-                ],
+                'shop-item': ['0 5px 0 #ffffff', '0 -5px 0 #ffffff', '5px 0 0 #ffffff', '-5px 0 0 #ffffff'],
                 'three-star-item': ['0 -8px 2px #b5e2fe', '0 8px 2px #b5e2fe'],
                 'four-star-item': ['0 -14px 2px #a898fd', '0 14px 2px #a898fd'],
                 'five-star-item': ['0 -20px 2px #fffd84', '0 20px 2px #fffd84'],

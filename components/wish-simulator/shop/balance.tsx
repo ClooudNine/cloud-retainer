@@ -5,6 +5,7 @@ import CurrencyExchanger from '@/components/wish-simulator/currency-exchanger';
 import { playSfxEffect } from '@/lib/wish-simulator';
 
 import { BalanceStats } from '@/lib/types';
+import { useTranslations } from 'next-intl';
 
 const Balance = ({
     section,
@@ -19,6 +20,8 @@ const Balance = ({
     setBalance: (newBalance: BalanceStats) => void;
     closePaymentModal: () => void;
 }) => {
+    const t = useTranslations();
+
     const [isExchange, setIsExchange] = useState<boolean>(false);
 
     const balanceClasses = clsx('flex gap-4 text-white', {
@@ -58,7 +61,7 @@ const Balance = ({
                                 src={'wish-simulator/assets/masterless-starglitter.webp'}
                                 width={40}
                                 height={40}
-                                alt={'Блуждающий звёздный блеск'}
+                                alt={t('common.masterless-starglitter')}
                                 draggable={false}
                                 className={'h-[95%] w-auto'}
                             />
@@ -73,7 +76,7 @@ const Balance = ({
                                 src={'wish-simulator/assets/masterless-stardust.webp'}
                                 width={40}
                                 height={40}
-                                alt={'Блуждающая звёздная пыль'}
+                                alt={t('common.masterless-stardust')}
                                 draggable={false}
                                 className={'h-[95%] w-auto'}
                             />
@@ -87,14 +90,14 @@ const Balance = ({
                     }
                 >
                     <Image
-                        src={'wish-simulator/assets/primogems.webp'}
+                        src={'wish-simulator/assets/primogem.webp'}
                         width={40}
                         height={40}
-                        alt={'Примогем'}
+                        alt={t('common.primogem', { count: 1 })}
                         draggable={false}
                         className={'h-[95%] w-auto'}
                     />
-                    <p className={'pr-1'}>{balance.primogems}</p>
+                    <p className={'pr-1'}>{balance.primogem}</p>
                     <button onClick={openExchanger} className={openExchangerClasses}>
                         +
                     </button>
@@ -109,7 +112,7 @@ const Balance = ({
                             src={'wish-simulator/assets/genesis-crystal.webp'}
                             width={40}
                             height={40}
-                            alt={'Кристалл сотворения'}
+                            alt={t('common.genesis-crystal.title', { count: 1 })}
                             draggable={false}
                             className={'h-full w-auto'}
                         />

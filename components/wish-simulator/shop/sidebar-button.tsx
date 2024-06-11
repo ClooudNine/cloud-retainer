@@ -1,11 +1,12 @@
 'use client';
 import Image from 'next/image';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter } from '@/navigation';
 import clsx from 'clsx';
 import PaimonBargainIcon from '@/components/icons/paimon-bargain';
 import GenesisIcon from '@/components/icons/genesis';
 import StarIcon from '@/components/icons/star';
 import { playSfxEffect } from '@/lib/wish-simulator';
+import { useTranslations } from 'next-intl';
 
 const SidebarButton = ({
     title,
@@ -14,6 +15,7 @@ const SidebarButton = ({
     title: string;
     section: 'paimon-bargain' | 'genesis-crystals';
 }) => {
+    const t = useTranslations('image-alts');
     const router = useRouter();
     const pathname = usePathname();
     const currentSection = pathname.split('/').pop();
@@ -53,7 +55,7 @@ const SidebarButton = ({
                 src={'wish-simulator/assets/shop/shop-button-active.webp'}
                 width={322}
                 height={77}
-                alt={'Фон активной кнопки магазина'}
+                alt={t('active-shop-button')}
                 draggable={false}
                 className={buttonBackgroundClasses}
             />

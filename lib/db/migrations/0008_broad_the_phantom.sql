@@ -1,0 +1,1 @@
+ALTER TABLE "promocodes" ADD COLUMN "is_ended" boolean NOT NULL;

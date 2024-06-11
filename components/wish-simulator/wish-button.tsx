@@ -1,9 +1,9 @@
 'use client';
 import Image from 'next/image';
-import { useBannerContext } from '@/app/wish-simulator/banner-provider';
+import { useBannerContext } from '@/components/wish-simulator/banner-provider';
 import { useCallback } from 'react';
 import clsx from 'clsx';
-import { useAudioContext } from '@/app/wish-simulator/audio-provider';
+import { useAudioContext } from '@/components/wish-simulator/audio-provider';
 import { wish } from '@/lib/wish';
 import { BannerItems, Character, Weapon } from '@/lib/types';
 
@@ -48,14 +48,9 @@ const WishButton = ({ count }: { count: number }) => {
 
         for (let i = 0; i < count; i++) {
             droppedItems.push(
-                wish(
-                    selectedBanner,
-                    drop,
-                    bannerStats,
-                    epitomizedPath,
-                    setBannerStats,
-                    setEpitomizedPath
-                ) as Character | Weapon
+                wish(selectedBanner, drop, bannerStats, epitomizedPath, setBannerStats, setEpitomizedPath) as
+                    | Character
+                    | Weapon
             );
         }
         localStorage.setItem('balance', JSON.stringify(balance));
@@ -77,11 +72,7 @@ const WishButton = ({ count }: { count: number }) => {
     ]);
 
     return (
-        <button
-            className={wishButtonClasses}
-            onClick={makeWish}
-            disabled={droppedItems.length > 0}
-        >
+        <button className={wishButtonClasses} onClick={makeWish} disabled={droppedItems.length > 0}>
             <Image
                 src={'wish-simulator/assets/wish-button.webp'}
                 width={317}
@@ -99,9 +90,7 @@ const WishButton = ({ count }: { count: number }) => {
                     -20%
                 </div>
             )}
-            <p className={'absolute top-1 text-[#b4a08c] whitespace-nowrap'}>
-                Помолиться {count} раз
-            </p>
+            <p className={'absolute top-1 text-[#b4a08c] whitespace-nowrap'}>Помолиться {count} раз</p>
             <div className={'absolute top-8 flex justify-center items-center xs:top-7'}>
                 <Image
                     src={

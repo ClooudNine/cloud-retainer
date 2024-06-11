@@ -1,10 +1,13 @@
 'use client';
 import BannerButton from '@/components/wish-simulator/banner-button';
-import { useBannerContext } from '@/app/wish-simulator/banner-provider';
+import { useBannerContext } from '@/components/wish-simulator/banner-provider';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 const BannerList = () => {
+    const t = useTranslations('image-alts');
     const { currentBanners } = useBannerContext();
+
     return (
         <div
             className={
@@ -14,7 +17,7 @@ const BannerList = () => {
             <Image
                 src={'wish-simulator/assets/wish-buttons-background.webp'}
                 fill
-                alt={'Фон кнопок выбора баннера'}
+                alt={t('wish-button-background-mobile')}
                 draggable={false}
                 className={'-z-10 hidden xs:max-lg:block'}
             />

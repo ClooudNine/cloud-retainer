@@ -1,15 +1,14 @@
 import Image from 'next/image';
 import WeaponPreview from '@/components/wish-simulator/weapon-preview';
 import { useCallback, useState } from 'react';
-import { useBannerContext } from '@/app/wish-simulator/banner-provider';
+import { useBannerContext } from '@/components/wish-simulator/banner-provider';
 import ResetEpitomizedPath from '@/components/wish-simulator/reset-epitomized-path';
 import Confirm from '@/components/ui/confirm';
 
 import { WeaponBanner } from '@/lib/types';
 
 export const EpitomizedPathModal = ({ closeModal }: { closeModal: () => void }) => {
-    const { selectedBanner, epitomizedPath, weapons, setEpitomizedPath } =
-        useBannerContext();
+    const { selectedBanner, epitomizedPath, weapons, setEpitomizedPath } = useBannerContext();
 
     const weaponBanner = selectedBanner as WeaponBanner;
     const epitomizedStats = epitomizedPath[weaponBanner.id];
@@ -28,11 +27,7 @@ export const EpitomizedPathModal = ({ closeModal }: { closeModal: () => void }) 
     }, [epitomizedPath, selectedBanner.id, setEpitomizedPath]);
 
     return (
-        <section
-            className={
-                'z-10 absolute w-full h-full bg-black/70 flex justify-center items-center'
-            }
-        >
+        <section className={'z-10 absolute w-full h-full bg-black/70 flex justify-center items-center'}>
             <div className={'relative mx-4 animate-modal-appearance'}>
                 <Image
                     src={'wish-simulator/assets/epitomized-path-modal.webp'}
@@ -42,11 +37,7 @@ export const EpitomizedPathModal = ({ closeModal }: { closeModal: () => void }) 
                     draggable={false}
                     className={'w-[130vh]'}
                 />
-                <p
-                    className={
-                        'absolute top-[7.5%] left-[11%] text-[#84633e] text-xl xs:text-2xl'
-                    }
-                >
+                <p className={'absolute top-[7.5%] left-[11%] text-[#84633e] text-xl xs:text-2xl'}>
                     Путь воплощения
                 </p>
                 <div
@@ -54,50 +45,37 @@ export const EpitomizedPathModal = ({ closeModal }: { closeModal: () => void }) 
                         'absolute top-[20%] left-[8%] w-[37%] h-[72%] overflow-y-scroll genshin-scrollbar'
                     }
                 >
-                    <div
-                        className={
-                            'text-[#a68e75] text-xl/normal [&_em]:text-[#e9b56b] [&_em]:not-italic'
-                        }
-                    >
+                    <div className={'text-[#a68e75] text-xl/normal [&_em]:text-[#e9b56b] [&_em]:not-italic'}>
                         <p>
-                            Путь воплощения - это механика, включённая в текущий цикл
-                            молитвы &quot;Воплощение божества&quot;:
+                            Путь воплощения - это механика, включённая в текущий цикл молитвы &quot;Воплощение
+                            божества&quot;:
                         </p>
                         <ul className={'list-disc list-inside'}>
                             <li>
                                 После установки курса на желаемое оружие, если вы&nbsp;
-                                <em>
-                                    получите оружие 5★, которое не соответствует вашему
-                                    выбору
-                                </em>
-                                , вы получите 1 очко Судьбы.
+                                <em>получите оружие 5★, которое не соответствует вашему выбору</em>, вы
+                                получите 1 очко Судьбы.
                             </li>
                             <li>
-                                Когда вы наберёте достаточно очков Судьбы, ваше следующее
-                                оружие 5★ будет тем, что вы выбрали с помощью Пути
-                                воплощения.
+                                Когда вы наберёте достаточно очков Судьбы, ваше следующее оружие 5★ будет тем,
+                                что вы выбрали с помощью Пути воплощения.
                             </li>
                             <li>
                                 <em>
-                                    После получения оружия Пути воплощения молитвы
-                                    &quot;Воплощение божества&quot; ваши очки Судьбы будут
-                                    сброшены
+                                    После получения оружия Пути воплощения молитвы &quot;Воплощение
+                                    божества&quot; ваши очки Судьбы будут сброшены
                                 </em>
                                 .
                             </li>
-                            <li>
-                                Если вы не выберете оружие, очки Судьбы не будут
-                                накапливаться.
-                            </li>
+                            <li>Если вы не выберете оружие, очки Судьбы не будут накапливаться.</li>
                             <li>
                                 Вы можете изменить или отменить свой выбор.
                                 <em>Это сбросит накопленные вами очки Судьбы</em>.
                             </li>
                             <li>
                                 <em>
-                                    Накопленные вам очки Судьбы также обнулятся, когда
-                                    текущий цикл молитвы &quot;Воплощение божества&quot;
-                                    закончится
+                                    Накопленные вам очки Судьбы также обнулятся, когда текущий цикл молитвы
+                                    &quot;Воплощение божества&quot; закончится
                                 </em>
                                 .
                             </li>
@@ -116,9 +94,7 @@ export const EpitomizedPathModal = ({ closeModal }: { closeModal: () => void }) 
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     <path
-                        className={
-                            'transition group-hover:fill-[#495366] group-active:fill-[#bebebe]'
-                        }
+                        className={'transition group-hover:fill-[#495366] group-active:fill-[#bebebe]'}
                         d="m16 8-3-3v2h-4v-4h2l-3-3-3 3h2v4h-4v-2l-3 3 3 3v-2h4v4h-2l3 3 3-3h-2v-4h4v2z"
                         fill="#707783"
                     />
@@ -137,14 +113,8 @@ export const EpitomizedPathModal = ({ closeModal }: { closeModal: () => void }) 
                                 draggable={false}
                                 className={'absolute h-full w-auto'}
                             />
-                            <p className={'z-10 text-[#495366] text-2xl xs:text-3xl'}>
-                                Выбранное оружие
-                            </p>
-                            <div
-                                className={
-                                    'flex justify-center mt-3 items-center w-[70%] h-[30%]'
-                                }
-                            >
+                            <p className={'z-10 text-[#495366] text-2xl xs:text-3xl'}>Выбранное оружие</p>
+                            <div className={'flex justify-center mt-3 items-center w-[70%] h-[30%]'}>
                                 <WeaponPreview
                                     currentEpitomizedWeapon={epitomizedStats.weaponId}
                                     setEpitomizedWeapon={undefined}
@@ -153,9 +123,7 @@ export const EpitomizedPathModal = ({ closeModal }: { closeModal: () => void }) 
                             </div>
                             <p className={'z-10 text-2xl text-[#495366]'}>
                                 Очки Судьбы:&nbsp;
-                                <em className={'text-[#f39000] not-italic'}>
-                                    {epitomizedStats.count}
-                                </em>
+                                <em className={'text-[#f39000] not-italic'}>{epitomizedStats.count}</em>
                                 /2
                             </p>
                             <button
@@ -188,40 +156,23 @@ export const EpitomizedPathModal = ({ closeModal }: { closeModal: () => void }) 
                         </>
                     ) : (
                         <>
-                            <p className={'text-[#495366] text-2xl xs:text-3xl'}>
-                                Выбрать оружие
-                            </p>
-                            <div
-                                className={
-                                    'flex justify-center items-center gap-6 w-[70%] h-[30%]'
-                                }
-                            >
-                                {[
-                                    weaponBanner.firstMainWeaponId,
-                                    weaponBanner.secondMainWeaponId,
-                                ].map((mainWeapon) => (
-                                    <WeaponPreview
-                                        key={mainWeapon}
-                                        currentEpitomizedWeapon={epitomizedWeapon}
-                                        setEpitomizedWeapon={() =>
-                                            setEpitomizedWeapon(mainWeapon)
-                                        }
-                                        weaponId={mainWeapon}
-                                    />
-                                ))}
+                            <p className={'text-[#495366] text-2xl xs:text-3xl'}>Выбрать оружие</p>
+                            <div className={'flex justify-center items-center gap-6 w-[70%] h-[30%]'}>
+                                {[weaponBanner.firstMainWeaponId, weaponBanner.secondMainWeaponId].map(
+                                    (mainWeapon) => (
+                                        <WeaponPreview
+                                            key={mainWeapon}
+                                            currentEpitomizedWeapon={epitomizedWeapon}
+                                            setEpitomizedWeapon={() => setEpitomizedWeapon(mainWeapon)}
+                                            weaponId={mainWeapon}
+                                        />
+                                    )
+                                )}
                             </div>
-                            <p
-                                className={
-                                    '-translate-y-8 text-center text-xl text-[#495366]'
-                                }
-                            >
+                            <p className={'-translate-y-8 text-center text-xl text-[#495366]'}>
                                 Курс на предмет: <br />
                                 <em className={'text-[#f39000] not-italic'}>
-                                    {
-                                        weapons.find(
-                                            (weapon) => weapon.id === epitomizedWeapon
-                                        )?.title
-                                    }
+                                    {weapons.find((weapon) => weapon.id === epitomizedWeapon)?.title}
                                 </em>
                             </p>
                             <Confirm
@@ -235,10 +186,7 @@ export const EpitomizedPathModal = ({ closeModal }: { closeModal: () => void }) 
                                         },
                                     };
                                     setEpitomizedPath(newEpitomizedPath);
-                                    localStorage.setItem(
-                                        'epitomizedPath',
-                                        JSON.stringify(newEpitomizedPath)
-                                    );
+                                    localStorage.setItem('epitomizedPath', JSON.stringify(newEpitomizedPath));
                                 }}
                                 disabledCondition={false}
                             />
