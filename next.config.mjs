@@ -4,21 +4,7 @@ const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-	i18n: {
-		locales: ['ru', 'en'],
-		defaultLocale: 'ru',
-		localeDetection: false
-	},
-	async redirects() {
-		return [
-			{
-				source: '/',
-				destination: '/ru',
-				permanent: true,
-				locale: false,
-			},
-		];
-	},
+	basePath: '/',
 	images: {
 		loader: 'custom',
 		loaderFile: './lib/image-loader.ts'
