@@ -59,7 +59,7 @@ const AchievementCard = ({
             return;
         }
 
-        if (rating === 0) {
+        if (rating === groupLength - 1) {
             setAnimated(true);
         }
 
@@ -113,10 +113,15 @@ const AchievementCard = ({
                 )}
             </div>
             {isCompleted ? (
-                <CircleX
-                    onClick={removeCompleteAchievementClick}
-                    className="w-[10%] size-10 transition hover:stroke-red-500 active:stroke-white"
-                />
+                <div className={'w-[10%] flex flex-col items-center justify-center text-xs xl:text-sm'}>
+                    <CircleX
+                        onClick={removeCompleteAchievementClick}
+                        className="size-10 transition hover:stroke-red-500 active:stroke-white"
+                    />
+                    {completed
+                        .find((c) => c.achievement.id === achievement.id)
+                        ?.achievedAt.toLocaleDateString()}
+                </div>
             ) : (
                 <CircleCheck
                     onClick={completeAchievementClick}

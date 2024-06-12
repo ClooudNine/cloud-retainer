@@ -41,13 +41,17 @@ const ChapterAchievements = () => {
     }, [groupedAchievements, searchAchievement, showCompleted, completed, showHidden]);
 
     return (
-        <section className={'bg-blue-100 rounded-xl shadow flex flex-col gap-2 p-2 max-xl:flex-1 xl:w-[70%]'}>
+        <section
+            className={
+                'bg-blue-100 rounded-xl shadow flex flex-col gap-4 p-2 max-xl:flex-1 xl:w-[70%] xl:gap-2'
+            }
+        >
             <h2 className={'flex items-center justify-center gap-3 text-3xl xs:text-2xl'}>
                 <Star className={'h-full w-auto'} />
                 {activeChapter.title}
                 <Star className={'h-full w-auto'} />
             </h2>
-            <div className={'flex items-center gap-2 max-xs:flex-col'}>
+            <div className={'flex items-center gap-4 max-xs:flex-col xs:gap-2'}>
                 <div className={'w-full flex items-center gap-2'}>
                     <Search className={'h-full w-auto'} />
                     <Input
