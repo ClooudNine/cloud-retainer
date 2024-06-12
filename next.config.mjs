@@ -4,7 +4,6 @@ const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-	basePath: '/',
 	images: {
 		loader: 'custom',
 		loaderFile: './lib/image-loader.ts'
