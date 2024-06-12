@@ -5,9 +5,8 @@ import createIntlMiddleware from 'next-intl/middleware';
 import { locales } from '@/navigation';
 
 const intlMiddleware = createIntlMiddleware({
-    defaultLocale: 'ru',
     locales,
-    localeDetection: false,
+    defaultLocale: 'ru',
 });
 
 export const authConfig = {
@@ -30,10 +29,10 @@ export const authConfig = {
                     redirectUrl.search = searchParams.toString();
                     return NextResponse.redirect(redirectUrl);
                 }
-                return true;
+                return intlMiddleware(request);
             }
 
-            return true;
+            return intlMiddleware(request);
         },
     },
     providers: [],
