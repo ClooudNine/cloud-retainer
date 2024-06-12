@@ -1,13 +1,14 @@
 import type { NextAuthConfig } from 'next-auth';
 import { apiAuthPrefix, authRoutes, DEFAULT_LOGIN_REDIRECT } from '@/routes';
 import { NextResponse } from 'next/server';
-import createMiddleware from 'next-intl/middleware';
+import createIntlMiddleware from 'next-intl/middleware';
 import { localePrefix, locales } from '@/navigation';
 
-const intlMiddleware = createMiddleware({
+const intlMiddleware = createIntlMiddleware({
     defaultLocale: 'ru',
     localePrefix,
     locales,
+    localeDetection: false,
 });
 
 export const authConfig = {
