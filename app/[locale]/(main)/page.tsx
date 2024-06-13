@@ -2,12 +2,16 @@ import Image from 'next/image';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { getCurrentPromocodes } from '@/data/promocodes';
 import Promocodes from '@/components/main/promocodes';
+import News from '@/components/main/news';
+import { getLastNews } from '@/data/news';
 
 export default async function Main({ params: { locale } }: { params: { locale: string } }) {
     unstable_setRequestLocale(locale);
 
     const t = await getTranslations('main');
+
     const promocodes = await getCurrentPromocodes();
+    const lastNews = await getLastNews();
 
     return (
         <section className={'flex-1 overflow-y-auto space-y-2 max-xs:pt-8 max-xs:text-center xs:pl-4'}>
@@ -23,6 +27,7 @@ export default async function Main({ params: { locale } }: { params: { locale: s
                     'text-[2.8rem]/relaxed [&_em]:not-italic [&_em]:text-white [&_em]:rounded-xl [&_em]:px-4 [&_em:nth-of-type(1)]:bg-red-300 [&_em:nth-of-type(2)]:bg-emerald-300'
                 }
             ></h1>
+            <News lastNews={lastNews} />
             <Promocodes promocodes={promocodes} />
         </section>
     );

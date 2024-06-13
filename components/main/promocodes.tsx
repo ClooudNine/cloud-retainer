@@ -9,7 +9,7 @@ import {
     CarouselPrevious,
 } from '@/components/ui/carousel';
 import { useLocale } from 'next-intl';
-import PromocodeInfo from '@/components/main/promocode';
+import PromocodeInfo from '@/components/main/promocode-info';
 
 const Promocodes = ({ promocodes }: { promocodes: Promocode[] | null }) => {
     const locale = useLocale();

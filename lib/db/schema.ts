@@ -673,3 +673,10 @@ export const userEventsRelations = relations(userEvents, ({ one }) => ({
         references: [events.id],
     }),
 }));
+
+export const news = pgTable('news', {
+    id: serial('id').primaryKey(),
+    title: text('title').notNull(),
+    publishDate: date('publish_date', { mode: 'date' }).notNull(),
+    content: text('content').notNull(),
+});

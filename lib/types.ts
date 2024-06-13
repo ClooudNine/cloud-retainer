@@ -9,6 +9,7 @@ import {
     charactersTalents,
     elementsEnum,
     events,
+    news,
     phasesEnum,
     promocodes,
     raresEnum,
@@ -58,6 +59,8 @@ export type GameEvent = typeof events.$inferSelect;
 export type FavoriteEvent = typeof userEvents.$inferSelect;
 
 export type Promocode = typeof promocodes.$inferSelect;
+
+export type New = typeof news.$inferSelect;
 
 export type BannerTypes = (typeof bannerTypesEnum.enumValues)[number];
 
