@@ -31,8 +31,7 @@ export const authConfig = {
                 }
                 const response = intlMiddleware(request);
 
-                response.headers.delete('x-middleware-request-x-forwarded-for');
-                response.headers.delete('x-middleware-request-cf-connection-ip');
+                response.headers.delete('x-middleware-request-cf-connecting-ip');
 
                 console.log(response);
 
@@ -41,8 +40,7 @@ export const authConfig = {
 
             const response = intlMiddleware(request);
 
-            response.headers.delete('x-middleware-request-x-forwarded-for');
-            response.headers.delete('x-middleware-request-cf-connection-ip');
+            response.headers.delete('x-middleware-request-cf-connecting-ip');
 
             console.log(response);
 
