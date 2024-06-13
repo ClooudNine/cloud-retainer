@@ -30,12 +30,22 @@ export const authConfig = {
                     return NextResponse.redirect(redirectUrl);
                 }
                 const response = intlMiddleware(request);
+
+                response.headers.delete('x-middleware-request-x-forwarded-for');
+                response.headers.delete('x-middleware-request-cf-connection-ip');
+
                 console.log(response);
+
                 return response;
             }
 
             const response = intlMiddleware(request);
+
+            response.headers.delete('x-middleware-request-x-forwarded-for');
+            response.headers.delete('x-middleware-request-cf-connection-ip');
+
             console.log(response);
+
             return response;
         },
     },
