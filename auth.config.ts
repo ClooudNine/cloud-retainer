@@ -29,10 +29,14 @@ export const authConfig = {
                     redirectUrl.search = searchParams.toString();
                     return NextResponse.redirect(redirectUrl);
                 }
-                return intlMiddleware(request);
+                const response = intlMiddleware(request);
+                console.log(response);
+                return response;
             }
 
-            return intlMiddleware(request);
+            const response = intlMiddleware(request);
+            console.log(response);
+            return response;
         },
     },
     providers: [],
