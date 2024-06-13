@@ -26,14 +26,9 @@ export const UserSelect = ({ type }: { type: WishHistoryTypes }) => {
             />
             <p className={'absolute left-[4%] xs:left-[8%]'}>Тип Молитвы</p>
             <div className="absolute w-[70%] text-[#595252] right-[1%]">
-                <div
-                    className="flex items-center mx-3"
-                    onClick={() => setIsSelectOpen(!isSelectOpen)}
-                >
+                <div className="flex items-center mx-3" onClick={() => setIsSelectOpen(!isSelectOpen)}>
                     <p className={'truncate'}>{bannerHistoryTypes[type]}</p>
-                    <ChevronUp
-                        className={`size-10 ml-auto ${isSelectOpen ? 'rotate-0' : 'rotate-180'}`}
-                    />
+                    <ChevronUp className={`size-10 ml-auto ${isSelectOpen ? 'rotate-0' : 'rotate-180'}`} />
                 </div>
                 {isSelectOpen && (
                     <div className="z-10 absolute w-[140%] top-0 right-0 text-white bg-[rgba(95,101,114,0.9)] rounded-3xl mt-[8%] xs:w-full">

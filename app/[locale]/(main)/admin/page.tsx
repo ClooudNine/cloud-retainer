@@ -1,16 +1,8 @@
 import { Link } from '@/navigation';
-import { redirect } from 'next/navigation';
-import { currentRole } from '@/lib/auth';
 import { unstable_setRequestLocale } from 'next-intl/server';
 
 export default async function AdminPage({ params: { locale } }: { params: { locale: string } }) {
     unstable_setRequestLocale(locale);
-
-    const userRole = await currentRole();
-
-    if (userRole === 'User') {
-        redirect('/');
-    }
 
     return (
         <section className={'flex-1'}>

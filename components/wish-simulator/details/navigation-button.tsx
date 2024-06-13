@@ -29,8 +29,7 @@ const NavigationButton = ({
     );
 
     const backgroundButtonClasses = clsx('absolute h-full w-auto', {
-        'hidden group-hover:block group-hover:brightness-110':
-            searchParams.get('section') !== param,
+        'hidden group-hover:block group-hover:brightness-110': searchParams.get('section') !== param,
     });
 
     return (

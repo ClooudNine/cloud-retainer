@@ -3,7 +3,7 @@ import Navbar from '@/components/wish-simulator/shop/paimon-bargain/navbar';
 import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import PaymentModal from '@/components/wish-simulator/shop/paimon-bargain/payment-modal';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/navigation';
 import Balance from '@/components/wish-simulator/shop/balance';
 import CloseButton from '@/components/wish-simulator/close-button';
 import { playSfxEffect } from '@/lib/wish-simulator';

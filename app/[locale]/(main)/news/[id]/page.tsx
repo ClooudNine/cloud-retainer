@@ -68,6 +68,7 @@ export default async function CharacterPage({
                     className={'-z-10 object-contain object-right'}
                 />
             </div>
+            <div dangerouslySetInnerHTML={{ __html: newById.content }}></div>
         </section>
     );
 }

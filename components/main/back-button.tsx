@@ -1,5 +1,5 @@
 'use client';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/navigation';
 import { CircleArrowLeft } from 'lucide-react';
 import { cn } from '@/lib/utils';
 

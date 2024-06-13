@@ -1,7 +1,7 @@
 'use client';
 import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/navigation';
 import Balance from '@/components/wish-simulator/shop/balance';
 import CloseButton from '@/components/wish-simulator/close-button';
 import ObtainModal from '@/components/wish-simulator/shop/genesis-crystals/obtain-modal';

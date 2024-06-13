@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 import clsx from 'clsx';
 import Cancel from '@/components/ui/cancel';
 import Confirm from '@/components/ui/confirm';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/navigation';
 import { playSfxEffect } from '@/lib/wish-simulator';
 
 import { BalanceStats } from '@/lib/types';
