@@ -29,29 +29,24 @@ export const authConfig = {
                     redirectUrl.search = searchParams.toString();
                     return NextResponse.redirect(redirectUrl);
                 }
-
                 const response = intlMiddleware(request);
-                const headers = new Headers(response.headers);
 
-                headers.delete('x-middleware-request-cf-connecting-ip');
-                headers.delete('x-middleware-request-x-forwarded-for');
+                response.headers.set('x-middleware-request-x-forwarded-for', '');
+                response.headers.set('x-middleware-request-cf-connecting-ip', '');
 
-                return new NextResponse(response.body, {
-                    ...response,
-                    headers,
-                });
+                console.log(response);
+
+                return response;
             }
 
             const response = intlMiddleware(request);
-            const headers = new Headers(response.headers);
 
-            headers.delete('x-middleware-request-cf-connecting-ip');
-            headers.delete('x-middleware-request-x-forwarded-for');
+            response.headers.set('x-middleware-request-x-forwarded-for', '');
+            response.headers.set('x-middleware-request-cf-connecting-ip', '');
 
-            return new NextResponse(response.body, {
-                ...response,
-                headers,
-            });
+            console.log(response);
+
+            return response;
         },
     },
     providers: [],
