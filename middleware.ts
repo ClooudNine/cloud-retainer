@@ -1,8 +1,11 @@
-import NextAuth from 'next-auth';
-import { authConfig } from './auth.config';
+import createMiddleware from 'next-intl/middleware';
+import { locales } from '@/navigation';
 
-export default NextAuth(authConfig).auth;
+export default createMiddleware({
+    locales,
+    defaultLocale: 'ru',
+});
 
 export const config = {
-    matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
+    matcher: ['/', '/(ru|en)/:path*'],
 };
