@@ -18,9 +18,13 @@ export const authConfig = {
             const isApiPathRoute = pathname.startsWith(apiAuthPrefix);
             const isAuthRoute = authRoutes.some((route) => pathname.endsWith(route));
 
+            console.log(request);
+
             if (isApiPathRoute) {
                 return true;
             }
+
+            console.log('AFTER RESPONSE');
 
             if (isAuthRoute) {
                 const isLoggedIn = !!auth?.user;
@@ -31,40 +35,10 @@ export const authConfig = {
                 }
 
                 const response = intlMiddleware(request);
-                let headersList = response.headers.get('x-middleware-override-headers')?.split(',');
-                const headersToRemove = [
-                    'cf-connecting-ip',
-                    'x-forwarded-for',
-                    'x-middleware-request-cf-connecting-ip',
-                ];
-
-                headersList = headersList?.filter((header) => !headersToRemove.includes(header));
-                response.headers.set('x-middleware-override-headers', headersList?.join(',') as string);
-
-                response.headers.delete('x-middleware-request-cf-connecting-ip');
-                response.headers.delete('x-middleware-request-x-forwarded-for');
-
-                console.log(response);
-
                 return response;
             }
 
             const response = intlMiddleware(request);
-            let headersList = response.headers.get('x-middleware-override-headers')?.split(',');
-            const headersToRemove = [
-                'cf-connecting-ip',
-                'x-forwarded-for',
-                'x-middleware-request-cf-connecting-ip',
-            ];
-
-            headersList = headersList?.filter((header) => !headersToRemove.includes(header));
-            response.headers.set('x-middleware-override-headers', headersList?.join(',') as string);
-
-            response.headers.delete('x-middleware-request-cf-connecting-ip');
-            response.headers.delete('x-middleware-request-x-forwarded-for');
-
-            console.log(response);
-
             return response;
         },
     },
