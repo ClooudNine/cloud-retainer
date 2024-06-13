@@ -35,10 +35,12 @@ export const authConfig = {
                 }
 
                 const response = intlMiddleware(request);
+                console.log(response);
                 return response;
             }
 
             const response = intlMiddleware(request);
+            console.log(response);
             return response;
         },
     },
