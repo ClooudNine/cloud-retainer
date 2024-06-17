@@ -17,10 +17,11 @@ export const getFavoriteEvents = async (userId: string | undefined) => {
 
     try {
         const favoriteEvents = await db.query.userEvents.findMany({
+            columns: { eventId: true },
             where: eq(userEvents.userId, userId),
         });
 
-        return favoriteEvents;
+        return favoriteEvents.map((event) => event.eventId);
     } catch {
         return [];
     }

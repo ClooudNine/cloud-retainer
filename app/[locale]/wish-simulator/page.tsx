@@ -10,14 +10,16 @@ import { getCharactersFromWishes } from '@/data/character';
 import { getWeaponsFromWishes } from '@/data/weapon';
 import { getAllBanners } from '@/data/banner';
 import { notFound } from 'next/navigation';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 
-export const metadata = {
-    title: 'Cloud Retainer | Симулятор молитв',
-    description: `Симулятор молитв из игры Genshin Impact, который позволяет 
-    путешественникам совершать молитвы в неограниченном количестве для 
-    развлечения и сбора статистики. Доступны последние баннеры.`,
-};
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+    const t = await getTranslations({ locale, namespace: 'metadata.wish-simulator' });
+
+    return {
+        title: t('title'),
+        description: t('description'),
+    };
+}
 
 export const dynamic = 'force-dynamic';
 

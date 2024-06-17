@@ -16,7 +16,7 @@ export const sendVerificationEmail = async (email: string, token: string) => {
                   <h1>Confirm your E-Mail on Cloud Retainer! Click <a href='${confirmLink}'>here</a></h1>
                   <div>
                     <h3>E-Mail: <a href='mailto:cloud.retainer.dev@gmail.com'>cloud.retainer.dev@gmail.com</a></h3>
-                    <h3>Telegram chanel: <a href='https://t.me/cloud_retainer_community'>Cloud Retainer | Community</a></h3>
+                    <h3>Telegram channel: <a href='https://t.me/cloud_retainer_community'>Cloud Retainer | Community</a></h3>
                   </div>
               </div>`,
     });

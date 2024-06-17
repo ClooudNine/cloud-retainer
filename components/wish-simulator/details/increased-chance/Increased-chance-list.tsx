@@ -69,7 +69,9 @@ const IncreasedChanceList = ({
                                 }}
                                 className={'whitespace-nowrap'}
                             >
-                                {'name' in item ? item.name : item.title}
+                                {'name' in item
+                                    ? t(`characters.${item.name}.name`)
+                                    : t(`weapons.${item.title}.title`)}
                             </p>
                         ))}
                     </div>

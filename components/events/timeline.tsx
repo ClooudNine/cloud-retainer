@@ -17,7 +17,7 @@ const getDatesBetween = (startDate: Date, endDate: Date): Date[] => {
     return dates;
 };
 
-const Timeline = ({ events }: { events: GameEvent[] }) => {
+const Timeline = ({ events, favoriteEvents }: { events: GameEvent[]; favoriteEvents: number[] }) => {
     const timelineRef = useRef<HTMLElement>(null);
 
     const today = useMemo(() => new Date(), []);
@@ -76,7 +76,13 @@ const Timeline = ({ events }: { events: GameEvent[] }) => {
             ))}
             {eventRows.map((row, rowIndex) => {
                 return row.map((event) => (
-                    <EventBlock key={event.id} event={event} dates={timelineDates} row={rowIndex} />
+                    <EventBlock
+                        key={event.id}
+                        event={event}
+                        dates={timelineDates}
+                        row={rowIndex}
+                        isFavorite={favoriteEvents.includes(event.id)}
+                    />
                 ));
             })}
             <CurrentTimeLine todayIndex={todayIndex} />

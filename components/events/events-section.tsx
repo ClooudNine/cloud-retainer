@@ -7,27 +7,21 @@ import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Timeline from '@/components/events/timeline';
 import EndedEvents from '@/components/events/ended-events';
-import { FavoriteEvent, GameEvent } from '@/lib/types';
+import { GameEvent } from '@/lib/types';
 import { useState } from 'react';
 
-const EventsSection = ({
-    events,
-    favoriteEvents,
-}: {
-    events: GameEvent[];
-    favoriteEvents: FavoriteEvent[];
-}) => {
+const EventsSection = ({ events, favoriteEvents }: { events: GameEvent[]; favoriteEvents: number[] }) => {
     const [showFavorites, setShowFavorites] = useState(false);
     const today = new Date();
 
     const endedEvents = events.filter((event) => event.endDate < today);
 
     const filteredEvents = showFavorites
-        ? events.filter((event) => favoriteEvents.some((fav) => fav.eventId === event.id))
+        ? events.filter((event) => favoriteEvents.some((fav) => fav === event.id))
         : events;
 
     const filteredEndedEvents = showFavorites
-        ? endedEvents.filter((event) => favoriteEvents.some((fav) => fav.eventId === event.id))
+        ? endedEvents.filter((event) => favoriteEvents.some((fav) => fav === event.id))
         : endedEvents;
 
     return (
@@ -37,8 +31,8 @@ const EventsSection = ({
                 <CalendarRange className={'h-full w-auto'} />
                 <h1 className={'-ml-2.5 text-3xl'}>Лента событий</h1>
                 <Image
-                    src={'common/xianyun-namecard.webp'}
-                    alt={'Xianyun namecard'}
+                    src={'common/shenhe-namecard.webp'}
+                    alt={'Shenhe namecard'}
                     fill
                     className={'-z-10 object-contain object-right'}
                 />
@@ -57,10 +51,10 @@ const EventsSection = ({
                     <TabsTrigger value="ended">Завершённые</TabsTrigger>
                 </TabsList>
                 <TabsContent value="active" className={'flex-1'}>
-                    <Timeline events={filteredEvents} />
+                    <Timeline events={filteredEvents} favoriteEvents={favoriteEvents} />
                 </TabsContent>
                 <TabsContent value="ended" className={'flex-1'}>
-                    <EndedEvents endedEvents={filteredEndedEvents} />
+                    <EndedEvents endedEvents={filteredEndedEvents} favoriteEvents={favoriteEvents} />
                 </TabsContent>
             </Tabs>
         </>

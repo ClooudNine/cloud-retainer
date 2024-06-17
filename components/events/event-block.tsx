@@ -13,7 +13,17 @@ function getRandomColor() {
     );
 }
 
-const EventBlock = ({ event, dates, row }: { event: GameEvent; dates: Date[]; row: number }) => {
+const EventBlock = ({
+    event,
+    dates,
+    row,
+    isFavorite,
+}: {
+    event: GameEvent;
+    dates: Date[];
+    row: number;
+    isFavorite: boolean;
+}) => {
     const [color, setColor] = useState<string>('');
     const startIndex = dates.findIndex((date) => date.toDateString() === event.startDate.toDateString());
     const endIndex = dates.findIndex((date) => date.toDateString() === event.endDate.toDateString());
@@ -48,7 +58,7 @@ const EventBlock = ({ event, dates, row }: { event: GameEvent; dates: Date[]; ro
                     </div>
                 </div>
             </DialogTrigger>
-            <EventModal event={event} />
+            <EventModal event={event} isFavorite={isFavorite} />
         </Dialog>
     );
 };

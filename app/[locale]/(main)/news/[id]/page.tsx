@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import BackButton from '@/components/main/back-button';
 import { Frown, Newspaper } from 'lucide-react';
 import { Metadata } from 'next';
@@ -54,21 +53,23 @@ export default async function CharacterPage({
     return (
         <section
             className={
-                'overflow-x-hidden flex flex-col gap-2 px-4 pt-8 max-xs:h-3/4 xs:pt-4 max-xl:items-center xl:overflow-hidden xl:flex-1'
+                'overflow-y-auto event-scrollbar flex flex-col gap-2 px-4 pt-8 max-xs:h-3/4 xs:pt-4 max-xl:items-center xl:flex-1'
             }
         >
             <div className={'relative flex items-center gap-4'}>
                 <BackButton className={''} />
                 <Newspaper className={'h-full w-auto'} />
                 <h1 className={'-ml-2.5 text-3xl'}>{newById.title}</h1>
-                <Image
-                    src={'common/xianyun-namecard.webp'}
-                    alt={'Xianyun namecard'}
-                    fill
-                    className={'-z-10 object-contain object-right'}
-                />
+                <h2 className={'w-fit bg-black text-white rounded-lg p-2 ml-auto'}>
+                    Дата публикации: {newById.publishDate.toLocaleDateString()}
+                </h2>
             </div>
-            <div dangerouslySetInnerHTML={{ __html: newById.content }}></div>
+            <div
+                className={
+                    'mt-2 space-y-4 [&_h1]:text-3xl [&_h2]:text-2xl [&_ul]:list-disc [&_ul]:list-inside'
+                }
+                dangerouslySetInnerHTML={{ __html: newById.content }}
+            ></div>
         </section>
     );
 }

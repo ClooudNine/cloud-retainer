@@ -66,9 +66,8 @@ export const {
         async session({ token, session }) {
             if (token.sub && session.user) {
                 session.user.id = token.sub;
-            }
-
-            if (token.role && session.user) {
+                session.user.name = token.name;
+                session.user.image = token.image as string;
                 session.user.role = token.role as UserRoles;
             }
 
@@ -81,6 +80,8 @@ export const {
 
             if (!existingUser) return token;
 
+            token.name = existingUser.name;
+            token.image = existingUser.image;
             token.role = existingUser.role;
 
             return token;

@@ -654,7 +654,7 @@ export const userEvents = pgTable(
             .references(() => users.id, { onDelete: 'cascade' }),
         eventId: integer('event_id')
             .notNull()
-            .references(() => achievements.id, { onDelete: 'cascade' }),
+            .references(() => events.id, { onDelete: 'cascade' }),
     },
     (ua) => {
         return {

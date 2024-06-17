@@ -21,3 +21,13 @@ export const getLastNews = async () => {
         return null;
     }
 };
+
+export const getAllNews = async () => {
+    try {
+        const allNews = await db.query.news.findMany();
+
+        return allNews;
+    } catch {
+        return null;
+    }
+};

@@ -20,8 +20,8 @@ const Promocodes = ({ promocodes }: { promocodes: Promocode[] | null }) => {
 
     return (
         <Card className={'w-[70%]'}>
-            <CardHeader>
-                <CardTitle className={'flex gap-2'}>
+            <CardHeader className={'py-2'}>
+                <CardTitle className={'text-xl flex items-center gap-2'}>
                     <Gem />
                     Актуальные промокоды
                     <Gem />
@@ -30,7 +30,7 @@ const Promocodes = ({ promocodes }: { promocodes: Promocode[] | null }) => {
                     Для перехода к странице активации кликните на кнопку «Активировать»
                 </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className={'py-2'}>
                 <Carousel className={'w-[90%] ml-12'}>
                     <CarouselContent>
                         {promocodes.map((promocode) => (
