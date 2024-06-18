@@ -1,1550 +1,1327 @@
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <url>
-        <loc>https://retainer.cloud/</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>1.00</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/wish-simulator</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.80</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.80</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.80</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/register</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.80</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/login</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.80</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/furina</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/neuvillette</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/wriothesley</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/lynette</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/lyney</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/traveler-hydro</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/freminet</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/kirara</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/baizhu</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/kaveh</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/dehya</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/mika</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/alhaitham</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/yaoyao</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/faruzan</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/wanderer</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/layla</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/nahida</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/nilou</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/cyno</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/candace</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/collei</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/tighnari</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/traveler-dendro</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/dori</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/shikanoin-heizou</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/kuki-shinobu</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/yelan</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/kamisato-ayato</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/yae-miko</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/shenhe</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/yun-jin</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/arataki-itto</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/gorou</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/thoma</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/kujou-sara</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/sangonomiya-kokomi</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/aloy</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/raiden-shogun</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/kamisato-ayaka</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/traveler-electro</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/yoimiya</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/sayu</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/kaedehara-kazuha</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/eula</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/yanfei</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/rosaria</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/hu-tao</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/xiao</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/albedo</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/ganyu</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/tartaglia</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/diona</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/xinyan</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/zhongli</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/kaeya</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/keqing</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/klee</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/lisa</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/ningguang</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/razor</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/sucrose</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/amber</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/barbara</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/beidou</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/bennett</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/chongyun</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/diluc</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/traveler-anemo</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/traveler-geo</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/venti</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/xiangling</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/xingqiu</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/jean</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/mona</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/qiqi</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/noelle</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/characters/fischl</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/ballad-of-the-boundless-blue</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/tome-of-the-eternal-flow</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/cashflow-supervision</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/the-dockhands-assistant</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/prospectors-drill</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/portable-power-saw</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/range-gauge</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/tidal-shadow</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/ballad-of-the-fjords</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/the-first-great-magic</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/wolf-fang</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/scion-of-the-blazing-sun</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/song-of-stillness</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/flowing-purity</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/sacrificial-jade</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/rightful-reward</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/finale-of-the-deep</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/fleuve-cendre-ferryman</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/talking-stick</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/ibis-piercer</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/jadefalls-splendor</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/beacon-of-the-reed-sea</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/mailed-flower</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/light-of-foliar-incision</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/tulaytullahs-remembrance</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/toukabou-shigure</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/a-thousand-floating-dreams</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/key-of-khaj-nisut</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/makhaira-aquamarine</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/staff-of-the-scarlet-sands</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/xiphos-moonlight</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/wandering-evenstar</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/missive-windspear</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/end-of-the-line</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/hunters-path</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/fruit-of-fulfillment</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/moonpiercer</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/sapwood-blade</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/forest-regalia</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/kings-squire</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/kagotsurube-isshin</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/fading-twilight</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/aqua-simulacra</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/haran-geppaku-futsu</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/kaguras-verity</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/oathsworn-eye</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/calamity-queller</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/redhorn-stonethresher</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/cinnabar-spindle</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/polar-star</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/wavebreakers-fin</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/akuoumaru</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/mouuns-moon</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/the-catch</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/engulfing-lightning</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/everlasting-moonglow</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/luxurious-sea-lord</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/predator</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/mistsplitter-reforged</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/thundering-pulse</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/amenoma-kageuchi</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/hakushin-ring</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/kitain-cross-spear</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/katsuragikiri-nagamasa</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/hamayumi</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/dodoco-tales</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/freedom-sworn</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/mitternachts-waltz</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/song-of-broken-pines</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/wine-and-song</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/alley-hunter</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/windblume-ode</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/elegy-for-the-end</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/the-alley-flash</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/primordial-jade-cutter</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/staff-of-homa</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/lithic-spear</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/lithic-blade</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/dragonspine-spear</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/summit-shaper</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/festering-desire</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/frostbearer</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/snow-tombed-starsilver</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/memory-of-dust</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/vortex-vanquisher</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/the-unforged</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/royal-spear</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/skyward-blade</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/skyward-harp</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/skyward-atlas</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/skyward-pride</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/wolfs-gravestone</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/primordial-jade-winged-spear</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/skyward-spine</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/aquila-favonia</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/favonius-sword</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/lions-roar</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/sacrificial-sword</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/favonius-greatsword</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/rainslasher</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/sacrificial-greatsword</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/favonius-warbow</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/rust</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/sacrificial-bow</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/eye-of-perception</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/favonius-codex</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/sacrificial-fragments</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/dragons-bane</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/bloodtainted-greatsword</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/debate-club</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/whiteblind</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/messenger</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/blackcliff-slasher</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/raven-bow</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/blackcliff-longsword</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/blackcliff-warbow</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/blackcliff-pole</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/favonius-lance</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/compound-bow</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/sharpshooters-oath</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/the-stringless</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/slingshot</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/otherworldly-story</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/emerald-orb</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/crescent-pike</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/magic-guide</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/thrilling-tales-of-dragon-slayers</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/the-viridescent-hunt</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/deathmatch</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/halberd</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/black-tassel</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/fillet-blade</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/dark-iron-sword</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/cool-steel</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/lost-prayer-to-the-sacred-winds</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/amos-bow</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/harbinger-of-dawn</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/the-flute</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/the-black-sword</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/skyrider-sword</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/the-bell</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/blackcliff-agate</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/the-widsith</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/mappa-mare</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/prototype-amber</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/royal-grimoire</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/solar-pearl</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/prototype-starglitter</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/travelers-handy-sword</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/skyrider-greatsword</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/white-iron-greatsword</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/recurve-bow</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/iron-sting</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/prototype-rancour</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/royal-longsword</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/sword-of-descension</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/serpent-spine</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/royal-greatsword</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/prototype-archaic</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/royal-bow</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/prototype-crescent</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/twin-nephrite</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/white-tassel</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/pocket-grimoire</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/seasoned-hunters-bow</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/silver-sword</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/iron-point</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/old-mercs-pal</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/beginners-protector</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/apprentices-notes</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/hunters-bow</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/dull-blade</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/waster-greatsword</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://retainer.cloud/weapons/ferrous-shadow</loc>
-        <lastmod>2024-05-20T22:15:10+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.64</priority>
-    </url>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<url>
+  <loc>https://retainer.cloud</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/wish-simulator</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/achievements</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/events</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/register</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/login</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/news</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/news/1</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/arlecchino</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/furina</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/neuvillette</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/wriothesley</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/lynette</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/lyney</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/traveler-hydro</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/freminet</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/kirara</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/baizhu</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/kaveh</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/dehya</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/mika</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/alhaitham</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/yaoyao</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/faruzan</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/wanderer</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/layla</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/nahida</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/nilou</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/cyno</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/candace</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/collei</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/tighnari</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/traveler-dendro</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/dori</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/shikanoin-heizou</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/kuki-shinobu</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/yelan</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/kamisato-ayato</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/yae-miko</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/shenhe</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/yun-jin</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/arataki-itto</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/gorou</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/thoma</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/kujou-sara</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/sangonomiya-kokomi</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/aloy</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/raiden-shogun</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/kamisato-ayaka</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/traveler-electro</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/yoimiya</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/sayu</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/kaedehara-kazuha</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/eula</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/yanfei</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/rosaria</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/hu-tao</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/xiao</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/albedo</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/ganyu</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/tartaglia</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/diona</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/xinyan</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/zhongli</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/kaeya</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/keqing</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/klee</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/lisa</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/ningguang</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/razor</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/sucrose</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/amber</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/barbara</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/beidou</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/bennett</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/chongyun</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/diluc</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/traveler-anemo</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/traveler-geo</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/venti</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/xiangling</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/xingqiu</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/jean</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/mona</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/qiqi</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/noelle</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/characters/fischl</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/crimson-moons-semblance</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/ballad-of-the-boundless-blue</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/tome-of-the-eternal-flow</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/cashflow-supervision</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/the-dockhands-assistant</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/prospectors-drill</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/portable-power-saw</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/range-gauge</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/tidal-shadow</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/ballad-of-the-fjords</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/the-first-great-magic</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/wolf-fang</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/scion-of-the-blazing-sun</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/song-of-stillness</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/flowing-purity</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/sacrificial-jade</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/rightful-reward</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/finale-of-the-deep</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/fleuve-cendre-ferryman</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/talking-stick</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/ibis-piercer</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/jadefalls-splendor</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/beacon-of-the-reed-sea</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/mailed-flower</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/light-of-foliar-incision</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/tulaytullahs-remembrance</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/toukabou-shigure</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/a-thousand-floating-dreams</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/key-of-khaj-nisut</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/makhaira-aquamarine</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/staff-of-the-scarlet-sands</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/xiphos-moonlight</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/wandering-evenstar</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/missive-windspear</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/end-of-the-line</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/hunters-path</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/fruit-of-fulfillment</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/moonpiercer</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/sapwood-blade</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/forest-regalia</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/kings-squire</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/kagotsurube-isshin</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/fading-twilight</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/aqua-simulacra</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/haran-geppaku-futsu</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/kaguras-verity</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/oathsworn-eye</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/calamity-queller</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/redhorn-stonethresher</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/cinnabar-spindle</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/polar-star</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/wavebreakers-fin</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/akuoumaru</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/mouuns-moon</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/the-catch</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/engulfing-lightning</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/everlasting-moonglow</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/luxurious-sea-lord</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/predator</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/mistsplitter-reforged</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/thundering-pulse</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/amenoma-kageuchi</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/hakushin-ring</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/kitain-cross-spear</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/katsuragikiri-nagamasa</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/hamayumi</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/dodoco-tales</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/freedom-sworn</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/mitternachts-waltz</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/song-of-broken-pines</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/wine-and-song</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/alley-hunter</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/windblume-ode</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/elegy-for-the-end</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/the-alley-flash</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/primordial-jade-cutter</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/staff-of-homa</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/lithic-spear</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/lithic-blade</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/dragonspine-spear</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/summit-shaper</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/festering-desire</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/frostbearer</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/snow-tombed-starsilver</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/memory-of-dust</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/vortex-vanquisher</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/the-unforged</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/royal-spear</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/skyward-blade</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/skyward-harp</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/skyward-atlas</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/skyward-pride</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/wolfs-gravestone</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/primordial-jade-winged-spear</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/skyward-spine</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/aquila-favonia</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/favonius-sword</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/lions-roar</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/sacrificial-sword</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/favonius-greatsword</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/rainslasher</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/sacrificial-greatsword</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/favonius-warbow</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/rust</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/sacrificial-bow</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/eye-of-perception</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/favonius-codex</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/sacrificial-fragments</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/dragons-bane</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/bloodtainted-greatsword</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/debate-club</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/whiteblind</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/messenger</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/blackcliff-slasher</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/raven-bow</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/blackcliff-longsword</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/blackcliff-warbow</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/blackcliff-pole</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/favonius-lance</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/compound-bow</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/sharpshooters-oath</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/the-stringless</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/slingshot</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/otherworldly-story</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/emerald-orb</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/crescent-pike</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/magic-guide</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/thrilling-tales-of-dragon-slayers</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/the-viridescent-hunt</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/deathmatch</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/halberd</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/black-tassel</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/fillet-blade</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/dark-iron-sword</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/cool-steel</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/lost-prayer-to-the-sacred-winds</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/amos-bow</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/harbinger-of-dawn</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/the-flute</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/the-black-sword</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/skyrider-sword</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/the-bell</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/blackcliff-agate</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/the-widsith</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/mappa-mare</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/prototype-amber</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/royal-grimoire</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/solar-pearl</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/prototype-starglitter</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/travelers-handy-sword</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/skyrider-greatsword</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/white-iron-greatsword</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/recurve-bow</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/iron-sting</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/prototype-rancour</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/royal-longsword</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/sword-of-descension</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/serpent-spine</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/royal-greatsword</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/prototype-archaic</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/royal-bow</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/prototype-crescent</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/twin-nephrite</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/white-tassel</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/pocket-grimoire</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/seasoned-hunters-bow</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/silver-sword</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/iron-point</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/old-mercs-pal</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/beginners-protector</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/apprentices-notes</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/hunters-bow</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/dull-blade</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/waster-greatsword</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://retainer.cloud/weapons/ferrous-shadow</loc>
+  <lastmod>2024-06-18T00:03:28+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
 </urlset>

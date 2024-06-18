@@ -20,7 +20,13 @@ const CustomFileInput = ({ onFileSelect, initialImage }: CustomFileInputProps) =
 
     return (
         <div>
-            <input type="file" ref={fileInputRef} className={'hidden'} onChange={handleFileChange} />
+            <input
+                type="file"
+                ref={fileInputRef}
+                className={'hidden'}
+                accept={'image/*'}
+                onChange={handleFileChange}
+            />
             <button
                 onClick={() => fileInputRef.current?.click()}
                 className="size-28 rounded-full bg-gray-300 flex items-center justify-center text-white text-2xl relative overflow-hidden"
