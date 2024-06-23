@@ -5,8 +5,10 @@ import GuaranteeStatus from '@/components/wish-simulator/history/guarantee-statu
 import { initialBannerStats } from '@/lib/constants';
 import { BaseBannerStatsWithGuaranteed, WishHistoryTypes } from '@/lib/types';
 import { Trash2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
+    const t = useTranslations();
     const [stats, setStats] = useState<BaseBannerStatsWithGuaranteed | null>(null);
     const [page, setPage] = useState<number>(1);
 
@@ -111,58 +113,38 @@ const HistoryTable = ({ type }: { type: WishHistoryTypes }) => {
                 >
                     <thead>
                         <tr className={'border-2 border-[#dac69f] text-[#595252] bg-[#ede1ca]'}>
-                            <th className={'w-1/5 border-2 border-[#dac69f] font-normal p-3'}>
-                                Тип
-                            </th>
-                            <th className={'w-[30%] border-2 border-[#dac69f] font-normal p-3'}>
-                                Имя
-                            </th>
-                            <th className={'w-1/4 border-2 border-[#dac69f] font-normal p-3'}>
-                                Тип Молитвы
-                            </th>
+                            <th className={'w-1/5 border-2 border-[#dac69f] font-normal p-3'}>Тип</th>
+                            <th className={'w-[30%] border-2 border-[#dac69f] font-normal p-3'}>Имя</th>
+                            <th className={'w-1/4 border-2 border-[#dac69f] font-normal p-3'}>Тип Молитвы</th>
                             <th className={'w-1/4 border-2 border-[#dac69f] font-normal p-3'}>
                                 Время молитвы
                             </th>
                         </tr>
                     </thead>
-                    <tbody
-                        className={
-                            'border-2 border-[#dac69f] text-[#9a8e8e] bg-[#f6f1e7] text-center'
-                        }
-                    >
-                        {stats.history
-                            .slice((page - 1) * 5, (page - 1) * 5 + 5)
-                            .map((wish, index) => (
-                                <tr key={index}>
-                                    <td className={'border-2 border-[#dac69f] p-1 xs:p-4'}>
-                                        {wish.type}
-                                    </td>
-                                    <td
-                                        className={`border-2 border-[#dac69f] p-1 xs:p-4 ${
-                                            wish.item.rare === '5'
-                                                ? 'text-[#bd6932]'
-                                                : wish.item.rare === '4' && 'text-[#9659c7]'
-                                        }`}
-                                    >
-                                        {wish.item.name}
-                                        {Number(wish.item.rare) > 3 && ` (${wish.item.rare}★)`}
-                                    </td>
-                                    <td className={'border-2 border-[#dac69f] p-1 xs:p-4'}>
-                                        {wish.wishType}
-                                    </td>
-                                    <td className={'border-2 border-[#dac69f] p-1 xs:p-4'}>
-                                        {wish.date}
-                                    </td>
-                                </tr>
-                            ))}
+                    <tbody className={'border-2 border-[#dac69f] text-[#9a8e8e] bg-[#f6f1e7] text-center'}>
+                        {stats.history.slice((page - 1) * 5, (page - 1) * 5 + 5).map((wish, index) => (
+                            <tr key={index}>
+                                <td className={'border-2 border-[#dac69f] p-1 xs:p-4'}>{wish.type}</td>
+                                <td
+                                    className={`border-2 border-[#dac69f] p-1 xs:p-4 ${
+                                        wish.item.rare === '5'
+                                            ? 'text-[#bd6932]'
+                                            : wish.item.rare === '4' && 'text-[#9659c7]'
+                                    }`}
+                                >
+                                    {wish.type === 'Персонаж'
+                                        ? t(`characters.${wish.item.name}.name`)
+                                        : t(`weapons.${wish.item.name}.title`)}
+                                    {Number(wish.item.rare) > 3 && ` (${wish.item.rare}★)`}
+                                </td>
+                                <td className={'border-2 border-[#dac69f] p-1 xs:p-4'}>{wish.wishType}</td>
+                                <td className={'border-2 border-[#dac69f] p-1 xs:p-4'}>{wish.date}</td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
-            <TablePagination
-                wishCount={stats.history.length}
-                currentPage={page}
-                setPage={setPage}
-            />
+            <TablePagination wishCount={stats.history.length} currentPage={page} setPage={setPage} />
         </>
     );
 };

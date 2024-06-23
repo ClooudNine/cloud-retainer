@@ -1,23 +1,20 @@
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import Image from 'next/image';
 import { New } from '@/lib/types';
-import { useTranslations } from 'next-intl';
 
 const NewsButton = ({ siteNew }: { siteNew: New }) => {
-    const t = useTranslations();
-
     return (
         <Dialog>
             <DialogTrigger asChild>
                 <div className={'size-40 bg-gray-300 rounded-lg flex flex-col items-center text-center'}>
                     <Image
                         src={`common/news/${siteNew.id}.webp`}
-                        alt={t(`main.news.${siteNew.id}.title`)}
+                        alt={siteNew.title}
                         width={100}
                         height={100}
                         className={'h-[80%] object-contain'}
                     />
-                    {t(`main.news.${siteNew.id}.title`)}
+                    {siteNew.title}
                 </div>
             </DialogTrigger>
         </Dialog>

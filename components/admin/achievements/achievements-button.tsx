@@ -1,10 +1,7 @@
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { Achievement } from '@/lib/types';
-import { useTranslations } from 'next-intl';
 
 const AchievementsButton = ({ achievement }: { achievement: Achievement }) => {
-    const t = useTranslations();
-
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -12,7 +9,7 @@ const AchievementsButton = ({ achievement }: { achievement: Achievement }) => {
                     key={achievement.title}
                     className={'size-40 bg-gray-300 rounded-lg flex flex-col items-center text-center'}
                 >
-                    {t(`achievements.${achievement.id}.title`)}
+                    {achievement.title}
                 </div>
             </DialogTrigger>
         </Dialog>

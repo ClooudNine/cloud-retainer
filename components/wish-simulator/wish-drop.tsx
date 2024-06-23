@@ -7,8 +7,9 @@ import { useAudioContext } from '@/components/wish-simulator/audio-provider';
 import clsx from 'clsx';
 import CloseButton from '@/components/wish-simulator/close-button';
 import { BannerItems, Character, Weapon } from '@/lib/types';
+import { useTranslations } from 'next-intl';
 
-const renderWeaponResult = (weapon: Weapon) => {
+const renderWeaponResult = (weapon: Weapon, t: any) => {
     const masterlessCurrencyClasses = clsx(
         'absolute flex items-end gap-8 w-[90%] h-[7%] bottom-[5%] right-[2%] xs:right-0.5 xs:bottom-[35%] xs:w-[22%]',
         {
@@ -48,7 +49,7 @@ const renderWeaponResult = (weapon: Weapon) => {
                             'text-white text-5xl/tight animate-item-title-appearance xs:text-4xl/tight'
                         }
                     >
-                        {weapon.title}
+                        {t(`weapons.${weapon.title}.title`)}
                     </p>
                     <div className={'flex gap-1 mt-1'}>
                         {Array.from(Array(Number(weapon.rare)).keys()).map((number) => (
@@ -114,7 +115,7 @@ const renderWeaponResult = (weapon: Weapon) => {
     );
 };
 
-const renderCharacterResult = (character: Character) => {
+const renderCharacterResult = (character: Character, t: any) => {
     return (
         <>
             <div
@@ -136,7 +137,7 @@ const renderCharacterResult = (character: Character) => {
                             'text-white text-5xl/tight animate-item-title-appearance xs:text-4xl/tight'
                         }
                     >
-                        {character.name}
+                        {t(`characters.${character.name}.name`)}
                     </p>
                     <div className={'flex gap-1 mt-1'}>
                         {Array.from(Array(Number(character.rare)).keys()).map((number) => (
@@ -169,6 +170,7 @@ const renderCharacterResult = (character: Character) => {
 };
 
 const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
+    const t = useTranslations();
     const { audio } = useAudioContext();
     const { setDroppedItems } = useBannerContext();
 
@@ -359,8 +361,8 @@ const WishDrop = ({ droppedItems }: { droppedItems: BannerItems }) => {
                         autoPlay
                     />
                     {'type' in droppedItems[currentItemIndex]
-                        ? renderWeaponResult(droppedItems[currentItemIndex] as Weapon)
-                        : renderCharacterResult(droppedItems[currentItemIndex] as Character)}
+                        ? renderWeaponResult(droppedItems[currentItemIndex] as Weapon, t)
+                        : renderCharacterResult(droppedItems[currentItemIndex] as Character, t)}
                 </div>
             )}
         </section>

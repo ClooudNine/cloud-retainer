@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { BannerTypes, Character, Weapon } from '@/lib/types';
+import { useTranslations } from 'next-intl';
 
 const ItemCell = ({
     item,
@@ -10,18 +11,15 @@ const ItemCell = ({
     mainItems?: Character[] | Weapon[];
     bannerType: BannerTypes;
 }) => {
+    const t = useTranslations();
+
     return (
         <>
-            <td className={'border border-[#dac69f] p-4'}>
-                {'name' in item ? 'Персонаж' : 'Оружие'}
-            </td>
+            <td className={'border border-[#dac69f] p-4'}>{'name' in item ? 'Персонаж' : 'Оружие'}</td>
             <td className={'relative border border-[#dac69f] p-4'}>
-                {'name' in item ? item.name : item.title}
+                {'name' in item ? t(`characters.${item.name}.name`) : t(`weapons.${item.title}.title`)}
                 {mainItems?.some((mainItem) => {
-                    const isTypeCheck =
-                        bannerType !== 'Weapon Event Wish'
-                            ? 'name' in item
-                            : 'type' in item;
+                    const isTypeCheck = bannerType !== 'Weapon Event Wish' ? 'name' in item : 'type' in item;
                     return item.id === mainItem.id && isTypeCheck;
                 }) && (
                     <Image
