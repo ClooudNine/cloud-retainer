@@ -435,7 +435,7 @@ export const bossesRelations = relations(bosses, ({ many, one }) => ({
 export const materials = pgTable('materials', {
     id: serial('id').primaryKey(),
     name: text('name').notNull().default(''),
-    type: materialsTypesEnum('type'),
+    type: materialsTypesEnum('type').notNull(),
 });
 
 export const materialsRelations = relations(materials, ({ many }) => ({

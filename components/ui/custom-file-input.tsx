@@ -28,12 +28,13 @@ const CustomFileInput = ({ onFileSelect, initialImage }: CustomFileInputProps) =
                 onChange={handleFileChange}
             />
             <button
+                type={'button'}
                 onClick={() => fileInputRef.current?.click()}
                 className="size-28 rounded-full bg-gray-300 flex items-center justify-center text-white text-2xl relative overflow-hidden"
             >
                 {imageSrc ? (
                     <Image
-                        loader={() => imageSrc}
+                        loader={imageSrc.startsWith('https') ? () => imageSrc : undefined}
                         src={imageSrc}
                         alt={'Текущее изображение'}
                         width={100}

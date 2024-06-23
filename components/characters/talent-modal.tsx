@@ -15,6 +15,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { elementToColor } from '@/lib/constants';
 import { CSSProperties } from 'react';
+import { useTranslations } from 'next-intl';
 
 const TalentModal = ({
     talent,
@@ -27,6 +28,8 @@ const TalentModal = ({
     weaponType: WeaponType;
     characterName: string;
 }) => {
+    const t = useTranslations();
+
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -37,7 +40,7 @@ const TalentModal = ({
                 >
                     <Image
                         src={`characters/talents/${talent.type === 'Normal Attack' ? weaponType + ' ' + element : talent.title}.webp`}
-                        alt={talent.title}
+                        alt={t(`characters.${characterName}.talents.${talent.title}.title`)}
                         width={128}
                         height={128}
                         className={
@@ -45,8 +48,8 @@ const TalentModal = ({
                         }
                     />
                     <div className={'text-center max-xl:text-2xl'}>
-                        <p>{talent.title}</p>
-                        <p className={'text-muted-foreground'}>{talent.type}</p>
+                        <p>{t(`characters.${characterName}.talents.${talent.title}.title`)}</p>
+                        <p className={'text-muted-foreground'}>{t(`talent-types.${talent.type}`)}</p>
                     </div>
                     <ArrowRightCircle className={'size-16 group-hover:stroke-white xl:size-8'} />
                 </Card>
@@ -54,17 +57,17 @@ const TalentModal = ({
             <DialogContent className={'max-w-3xl xs:max-xl:max-w-[75%]'}>
                 <DialogHeader>
                     <DialogTitle className={'max-xl:text-3xl'}>
-                        {talent.title}
+                        {t(`characters.${characterName}.talents.${talent.title}.title`)}
                         <Image
                             src={`characters/talents/${talent.type === 'Normal Attack' ? weaponType + ' ' + element : talent.title}.webp`}
-                            alt={talent.title}
+                            alt={t(`characters.${characterName}.talents.${talent.title}.title`)}
                             width={80}
                             height={80}
                             className={'size-16 absolute top-2 right-12'}
                         />
                     </DialogTitle>
                     <DialogDescription className={'max-xl:text-xl'}>
-                        {characterName} - {talent.type}
+                        {t(`characters.${characterName}.name`)} - {t(`talent-types.${talent.type}`)}
                     </DialogDescription>
                 </DialogHeader>
                 <div
@@ -73,12 +76,14 @@ const TalentModal = ({
                             '--element-color': elementToColor[element],
                         } as CSSProperties
                     }
-                    dangerouslySetInnerHTML={{ __html: talent.description }}
+                    dangerouslySetInnerHTML={{
+                        __html: t.raw(`characters.${characterName}.talents.${talent.title}.description`),
+                    }}
                     className={'max-xl:text-xl [&_em]:not-italic [&_em]:text-[rgb(var(--element-color))]'}
                 ></div>
                 <DialogFooter>
                     <DialogClose asChild>
-                        <Button className={'max-xs:text-2xl max-xs:h-12'}>Назад</Button>
+                        <Button className={'max-xs:text-2xl max-xs:h-12'}>{t('main.back')}</Button>
                     </DialogClose>
                 </DialogFooter>
             </DialogContent>

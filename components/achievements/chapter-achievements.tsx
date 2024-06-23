@@ -7,8 +7,10 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { useAchievementsContext } from '@/components/achievements/achievements-provider';
 import { Switch } from '@/components/ui/switch';
 import AchievementGroup from '@/components/achievements/achievement-group';
+import { useTranslations } from 'next-intl';
 
 const ChapterAchievements = () => {
+    const t = useTranslations();
     const { activeChapter, completed } = useAchievementsContext();
     const [searchAchievement, setSearchAchievement] = useState('');
     const [showCompleted, setShowCompleted] = useState(false);
@@ -23,7 +25,7 @@ const ChapterAchievements = () => {
         return groupedAchievements
             .filter((group) =>
                 group.some((achievement) => {
-                    const matchesSearch = achievement.title
+                    const matchesSearch = t(`achievements.${achievement.id}.title`)
                         .toLowerCase()
                         .includes(searchAchievement.toLowerCase());
                     const matchesCompleted = showCompleted
@@ -38,7 +40,7 @@ const ChapterAchievements = () => {
                     Number(groupA.every((a) => completed.some((c) => c.achievement.id === a.id))) -
                     Number(groupB.every((a) => completed.some((c) => c.achievement.id === a.id)))
             );
-    }, [groupedAchievements, searchAchievement, showCompleted, completed, showHidden]);
+    }, [groupedAchievements, t, searchAchievement, showCompleted, completed, showHidden]);
 
     return (
         <section
@@ -48,7 +50,7 @@ const ChapterAchievements = () => {
         >
             <h2 className={'flex items-center justify-center gap-3 text-3xl xs:text-2xl'}>
                 <Star className={'h-full w-auto'} />
-                {activeChapter.title}
+                {t(`achievements-chapter.${activeChapter.title}`)}
                 <Star className={'h-full w-auto'} />
             </h2>
             <div className={'flex items-center gap-4 max-xs:flex-col xs:gap-2'}>
@@ -56,7 +58,7 @@ const ChapterAchievements = () => {
                     <Search className={'h-full w-auto'} />
                     <Input
                         type={'text'}
-                        placeholder={'Введите название достижения'}
+                        placeholder={t('main.search-achievements')}
                         className={'border-gray-500 text-center max-xs:h-14 max-xs:text-2xl'}
                         value={searchAchievement}
                         onChange={(e) => setSearchAchievement(e.target.value)}
@@ -69,7 +71,7 @@ const ChapterAchievements = () => {
                             checked={showCompleted}
                             onCheckedChange={() => setShowCompleted((prev) => !prev)}
                         />
-                        Выполненные
+                        {t('main.completed')}
                     </label>
                     <label className="flex items-center gap-3">
                         <Switch
@@ -77,7 +79,7 @@ const ChapterAchievements = () => {
                             checked={showHidden}
                             onCheckedChange={() => setShowHidden((prev) => !prev)}
                         />
-                        Скрытые
+                        {t('main.hidden')}
                     </label>
                 </div>
             </div>

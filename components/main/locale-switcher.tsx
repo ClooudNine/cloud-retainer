@@ -13,7 +13,7 @@ const LocaleSwitcher = () => {
         <Popover>
             <PopoverTrigger asChild>
                 <Button className={'top-8 left-6 max-xs:h-min gap-2 max-xs:rounded-xl max-xs:fixed'}>
-                    <span className={'max-xs:hidden'}>{t('currentLanguage')}:</span>{' '}
+                    <span className={'max-xs:hidden'}>{t('current-language')}:</span>{' '}
                     <span className={'text-5xl xs:text-3xl'}>{locale === 'ru' ? '🇷🇺' : '🇬🇧'}</span>
                 </Button>
             </PopoverTrigger>

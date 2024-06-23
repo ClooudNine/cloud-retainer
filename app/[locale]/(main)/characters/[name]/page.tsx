@@ -21,7 +21,6 @@ import { getCharacterBySlug } from '@/data/character';
 import { getCharacterAsset } from '@/lib/character';
 import { Link } from '@/navigation';
 import { buttonVariants } from '@/components/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 import RarityStars from '@/components/main/rarity-stars';
 import CharacteristicCard from '@/components/characters/characteristic-card';
@@ -32,22 +31,24 @@ import ConstellationModal from '@/components/characters/constellation-modal';
 import { elementToColor } from '@/lib/constants';
 import { CSSProperties, Fragment } from 'react';
 import ArtifactCard from '@/components/characters/artifact-card';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 
-export async function generateMetadata({ params }: { params: { name: string } }): Promise<Metadata> {
-    const character = await getCharacterBySlug(params.name);
+export async function generateMetadata({
+    params: { locale, name },
+}: {
+    params: { locale: string; name: string };
+}): Promise<Metadata> {
+    const t = await getTranslations({ locale });
+    const character = await getCharacterBySlug(name);
 
-    if (!character) {
-        return {
-            title: `Cloud Retainer | Персонажи - Персонаж не найден!`,
-            description: `Персонаж не найден! Проверьте правильность написания запроса.`,
-        };
-    }
+    const title = character
+        ? t('metadata.character-page.title', { name: t(`characters.${character.name}.name`) })
+        : t('metadata.character-page.error-title');
+    const description = character
+        ? t('metadata.character-page.description', { name: t(`characters.${character.name}.name`) })
+        : t('metadata.character-page.error-description');
 
-    return {
-        title: `Cloud Retainer | Персонажи - ${character.name}`,
-        description: `Персонаж ${character.name}. Основная информация, характеристики, таланты, созвездия, сборка.`,
-    };
+    return { title, description };
 }
 
 export default async function CharacterPage({
@@ -57,13 +58,14 @@ export default async function CharacterPage({
 }) {
     unstable_setRequestLocale(locale);
 
+    const t = await getTranslations();
     const character = await getCharacterBySlug(name);
 
     if (!character) {
         return (
             <section className={'space-y-4 text-center m-auto'}>
                 <Frown className={'mx-auto size-44 xs:size-28'} />
-                <h1 className={'text-5xl xs:text-3xl'}>Персонаж не найден!</h1>
+                <h1 className={'text-5xl xs:text-3xl'}>{t('main.character-not-found')}</h1>
                 <Link
                     className={cn(
                         buttonVariants({
@@ -74,55 +76,55 @@ export default async function CharacterPage({
                     )}
                     href={'/characters'}
                 >
-                    Назад к списку персонажей
+                    {t('main.back-to-characters-list')}
                 </Link>
             </section>
         );
     }
 
     const tabs = {
-        main: 'Основная информация',
-        talents: 'Таланты',
-        constellations: 'Созвездия',
-        build: 'Сборка',
+        main: t('main.main-information'),
+        talents: t('main.talents'),
+        constellations: t('main.constellations'),
+        build: t('main.build'),
     };
 
     const characteristicData = [
         {
-            title: 'Тип оружия',
+            title: t('main.weapon-type'),
             icon: (
                 <Image
                     src={`weapons/icons/${character.weaponType}.webp`}
-                    alt={character.weaponType}
+                    alt={t(`weapon-types.${character.weaponType}`)}
                     width={80}
                     height={80}
                     className={'size-20 mx-auto xl:size-12'}
                 />
             ),
-            stat: character.weaponType,
+            stat: t(`weapon-types.${character.weaponType}`),
             className: '',
         },
         {
-            title: 'Базовая атака',
+            title: t('main.base-attack'),
             icon: <Swords className={'size-20 mx-auto xl:size-12'} />,
             stat: character.baseAttack,
             className: '',
         },
         {
-            title: 'Базовое HP',
+            title: t('main.base-hp'),
             stat: character.baseHp,
             icon: <Cross className={'size-20 mx-auto xl:size-12'} />,
             className: '',
         },
         {
-            title: 'Версия выхода',
+            title: t('main.appearance-version'),
             icon: character.appearanceVersion.version,
             stat: character.appearanceVersion.date.toLocaleDateString(),
             className: 'p-4 size-fit mx-auto border-2 border-black rounded-xl xl:p-2 xl:border-4',
         },
         {
-            title: 'Стандарт?',
-            icon: character.inStandardWish ? 'Да' : 'Нет',
+            title: t('main.standard'),
+            icon: character.inStandardWish ? t('main.yes') : t('main.no'),
             stat: character.inStandardWish ? (
                 <Check className={'size-12 xl:size-6'} />
             ) : (
@@ -134,12 +136,12 @@ export default async function CharacterPage({
 
     const materialData = [
         {
-            name: character.boss.name,
+            name: t(`bosses.${character.boss.name.replace('.', '')}`),
             icon: (
                 <div className={'flex justify-center items-center gap-2'}>
                     <Image
                         src={`common/bosses/profiles/${character.boss.name}.webp`}
-                        alt={character.boss.name}
+                        alt={t(`bosses.${character.boss.name.replace('.', '')}`)}
                         width={90}
                         height={90}
                         className={'size-28 rounded-full xl:size-16'}
@@ -147,7 +149,7 @@ export default async function CharacterPage({
                     <ArrowRight className={'size-16 xl:size-8'} />
                     <Image
                         src={`common/bosses/drop/${character.boss.drop.name}.webp`}
-                        alt={character.boss.drop.name}
+                        alt={t(`materials.${character.boss.drop.name}`)}
                         width={90}
                         height={90}
                         className={'size-28 xl:size-16'}
@@ -156,38 +158,38 @@ export default async function CharacterPage({
             ),
         },
         {
-            name: character.talentMaterial.name,
+            name: t(`materials.${character.talentMaterial.name}`),
             icon: (
                 <Image
                     src={`common/materials/books/${character.talentMaterial.name}.webp`}
-                    alt={character.talentMaterial.name}
+                    alt={t(`materials.${character.talentMaterial.name}`)}
                     width={90}
                     height={90}
-                    className={'size-32 xl:size-16'}
+                    className={'size-32 mx-auto xl:size-16'}
                 />
             ),
         },
         {
-            name: character.localSpecialty.name,
+            name: t(`materials.${character.localSpecialty.name}`),
             icon: (
                 <Image
                     src={`common/materials/local-specialities/${character.localSpecialty.name}.webp`}
-                    alt={character.localSpecialty.name}
+                    alt={t(`materials.${character.localSpecialty.name}`)}
                     width={90}
                     height={90}
-                    className={'size-32 xl:size-16'}
+                    className={'size-32 mx-auto xl:size-16'}
                 />
             ),
         },
         {
-            name: character.enhancementMaterial.name,
+            name: t(`materials.${character.enhancementMaterial.name}`),
             icon: (
                 <Image
                     src={`common/materials/enhancement-materials/${character.enhancementMaterial.name}.webp`}
-                    alt={character.enhancementMaterial.name}
+                    alt={t(`materials.${character.enhancementMaterial.name}`)}
                     width={90}
                     height={90}
-                    className={'size-32 xl:size-16'}
+                    className={'size-32 mx-auto xl:size-16'}
                 />
             ),
         },
@@ -201,27 +203,29 @@ export default async function CharacterPage({
                 } as CSSProperties
             }
             className={
-                'overflow-x-hidden flex flex-col gap-2 px-4 pt-8 max-xs:h-3/4 xs:pt-4 max-xl:items-center xl:overflow-hidden xl:flex-1'
+                'overflow-y-auto event-scrollbar flex flex-col gap-2 px-4 pt-8 max-xs:h-3/4 xs:pt-4 max-xl:items-center xl:flex-1'
             }
         >
             <div className={'flex gap-4 text-5xl xs:text-3xl'}>
                 <BackButton className={'h-1/2'} />
                 <Image
                     src={`common/elements/${character.element}.svg`}
-                    alt={character.element}
+                    alt={t(`elements.${character.element}`)}
                     width={75}
                     height={75}
                     className={'-mr-4 -mt-4 saturate-200 size-20'}
                 />
                 <div>
-                    <h1>{character.name}</h1>
-                    <h2 className={'text-gray-400 text-xl xs:text-lg'}>{character.title}</h2>
+                    <h1>{t(`characters.${character.name}.name`)}</h1>
+                    <h2 className={'text-gray-400 text-xl xs:text-lg'}>
+                        {t(`characters.${character.name}.title`)}
+                    </h2>
                     <RarityStars rare={character.rare} />
                 </div>
             </div>
             <Image
                 src={`characters/splash-arts/${getCharacterAsset(character.name)}.webp`}
-                alt={character.name}
+                alt={t(`characters.${character.name}.name`)}
                 width={2048}
                 height={1024}
                 className={
@@ -242,19 +246,13 @@ export default async function CharacterPage({
                 </TabsList>
                 <TabsContent value={'main'} className={'h-[calc(100%-2.25rem-(0.375rem*4))] space-y-1.5'}>
                     <InformationCard
-                        cardClasses={'xl:h-[30%]'}
-                        title={'Описание'}
+                        title={t('main.description')}
                         icon={<ScrollText className={'h-full w-auto'} />}
-                        contentClasses={'h-3/4'}
-                        content={
-                            <ScrollArea className={'h-full text-center italic max-xl:text-2xl'}>
-                                {character.description}
-                            </ScrollArea>
-                        }
+                        contentClasses={'text-center italic max-xl:text-2xl'}
+                        content={t(`characters.${character.name}.description`)}
                     />
                     <InformationCard
-                        cardClasses={'xl:h-2/5'}
-                        title={'Характеристики'}
+                        title={t('main.characteristics')}
                         icon={<Zap className={'h-full w-auto'} />}
                         contentClasses={'flex flex-wrap gap-2 max-xl:text-2xl'}
                         content={characteristicData.map((characteristic) => (
@@ -266,15 +264,19 @@ export default async function CharacterPage({
                                 className={characteristic.className}
                             />
                         ))}
-                        footerContent={'Характеристики указаны для персонажа с 90-ым уровнем'}
+                        footerContent={t('main.characteristics-warning')}
                     />
                     <InformationCard
-                        cardClasses={'xl:h-[30%]'}
-                        title={'Материалы'}
+                        title={t('main.materials')}
                         icon={<Leaf className={'h-full w-auto'} />}
-                        contentClasses={'flex flex-wrap justify-between gap-2 max-xl:text-2xl'}
+                        contentClasses={'flex flex-wrap truncate justify-between gap-2 max-xl:text-2xl'}
                         content={materialData.map((material) => (
-                            <MaterialCard key={material.name} title={material.name} icon={material.icon} />
+                            <MaterialCard
+                                key={material.name}
+                                title={material.name}
+                                icon={material.icon}
+                                width={'w-[calc(50%-0.5rem)]'}
+                            />
                         ))}
                     />
                 </TabsContent>
@@ -284,8 +286,7 @@ export default async function CharacterPage({
                             'flex items-center justify-center text-center gap-2 bg-card shadow rounded-lg text-destructive py-2 max-xl:flex-col max-xl:text-2xl'
                         }
                     >
-                        <Info className={'h-full w-auto'} /> Для получения подробной информации нажмите на
-                        талант
+                        <Info className={'h-full w-auto'} /> {t('main.talent-more-info')}
                     </h3>
                     {character.talents.map((talent) => (
                         <TalentModal
@@ -307,6 +308,7 @@ export default async function CharacterPage({
                                         key={constellation.title}
                                         constellation={constellation}
                                         element={character.element}
+                                        characterName={character.name}
                                     />
                                 ))}
                         </div>
@@ -317,7 +319,7 @@ export default async function CharacterPage({
                         >
                             <Image
                                 src={`characters/constellations/${character.constellation}.webp`}
-                                alt={character.constellation}
+                                alt={t(`characters.${character.name}.constellation`)}
                                 width={512}
                                 height={512}
                                 className={'w-1/2 drop-shadow-[0_1px_1px_#000000] saturate-200 xl:w-full'}
@@ -327,8 +329,8 @@ export default async function CharacterPage({
                                     'flex items-center justify-center text-center gap-2 max-xl:text-2xl'
                                 }
                             >
-                                <Sparkle className={'size-12 xl:size-6'} /> Созвездие:{' '}
-                                {character.constellation}
+                                <Sparkle className={'size-12 xl:size-6'} /> {t('main.constellation')}:{' '}
+                                {t(`characters.${character.name}.constellation`)}
                                 <Sparkle className={'size-12 xl:size-6'} />
                             </h3>
                         </div>
@@ -336,10 +338,9 @@ export default async function CharacterPage({
                 </TabsContent>
                 <TabsContent value={'build'} className={'h-[calc(100%-3.75rem)] space-y-1.5'}>
                     <InformationCard
-                        cardClasses={'xl:h-[34%]'}
-                        title={'Топ оружия'}
+                        title={t('main.weapons-top')}
                         icon={<Swords className={'h-full w-auto'} />}
-                        contentClasses={'h-[calc(100%-2.5rem)] flex flex-wrap gap-2'}
+                        contentClasses={'flex flex-wrap gap-2'}
                         content={character.weapons
                             .sort((w1, w2) => w1.rating - w2.rating)
                             .map((ratingWeapon) => {
@@ -349,7 +350,7 @@ export default async function CharacterPage({
                                         key={weapon.title}
                                         href={`/weapons/${weapon.slug}`}
                                         className={
-                                            'max-xl:w-[32%] xl:flex-1 max-xl:h-48 rounded-2xl bg-gray-300 overflow-hidden transition duration-500 hover:-translate-y-1.5'
+                                            'max-xl:w-[32%] xl:flex-1 h-36 rounded-2xl bg-gray-300 overflow-hidden transition duration-500 hover:-translate-y-1.5'
                                         }
                                     >
                                         <div className={'relative w-full h-3/4'}>
@@ -368,7 +369,7 @@ export default async function CharacterPage({
                                             />
                                             <Image
                                                 src={`weapons/portraits/${weapon.title}.webp`}
-                                                alt={weapon.title}
+                                                alt={t(`weapons.${weapon.title}.title`)}
                                                 fill
                                                 className={'object-contain'}
                                             />
@@ -378,17 +379,16 @@ export default async function CharacterPage({
                                                 'h-1/4 flex justify-center items-center text-center text-xl xl:text-sm'
                                             }
                                         >
-                                            {weapon.title}
+                                            {t(`weapons.${weapon.title}.title`)}
                                         </p>
                                     </Link>
                                 );
                             })}
                     />
                     <InformationCard
-                        cardClasses={'xl:h-[35%]'}
-                        title={'Топ артефактов'}
+                        title={t('main.artifacts-top')}
                         icon={<Crown className={'h-full w-auto'} />}
-                        contentClasses={'h-[calc(100%-4.5rem)] flex gap-2'}
+                        contentClasses={'flex gap-2'}
                         content={character.artifacts
                             .sort((a1, a2) => a1.rating - a2.rating)
                             .map((ratingArtifact) => (
@@ -403,11 +403,10 @@ export default async function CharacterPage({
                                     rating={ratingArtifact.rating}
                                 />
                             ))}
-                        footerContent={'Для получения дополнительной информации наведите курсор на набор'}
+                        footerContent={t('main.artifact-warning')}
                     />
                     <InformationCard
-                        cardClasses={'xl:h-1/4'}
-                        title={'Порядок прокачки талантов'}
+                        title={t('main.talent-order')}
                         icon={<ChevronsUp className={'h-full w-auto'} />}
                         contentClasses={'flex justify-around items-center'}
                         content={character.talents
@@ -426,12 +425,14 @@ export default async function CharacterPage({
                                         <Image
                                             key={talent.title}
                                             src={`characters/talents/${talent.type === 'Normal Attack' ? character.weaponType + ' ' + character.element : talent.title}.webp`}
-                                            alt={talent.title}
+                                            alt={t(
+                                                `characters.${character.name}.talents.${talent.title}.title`
+                                            )}
                                             width={80}
                                             height={80}
                                             className={'size-28 mx-auto xl:size-14'}
                                         />
-                                        <p>{talent.type}</p>
+                                        <p>{t(`talent-types.${talent.type}`)}</p>
                                     </div>
                                     {index !== 2 && <ArrowRight className={'size-12'} />}
                                 </Fragment>

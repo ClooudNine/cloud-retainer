@@ -3,19 +3,21 @@ import {
     achievementsChapters,
     artifactsSet,
     bannerTypesEnum,
+    bosses,
     characterBanners,
     characters,
     charactersConstellations,
     charactersTalents,
     elementsEnum,
     events,
+    materials,
+    materialsTypesEnum,
     news,
     phasesEnum,
     promocodes,
     raresEnum,
     standardBanners,
     userAchievements,
-    userEvents,
     userRolesEnum,
     weaponBanners,
     weapons,
@@ -55,24 +57,23 @@ export type CompletedAchievement = InferSelectModel<typeof userAchievements> & {
     achievement: Achievement;
 };
 
+export type Boss = typeof bosses.$inferSelect;
+
 export type GameEvent = typeof events.$inferSelect;
-export type FavoriteEvent = typeof userEvents.$inferSelect;
+
+export type Material = typeof materials.$inferSelect;
 
 export type Promocode = typeof promocodes.$inferSelect;
 
 export type New = typeof news.$inferSelect;
 
 export type BannerTypes = (typeof bannerTypesEnum.enumValues)[number];
-
 export type WeaponType = (typeof weaponTypesEnum.enumValues)[number];
-
 export type Phases = (typeof phasesEnum.enumValues)[number];
-
 export type Rares = (typeof raresEnum.enumValues)[number];
-
 export type Elements = (typeof elementsEnum.enumValues)[number];
-
 export type UserRoles = (typeof userRolesEnum.enumValues)[number];
+export type MaterialTypes = (typeof materialsTypesEnum.enumValues)[number];
 
 export type Banners = CharacterBanner | WeaponBanner | StandardBanner;
 

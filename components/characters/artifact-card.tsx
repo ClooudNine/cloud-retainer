@@ -1,6 +1,7 @@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import Image from 'next/image';
 import { ArtifactSet } from '@/lib/types';
+import { useTranslations } from 'next-intl';
 
 const ArtifactCard = ({
     firstArtifactSet,
@@ -11,12 +12,14 @@ const ArtifactCard = ({
     secondArtifactSet: ArtifactSet;
     rating: number;
 }) => {
+    const t = useTranslations('artifacts');
+
     return (
         <TooltipProvider delayDuration={400}>
             <Tooltip>
                 <TooltipTrigger
                     className={
-                        'flex-1 rounded-2xl bg-gray-300 overflow-hidden transition duration-500 hover:-translate-y-1.5'
+                        'flex-1 h-32 rounded-2xl bg-gray-300 overflow-hidden transition duration-500 hover:-translate-y-1.5'
                     }
                 >
                     <div className={'relative w-full h-[70%] flex justify-center'}>
@@ -35,7 +38,7 @@ const ArtifactCard = ({
                         />
                         <Image
                             src={`common/artifacts/${firstArtifactSet.title}.webp`}
-                            alt={firstArtifactSet.title}
+                            alt={t(`${firstArtifactSet.title}.title`)}
                             width={256}
                             height={256}
                             className={`z-10 object-contain ${secondArtifactSet.title !== firstArtifactSet.title && 'w-1/2'}`}
@@ -53,17 +56,17 @@ const ArtifactCard = ({
                     <div
                         className={'h-[30%] flex justify-center items-center text-center text-xl xl:text-sm'}
                     >
-                        {firstArtifactSet.title}
+                        {t(`${firstArtifactSet.title}.title`)}
                         {secondArtifactSet.title !== firstArtifactSet.title &&
-                            ' / ' + secondArtifactSet.title}
+                            ' / ' + t(`${secondArtifactSet.title}.title`)}
                     </div>
                 </TooltipTrigger>
                 <TooltipContent className={'break-words max-w-xl'}>
-                    2 предмета: {firstArtifactSet.twoArtifactsBonus}
+                    2 предмета: {t(`${firstArtifactSet.title}.two-art`)}
                     <br />
                     {firstArtifactSet.title === secondArtifactSet.title
-                        ? `4 предмета: ${firstArtifactSet.fourArtifactsBonus}`
-                        : `2 предмета: ${secondArtifactSet.twoArtifactsBonus}`}
+                        ? `4 предмета: ${t(`${firstArtifactSet.title}.four-art`)}`
+                        : `2 предмета: ${t(`${secondArtifactSet.title}.four-art`)}`}
                 </TooltipContent>
             </Tooltip>
         </TooltipProvider>

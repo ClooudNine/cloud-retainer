@@ -9,8 +9,11 @@ import Timeline from '@/components/events/timeline';
 import EndedEvents from '@/components/events/ended-events';
 import { GameEvent } from '@/lib/types';
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 const EventsSection = ({ events, favoriteEvents }: { events: GameEvent[]; favoriteEvents: number[] }) => {
+    const t = useTranslations();
+
     const [showFavorites, setShowFavorites] = useState(false);
     const today = new Date();
 
@@ -27,9 +30,9 @@ const EventsSection = ({ events, favoriteEvents }: { events: GameEvent[]; favori
     return (
         <>
             <div className={'relative flex items-center gap-4'}>
-                <BackButton className={''} />
+                <BackButton />
                 <CalendarRange className={'h-full w-auto'} />
-                <h1 className={'-ml-2.5 text-3xl'}>Лента событий</h1>
+                <h1 className={'-ml-2.5 text-3xl'}>{t('main.event-feed')}</h1>
                 <Image
                     src={'common/shenhe-namecard.webp'}
                     alt={'Shenhe namecard'}
@@ -42,13 +45,19 @@ const EventsSection = ({ events, favoriteEvents }: { events: GameEvent[]; favori
                         checked={showFavorites}
                         onCheckedChange={() => setShowFavorites(!showFavorites)}
                     />
-                    <Label htmlFor="favorite-mode">Только избранные</Label>
+                    <Label htmlFor="favorite-mode" className={'max-xl:text-xl max-xs:text-white'}>
+                        {t('main.only-favorites')}
+                    </Label>
                 </div>
             </div>
             <Tabs defaultValue="active" className="flex-1 flex flex-col">
-                <TabsList className="grid w-full grid-cols-2 bg-gray-200">
-                    <TabsTrigger value="active">Активные</TabsTrigger>
-                    <TabsTrigger value="ended">Завершённые</TabsTrigger>
+                <TabsList className="grid w-full grid-cols-2 bg-gray-200 max-xl:h-fit">
+                    <TabsTrigger value="active" className={'max-xl:text-xl'}>
+                        {t('main.active')}
+                    </TabsTrigger>
+                    <TabsTrigger value="ended" className={'max-xl:text-xl'}>
+                        {t('main.ended')}
+                    </TabsTrigger>
                 </TabsList>
                 <TabsContent value="active" className={'flex-1'}>
                     <Timeline events={filteredEvents} favoriteEvents={favoriteEvents} />

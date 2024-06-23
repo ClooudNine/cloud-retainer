@@ -8,7 +8,7 @@ const InformationCard = ({
     content,
     footerContent,
 }: {
-    cardClasses: string;
+    cardClasses?: string;
     title: string;
     icon: React.ReactNode;
     contentClasses: string;

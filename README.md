@@ -1,34 +1,61 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Cloud Retainer
 
-## Getting Started
+Cloud Retainer - это веб-сайт, посвящённый игре Genshin Impact, разработанный на Next.js и размещённый на сервере Raspberry Pi.
 
-First, run the development server:
+## Хостинг
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+Для хостинга программного продукта используется Raspberry Pi, что обеспечивает низкое энергопотребление и компактные размеры сервера. Raspberry Pi является популярным одноплатным компьютером, который используется для создания маломощных серверов благодаря своей эффективности и доступности.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Развёртывание
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Программный продукт развёрнут в среде Coolify. Coolify – это самообслуживаемая платформа, позволяющая развертывать приложения, базы данных и сервисы. Перед развёртыванием был приобретён домен [retainer.cloud](https://retainer.cloud) для создания уникального интернет-адреса, по которому пользователи могут находить веб-ресурс.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## DNS и Безопасность
 
-## Learn More
+Для обеспечения безопасности и ускорения работы сайта используются услуги Cloudflare. Cloudflare предоставляет:
+- Распределённую сеть доставки контента (CDN)
+- Защиту от DDoS-атак
+- Защиту от злоумышленных ботов
+- DNS-сервисы
 
-To learn more about Next.js, take a look at the following resources:
+После приобретения домена были настроены необходимые DNS-записи в Cloudflare для корректной маршрутизации пользовательских запросов к веб-сайту.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Установка и настройка
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Для инсталляции программного продукта на компьютер необходимо установить следующие программные компоненты:
+- **Git**: распределённая система управления версиями, требуемая для отслеживания изменений в файлах и координации работы нескольких людей над одним проектом.
+- **Node.js**: среда выполнения JavaScript на сервере, позволяющая запускать JavaScript вне браузера.
+- **PostgreSQL**: объектно-реляционная система управления базами данных.
 
-## Deploy on Vercel
+### Шаги по установке
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Откройте командную строку и выполните команду:
+    ```sh
+    git clone https://github.com/ClooudNine/cloud-retainer.git
+    ```
+   Данная команда скопирует файлы проекта на ваш компьютер.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+2. Перейдите в папку с установленным проектом:
+    ```sh
+    cd cloud-retainer
+    ```
+
+3. Установите программные зависимости:
+    ```sh
+    npm install
+    ```
+
+4. Инициализируйте базу данных:
+    ```sh
+    drizzle-kit push
+    ```
+
+5. Для запуска проекта выполните команду:
+    ```sh
+    npm run dev
+    ```
+   Дождитесь запуска проекта для разработки.
+
+## Сборка и развертывание
+
+Сборка проектов происходит через репозитории, расположенные на веб-платформе для хостинга IT-проектов GitHub. В панели управления сервером развёрнуты приложение, база данных и хранилище статических ресурсов. Для каждого сервиса были настроены свои адреса, созданы учётные записи для получения доступа.

@@ -5,14 +5,18 @@ import UserSelect from '@/components/wish-simulator/history/user-select';
 import HistoryTable from '@/components/wish-simulator/history/history-table';
 import WishCrossIcon from '@/components/icons/wish-cross';
 import { WishHistoryTypes } from '@/lib/types';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 
-export const metadata = {
-    title: 'Cloud Retainer | Симулятор молитв - История',
-    description: 'Здесь отображены все сделанные молитвы в симуляторе',
-};
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+    const t = await getTranslations({ locale, namespace: 'metadata.wish-simulator-history' });
 
-export default function WishHistory({
+    return {
+        title: t('title'),
+        description: t('description'),
+    };
+}
+
+export default async function WishHistory({
     params: { locale },
     searchParams,
 }: {
@@ -22,6 +26,7 @@ export default function WishHistory({
     };
 }) {
     unstable_setRequestLocale(locale);
+    const t = await getTranslations('wish-simulator');
 
     return (
         <main className={'size-full flex items-center justify-center'}>
@@ -46,7 +51,7 @@ export default function WishHistory({
                         'absolute text-[#595252] top-[8%] left-[12.5%] text-3xl xs:top-[5%] xs:left-[14%]'
                     }
                 >
-                    Журнал Молитв
+                    {t('wish-journal')}
                 </p>
                 <UserSelect type={searchParams['type']} />
                 <Link

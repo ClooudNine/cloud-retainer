@@ -3,7 +3,7 @@ import { useRouter } from '@/navigation';
 import { CircleArrowLeft } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-const BackButton = ({ className }: { className: string }) => {
+const BackButton = ({ className }: { className?: string }) => {
     const router = useRouter();
 
     return (

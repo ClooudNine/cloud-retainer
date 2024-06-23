@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { GameEvent } from '@/lib/types';
 import { CSSProperties, useEffect, useState } from 'react';
 import EventModal from '@/components/events/event-modal';
+import { useTranslations } from 'next-intl';
 
 function getRandomColor() {
     return (
@@ -24,6 +25,8 @@ const EventBlock = ({
     row: number;
     isFavorite: boolean;
 }) => {
+    const t = useTranslations();
+
     const [color, setColor] = useState<string>('');
     const startIndex = dates.findIndex((date) => date.toDateString() === event.startDate.toDateString());
     const endIndex = dates.findIndex((date) => date.toDateString() === event.endDate.toDateString());
@@ -46,10 +49,12 @@ const EventBlock = ({
                     }
                     className="absolute flex items-center bg-[var(--event-color)] justify-between overflow-hidden h-10 text-white rounded-xl transition hover:bg-green-500"
                 >
-                    <p className={'p-2 truncate drop-shadow-[0_2px_1px_#000000]'}>{event.title}</p>
+                    <p className={'p-2 truncate drop-shadow-[0_2px_1px_#000000]'}>
+                        {t(`events.${event.title}.title`)}
+                    </p>
                     <div className={'w-32 h-full overflow-hidden'}>
                         <Image
-                            alt={event.title}
+                            alt={t(`events.${event.title}.title`)}
                             src={`common/events/${event.title.replaceAll(':', '')}.webp`}
                             width={200}
                             height={50}

@@ -10,6 +10,14 @@ export const getAllAchievements = async () => {
     return allAchievements;
 };
 
+export const getAchievements = async () => {
+    const allAchievements = await db.query.achievements.findMany({
+        with: { chapter: true },
+    });
+
+    return allAchievements;
+};
+
 export const getCompletedAchievements = async (userId: string | undefined) => {
     if (!userId) return [];
 

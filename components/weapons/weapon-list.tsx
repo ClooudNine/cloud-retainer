@@ -9,8 +9,11 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Link } from '@/navigation';
 import Image from 'next/image';
 import RarePicker from '@/components/weapons/rare-picker';
+import { useTranslations } from 'next-intl';
 
 const WeaponList = ({ weapons }: { weapons: Weapon[] }) => {
+    const t = useTranslations();
+
     const [searchQuery, setSearchQuery] = useState('');
     const [type, setType] = useState<WeaponType | null>(null);
     const [selectedStars, setSelectedStars] = useState(0);
@@ -18,27 +21,30 @@ const WeaponList = ({ weapons }: { weapons: Weapon[] }) => {
 
     const filteredWeapons = useMemo(() => {
         return weapons.filter((weapon) => {
-            const matchesSearch = weapon.title.toLowerCase().includes(searchQuery.toLowerCase());
+            const matchesSearch = t(`weapons.${weapon.title}.title`)
+                .toLowerCase()
+                .includes(searchQuery.toLowerCase());
             const matchesWeaponType = type ? weapon.type === type : true;
             const matchesRarity = selectedStars > 0 ? weapon.rare === selectedStars.toString() : true;
 
             return matchesSearch && matchesWeaponType && matchesRarity;
         });
-    }, [searchQuery, selectedStars, type, weapons]);
+    }, [searchQuery, selectedStars, t, type, weapons]);
 
     const sortedWeapons = useMemo(() => {
         const sortOptions: Record<string, (a: Weapon, b: Weapon) => number> = {
             appearance: (a: Weapon, b: Weapon) => b.appearanceVersion - a.appearanceVersion,
             rare: (a: Weapon, b: Weapon) => parseInt(b.rare) - parseInt(a.rare),
-            title: (a: Weapon, b: Weapon) => a.title.localeCompare(b.title),
+            title: (a: Weapon, b: Weapon) =>
+                t(`weapons.${a.title}.title`).localeCompare(t(`weapons.${b.title}.title`)),
         };
         return [...filteredWeapons].sort(sortOptions[sortOption]);
-    }, [filteredWeapons, sortOption]);
+    }, [filteredWeapons, sortOption, t]);
 
     return (
         <>
             <Input
-                placeholder={'Введите название оружия'}
+                placeholder={t('main.type-weapon')}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className={'text-center border-gray-500 max-xs:h-14 max-xs:text-2xl'}
             />
@@ -50,20 +56,20 @@ const WeaponList = ({ weapons }: { weapons: Weapon[] }) => {
                 <RarePicker stars={selectedStars} setStars={setSelectedStars} />
                 <WeaponTypePicker activeWeaponType={type} setActiveWeaponType={setType} />
                 <Label className={'max-xs:text-3xl xs:w-1/4'}>
-                    Сортировать по:
+                    {t('main.sorted-by')}:
                     <Select value={sortOption} onValueChange={setSortOption}>
                         <SelectTrigger className={'max-xs:text-xl border-gray-500 mt-3'}>
                             <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem className={'max-xs:text-xl'} value={'appearance'}>
-                                Версия выхода
+                                {t('main.appearance-version')}
                             </SelectItem>
                             <SelectItem className={'max-xs:text-xl'} value={'title'}>
-                                Название
+                                {t('main.weapon-title')}
                             </SelectItem>
                             <SelectItem className={'max-xs:text-xl'} value={'rare'}>
-                                Редкость
+                                {t('main.rare')}
                             </SelectItem>
                         </SelectContent>
                     </Select>
@@ -88,14 +94,14 @@ const WeaponList = ({ weapons }: { weapons: Weapon[] }) => {
                             />
                             <Image
                                 src={`weapons/portraits/${weapon.title}.webp`}
-                                alt={weapon.title}
+                                alt={t(`weapons.${weapon.title}.title`)}
                                 fill
                                 className={'object-contain object-top'}
                             />
                             <div className={'w-full flex gap-0.5 py-1 items-center justify-center'}>
                                 <Image
                                     src={`weapons/icons/${weapon.type}.webp`}
-                                    alt={weapon.type}
+                                    alt={t(`weapon-types.${weapon.type}`)}
                                     width={30}
                                     height={30}
                                     className={
@@ -103,7 +109,7 @@ const WeaponList = ({ weapons }: { weapons: Weapon[] }) => {
                                     }
                                 />
                                 <p className={'text-lg whitespace-nowrap truncate xs:text-sm'}>
-                                    {weapon.title}
+                                    {t(`weapons.${weapon.title}.title`)}
                                 </p>
                             </div>
                         </Link>

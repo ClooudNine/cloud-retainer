@@ -27,7 +27,7 @@ const CurrentBalance = () => {
                         src={'wish-simulator/assets/primogem.webp'}
                         width={40}
                         height={40}
-                        alt={t('primogem')}
+                        alt={t('primogem', { count: 1 })}
                         draggable={false}
                         className={'size-8 xs:size-6'}
                     />
@@ -51,7 +51,7 @@ const CurrentBalance = () => {
                         src={`wish-simulator/assets/${pullCurrency}.webp`}
                         width={40}
                         height={40}
-                        alt={t('intertwined-fate')}
+                        alt={t('intertwined-fate.title')}
                         draggable={false}
                         className={'size-8 xs:size-6'}
                     />

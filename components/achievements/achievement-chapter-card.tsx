@@ -3,8 +3,10 @@ import Image from 'next/image';
 import { Award } from 'lucide-react';
 import { AchievementChapter } from '@/lib/types';
 import { useAchievementsContext } from '@/components/achievements/achievements-provider';
+import { useTranslations } from 'next-intl';
 
 const AchievementChapterCard = ({ chapter }: { chapter: AchievementChapter }) => {
+    const t = useTranslations();
     const { activeChapter, setActiveChapter, completed } = useAchievementsContext();
 
     const chapterClasses = clsx(
@@ -19,13 +21,13 @@ const AchievementChapterCard = ({ chapter }: { chapter: AchievementChapter }) =>
         <div className={chapterClasses} onClick={() => setActiveChapter(chapter)}>
             <Image
                 src={`common/achievements/${chapter.title.replaceAll(':', '')}.webp`}
-                alt={chapter.title}
+                alt={t(`achievements-chapter.${chapter.title}`)}
                 width={60}
                 height={60}
                 className={'size-32 drop-shadow-[0_1px_1px_#000000] xs:size-16'}
             />
             <div className={'flex flex-col items-end gap-0.5 text-right'}>
-                {chapter.title}
+                {t(`achievements-chapter.${chapter.title}`)}
                 <div className={'flex gap-1'}>
                     {completed.filter((ca) => ca.achievement.chapter === chapter.id).length}/
                     {chapter.achievements.length}

@@ -1,9 +1,12 @@
 import { Star } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 const RarePicker = ({ stars, setStars }: { stars: number; setStars: (count: number) => void }) => {
+    const t = useTranslations('main');
+
     return (
         <div className={'space-y-2'}>
-            <p>Редкость:</p>
+            <p>{t('rare')}:</p>
             <div className={'flex gap-1.5'}>
                 {Array.from(Array(5).keys()).map((number) => (
                     <Star

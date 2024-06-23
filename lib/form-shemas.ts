@@ -2,14 +2,35 @@ import * as z from 'zod';
 import { bannerTypesEnum, phasesEnum } from '@/lib/db/schema';
 
 export const RegisterSchema = z.object({
-    email: z.string().email({ message: 'Некорректный ввод Email' }),
-    username: z.string().min(2, { message: 'Минимальная длина имени 2 символа' }),
-    password: z.string().min(8, { message: 'Минимальная длина пароля 8 символов' }),
+    email: z.string().email({ message: 'incorrect-mail' }),
+    username: z.string().min(2, { message: 'minimal-name-length' }),
+    password: z.string().min(8, { message: 'minimal-password-length' }),
 });
 
 export const LoginSchema = z.object({
-    email: z.string().email({ message: 'Некорректный ввод Email' }),
-    password: z.string().min(1, { message: 'Поле "Пароль" является обязательным' }),
+    email: z.string().email({ message: 'incorrect-mail' }),
+    password: z.string().min(1, { message: 'password-required' }),
+});
+
+export const MaterialsSchema = z.object({
+    id: z.number().positive().nullish(),
+    name: z.string().min(2, { message: 'Минимальная длина 2 символа' }),
+    type: z.string().min(2, { message: 'Минимальная длина 2 символа' }),
+});
+
+export const PromocodesSchema = z.object({
+    id: z.number().positive().nullish(),
+    value: z.string().length(12, { message: 'Поле должно содержать ровно 12 символов' }),
+    rewards: z.string().min(8, { message: 'Минимальная длина 8 символов' }),
+    date: z.coerce.date(),
+});
+
+export const EventsSchema = z.object({
+    id: z.number().positive().nullish(),
+    title: z.string().min(2, { message: 'Минимальная длина 2 символа' }),
+    description: z.string().min(2, { message: 'Минимальная длина 2 символа' }),
+    startDate: z.coerce.date(),
+    endDate: z.coerce.date(),
 });
 
 export const CharacterBannersSchema = z.object({

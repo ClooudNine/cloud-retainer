@@ -6,6 +6,7 @@ import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import EventModal from '@/components/events/event-modal';
 import { clsx } from 'clsx';
 import { addToFavorite, removeFromFavorite } from '@/lib/achievements';
+import { useTranslations } from 'next-intl';
 
 const EndedEvents = ({
     endedEvents,
@@ -14,6 +15,8 @@ const EndedEvents = ({
     endedEvents: GameEvent[];
     favoriteEvents: number[];
 }) => {
+    const t = useTranslations();
+
     return (
         <section
             className={
@@ -30,10 +33,12 @@ const EndedEvents = ({
                 return (
                     <Dialog key={event.id}>
                         <DialogTrigger asChild>
-                            <Card className={'relative h-fit basis-1/3'}>
+                            <Card
+                                className={'relative h-fit basis-full xs:basis-[calc(100%/3-0.5rem)] xl:h-72'}
+                            >
                                 <CardHeader>
                                     <CardTitle>
-                                        {event.title}
+                                        {t(`events.${event.title}.title`)}
                                         <div className={'absolute w-[20%] top-4 right-2'}>
                                             <Star
                                                 onClick={
@@ -55,7 +60,7 @@ const EndedEvents = ({
                                                         'text-xs text-blue-400 transition peer-hover:text-red-400'
                                                     }
                                                 >
-                                                    Избранное!
+                                                    {t('main.favorite')}
                                                 </span>
                                             )}
                                         </div>
@@ -67,7 +72,7 @@ const EndedEvents = ({
                                 </CardHeader>
                                 <CardContent>
                                     <Image
-                                        alt={event.title}
+                                        alt={t(`events.${event.title}.title`)}
                                         src={`common/events/${event.title.replaceAll(':', '')}.webp`}
                                         width={500}
                                         height={200}

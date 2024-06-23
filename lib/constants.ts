@@ -1,4 +1,12 @@
-import { BalanceStats, BannerStats, BannerTypes, Elements, Phases, PurchasesCurrency } from '@/lib/types';
+import {
+    BalanceStats,
+    BannerStats,
+    BannerTypes,
+    Elements,
+    MaterialTypes,
+    Phases,
+    PurchasesCurrency,
+} from '@/lib/types';
 
 export const currentGameVersion: number = 4.1;
 
@@ -85,4 +93,12 @@ export const priceOfFate: { [key in PurchasesCurrency]: number } = {
     'masterless-starglitter': 5,
     'masterless-stardust': 75,
     primogem: 160,
+};
+
+export const storagePaths: { [key in MaterialTypes]: string } = {
+    'Enhancement Material': 'materials/enhancement-materials',
+    'Local Specialty': 'materials/local-specialities',
+    'Ascension Material': 'materials/ascension-materials',
+    'Talent Material': 'materials/books',
+    'Boss Drop': 'bosses/drop',
 };

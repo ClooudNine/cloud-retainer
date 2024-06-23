@@ -53,7 +53,11 @@ const BannerButton = ({ banner }: { banner: Banners }) => {
                     <Image
                         key={url}
                         src={url}
-                        alt={t(`characters.${itemNames[index]}`)}
+                        alt={
+                            banner.type === 'Weapon Event Wish'
+                                ? t(`weapons.${itemNames[index]}.title`)
+                                : t(`characters.${itemNames[index]}.name`)
+                        }
                         draggable={false}
                         width={150}
                         height={70}

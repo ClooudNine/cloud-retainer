@@ -10,8 +10,11 @@ import { Character, Elements, WeaponType } from '@/lib/types';
 import ElementPicker from '@/components/characters/element-picker';
 import WeaponTypePicker from '@/components/weapons/weapon-type-picker';
 import { getCharacterAsset } from '@/lib/character';
+import { useTranslations } from 'next-intl';
 
 const CharactersList = ({ characters }: { characters: Character[] }) => {
+    const t = useTranslations();
+
     const [searchQuery, setSearchQuery] = useState('');
     const [element, setElement] = useState<Elements | null>(null);
     const [weaponType, setWeaponType] = useState<WeaponType | null>(null);
@@ -19,12 +22,14 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
 
     const filteredCharacters = useMemo(() => {
         return characters.filter((character) => {
-            const matchesSearch = character.name.toLowerCase().includes(searchQuery.toLowerCase());
+            const matchesSearch = t(`characters.${character.name}.name`)
+                .toLowerCase()
+                .includes(searchQuery.toLowerCase());
             const matchesElement = !element || character.element === element;
             const matchesWeaponType = !weaponType || character.weaponType === weaponType;
             return matchesSearch && matchesElement && matchesWeaponType;
         });
-    }, [characters, searchQuery, element, weaponType]);
+    }, [characters, t, searchQuery, element, weaponType]);
 
     const sortedCharacters = useMemo(() => {
         const sortOptions: Record<string, (a: Character, b: Character) => number> = {
@@ -38,7 +43,7 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
     return (
         <>
             <Input
-                placeholder={'Введите имя персонажа'}
+                placeholder={t('main.type-name')}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className={'text-center border-gray-500 max-xs:h-14 max-xs:text-2xl'}
             />
@@ -50,20 +55,20 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
                 <ElementPicker activeElement={element} setActiveElement={setElement} />
                 <WeaponTypePicker activeWeaponType={weaponType} setActiveWeaponType={setWeaponType} />
                 <Label className={'max-xs:text-3xl xs:w-1/4'}>
-                    Сортировать по:
+                    {t('main.sorted-by')}:
                     <Select value={sortOption} onValueChange={setSortOption}>
                         <SelectTrigger className={'max-xs:text-xl border-gray-500 mt-4'}>
                             <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem className={'max-xs:text-xl'} value={'appearance'}>
-                                Версия выхода
+                                {t('main.appearance-version')}
                             </SelectItem>
                             <SelectItem className={'max-xs:text-xl'} value={'name'}>
-                                Имя
+                                {t('main.name')}
                             </SelectItem>
                             <SelectItem className={'max-xs:text-xl'} value={'rare'}>
-                                Редкость
+                                {t('main.rare')}
                             </SelectItem>
                         </SelectContent>
                     </Select>
@@ -88,21 +93,23 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
                             />
                             <Image
                                 src={`characters/profiles/${getCharacterAsset(character.name)}.webp`}
-                                alt={character.name}
+                                alt={t(`characters.${character.name}.name`)}
                                 fill
                                 className={'object-contain object-top'}
                             />
                             <div className={'w-full flex gap-0.5 py-1 items-center justify-center'}>
                                 <Image
                                     src={`common/elements/${character.element}.svg`}
-                                    alt={character.element}
+                                    alt={t(`elements.${character.element}`)}
                                     width={30}
                                     height={30}
                                     className={
                                         'size-10 contrast-200 drop-shadow-[0_1px_5px_#000000] xs:size-6'
                                     }
                                 />
-                                <p className={'text-lg truncate xs:text-sm'}>{character.name}</p>
+                                <p className={'text-lg truncate xs:text-sm'}>
+                                    {t(`characters.${character.name}.name`)}
+                                </p>
                             </div>
                         </Link>
                     ))}

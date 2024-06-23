@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: { id: number } }): 
     };
 }
 
-export default async function CharacterPage({
+export default async function NewPage({
     params: { locale, id },
 }: {
     params: { locale: string; id: number };

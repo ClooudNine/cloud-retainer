@@ -5,7 +5,7 @@ import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
 
-export default async function MainLayout({
+export default async function AdminLayout({
     children,
     params: { locale },
 }: {

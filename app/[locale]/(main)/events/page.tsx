@@ -1,13 +1,16 @@
 import { getAllEvents, getFavoriteEvents } from '@/data/events';
 import { currentUser } from '@/lib/auth';
 import EventsSection from '@/components/events/events-section';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 
-export const metadata = {
-    title: 'Cloud Retainer | События',
-    description: `Список всех текущих и прошедших игровых событий в игре Genshin Impact.
-     Здесь вы можете узнать краткое описание события, его длительность и какие нагады вы можете получить`,
-};
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+    const t = await getTranslations({ locale, namespace: 'metadata.events' });
+
+    return {
+        title: t('title'),
+        description: t('description'),
+    };
+}
 
 export default async function Events({ params: { locale } }: { params: { locale: string } }) {
     unstable_setRequestLocale(locale);

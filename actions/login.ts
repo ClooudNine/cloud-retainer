@@ -23,18 +23,15 @@ export const login = async (prevState: AuthState | undefined, formData: FormData
     const existingUser = await getUserByEmail(email);
 
     if (!existingUser || !existingUser.email || !existingUser.password) {
-        return { error: ['Email не существует!'] };
+        return { error: ['not-email'] };
     }
 
     if (!existingUser.emailVerified) {
         const verificationToken = await generateVerificationToken(existingUser.email);
 
-        await sendVerificationEmail(
-            verificationToken[0].email,
-            verificationToken[0].token
-        );
+        await sendVerificationEmail(verificationToken[0].email, verificationToken[0].token);
 
-        return { success: 'Письмо подтверждения отправлено!' };
+        return { success: 'send-mail' };
     }
 
     try {
@@ -47,9 +44,9 @@ export const login = async (prevState: AuthState | undefined, formData: FormData
         if (error instanceof AuthError) {
             switch (error.type) {
                 case 'CredentialsSignin':
-                    return { error: ['Неверный email или пароль!'] };
+                    return { error: ['credentials-incorrect'] };
                 default:
-                    return { error: ['Что-то пошло не так'] };
+                    return { error: ['something-wrong'] };
             }
         }
 

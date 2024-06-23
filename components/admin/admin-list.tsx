@@ -36,7 +36,7 @@ const AdminList = ({ admins }: { admins: ExtendedUser[] | null }) => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button className={'text-lg absolute bottom-2 right-2 gap-2 h-min'}>
+                <Button className={'text-lg gap-2 h-fit w-fit ml-auto'}>
                     Администраторы сайта <UserCog className={'h-full w-auto'} />
                 </Button>
             </DialogTrigger>

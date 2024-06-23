@@ -9,30 +9,32 @@ import Logo from '@/components/main/logo';
 import { Link } from '@/navigation';
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
+import { useTranslations } from 'next-intl';
 
 const NewVerificationForm = () => {
+    const t = useTranslations('auth');
+
     const [success, setSuccess] = useState<string | undefined>();
     const [error, setError] = useState<string | undefined>();
 
     const searchParams = useSearchParams();
-
     const token = searchParams.get('token');
 
     const onSubmit = useCallback(() => {
         if (success || error) return;
 
         if (!token) {
-            setError('Токен отсутствует!');
+            setError(t('token-not-found'));
             return;
         }
 
         newVerification(token)
             .then((data) => {
-                setSuccess(data.success);
-                setError(data.error);
+                setSuccess(data.success && t(data.success));
+                setError(data.error && t(data.error));
             })
-            .catch(() => setError('Что-то пошло не так!'));
-    }, [error, success, token]);
+            .catch(() => setError(t('something-wrong')));
+    }, [error, success, t, token]);
 
     useEffect(() => {
         onSubmit();
@@ -49,7 +51,7 @@ const NewVerificationForm = () => {
                     height={340}
                     className={'w-48'}
                 />
-                <p className={'text-5xl xl:text-3xl'}>Подтверждение почты</p>
+                <p className={'text-5xl xl:text-3xl'}>{t('mail-confirmation')}</p>
                 {!error && !success && <BeatLoader />}
                 {error && (
                     <div
@@ -81,7 +83,7 @@ const NewVerificationForm = () => {
                     )}
                     href={'/login'}
                 >
-                    Перейти к входу в аккаунт
+                    {t('go-to-login')}
                 </Link>
             </section>
         </main>

@@ -13,7 +13,7 @@ export type AuthState = {
 };
 export const register = async (prevState: AuthState, formData: FormData) => {
     if (formData.get('repeatPassword') !== formData.get('password')) {
-        return { error: ['Пароли не совпадают'] };
+        return { error: ['password-not-match'] };
     }
 
     const validatedFields = RegisterSchema.safeParse({
@@ -32,7 +32,7 @@ export const register = async (prevState: AuthState, formData: FormData) => {
     const existingUser = await getUserByEmail(email);
 
     if (existingUser) {
-        return { error: ['Пользователь с таким E-Mail уже зарегистрирован!'] };
+        return { error: ['email-exist'] };
     }
 
     await db.insert(users).values({ name: username, email: email, password: hashedPassword });
@@ -40,8 +40,5 @@ export const register = async (prevState: AuthState, formData: FormData) => {
     const verificationToken = await generateVerificationToken(email);
     await sendVerificationEmail(verificationToken[0].email, verificationToken[0].token);
 
-    return {
-        success:
-            'Письмо подтверждения отправлено!<br/>При отсутствии письма в папке "Входящие" проверьте папку "Спам"!',
-    };
+    return { success: 'mail-send-notification' };
 };

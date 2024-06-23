@@ -10,19 +10,19 @@ export const newVerification = async (token: string) => {
     const existingToken = await getVerificationTokenByToken(token);
 
     if (!existingToken) {
-        return { error: 'Токена верификации не существует!' };
+        return { error: 'not-token' };
     }
 
     const hasExpired = new Date(existingToken.expires) < new Date();
 
     if (hasExpired) {
-        return { error: 'Срок действия токена истёк!' };
+        return { error: 'expired' };
     }
 
     const existingUser = await getUserByEmail(existingToken.email);
 
     if (!existingUser) {
-        return { error: 'Пользователя с таким E-mail не существует!' };
+        return { error: 'user-with-mail-not-found' };
     }
 
     await db
@@ -32,5 +32,5 @@ export const newVerification = async (token: string) => {
 
     await db.delete(verificationToken).where(eq(verificationToken.id, existingToken.id));
 
-    return { success: 'Почта успешно подтверждена!' };
+    return { success: 'confirm-success' };
 };

@@ -3,6 +3,8 @@ import { CSSProperties } from 'react';
 import { clsx } from 'clsx';
 import Image from 'next/image';
 import { Elements } from '@/lib/types';
+import { useTranslations } from 'next-intl';
+import { elementsEnum } from '@/lib/db/schema';
 
 const ElementPicker = ({
     activeElement,
@@ -11,7 +13,7 @@ const ElementPicker = ({
     activeElement: Elements | null;
     setActiveElement: (element: Elements | null) => void;
 }) => {
-    const elements: Elements[] = ['Anemo', 'Cryo', 'Geo', 'Pyro', 'Hydro', 'Electro', 'Dendro'];
+    const t = useTranslations('main');
 
     return (
         <div
@@ -22,9 +24,9 @@ const ElementPicker = ({
             }
             className={'space-y-2'}
         >
-            <p className={'transition-colors text-[rgb(var(--text-color))]'}>Элемент:</p>
+            <p className={'transition-colors text-[rgb(var(--text-color))]'}>{t('element')}:</p>
             <div className={'flex gap-1.5'}>
-                {elements.map((currentElement) => {
+                {elementsEnum.enumValues.map((currentElement) => {
                     const elementClasses = clsx(
                         'size-20 rounded-xl transition hover:saturate-200 hover:drop-shadow-[0_1px_10px_rgb(var(--element-color))] xs:size-14',
                         {

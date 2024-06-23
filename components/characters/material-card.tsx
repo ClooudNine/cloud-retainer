@@ -1,12 +1,8 @@
-const MaterialCard = ({ icon, title }: { icon: React.ReactNode; title: string }) => {
+const MaterialCard = ({ icon, title, width }: { icon: React.ReactNode; title: string; width: string }) => {
     return (
-        <div
-            className={
-                'border bg-card shadow p-2 rounded-xl text-center flex flex-col items-center justify-center max-xl:w-[calc(50%-0.5rem)]'
-            }
-        >
+        <div className={`${width} border bg-card shadow p-2 rounded-xl text-center`}>
             {icon}
-            <p>{title}</p>
+            <p className={'truncate'}>{title}</p>
         </div>
     );
 };
