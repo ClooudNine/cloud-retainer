@@ -164,7 +164,7 @@ export default async function WeaponPage({
                 content={
                     <>
                         <MaterialCard
-                            title={t(`materials.${weapon.ascensionMaterial.name}`)}
+                            title={t(`materials.${weapon.ascensionMaterial.id}`)}
                             icon={
                                 <Image
                                     src={`common/materials/ascension-materials/${weapon.ascensionMaterial.name}.webp`}
@@ -177,7 +177,7 @@ export default async function WeaponPage({
                             width={'w-1/3'}
                         />
                         <MaterialCard
-                            title={t(`materials.${weapon.firstEnhancementMaterial.name}`)}
+                            title={t(`materials.${weapon.firstEnhancementMaterial.id}`)}
                             icon={
                                 <Image
                                     src={`common/materials/enhancement-materials/${weapon.firstEnhancementMaterial.name}.webp`}
@@ -190,7 +190,7 @@ export default async function WeaponPage({
                             width={'w-1/3'}
                         />
                         <MaterialCard
-                            title={t(`materials.${weapon.secondEnhancementMaterial.name}`)}
+                            title={t(`materials.${weapon.secondEnhancementMaterial.id}`)}
                             icon={
                                 <Image
                                     src={`common/materials/enhancement-materials/${weapon.secondEnhancementMaterial.name}.webp`}

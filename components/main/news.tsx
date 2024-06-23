@@ -15,7 +15,7 @@ const News = ({ lastNews }: { lastNews: New[] | null }) => {
     }
 
     return (
-        <Card className={'lg:w-[70%]'}>
+        <Card className={'relative lg:w-[70%]'}>
             <CardHeader className={'py-2'}>
                 <CardTitle className={'text-3xl flex items-center gap-2 max-xs:justify-center xs:text-xl'}>
                     <Newspaper />
@@ -27,7 +27,7 @@ const News = ({ lastNews }: { lastNews: New[] | null }) => {
                                 variant: 'default',
                                 size: 'default',
                                 className:
-                                    'absolute top-0 right-0 max-xs:p-8 max-xs:text-2xl max-xs:rounded-xl',
+                                    'absolute top-2 right-2 max-xs:p-8 max-xs:text-2xl max-xs:rounded-xl',
                             })
                         )}
                         href={'/news'}

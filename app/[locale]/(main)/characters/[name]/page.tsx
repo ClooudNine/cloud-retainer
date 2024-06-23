@@ -158,7 +158,7 @@ export default async function CharacterPage({
             ),
         },
         {
-            name: t(`materials.${character.talentMaterial.name}`),
+            name: t(`materials.${character.talentMaterial.id}`),
             icon: (
                 <Image
                     src={`common/materials/books/${character.talentMaterial.name}.webp`}
@@ -170,7 +170,7 @@ export default async function CharacterPage({
             ),
         },
         {
-            name: t(`materials.${character.localSpecialty.name}`),
+            name: t(`materials.${character.localSpecialty.id}`),
             icon: (
                 <Image
                     src={`common/materials/local-specialities/${character.localSpecialty.name}.webp`}
@@ -182,7 +182,7 @@ export default async function CharacterPage({
             ),
         },
         {
-            name: t(`materials.${character.enhancementMaterial.name}`),
+            name: t(`materials.${character.enhancementMaterial.id}`),
             icon: (
                 <Image
                     src={`common/materials/enhancement-materials/${character.enhancementMaterial.name}.webp`}
