@@ -1,6 +1,6 @@
 'use server';
 import { db } from '@/lib/db';
-import { events, materials, userEvents } from '@/lib/db/schema';
+import { events, userEvents } from '@/lib/db/schema';
 import { currentUser } from '@/lib/auth';
 import { and, eq } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
@@ -87,7 +87,7 @@ export const editEvent = async (values: z.infer<typeof EventsSchema>, formData: 
         await db
             .update(events)
             .set({ title: title, description: description, startDate: startDate, endDate: endDate })
-            .where(eq(materials.id, id));
+            .where(eq(events.id, id));
 
         revalidatePath('/admin/events');
         return { success: 'Событие успешно обновлено' };

@@ -16,7 +16,10 @@ export const editPromocode = async (values: z.infer<typeof PromocodesSchema>) =>
     const { id, value, rewards, date } = validatedFields.data;
 
     if (id) {
-        await db.update(promocodes).set({ value: value, rewards: rewards }).where(eq(promocodes.id, id));
+        await db
+            .update(promocodes)
+            .set({ value: value, rewards: rewards, startDate: date })
+            .where(eq(promocodes.id, id));
         revalidatePath('/admin/promocodes');
         return { success: 'Промокод успешно обновлён' };
     }

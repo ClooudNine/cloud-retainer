@@ -111,7 +111,7 @@ const MaterialForm = ({ material, path }: { material?: Material; path?: string }
                         </Button>
                     )}
                     <Button disabled={isPending} type="submit">
-                        {material ? 'Сохарнить изменения' : 'Добавить'}
+                        {material ? 'Сохранить изменения' : 'Добавить'}
                     </Button>
                 </form>
             </Form>

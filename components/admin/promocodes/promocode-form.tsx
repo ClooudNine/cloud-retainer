@@ -110,7 +110,7 @@ const PromocodeForm = ({ promocode }: { promocode?: Promocode }) => {
                         </Button>
                     )}
                     <Button disabled={isPending} type="submit">
-                        {promocode ? 'Сохарнить изменения' : 'Добавить'}
+                        {promocode ? 'Сохранить изменения' : 'Добавить'}
                     </Button>
                 </form>
             </Form>

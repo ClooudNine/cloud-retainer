@@ -144,7 +144,7 @@ const EventForm = ({ event }: { event?: GameEvent }) => {
                         </Button>
                     )}
                     <Button disabled={isPending} type="submit">
-                        {event ? 'Сохарнить изменения' : 'Добавить'}
+                        {event ? 'Сохранить изменения' : 'Добавить'}
                     </Button>
                 </form>
             </Form>
