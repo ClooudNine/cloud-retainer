@@ -10,26 +10,24 @@ const WeaponTypePicker = ({
     activeWeaponType: WeaponType | null;
     setActiveWeaponType: (weaponType: WeaponType | null) => void;
 }) => {
-    const t = useTranslations('main');
+    const t = useTranslations();
 
     return (
-        <div className={'space-y-1 border-black max-xs:py-4 max-xs:border-y xs:border-x-2 xs:px-4'}>
-            <p>{t('weapon-type')}:</p>
+        <div className={'space-y-1 border-black max-lg:py-4 max-lg:border-y lg:border-x-2 lg:px-4'}>
+            <p>{t('main.weapon-type')}:</p>
             <div className={'flex gap-2'}>
-                {weaponTypesEnum.enumValues.map((currentWeaponType) => (
+                {weaponTypesEnum.enumValues.map((weaponType) => (
                     <Image
-                        key={currentWeaponType}
+                        key={weaponType}
                         onClick={() =>
-                            setActiveWeaponType(
-                                activeWeaponType === currentWeaponType ? null : currentWeaponType
-                            )
+                            setActiveWeaponType(activeWeaponType === weaponType ? null : weaponType)
                         }
-                        src={`weapons/icons/${currentWeaponType}.webp`}
-                        alt={currentWeaponType}
-                        width={80}
-                        height={80}
-                        className={`size-24 rounded-xl transition hover:saturate-200 hover:drop-shadow-[0_1px_10px_#000000] xs:size-16 ${
-                            activeWeaponType === currentWeaponType && 'ring-2 ring-blue-500'
+                        src={`weapons/icons/${weaponType}.webp`}
+                        alt={t(`weapon-types.${weaponType}`)}
+                        width={70}
+                        height={70}
+                        className={`size-24 rounded-xl transition hover:drop-shadow-[0_1px_5px_#000000] lg:size-16 ${
+                            activeWeaponType === weaponType && 'ring-2 ring-blue-500'
                         }`}
                     />
                 ))}

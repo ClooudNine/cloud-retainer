@@ -40,7 +40,7 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
     }, [characters, searchQuery, element, weaponType]);
 
     const sortedCharacters = useMemo(
-        () => [...filteredCharacters].sort(sortOptions[sortOption]),
+        () => filteredCharacters.sort(sortOptions[sortOption]),
         [filteredCharacters, sortOption]
     );
 
@@ -49,29 +49,27 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
             <Input
                 placeholder={t('main.type-name')}
                 onChange={handleSearchChange}
-                className={'text-center border-gray-500 max-xs:h-14 max-xs:text-2xl'}
+                className={'text-center border-gray-500 max-lg:h-14 max-lg:text-2xl'}
             />
             <div
-                className={
-                    'flex flex-wrap justify-between tracking-wide max-xs:gap-2 max-xs:text-3xl max-xs:flex-col'
-                }
+                className={'flex justify-between tracking-wide max-lg:gap-2 max-lg:text-3xl max-lg:flex-col'}
             >
                 <ElementPicker activeElement={element} setActiveElement={setElement} />
                 <WeaponTypePicker activeWeaponType={weaponType} setActiveWeaponType={setWeaponType} />
-                <Label className={'max-xs:text-3xl xs:w-1/4'}>
+                <Label className={'max-lg:text-3xl lg:w-1/4'}>
                     {t('main.sorted-by')}:
                     <Select value={sortOption} onValueChange={setSortOption}>
-                        <SelectTrigger className={'max-xs:text-xl border-gray-500 mt-4'}>
+                        <SelectTrigger className={'max-lg:text-xl border-gray-500 mt-4'}>
                             <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem className={'max-xs:text-xl'} value={'appearance'}>
+                            <SelectItem className={'max-lg:text-xl'} value={'appearance'}>
                                 {t('main.appearance-version')}
                             </SelectItem>
-                            <SelectItem className={'max-xs:text-xl'} value={'name'}>
+                            <SelectItem className={'max-lg:text-xl'} value={'name'}>
                                 {t('main.name')}
                             </SelectItem>
-                            <SelectItem className={'max-xs:text-xl'} value={'rare'}>
+                            <SelectItem className={'max-lg:text-xl'} value={'rare'}>
                                 {t('main.rare')}
                             </SelectItem>
                         </SelectContent>
@@ -85,7 +83,7 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
                             key={character.name}
                             href={`characters/${character.slug}`}
                             className={
-                                'relative w-[calc(25%-0.5rem)] rounded-2xl bg-gray-300 overflow-hidden transition duration-500 hover:-translate-y-1.5 xs:w-[calc(16.66%-0.5rem)] xl:w-[calc(10%-0.5rem)]'
+                                'relative w-[calc(25%-0.5rem)] rounded-xl bg-gray-300 overflow-hidden transition duration-500 hover:-translate-y-1.5 xs:w-[calc(16.66%-0.5rem)] xl:w-[calc(10%-0.5rem)]'
                             }
                         >
                             <Image
