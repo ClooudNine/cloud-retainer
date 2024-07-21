@@ -26,27 +26,25 @@ const ElementPicker = ({
         >
             <p className={'transition-colors text-[rgb(var(--text-color))]'}>{t('element')}:</p>
             <div className={'flex gap-1.5'}>
-                {elementsEnum.enumValues.map((currentElement) => {
+                {elementsEnum.enumValues.map((element) => {
                     const elementClasses = clsx(
                         'size-20 rounded-xl transition hover:saturate-200 hover:drop-shadow-[0_1px_10px_rgb(var(--element-color))] xs:size-14',
                         {
-                            'ring-2 ring-[rgb(var(--element-color))]': activeElement === currentElement,
+                            'ring-2 ring-[rgb(var(--element-color))]': activeElement === element,
                         }
                     );
 
                     return (
                         <Image
-                            key={currentElement}
-                            onClick={() =>
-                                setActiveElement(currentElement === activeElement ? null : currentElement)
-                            }
-                            src={`common/elements/${currentElement}.svg`}
-                            alt={currentElement}
+                            key={element}
+                            onClick={() => setActiveElement(element === activeElement ? null : element)}
+                            src={`common/elements/${element}.svg`}
+                            alt={element}
                             width={70}
                             height={70}
                             style={
                                 {
-                                    '--element-color': elementToColor[currentElement],
+                                    '--element-color': elementToColor[element],
                                 } as CSSProperties
                             }
                             className={elementClasses}

@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -12,39 +12,43 @@ import WeaponTypePicker from '@/components/weapons/weapon-type-picker';
 import { getCharacterAsset } from '@/lib/character';
 import { useTranslations } from 'next-intl';
 
+const sortOptions: Record<string, (a: Character, b: Character) => number> = {
+    appearance: (a: Character, b: Character) => b.appearanceVersion - a.appearanceVersion,
+    rare: (a: Character, b: Character) => parseInt(b.rare) - parseInt(a.rare),
+    name: (a: Character, b: Character) => a.name.localeCompare(b.name),
+};
+
 const CharactersList = ({ characters }: { characters: Character[] }) => {
     const t = useTranslations();
 
-    const [searchQuery, setSearchQuery] = useState('');
+    const [searchQuery, setSearchQuery] = useState<string>('');
     const [element, setElement] = useState<Elements | null>(null);
     const [weaponType, setWeaponType] = useState<WeaponType | null>(null);
     const [sortOption, setSortOption] = useState<string>('appearance');
 
-    const filteredCharacters = useMemo(() => {
-        return characters.filter((character) => {
-            const matchesSearch = t(`characters.${character.name}.name`)
-                .toLowerCase()
-                .includes(searchQuery.toLowerCase());
-            const matchesElement = !element || character.element === element;
-            const matchesWeaponType = !weaponType || character.weaponType === weaponType;
-            return matchesSearch && matchesElement && matchesWeaponType;
-        });
-    }, [characters, t, searchQuery, element, weaponType]);
+    const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchQuery(e.target.value);
+    }, []);
 
-    const sortedCharacters = useMemo(() => {
-        const sortOptions: Record<string, (a: Character, b: Character) => number> = {
-            appearance: (a: Character, b: Character) => b.appearanceVersion - a.appearanceVersion,
-            rare: (a: Character, b: Character) => parseInt(b.rare) - parseInt(a.rare),
-            name: (a: Character, b: Character) => a.name.localeCompare(b.name),
-        };
-        return [...filteredCharacters].sort(sortOptions[sortOption]);
-    }, [filteredCharacters, sortOption]);
+    const filteredCharacters = useMemo(() => {
+        return characters.filter(
+            (character) =>
+                character.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+                (!element || character.element === element) &&
+                (!weaponType || character.weaponType === weaponType)
+        );
+    }, [characters, searchQuery, element, weaponType]);
+
+    const sortedCharacters = useMemo(
+        () => [...filteredCharacters].sort(sortOptions[sortOption]),
+        [filteredCharacters, sortOption]
+    );
 
     return (
         <>
             <Input
                 placeholder={t('main.type-name')}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={handleSearchChange}
                 className={'text-center border-gray-500 max-xs:h-14 max-xs:text-2xl'}
             />
             <div
@@ -92,8 +96,8 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
                                 className={'w-full'}
                             />
                             <Image
-                                src={`characters/profiles/${getCharacterAsset(character.name)}.webp`}
-                                alt={t(`characters.${character.name}.name`)}
+                                src={`characters/profiles/${getCharacterAsset(character.slug)}.webp`}
+                                alt={character.name}
                                 fill
                                 className={'object-contain object-top'}
                             />
@@ -107,9 +111,7 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
                                         'size-10 contrast-200 drop-shadow-[0_1px_5px_#000000] xs:size-6'
                                     }
                                 />
-                                <p className={'text-lg truncate xs:text-sm'}>
-                                    {t(`characters.${character.name}.name`)}
-                                </p>
+                                <p className={'text-lg truncate xs:text-sm'}>{character.name}</p>
                             </div>
                         </Link>
                     ))}

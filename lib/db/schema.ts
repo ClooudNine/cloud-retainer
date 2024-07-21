@@ -71,7 +71,8 @@ export const additionalWeaponCharacteristics = pgEnum('additional_weapon_charact
 ]);
 
 export const characters = pgTable('characters', {
-    id: serial('id').primaryKey(),
+    id: serial('id').notNull(),
+    language: text('language').notNull().default('en'),
     name: text('name').notNull(),
     slug: text('slug').notNull(),
     title: text('title').notNull(),
@@ -110,6 +111,10 @@ export const characters = pgTable('characters', {
             onDelete: 'cascade',
         }),
     inStandardWish: boolean('in_standard_wish'),
+}, (characters) => {
+    return {
+        pk: primaryKey({columns: [characters.id, characters.language]})
+    }
 });
 
 export const charactersRelations = relations(characters, ({ one, many }) => ({

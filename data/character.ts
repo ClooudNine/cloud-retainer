@@ -2,9 +2,11 @@ import { db } from '@/lib/db';
 import { characters } from '@/lib/db/schema';
 import { eq, isNotNull } from 'drizzle-orm';
 
-export const getAllCharacters = async () => {
+export const getAllCharacters = async (language: string) => {
     try {
-        const allCharacters = await db.select().from(characters);
+        const allCharacters = await db.query.characters.findMany({
+            where: eq(characters.language, language),
+        });
 
         return allCharacters;
     } catch {

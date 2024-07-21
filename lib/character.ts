@@ -1,15 +1,13 @@
 import { Character } from '@/lib/types';
 
 export const getCharacterById = (id: number, characters: Character[]) => {
-    const character = characters.find((character) => character.id === id);
-
-    return character;
+    return characters.find((character) => character.id === id);
 };
 
-export const getCharacterAsset = (name: string) => {
-    if (name.startsWith('Traveler')) {
-        return 'Traveler';
+export const getCharacterAsset = (slug: string) => {
+    if (slug.startsWith('traveler')) {
+        return 'traveler';
     }
 
-    return name;
+    return slug;
 };
