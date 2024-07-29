@@ -70,52 +70,56 @@ export const additionalWeaponCharacteristics = pgEnum('additional_weapon_charact
     'Critical Rate',
 ]);
 
-export const characters = pgTable('characters', {
-    id: serial('id').notNull(),
-    language: text('language').notNull().default('en'),
-    name: text('name').notNull(),
-    slug: text('slug').notNull(),
-    title: text('title').notNull(),
-    rare: raresEnum('rare').notNull(),
-    element: elementsEnum('element').notNull(),
-    weaponType: weaponTypesEnum('weapon_type').notNull(),
-    appearanceVersion: real('appearance_version')
-        .notNull()
-        .references(() => gameUpdates.version, {
-            onDelete: 'cascade',
-        }),
-    description: text('description').notNull().default(''),
-    constellation: text('constellation').notNull().default(''),
-    baseAttack: integer('base_attack').notNull().default(0),
-    baseHp: integer('base_hp').notNull().default(0),
-    bossId: integer('boss_id')
-        .notNull()
-        .default(1)
-        .references(() => bosses.id, { onDelete: 'cascade' }),
-    talentMaterialId: integer('talent_material_id')
-        .notNull()
-        .default(1)
-        .references(() => materials.id, {
-            onDelete: 'cascade',
-        }),
-    localSpecialtyId: integer('local_specialty_id')
-        .notNull()
-        .default(1)
-        .references(() => materials.id, {
-            onDelete: 'cascade',
-        }),
-    enhancementMaterialId: integer('enhancement_material_id')
-        .notNull()
-        .default(1)
-        .references(() => materials.id, {
-            onDelete: 'cascade',
-        }),
-    inStandardWish: boolean('in_standard_wish'),
-}, (characters) => {
-    return {
-        pk: primaryKey({columns: [characters.id, characters.language]})
+export const characters = pgTable(
+    'characters',
+    {
+        id: serial('id').notNull(),
+        language: text('language').notNull().default('en'),
+        name: text('name').notNull(),
+        slug: text('slug').notNull(),
+        title: text('title').notNull(),
+        rare: raresEnum('rare').notNull(),
+        element: elementsEnum('element').notNull(),
+        weaponType: weaponTypesEnum('weapon_type').notNull(),
+        appearanceVersion: real('appearance_version')
+            .notNull()
+            .references(() => gameUpdates.version, {
+                onDelete: 'cascade',
+            }),
+        description: text('description').notNull().default(''),
+        constellation: text('constellation').notNull().default(''),
+        baseAttack: integer('base_attack').notNull().default(0),
+        baseHp: integer('base_hp').notNull().default(0),
+        bossId: integer('boss_id')
+            .notNull()
+            .default(1)
+            .references(() => bosses.id, { onDelete: 'cascade' }),
+        talentMaterialId: integer('talent_material_id')
+            .notNull()
+            .default(1)
+            .references(() => materials.id, {
+                onDelete: 'cascade',
+            }),
+        localSpecialtyId: integer('local_specialty_id')
+            .notNull()
+            .default(1)
+            .references(() => materials.id, {
+                onDelete: 'cascade',
+            }),
+        enhancementMaterialId: integer('enhancement_material_id')
+            .notNull()
+            .default(1)
+            .references(() => materials.id, {
+                onDelete: 'cascade',
+            }),
+        inStandardWish: boolean('in_standard_wish'),
+    },
+    (c) => {
+        return {
+            pk: primaryKey({ columns: [c.id, c.language] }),
+        };
     }
-});
+);
 
 export const charactersRelations = relations(characters, ({ one, many }) => ({
     charactersBanners: many(characterBanners),
@@ -130,22 +134,22 @@ export const charactersRelations = relations(characters, ({ one, many }) => ({
         references: [gameUpdates.version],
     }),
     boss: one(bosses, {
-        fields: [characters.bossId],
-        references: [bosses.id],
+        fields: [characters.bossId, characters.language],
+        references: [bosses.id, bosses.language],
     }),
     talentMaterial: one(materials, {
-        fields: [characters.talentMaterialId],
-        references: [materials.id],
+        fields: [characters.talentMaterialId, characters.language],
+        references: [materials.id, materials.language],
         relationName: 'character_talent_material',
     }),
     localSpecialty: one(materials, {
-        fields: [characters.localSpecialtyId],
-        references: [materials.id],
+        fields: [characters.localSpecialtyId, characters.language],
+        references: [materials.id, materials.language],
         relationName: 'character_local_speciality',
     }),
     enhancementMaterial: one(materials, {
-        fields: [characters.enhancementMaterialId],
-        references: [materials.id],
+        fields: [characters.enhancementMaterialId, characters.language],
+        references: [materials.id, materials.language],
         relationName: 'character_enhancement_material',
     }),
 }));
@@ -418,16 +422,25 @@ export const verificationToken = pgTable(
     })
 );
 
-export const bosses = pgTable('bosses', {
-    id: serial('id').primaryKey(),
-    name: text('name').notNull().default(''),
-    dropId: integer('dropId')
-        .notNull()
-        .default(1)
-        .references(() => materials.id, {
-            onDelete: 'cascade',
-        }),
-});
+export const bosses = pgTable(
+    'bosses',
+    {
+        id: serial('id').primaryKey(),
+        language: text('language').notNull().default('en'),
+        name: text('name').notNull().default(''),
+        dropId: integer('dropId')
+            .notNull()
+            .default(1)
+            .references(() => materials.id, {
+                onDelete: 'cascade',
+            }),
+    },
+    (b) => {
+        return {
+            pk: primaryKey({ columns: [b.id, b.language] }),
+        };
+    }
+);
 
 export const bossesRelations = relations(bosses, ({ many, one }) => ({
     drop: one(materials, {
@@ -437,11 +450,20 @@ export const bossesRelations = relations(bosses, ({ many, one }) => ({
     characters: many(characters),
 }));
 
-export const materials = pgTable('materials', {
-    id: serial('id').primaryKey(),
-    name: text('name').notNull().default(''),
-    type: materialsTypesEnum('type').notNull(),
-});
+export const materials = pgTable(
+    'materials',
+    {
+        id: serial('id').primaryKey(),
+        language: text('language').notNull().default('en'),
+        name: text('name').notNull().default(''),
+        type: materialsTypesEnum('type').notNull(),
+    },
+    (m) => {
+        return {
+            pk: primaryKey({ columns: [m.id, m.language] }),
+        };
+    }
+);
 
 export const materialsRelations = relations(materials, ({ many }) => ({
     characterTalentMaterial: many(characters, { relationName: 'character_talent_material' }),

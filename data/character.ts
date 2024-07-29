@@ -1,6 +1,14 @@
 import { db } from '@/lib/db';
-import { characters } from '@/lib/db/schema';
-import { eq, isNotNull } from 'drizzle-orm';
+import {
+    bosses,
+    characters,
+    charactersConstellations,
+    charactersTalents,
+    gameUpdates,
+    materials,
+    weapons,
+} from '@/lib/db/schema';
+import { and, eq, isNotNull } from 'drizzle-orm';
 
 export const getAllCharacters = async (language: string) => {
     try {
@@ -27,10 +35,10 @@ export const getCharactersFromWishes = async () => {
     }
 };
 
-export const getCharacterBySlug = async (slug: string) => {
+export const getCharacterBySlug = async (slug: string, locale: string) => {
     try {
         const characterBySlug = await db.query.characters.findFirst({
-            where: eq(characters.slug, slug),
+            where: and(eq(characters.slug, slug), eq(characters.language, locale)),
             with: {
                 boss: { with: { drop: true } },
                 talentMaterial: true,
@@ -44,8 +52,19 @@ export const getCharacterBySlug = async (slug: string) => {
             },
         });
 
-        return characterBySlug;
-    } catch {
-        return null;
+        const cbs = await db
+            .select()
+            .from(characters)
+            .where(and(eq(characters.slug, slug), eq(characters.language, locale)))
+            .leftJoin(bosses, eq(characters.bossId, bosses.id))
+            .leftJoin(materials, eq(characters.talentMaterialId, materials.id))
+            .leftJoin(materials, eq(characters.localSpecialtyId, materials.id))
+            .leftJoin(materials, eq(characters.enhancementMaterialId, materials.id))
+            .leftJoin(gameUpdates, eq(characters.appearanceVersion, gameUpdates.version));
+
+        console.log(cbs[0]);
+        return cbs[0];
+    } catch (e) {
+        return e;
     }
 };

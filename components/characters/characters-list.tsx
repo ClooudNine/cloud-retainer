@@ -87,11 +87,10 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
                             }
                         >
                             <Image
-                                src={`common/items-backgrounds-by-rarity/background-item-${character.rare}-star.webp`}
+                                src={`common/backgrounds-by-rarity/${character.rare}-star.webp`}
                                 alt={character.rare}
                                 width={256}
                                 height={256}
-                                className={'w-full'}
                             />
                             <Image
                                 src={`characters/profiles/${getCharacterAsset(character.slug)}.webp`}
@@ -99,17 +98,17 @@ const CharactersList = ({ characters }: { characters: Character[] }) => {
                                 fill
                                 className={'object-contain object-top'}
                             />
-                            <div className={'w-full flex gap-0.5 py-1 items-center justify-center'}>
+                            <div className={'flex gap-0.5 py-1 items-center justify-center'}>
                                 <Image
                                     src={`common/elements/${character.element}.svg`}
                                     alt={t(`elements.${character.element}`)}
                                     width={30}
                                     height={30}
                                     className={
-                                        'size-10 contrast-200 drop-shadow-[0_1px_5px_#000000] xs:size-6'
+                                        'size-10 contrast-200 drop-shadow-[0_1px_5px_#000000] lg:size-6'
                                     }
                                 />
-                                <p className={'text-lg truncate xs:text-sm'}>{character.name}</p>
+                                <p className={'text-lg truncate lg:text-sm'}>{character.name}</p>
                             </div>
                         </Link>
                     ))}

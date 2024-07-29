@@ -38,15 +38,12 @@ export async function generateMetadata({
 }: {
     params: { locale: string; name: string };
 }): Promise<Metadata> {
-    const t = await getTranslations({ locale });
-    const character = await getCharacterBySlug(name);
+    const t = await getTranslations({ locale, namespace: 'metadata.character-page' });
+    const character = await getCharacterBySlug(name, locale);
 
-    const title = character
-        ? t('metadata.character-page.title', { name: t(`characters.${character.name}.name`) })
-        : t('metadata.character-page.error-title');
-    const description = character
-        ? t('metadata.character-page.description', { name: t(`characters.${character.name}.name`) })
-        : t('metadata.character-page.error-description');
+    const title = character ? t('title', { name: character.name }) : t('error-title');
+
+    const description = character ? t('description', { name: character.name }) : t('error-description');
 
     return { title, description };
 }
@@ -59,7 +56,7 @@ export default async function CharacterPage({
     unstable_setRequestLocale(locale);
 
     const t = await getTranslations();
-    const character = await getCharacterBySlug(name);
+    const character = await getCharacterBySlug(name, locale);
 
     if (!character) {
         return (
@@ -130,18 +127,20 @@ export default async function CharacterPage({
             ) : (
                 <X className={'size-12 xl:size-6'} />
             ),
-            className: `p-4 size-fit mx-auto text-white rounded-xl ${character.inStandardWish ? 'bg-green-500' : 'bg-red-500'} xl:p-3`,
+            className: `p-4 size-fit mx-auto text-white rounded-xl ${
+                character.inStandardWish ? 'bg-green-500' : 'bg-red-500'
+            } xl:p-3`,
         },
     ];
 
     const materialData = [
         {
-            name: t(`bosses.${character.boss.name.replace('.', '')}`),
+            name: character.boss.name,
             icon: (
                 <div className={'flex justify-center items-center gap-2'}>
                     <Image
                         src={`common/bosses/profiles/${character.boss.name}.webp`}
-                        alt={t(`bosses.${character.boss.name.replace('.', '')}`)}
+                        alt={character.boss.name}
                         width={90}
                         height={90}
                         className={'size-28 rounded-full xl:size-16'}
@@ -149,7 +148,7 @@ export default async function CharacterPage({
                     <ArrowRight className={'size-16 xl:size-8'} />
                     <Image
                         src={`common/bosses/drop/${character.boss.drop.name}.webp`}
-                        alt={t(`materials.${character.boss.drop.name}`)}
+                        alt={character.boss.drop.name}
                         width={90}
                         height={90}
                         className={'size-28 xl:size-16'}
@@ -158,11 +157,11 @@ export default async function CharacterPage({
             ),
         },
         {
-            name: t(`materials.${character.talentMaterial.id}`),
+            name: character.talentMaterial.name,
             icon: (
                 <Image
                     src={`common/materials/books/${character.talentMaterial.name}.webp`}
-                    alt={t(`materials.${character.talentMaterial.name}`)}
+                    alt={character.talentMaterial.name}
                     width={90}
                     height={90}
                     className={'size-32 mx-auto xl:size-16'}
@@ -170,11 +169,11 @@ export default async function CharacterPage({
             ),
         },
         {
-            name: t(`materials.${character.localSpecialty.id}`),
+            name: character.localSpecialty.name,
             icon: (
                 <Image
                     src={`common/materials/local-specialities/${character.localSpecialty.name}.webp`}
-                    alt={t(`materials.${character.localSpecialty.name}`)}
+                    alt={character.localSpecialty.name}
                     width={90}
                     height={90}
                     className={'size-32 mx-auto xl:size-16'}
@@ -182,11 +181,11 @@ export default async function CharacterPage({
             ),
         },
         {
-            name: t(`materials.${character.enhancementMaterial.id}`),
+            name: character.enhancementMaterial.name,
             icon: (
                 <Image
                     src={`common/materials/enhancement-materials/${character.enhancementMaterial.name}.webp`}
-                    alt={t(`materials.${character.enhancementMaterial.name}`)}
+                    alt={character.enhancementMaterial.name}
                     width={90}
                     height={90}
                     className={'size-32 mx-auto xl:size-16'}
@@ -216,23 +215,21 @@ export default async function CharacterPage({
                     className={'-mr-4 -mt-4 saturate-200 size-20'}
                 />
                 <div>
-                    <h1>{t(`characters.${character.name}.name`)}</h1>
-                    <h2 className={'text-gray-400 text-xl xs:text-lg'}>
-                        {t(`characters.${character.name}.title`)}
-                    </h2>
+                    <h1>{character.name}</h1>
+                    <h2 className={'text-gray-400 text-xl xs:text-lg'}>{character.title}</h2>
                     <RarityStars rare={character.rare} />
                 </div>
             </div>
             <Image
-                src={`characters/splash-arts/${getCharacterAsset(character.name)}.webp`}
-                alt={t(`characters.${character.name}.name`)}
+                src={`characters/splash-arts/${getCharacterAsset(character.slug)}.webp`}
+                alt={character.name}
                 width={2048}
                 height={1024}
                 className={
                     '-z-10 animate-banner-preview-appearance object-contain object-right-bottom max-xs:max-w-none max-xs:w-[150%] xl:absolute xl:left-[40%] xl:size-full'
                 }
             />
-            <Tabs defaultValue={'main'} className={'flex-1 w-full xl:w-[65%]'}>
+            <Tabs defaultValue={'main'} className={'flex-1 xl:w-[65%]'}>
                 <TabsList
                     className={
                         'grid w-full h-min gap-2 grid-cols-2 bg-gray-200 max-xl:grid-rows-2 xl:grid-cols-4'
@@ -247,13 +244,13 @@ export default async function CharacterPage({
                 <TabsContent value={'main'} className={'h-[calc(100%-2.25rem-(0.375rem*4))] space-y-1.5'}>
                     <InformationCard
                         title={t('main.description')}
-                        icon={<ScrollText className={'h-full w-auto'} />}
+                        icon={<ScrollText />}
                         contentClasses={'text-center italic max-xl:text-2xl'}
-                        content={t(`characters.${character.name}.description`)}
+                        content={character.description}
                     />
                     <InformationCard
                         title={t('main.characteristics')}
-                        icon={<Zap className={'h-full w-auto'} />}
+                        icon={<Zap />}
                         contentClasses={'flex flex-wrap gap-2 max-xl:text-2xl'}
                         content={characteristicData.map((characteristic) => (
                             <CharacteristicCard
@@ -268,7 +265,7 @@ export default async function CharacterPage({
                     />
                     <InformationCard
                         title={t('main.materials')}
-                        icon={<Leaf className={'h-full w-auto'} />}
+                        icon={<Leaf />}
                         contentClasses={'flex flex-wrap truncate justify-between gap-2 max-xl:text-2xl'}
                         content={materialData.map((material) => (
                             <MaterialCard
@@ -424,7 +421,11 @@ export default async function CharacterPage({
                                         </p>
                                         <Image
                                             key={talent.title}
-                                            src={`characters/talents/${talent.type === 'Normal Attack' ? character.weaponType + ' ' + character.element : talent.title}.webp`}
+                                            src={`characters/talents/${
+                                                talent.type === 'Normal Attack'
+                                                    ? character.weaponType + ' ' + character.element
+                                                    : talent.title
+                                            }.webp`}
                                             alt={t(
                                                 `characters.${character.name}.talents.${talent.title}.title`
                                             )}
